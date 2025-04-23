@@ -1,5 +1,6 @@
 import HeroSection from './Components/HeroSection'
 import Navbar from './Components/NavBar'
+import Recipent_Dashboard from './Components/Recipent_Dashboard'
 import OurVision from './Components/Ourvision'
 import Staticics from './Components/Staticics'
 import WhyDonate from './Components/WhyDonate'
