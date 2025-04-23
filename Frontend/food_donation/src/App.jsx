@@ -1,12 +1,14 @@
 import HeroSection from './Components/HeroSection'
 import Navbar from './Components/NavBar'
+import Recipent_Dashboard from './Components/Recipent_Dashboard'
 
 function App() {
 
   return (
     <>
-      <Navbar/>
-      <HeroSection/>
+      <Recipent_Dashboard />
+      {/* <Navbar /> */}
+      {/* <HeroSection /> */}
     </>
   )
 }
