@@ -15,7 +15,6 @@ function WorkMethod() {
             </p>
           </div>
 
-          {/* Main Content */}
           <div className="grid md:grid-cols-2 gap-15 max-w-6xl mx-30">
             {/* Donors Section */}
             <div
@@ -97,7 +96,7 @@ function WorkMethod() {
 function StepItem(props) {
   return (
     <>
-      <div className="flex gap-4 items-start group hover:transform hover:translate-x-2 transition-all duration-300">
+      <div className="flex gap-4 items-start group hover:transform hover:translate-x-2 transition-all duration-300 delay-75">
         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white border-2 border-current text-gray-400 flex items-center justify-center font-semibold group-hover:text-green-500 transition-colors">
           {props.number}
         </div>
