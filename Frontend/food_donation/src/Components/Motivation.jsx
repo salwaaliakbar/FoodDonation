@@ -3,7 +3,7 @@ import free from "../assets/images/puzzle.png";
 import donate from "../assets/images/food-donation.png";
 import help from "../assets/images/give-love.png";
 
-function Statistics() {
+function Motivation() {
   return (
     <div className="bg-gray-100 my-20 flex flex-col items-center justify-center">
       <div className="text-center max-w-full">
@@ -45,4 +45,4 @@ function Statistics() {
   );
 }
 
-export default Statistics;
+export default Motivation;

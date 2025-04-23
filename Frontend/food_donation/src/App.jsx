@@ -2,9 +2,10 @@ import HeroSection from './Components/HeroSection'
 import Navbar from './Components/NavBar'
 import Recipent_Dashboard from './Components/Recipent_Dashboard'
 import OurVision from './Components/Ourvision'
-import Staticics from './Components/Staticics'
 import WhyDonate from './Components/WhyDonate'
 import WorkMethod from './Components/WorkMethod'
+import Motivation from './Components/Motivation'
+import Staticics from './Components/Staticsics'
 
 function App() {
 
@@ -12,12 +13,11 @@ function App() {
     <>
       <Navbar/>
       <HeroSection/>
-      <Staticics/>
-      <WorkMethod/>
-     
+      <Motivation/>
+      <WorkMethod/> 
       <OurVision/>
       <WhyDonate/>
-
+    <Staticics/>
     </>
   )
 }

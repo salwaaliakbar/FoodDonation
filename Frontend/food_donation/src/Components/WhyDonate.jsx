@@ -4,8 +4,7 @@ import pic3 from "../assets/images/group.png";
 
 function WhyDonate() {
   return (
-    <>
-      <section className="py-16">
+      <div className="py-16">
         <div className="text-center">
           <h2 className="text-4xl font-bold text-gray-800 mb-6">
             Why Donate with FoodSecure?
@@ -53,8 +52,7 @@ function WhyDonate() {
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
   );
 }
 export default WhyDonate;
