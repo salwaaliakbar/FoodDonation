@@ -2,7 +2,8 @@ import HeroSection from './Components/HeroSection'
 import Navbar from './Components/NavBar'
 import OurVision from './Components/Ourvision'
 import Staticics from './Components/Staticics'
-import Work from './Components/Work'
+import WhyDonate from './Components/WhyDonate'
+import WorkMethod from './Components/WorkMethod'
 
 function App() {
 
@@ -10,9 +11,11 @@ function App() {
     <>
       <Navbar/>
       <HeroSection/>
-      <Work/>
       <Staticics/>
+      <WorkMethod/>
+     
       <OurVision/>
+      <WhyDonate/>
 
     </>
   )

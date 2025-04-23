@@ -18,7 +18,7 @@ function Statistics() {
           </p>
         </div>
          {/* Statistics Section */}
-        <div className="bg-[rgba(255,193,7,0.2)] shadow-md rounded-lg p-6 mt-30">
+        <div className="bg-[rgba(255,193,7,0.2)] shadow-md rounded-lg p-6 mt-20">
           <ul className="space-y-4 text-left flex justify-evenly m-3">
             <li className="flex items-center">
               <img className="text-green-500 font-bold text-xl mr-2 w-7 h-7" src={free}></img>
