@@ -4,11 +4,11 @@ import userPic from '/src/assets/images/user_pic.jpg';
 
 const Header = () => {
     return (
-        <div className='flex justify-around items-center h-16 border-b-[1.5px] border-b-black'>
+        <div className='flex justify-around items-center h-16 border-b-[1.5px] border-b-green-700'>
             {/* <div className='border-2 w-[70%] flex justify-center items-center'>
                 <input type="text" name="search" className='w-[80%] h-[80%] text-2xl ' />
             </div> */}
-            <div className="flex items-center border-2 border-gray-300 rounded-lg p-2 w-[70%]">
+            <div className="flex items-center border-2 border-gray-300 rounded-lg p-2 w-[50%]">
                 <input
                     type="text"
                     name="search"
