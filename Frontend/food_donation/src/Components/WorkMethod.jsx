@@ -1,12 +1,12 @@
 import gift from "../assets/images/gift.png";
 import search from "../assets/images/magnifying-glass.png";
-function Work() {
+function WorkMethod() {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
-        <div className="mx-auto px-4 py-16">
+        <div className="mx-auto px-4 pb-16">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 ">
+            <h1 className="text-4xl md:text-4xl font-bold mb-6 text-gray-900">
               Making Food Sharing Safe & Easy
             </h1>
             <p className="text-xl text-gray-600 mb-8">
@@ -15,11 +15,10 @@ function Work() {
             </p>
           </div>
 
-          {/* Main Content */}
-          <div className="grid md:grid-cols-2 gap-5 max-w-6xl mx-30">
+          <div className="grid md:grid-cols-2 gap-15 max-w-6xl mx-30">
             {/* Donors Section */}
             <div
-              className="p-8 bg-[rgba(72,202,128,0.12)] shadow-lg transition-all duration-300"
+              className="p-8 bg-gradient-to-r from-green-100 to-[rgba(72,202,128,0.12)] shadow-lg transition-all duration-300 border-2 border-green-200 rounded-lg" 
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-green-200 rounded-full">
@@ -54,7 +53,7 @@ function Work() {
             </div>
 
             {/* Recipients Section */}
-            <div className="p-8 bg-[rgba(72,202,128,0.12)] hover:shadow-lg transition-all duration-300">
+            <div className="p-8 bg-gradient-to-r from-green-100 to-[rgba(72,202,128,0.12)] hover:shadow-lg transition-all duration-300 border-2 border-green-200 rounded-lg">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-green-200 rounded-full">
                   <img src={search} className="w-6 h-6 " />
@@ -97,7 +96,7 @@ function Work() {
 function StepItem(props) {
   return (
     <>
-      <div className="flex gap-4 items-start group hover:transform hover:translate-x-2 transition-all duration-300">
+      <div className="flex gap-4 items-start group hover:transform hover:translate-x-2 transition-all duration-300 delay-75">
         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white border-2 border-current text-gray-400 flex items-center justify-center font-semibold group-hover:text-green-500 transition-colors">
           {props.number}
         </div>
@@ -109,4 +108,4 @@ function StepItem(props) {
     </>
   );
 }
-export default Work;
+export default WorkMethod;

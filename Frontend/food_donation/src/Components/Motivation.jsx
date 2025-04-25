@@ -3,7 +3,7 @@ import free from "../assets/images/puzzle.png";
 import donate from "../assets/images/food-donation.png";
 import help from "../assets/images/give-love.png";
 
-function Statistics() {
+function Motivation() {
   return (
     <div className="bg-gray-100 my-20 flex flex-col items-center justify-center">
       <div className="text-center max-w-full">
@@ -18,7 +18,7 @@ function Statistics() {
           </p>
         </div>
          {/* Statistics Section */}
-        <div className="bg-[rgba(255,193,7,0.2)] shadow-md rounded-lg p-6 mt-30">
+        <div className="bg-[rgba(255,193,7,0.2)] shadow-md rounded-lg p-6 mt-20">
           <ul className="space-y-4 text-left flex justify-evenly m-3">
             <li className="flex items-center">
               <img className="text-green-500 font-bold text-xl mr-2 w-7 h-7" src={free}></img>
@@ -45,4 +45,4 @@ function Statistics() {
   );
 }
 
-export default Statistics;
+export default Motivation;
