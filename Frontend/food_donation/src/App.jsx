@@ -1,6 +1,7 @@
 import Recipent_Dashboard from "./Components/Recipent_Dashboard";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./Components/Landingpage";
+import Recipent_Dashboard from './Components/Recipent_Dashboard'
 
 function App() {
   return (
