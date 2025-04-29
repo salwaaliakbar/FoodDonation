@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import dash_pic from '/src/assets/images/dashboard.png'
 import user_icon from '/src/assets/images/user.png'
+import logo from '/src/assets/images/logo.jpg'
 
 // import userPic from '/src/assets/images/user_pic.jpg';
 
@@ -12,7 +13,7 @@ const SideBar = () => {
         <div className="fixed top-0 left-0 border-[1px] border-r-gray-200 h-screen w-[20%] bg-white text-black flex flex-col justify-around shadow-lg">
             {/* Logo Section */}
             <div className="flex items-center justify-center h-16 bg-green-700">
-                <h1 className="text-2xl font-bold">YourLogo</h1>
+                <h1 className="cursor-pointer"><img src={logo} alt="" className='h-24' /></h1>
             </div>
 
             {/* Navigation Menu */}
