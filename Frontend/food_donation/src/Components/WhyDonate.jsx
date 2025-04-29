@@ -14,7 +14,8 @@ function WhyDonate() {
             that no one goes hungry.
           </p>
           <div className="mx-35 grid grid-cols-3 gap-10 mt-20">
-            <div className="rounded-lg border-2 border-green-200 shadow-lg p-8 flex flex-col items-center bg-gradient-to-r from-green-100 to-[rgba(72,202,128,0.12)]">
+          <div className="rounded-lg border-2 border-green-500 shadow-lg p-8 flex flex-col items-center">
+
               <div className="p-2 bg-green-200 rounded-full mb-3">
                 <img src={pic1} className="w-10 h-10" />
               </div>
@@ -26,7 +27,7 @@ function WhyDonate() {
                 community, making an immediate difference.
               </p>
             </div>
-            <div className="rounded-lg border-2 border-green-200  bg-gradient-to-r from-green-100 to-[rgba(72,202,128,0.12)] shadow-lg p-8 flex flex-col items-center">
+            <div className="rounded-lg border-2 border-green-500 shadow-lg p-8 flex flex-col items-center">
               <div className="p-2 bg-green-200 rounded-full mb-3">
                 <img src={pic2} className="w-10 h-10" />
               </div>
@@ -38,7 +39,7 @@ function WhyDonate() {
                 helping the environment and reducing waste.
               </p>
             </div>
-            <div className="rounded-lg border-2 border-green-200  bg-gradient-to-r from-green-100 to-[rgba(72,202,128,0.12)] shadow-lg p-8 flex flex-col items-center">
+            <div className="rounded-lg border-2 border-green-500 shadow-lg p-8 flex flex-col items-center">
               <div className="p-2 bg-green-200 rounded-full mb-3">
                 <img src={pic3} className="w-10 h-10" />
               </div>

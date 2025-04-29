@@ -6,10 +6,11 @@ import StatsSection from './StatsSection'
 import ActiveMealsSection from './ActiveMealsSection'
 import userPic from '/src/assets/images/user_pic.jpg';
 import GrantedMeals from './GrantedMeals'
+import DonorSidebar from './DonorSidebar'
 
 
 
-function Recipent_Dashboard() {
+function DonorDashboard() {
 
     const [activeMeals, setActiveMeals] = useState([
         {
@@ -67,20 +68,17 @@ function Recipent_Dashboard() {
 
     return (
         <div className='flex'>
-            <SideBar />
+            <DonorSidebar />
             <div className='w-[80%] absolute right-0 bg-gray-200'>
                 <Header/>
-                {/* <div> */}
                 <div className='px-4'>
                 <StatsSection />
                 <ActiveMealsSection activeMeals={activeMeals} title={'activeMeals'} />
                 <ActiveMealsSection activeMeals={grantedMeals} title={'grantedMeals'} />
-                {/* <ActiveMealsSection grantedMeals={grantedMeals} title={'grantedMeals'} /> */}
-                {/* </div> */}
                 </div>
             </div>
         </div>
     )
 }
 
-export default Recipent_Dashboard
+export default DonorDashboard

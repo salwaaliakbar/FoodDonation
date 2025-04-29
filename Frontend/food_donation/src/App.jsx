@@ -1,34 +1,30 @@
-import HeroSection from './Components/HeroSection'
-import Navbar from './Components/NavBar'
-import Recipent_Dashboard from './Components/Recipent_Dashboard'
-import OurVision from './Components/Ourvision'
-// import Staticics from './Components/Staticics'
-// import Work from './Components/Work'
-import Myprofile from './Components/Myprofile'
-import GeneralFeed from './Components/GeneralFeed'
-// import WhyDonate from './Components/WhyDonate'
-// import WorkMethod from './Components/WorkMethod'
-// import Motivation from './Components/Motivation'
-// import Footer from './Components/Footer'
+import Recipent_Dashboard from "./Components/Recipent_Dashboard";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LandingPage from "./Components/Landingpage";
+import DonorDashboard from "./Components/DonorDashboard";
+import About from "./Components/About";
 
 function App() {
-
   return (
     <>
-      {/* <Myprofile /> */}
-      {/* <Recipent_Dashboard /> */}
-      {/* <GeneralFeed /> */}
-      {/* 
-      <Navbar/>
-      <HeroSection/>
-      <Motivation/>
-      <WorkMethod/> 
-      <OurVision/>
-      <WhyDonate/>
-    <Staticics/>
-    <Footer/> */}
+      {/* <Recipent_Dashboard/> */}
+      {/* <DonorDashboard/> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<DonorDashboard />} />
+          <Route path="/LandingPage" element={<LandingPage />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </BrowserRouter>
+      {/* <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/recepeinetDashBoard" element={<Recipent_Dashboard/>}/>
+         
+        </Routes>
+      </BrowserRouter> */}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
