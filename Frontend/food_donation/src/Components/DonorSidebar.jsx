@@ -5,9 +5,19 @@ import logo from "../assets/images/whitelogo.png";
 
 // Import FontAwesome icons CSS
 import "font-awesome/css/font-awesome.min.css";
+import { useNavigate } from 'react-router-dom';
 
-const SideBar = () => {
+const DonorSidebar = () => {
+    const navigate = useNavigate()
 
+    const handleLogout = () => {
+      const confirmed =  window.confirm('Are you sure you want to logout?') 
+      if(confirmed){
+        navigate('/LandingPage')
+      } else{
+        alert('Logout cancelled')
+      }
+    }       
     return (
         <div className="fixed top-0 left-0 border-[1px] border-r-gray-200 h-screen w-[20%] bg-green-800 flex flex-col justify-around shadow-[4px_0px_12px_0px_rgba(0,0,0,0.3)] text-white">
             {/* Logo Section */}
@@ -24,7 +34,7 @@ const SideBar = () => {
                 <ul className="space-y-2">
                     <li>
                         <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors">
-                            <i className="fa fa-tachometer text-lg"></i> {/* Changed to fa-tachometer */}
+                            <i className="fa fa-home text-lg"></i> {/* Home icon for Dashboard */}
                             <a href="#" className="text-[1.1rem]">
                                 Dashboard
                             </a>
@@ -32,7 +42,7 @@ const SideBar = () => {
                     </li>
                     <li>
                         <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors">
-                            <i className="fa fa-rss text-lg"></i>
+                            <i className="fa fa-newspaper-o text-lg"></i> {/* Newspaper icon for General Feed */}
                             <a href="#" className="text-[1.1rem]">
                                 General Feed
                             </a>
@@ -40,23 +50,23 @@ const SideBar = () => {
                     </li>
                     <li>
                         <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors">
-                            <i className="fa fa-cutlery text-lg"></i> {/* Changed to fa-cutlery */}
+                            <i className="fa fa-history text-lg"></i> {/* History icon for Donation History */}
                             <a href="#" className="text-[1.1rem]">
-                                Active Meals
+                                Donation History
                             </a>
                         </div>
                     </li>
                     <li>
                         <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors">
-                            <i className="fa fa-check-circle text-lg"></i>
+                            <i className="fa fa-bullhorn text-lg"></i> {/* Bullhorn icon for Create Campaigns */}
                             <a href="#" className="text-[1.1rem]">
-                                Granted Meals
+                                Create Campaigns
                             </a>
                         </div>
                     </li>
                     <li>
                         <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors">
-                            <i className="fa fa-user text-lg"></i>
+                            <i className="fa fa-user-circle text-lg"></i> {/* User Circle icon for My Profile */}
                             <a href="#" className="text-[1.1rem]">
                                 My Profile
                             </a>
@@ -67,7 +77,7 @@ const SideBar = () => {
 
             {/* Logout Button */}
             <div className="px-4 py-4">
-                <a href="#" className="block w-full text-center px-4 py-2 bg-white text-green-800 font-bold text-lg rounded-lg   transition-colors">
+                <a href="#" className="block w-full text-center px-4 py-2 bg-white text-green-800 font-bold text-lg rounded-lg   transition-colors" onClick={handleLogout}>
                     Logout
                 </a>
             </div>
@@ -75,4 +85,4 @@ const SideBar = () => {
     );
 };
 
-export default SideBar;
+export default DonorSidebar;

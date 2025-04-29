@@ -18,7 +18,7 @@ function WorkMethod() {
           <div className="grid md:grid-cols-2 gap-15 max-w-6xl mx-30">
             {/* Donors Section */}
             <div
-              className="p-8 bg-gradient-to-r from-green-100 to-[rgba(72,202,128,0.12)] shadow-lg transition-all duration-300 border-2 border-green-200 rounded-lg" 
+              className="p-8  shadow-lg transition-all duration-300 border-2 border-green-500 rounded-lg" 
             >
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-green-200 rounded-full">
@@ -53,7 +53,7 @@ function WorkMethod() {
             </div>
 
             {/* Recipients Section */}
-            <div className="p-8 bg-gradient-to-r from-green-100 to-[rgba(72,202,128,0.12)] hover:shadow-lg transition-all duration-300 border-2 border-green-200 rounded-lg">
+            <div className="p-8  shadow-lg transition-all duration-300 border-2 border-green-500 rounded-lg">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-green-200 rounded-full">
                   <img src={search} className="w-6 h-6 " />

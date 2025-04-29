@@ -1,6 +1,6 @@
 import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
-import ValidationSchema from "./ValidationSchema";
+import ValidationSchema from "./YupSchemas/ValidationSchema";
 import { useNavigate } from "react-router-dom";
 
 function SignUpPage({ setIsLogin, setIsSignup }) {

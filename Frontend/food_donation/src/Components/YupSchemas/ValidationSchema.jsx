@@ -13,7 +13,7 @@ const ValidationSchema = Yup.object().shape({
 
     phone: Yup.string()
     .matches(
-      /^[0-9]{10}$/,
+      /^[0-9]{11}$/,
       "Invalid format"
     )
     .required('Phone number is required'),
