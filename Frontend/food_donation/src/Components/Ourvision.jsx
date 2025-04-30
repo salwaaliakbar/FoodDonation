@@ -2,7 +2,7 @@ import donation from "../assets/images/donation.webp";
 function OurVision() {
   return (
     <>
-      <div className="w-full py-10 text-white relative bg-green-600 overflow-hidden">
+      <div className="w-full py-10 text-white relative bg-green-800 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c')] bg-cover bg-center"></div>
         </div>

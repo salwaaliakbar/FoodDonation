@@ -15,7 +15,7 @@ function Navbar() {
       <div className="relative">
         <div className="flex justify-between p-2 bg-white hover:shadow-lg transition-all duration-300 hover:text-green-600">
           <div>
-            <Link to="/LandingPage">
+            <Link to="/">
               <img
                 className="w-80 h-20 rounded-full cursor-pointer"
                 src={logo}

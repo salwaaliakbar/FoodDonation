@@ -1,7 +1,6 @@
 const userModel = require("../Models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
-const { model } = require("mongoose");
 require('dotenv').config();
 
 const SECRET_KEY = process.env.JWT_SECRET || 'FoodDonationUsers';
