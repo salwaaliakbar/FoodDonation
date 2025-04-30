@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
-import Navbar from './NavBar'
-import Header from './Header'
-import SideBar from './SideBar'
-import StatsSection from './StatsSection'
-import ActiveMealsSection from './ActiveMealsSection'
+import Header from "./DonorHeader"
+import StatsSection from './DonorStatsSection'
+import ActiveMealsSection from './DonorActiveMealsSection'
 import userPic from '/src/assets/images/user_pic.jpg';
-import GrantedMeals from './GrantedMeals'
 import DonorSidebar from './DonorSidebar'
 
 

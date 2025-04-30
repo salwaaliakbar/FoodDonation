@@ -35,7 +35,7 @@ function Login({ setIsLogin, setIsSignup }) {
                 setUser(data.user)
 
                 if (data.user.role === "donor") {
-                  navigate("/donarDashBoard");
+                  navigate("/donorDashBoard");
                 } else {
                   navigate("/recepeinetDashBoard");
                 }
@@ -75,7 +75,7 @@ function Login({ setIsLogin, setIsSignup }) {
               </div>
 
               <div className="relative mb-6">
-                <i className="fa fa-lock absolute left-3 top-3 text-gray-400"></i>
+                <i className="fa fa-lock absolute left-3 top-4 text-gray-400"></i>
                 <Field
                   name="password"
                   type="password"

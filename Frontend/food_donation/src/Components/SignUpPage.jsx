@@ -2,9 +2,11 @@ import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
 import ValidationSchema from "./YupSchemas/ValidationSchema";
 import { useNavigate } from "react-router-dom";
+import { useData } from "./ContextAPIs/UserContext";
 
 function SignUpPage({ setIsLogin, setIsSignup }) {
   const navigate = useNavigate()
+  const {user,setUser} = useData()
   return (
     <>
       <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
@@ -38,8 +40,10 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 alert("Registration Successfull");
                 setIsSignup(false);
                 setIsLogin(true);
+                 // set signup user data into context
+                 setUser(data.user)
                 if (data.newuser.role === "donor") {
-                  navigate("/donarDashBoard");
+                  navigate("/donorDashBoard");
                 } else {
                   navigate("/recepeinetDashBoard");
                 }
@@ -155,7 +159,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 ) : null}
 
               <div className="relative py-2">
-                <i className="fa fa-user-circle absolute left-3 top-3 text-gray-400"></i>
+                <i className="fa fa-user-circle absolute left-3 top-5 text-gray-400"></i>
                 <Field
                   name="username"
                   placeholder="Username"
@@ -167,7 +171,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
               </div>
 
               <div className="relative py-2">
-                <i className="fa fa-lock absolute left-3 top-3 text-gray-400"></i>
+                <i className="fa fa-lock absolute left-3 top-5 text-gray-400"></i>
                 <Field
                   name="password"
                   type="password"
@@ -180,7 +184,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
               </div>
 
               <div className="relative py-2">
-                <i className="fa fa-lock absolute left-3 top-3 text-gray-400"></i>
+                <i className="fa fa-lock absolute left-3 top-5 text-gray-400"></i>
                 <Field
                   name="confrimPassword"
                   type="password"
