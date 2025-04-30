@@ -13,8 +13,6 @@ function Login({ setIsLogin, setIsSignup }) {
         <Formik
           initialValues={{ username: "", password: "" }}
           onSubmit={async (values) => {
-            alert(JSON.stringify(values, null, 2));
-
             // Perform login logic here
             try {
               const response = await fetch("http://localhost:5000/login", {

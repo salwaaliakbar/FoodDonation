@@ -23,8 +23,6 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
             confrimPassword: "",
           }}
           onSubmit={async (values) => {
-            alert(JSON.stringify(values, null, 2));
-
             // Perform signup logic here
             try {
               const response = await fetch("http://localhost:5000/signup", {
@@ -42,7 +40,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 setIsLogin(true);
                  // set signup user data into context
                  setUser(data.user)
-                if (data.newuser.role === "donor") {
+                if (data.user.role === "donor") {
                   navigate("/donorDashBoard");
                 } else {
                   navigate("/recepeinetDashBoard");

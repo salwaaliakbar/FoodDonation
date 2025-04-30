@@ -84,7 +84,7 @@ const Myprofile = () => {
               fieldValue={user.phone}
               edit={edit}
               handleInput={handleInput}
-            /> 
+            />
             <TextField
               fieldName="organization"
               Icon={Building}

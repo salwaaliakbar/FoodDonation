@@ -33,7 +33,12 @@ async function login(req, res) {
         }
     );
 
-    res.status(200).json({ message: "Login Account Successfully", success: true , user, token});
+    res.cookie('authToken', token, {
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'Strict', 
+      maxAge: 3600000  // 1 hour expiration
+  }).status(200).json({ message: "Login successful", success: true, user });
 
   } catch (err) {
     res.status(500).json({ error: "Server error ", err, success: false });
