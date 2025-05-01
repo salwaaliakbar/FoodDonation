@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const userModel = require('../Models/userModel');
 
-const SECRET_KEY = process.env.JWT_SECRET || 'FoodDonationUsers';
+const SECRET_KEY = process.env.JWT_SECRET;
 
 const authMiddleware = async (req, res, next) => {
     const token = req.cookies.authToken;
@@ -16,11 +16,13 @@ const authMiddleware = async (req, res, next) => {
         if (!isDecoded) {
             return res.status(401).json({ message: "Invalid token" });
         }
+        console.log(isDecoded)
         const userData = await userModel.findOne({ email: isDecoded.email });
         if (!userData) {
             return res.status(401).json({ message: "User not found" });
         }
         req.user = userData; 
+        console.log(req.user)
         next(); 
     } catch (err) {
         console.error("Error verifying token:", err);

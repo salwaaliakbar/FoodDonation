@@ -19,14 +19,16 @@ const Myprofile = () => {
 
   async function handleSubmit() {
     try {
-      const response = await fetch("http://localhost:5000/updateProfile", {
+      const response = await fetch("http://localhost:5000/api/updateProfile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(user),
+        credentials: 'include',
       });
       const data = await response.json();
+      console.log(data)
       if (data.success) {
         alert("Profile Updated Successfully");
         setEdit(!edit);
@@ -39,6 +41,10 @@ const Myprofile = () => {
     }
   }
 
+  const firstLetter = user.fullname
+    ? user.fullname.charAt(0).toUpperCase()
+    : "U";
+
   return (
     <div className="flex">
       <SideBar />
@@ -47,11 +53,11 @@ const Myprofile = () => {
         <div className="w-[85%] m-auto border-[1px] border-gray-200 rounded-md mt-6 p-4">
           <h2 className="ml-10 font-bold text-2xl">User Profile</h2>
           <div className="flex">
-            <img
-              src="/src/assets/images/user_pic.jpg"
-              alt="User Pic"
-              className="w-32 h-32 object-cover rounded-full m-3"
-            />
+            <div
+              className="w-32 h-32 rounded-full object-cover text-center text-6xl text-white font-bold flex justify-center items-center m-5 bg-green-800"
+            >
+              {firstLetter}
+            </div>
             <span className="content-center">
               <p className="font-bold text-lg">{user.fullname}</p>
               <p className="text-lg">{user.role}</p>
@@ -95,7 +101,7 @@ const Myprofile = () => {
           </div>
           {edit ? (
             <button
-              className="rounded-md bg-green-600 text-white mt-12 py-2 px-8 text-[1.1rem] border-[1px] border-green-700 hover:bg-green-800 relative left-[80%] cursor-pointer"
+              className="rounded-md bg-green-800 text-white mt-12 py-2 px-8 text-[1.1rem] border-[1px] border-green-700 hover:bg-green-700 relative left-[67%] cursor-pointer"
               onClick={handleSubmit}
             >
               Submit

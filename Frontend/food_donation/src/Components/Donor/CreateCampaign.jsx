@@ -16,19 +16,21 @@ function CreateCampaign() {
       onSubmit={async (values) => {
         alert(JSON.stringify(values, null, 2));
         try {
-          const response = await fetch("http://localhost:5000/campaign", {
+          const response = await fetch("http://localhost:5000/api/campaign", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify(values),
+            credentials: "include"
           });
 
           const data = await response.json()
+          console.log(data)
           if(data.success){
             alert('New campaign added successfully')
           } else{
-            alert("Error during new capaign creation ",data.error);
+            alert("Error during new campaign creation ",data.error);
           }
         } catch (error) {
           console.error("Error during new campaign creation:", err);

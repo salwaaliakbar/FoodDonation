@@ -4,7 +4,10 @@ import LandingPage from "./Components/Landingpage";
 import DonorDashboard from "./Components/Donor/DonorDashboard";
 import About from "./Components/About";
 import CreateCampaign from "./Components/Donor/CreateCampaign";
-import DonorProfile from './Components/Donor/DonorProfile'
+import DonorProfile from "./Components/Donor/DonorProfile";
+import DonationHistory from "./Components/Donor/DonationHistory";
+import ScrollToTop from "./Components/ScrollToTop";
+import ContactUs from "./Components/ContactUs";
 
 function App() {
   return (
@@ -21,13 +24,16 @@ function App() {
         </Routes>
       </BrowserRouter> */}
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/about" element={<About />} />
-          <Route path="/recepeinetDashBoard" element={<Recipent_Dashboard/>}/>
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/recepeinetDashBoard" element={<Recipent_Dashboard />} />
           <Route path="/donorDashBoard" element={<DonorDashboard />} />
-          <Route path="/donorDashBoard/campaign" element={<CreateCampaign/>}/>
-          <Route path="/donorDashBoard/profile" element={<DonorProfile/>}/>
+          <Route path="/donorDashBoard/campaign" element={<CreateCampaign />} />
+          <Route path="/donorDashBoard/profile" element={<DonorProfile />} />
+          <Route path="/donorDashBoard/history" element={<DonationHistory />} />
         </Routes>
       </BrowserRouter>
     </>

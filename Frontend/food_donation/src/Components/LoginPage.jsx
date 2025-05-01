@@ -15,12 +15,13 @@ function Login({ setIsLogin, setIsSignup }) {
           onSubmit={async (values) => {
             // Perform login logic here
             try {
-              const response = await fetch("http://localhost:5000/login", {
+              const response = await fetch("http://localhost:5000/api/login", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
+                credentials: "include"
               });
 
               const data = await response.json();
@@ -32,6 +33,7 @@ function Login({ setIsLogin, setIsSignup }) {
                 // set login user data into context
                 setUser(data.user)
 
+                console.log(data.token)
                 if (data.user.role === "donor") {
                   navigate("/donorDashBoard");
                 } else {

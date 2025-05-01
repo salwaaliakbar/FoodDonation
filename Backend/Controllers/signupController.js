@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const SECRET_KEY = process.env.JWT_SECRET || 'FoodDonationUsers';
+const SECRET_KEY = process.env.JWT_SECRET;
 
 async function signup(req, res) {
   const { fullname, email, phone, organization, role, username, password } =
@@ -46,7 +46,7 @@ async function signup(req, res) {
 
     res.cookie("authToken", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === 'production',
       sameSite: "Strict",
       maxAge: 3600000, // 1 hour expiration
     }).status(200).json({

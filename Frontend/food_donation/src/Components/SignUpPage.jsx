@@ -25,12 +25,13 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
           onSubmit={async (values) => {
             // Perform signup logic here
             try {
-              const response = await fetch("http://localhost:5000/signup", {
+              const response = await fetch("http://localhost:5000/api/signup", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
+                credentials: "include"
               });
 
               const data = await response.json();
@@ -56,7 +57,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
           validationSchema={ValidationSchema}
         >
           {({ errors, touched }) => (
-            <Form className="bg-white shadow-2xl rounded-lg p-4 w-full max-w-md h-4xl flex flex-col justify-between relative">
+            <Form className="bg-white shadow-2xl rounded-2xl w-full max-w-lg h-4xl flex flex-col justify-between relative px-8 py-4">
               <button
                 type="button"
                 onClick={() => setIsSignup(false)}
@@ -66,7 +67,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
               </button>
 
               <div className="relative ">
-                <h1 className="text-2xl text-center font-bold mb-2 text-green-800">
+                <h1 className="text-3xl text-center font-bold mb-2 text-green-800 py-2">
                   Register Yourself
                 </h1>
               </div>
@@ -203,8 +204,8 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 Register
               </button>
 
-              <div className="text-center mt-4">
-                <p className="text-gray-600 text-sm">
+              <div className="text-center m-2">
+                <p className="text-gray-600">
                   Already have an account?{" "}
                   <span
                     href="#"
