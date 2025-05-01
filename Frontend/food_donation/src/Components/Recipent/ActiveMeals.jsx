@@ -1,11 +1,11 @@
-// GeneralFeed.jsx
-import React, { useEffect, useState } from 'react';
-import MealPostCard from './Recipent/MealPostCard';
-import Header from './Header';
-import SideBar from './Recipent/SideBar';
-import Loader from './Loader';
+import { useState, useEffect } from 'react'
+import React from 'react'
+import SideBar from './SideBar'
+import Header from '../Header'
+import Loader from '../Loader'
+import AppliedMealPostCard from './AppliedMealPostCard'
 
-const GeneralFeed = () => {
+const ActiveMeals = () => {
     const [loading, setLoading] = useState(true);
     const [mealPosts, setMealPosts] = useState([]);
 
@@ -21,13 +21,15 @@ const GeneralFeed = () => {
                     personCount: 4,
                     location: 'New York, NY',
                     postedAt: '2 hours ago',
-                    applicants: 3,
-                    applied: false,
+                    applicants: 4,
+                    applied: true,
                     status: 'Active',
+                    appliedAt: '20 May',
                     appliedDetails: [
                         { name: 'John Doe', count: 1 },
                         { name: 'Emily Brown', count: 2 },
-                        { name: 'Chris Green', count: 1 }
+                        { name: 'Chris Green', count: 1 },
+                        { name: 'Myname', count: 2 }
                     ]
                 },
                 {
@@ -39,12 +41,14 @@ const GeneralFeed = () => {
                     personCount: 2,
                     location: 'San Francisco, CA',
                     postedAt: '5 hours ago',
-                    applicants: 2,
-                    applied: false,
+                    applicants: 3,
+                    applied: true,
                     status: 'Active',
+                    appliedAt: '20 May',
                     appliedDetails: [
                         { name: 'Anna Lee', count: 1 },
-                        { name: 'David White', count: 1 }
+                        { name: 'David White', count: 1 },
+                        { name: 'Myname', count: 2 }
                     ]
                 }
             ]);
@@ -55,9 +59,9 @@ const GeneralFeed = () => {
     return (
         <div className='flex'>
             <SideBar />
-            <div className='w-[80%] absolute right-0 bg-gray-200'>
+            <div className='w-[80%] absolute right-0 bg-gray-200 min-h-[100vh]'>
                 <Header />
-                <h1 className="text-3xl font-bold mb-8 text-green-600 text-center m-4">General Meal Feed</h1>
+                <h1 className="text-3xl font-bold mb-8 text-green-600 text-center m-4">Active Meals</h1>
 
                 {loading ? (
                     <div className="w-full flex min-h-[70vh] justify-center items-center py-16">
@@ -66,9 +70,9 @@ const GeneralFeed = () => {
                 ) : (
                     <div className="w-[94%] min-h-[70vh] m-auto">
                         {mealPosts.map((post, index) => (
-                            <MealPostCard
+                            <AppliedMealPostCard
                                 key={post.id}
-                                meal={post}
+                                mealData={post}
                                 index={index}
                                 setMealPosts={setMealPosts}
                             />
@@ -77,7 +81,7 @@ const GeneralFeed = () => {
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default GeneralFeed;
+export default ActiveMeals

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SideBar from './SideBar'
-import Header from './Header'
+import Header from '../Header'
 import userPic from '/src/assets/images/user_pic.jpg';
 import penPic from '/src/assets/images/call.png'
 
@@ -11,7 +11,7 @@ const Myprofile = () => {
         phone: '034-3432',
         email: 'john@doe.com',
         address: 'New State, New York',
-        website: 'http://johndoe.in'
+        organization: 'Individual'
     })
 
     function handleInput(e) {
@@ -28,9 +28,9 @@ const Myprofile = () => {
     return (
         <div className='flex'>
             <SideBar />
-            <div className='w-[80%] absolute right-0'>
+            <div className='w-[80%] absolute right-0 bg-gray-200'>
                 <Header />
-                <div className='w-[85%] m-auto border-[1px] border-gray-200 rounded-md mt-6 p-4'>
+                <div className='w-[85%] m-auto border-[1px] border-gray-200 bg-white rounded-md mt-6 p-4'>
                     <h2 className='ml-10 font-bold text-2xl'>User Profile</h2>
                     <div className='flex'>
                         <img src={userPic} alt="User Pic" className='w-32 h-32 object-cover rounded-full m-3' />
@@ -44,7 +44,7 @@ const Myprofile = () => {
                         <TextField fieldName="phone" iconPic={penPic} fieldValue={userData.phone} edit={edit} handleInput={handleInput} />
                         <TextField fieldName="email" iconPic={penPic} fieldValue={userData.email} edit={edit} handleInput={handleInput} />
                         <TextField fieldName='address' iconPic={penPic} fieldValue={userData.address} edit={edit} handleInput={handleInput} />
-                        <TextField fieldName='website' iconPic={penPic} fieldValue={userData.website} edit={edit} handleInput={handleInput} />
+                        <TextField fieldName='organization' iconPic={penPic} fieldValue={userData.organization} edit={edit} handleInput={handleInput} />
                     </div>
                     {edit ? <button className='rounded-md bg-green-600 text-white mt-12 py-2 px-8 text-[1.1rem] border-[1px] border-green-700  hover:bg-green-800 relative left-[80%] cursor-pointer' onClick={() => setEdit(!edit)}>Submit</button> : <></>}
                     <div className="bg-white shadow-md rounded-lg p-6 mt-6">
