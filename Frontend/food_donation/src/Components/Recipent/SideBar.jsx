@@ -2,10 +2,12 @@ import logo from '../../assets/images/logo.jpg';
 
 // Import FontAwesome icons CSS
 import "font-awesome/css/font-awesome.min.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const SideBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   const handleLogout = () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
@@ -33,7 +35,7 @@ const SideBar = () => {
         <ul className="space-y-2">
           <li>
             <Link to='/recipent'>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors">
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors ${currentPath === '/recipent' ? 'bg-green-600 text-white' : ''}`}>
                 <i className="fa fa-home text-lg text-[1.1rem]"></i>{" "}
                 {/* Home icon for Dashboard */}
                 Dashboard
@@ -42,7 +44,7 @@ const SideBar = () => {
           </li>
           <li>
             <Link to="/generalfeed">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors">
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors ${currentPath === '/generalfeed' ? 'bg-green-600 text-white' : ''}`}>
                 <i className="fa fa-newspaper-o text-lg text-[1.1rem]"></i>{" "}
                 {/* Newspaper icon for General Feed */}
                 General Feed
@@ -51,7 +53,7 @@ const SideBar = () => {
           </li>
           <li>
             <Link to="/active">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors">
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors ${currentPath === '/active' ? 'bg-green-600 text-white' : ''}`}>
                 <i className="fa fa-cutlery text-lg text-[1.1rem]"></i>{" "}
                 {/* Changed to fa-cutlery */}
                 Active Meals
@@ -60,7 +62,7 @@ const SideBar = () => {
           </li>
           <li>
             <Link to="/granted">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors">
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors ${currentPath === '/granted' ? 'bg-green-600 text-white' : ''}`}>
                 <i className="fa fa-check-circle text-lg text-[1.1rem]"></i>
                 Granted Meals
               </div>
@@ -68,7 +70,7 @@ const SideBar = () => {
           </li>
           <li>
             <Link to='/recipent/profile'>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors">
+              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors ${currentPath === '/recipent/profile' ? 'bg-green-600 text-white' : ''}`}>
                 <i className="fa fa-user-circle text-lg"></i>{" "}
                 {/* User Circle icon for My Profile */}
                 My Profile
