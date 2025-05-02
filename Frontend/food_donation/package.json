@@ -7,10 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start:dev": "concurrently \"npm run dev --prefix frontend\" \"node backend/server.js\""
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",
+    "cookie-parser": "^1.4.7",
     "font-awesome": "^4.7.0",
     "formik": "^2.4.6",
     "framer-motion": "^12.9.2",

@@ -4,12 +4,14 @@ async function campaignController(req, res) {
   const { title, foodType, amount, expiration, mealType, location } = req.body;
   try {
     const newCampaign = await campaignModel.create({
+      createdBy: req.user._id,
       title,
       foodType,
       amount,
       expiration,
       mealType,
       location,
+      status: 'active'
     });
     res
       .status(200)

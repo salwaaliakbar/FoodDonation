@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 function Navbar() {
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
-  const [isContact, setIsContact] = useState(false);
 
   return (
     <>
@@ -26,6 +25,11 @@ function Navbar() {
 
           {/* Navigation options */}
           <ul className="flex justify-between text-xl font-semibold text-black mt-2">
+            <Link to="/">
+              <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
+                Home
+              </li>
+            </Link>
             <Link to="/about">
               <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
                 About
@@ -34,15 +38,11 @@ function Navbar() {
             <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
               Services
             </li>
-            <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
-              Blog
-            </li>
-            <li
-              className="cursor-pointer p-3 hover:border-b-3 border-green-800"
-              onClick={() => setIsContact(true)}
-            >
-              Contact Us
-            </li>
+            <Link to="/contact">
+              <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
+                Contact Us
+              </li>
+            </Link>
           </ul>
 
           <button
@@ -62,12 +62,6 @@ function Navbar() {
         {isSignup && (
           <div className="absolute top-5 left-0 w-full z-10">
             <SignUpPage setIsLogin={setIsLogin} setIsSignup={setIsSignup} />
-          </div>
-        )}
-
-        {isContact && (
-          <div className="absolute top-20 left-0 w-full z-10">
-            <ContactUs setIsContact={setIsContact} />
           </div>
         )}
       </div>

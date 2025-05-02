@@ -1,26 +1,36 @@
-const userModel = require('../Models/userModel')
-
 async function updateProfile(req, res) {
   const { fullname, email, phone, organization } = req.body;
-  try{
-    const user = await userModel.findById(req.user.id); 
+  try {
+    const user = req.user;
 
-    if (!user) {
-      return res.status(404).json({ success: false, error: "User not found" });
+    if (!user || !user._id) {
+      console.log("No user found in the request.");
+      return res.status(404).json({ success: false, error: "User not found or invalid token" });
     }
 
-    user.fullname = fullname;
-    user.email = email;
-    user.phone = phone;
-    user.organization = organization;
+    // Update the user data with the data from req.body
+    user.fullname = fullname || user.fullname;
+    user.email = email || user.email;
+    user.phone = phone || user.phone;
+    user.organization = organization || user.organization;
 
     await user.save();
 
-    res.status(200).json({ success: true, user })
-  } catch(err){
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: {
+        _id: user._id,
+        fullname: user.fullname,
+        email: user.email,
+        phone: user.phone,
+        organization: user.organization,
+      },
+    });
+  } catch (err) {
     console.error("Error updating user:", err);
-    res.status(500).json({ success: false, error: "Server error",err });
+    res.status(500).json({ success: false, error: "Server error", err });
   }
 }
 
-module.exports = updateProfile
+module.exports = updateProfile;
