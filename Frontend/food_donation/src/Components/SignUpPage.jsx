@@ -6,7 +6,7 @@ import { useData } from "./ContextAPIs/UserContext";
 
 function SignUpPage({ setIsLogin, setIsSignup }) {
   const navigate = useNavigate()
-  const {user,setUser} = useData()
+  const { user, setUser } = useData()
   return (
     <>
       <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
@@ -39,12 +39,12 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 alert("Registration Successfull");
                 setIsSignup(false);
                 setIsLogin(true);
-                 // set signup user data into context
-                 setUser(data.user)
+                // set signup user data into context
+                setUser(data.user)
                 if (data.user.role === "donor") {
                   navigate("/donorDashBoard");
                 } else {
-                  navigate("/recepeinetDashBoard");
+                  navigate("/recipent");
                 }
               } else {
                 alert(data.error);
@@ -154,8 +154,8 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 </div>
               </div>
               {errors.role && touched.role ? (
-                  <div className="text-red-600 text-sm mx-15">{errors.role}</div>
-                ) : null}
+                <div className="text-red-600 text-sm mx-15">{errors.role}</div>
+              ) : null}
 
               <div className="relative py-2">
                 <i className="fa fa-user-circle absolute left-3 top-5 text-gray-400"></i>

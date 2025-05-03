@@ -30,7 +30,6 @@ function App() {
           <Route path="/donorDashBoard/campaign" element={<CreateCampaign />} />
           <Route path="/donorDashBoard/profile" element={<DonorProfile />} />
           <Route path="/contact" element={<ContactUs />} />
-          <Route path="/recepeinetDashBoard" element={<Recipent_Dashboard />} />
           <Route path="/donorDashBoard/history" element={<DonationHistory />} />
         </Routes>
       </BrowserRouter>
