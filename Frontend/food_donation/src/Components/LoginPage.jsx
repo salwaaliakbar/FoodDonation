@@ -1,11 +1,11 @@
 import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useData } from "./ContextAPIs/UserContext";
 
 function Login({ setIsLogin, setIsSignup }) {
   const navigate = useNavigate()
-  const {user,setUser} = useData()
+  const { user, setUser } = useData()
   return (
     <>
       <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
@@ -37,7 +37,7 @@ function Login({ setIsLogin, setIsSignup }) {
                 if (data.user.role === "donor") {
                   navigate("/donorDashBoard");
                 } else {
-                  navigate("/recepeinetDashBoard");
+                  navigate("/recipent");
                 }
               } else {
                 alert(data.error);
