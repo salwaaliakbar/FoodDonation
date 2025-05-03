@@ -66,7 +66,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
 
   return (
     <section className="w-full mx-auto bg-white border-[1px] border-zinc-200 rounded-xl shadow-lg mt-4 mb-4">
-      <h2 className={`text-xl font-bold ${color} p-4 border-b ${bg}`}>
+      <h2 className={`text-[23px] font-bold ${color} p-4 border-b ${bg} rounded-t-xl`}>
         {name}
       </h2>
 

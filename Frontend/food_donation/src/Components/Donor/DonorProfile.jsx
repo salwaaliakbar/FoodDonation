@@ -48,10 +48,10 @@ const Myprofile = () => {
   return (
     <div className="flex">
       <SideBar />
-      <div className="w-[80%] absolute right-0">
+      <div className="w-[80%] absolute right-0 bg-gray-200">
         <Header />
-        <div className="w-[85%] m-auto border-[1px] border-gray-200 rounded-md mt-6 p-4">
-          <h2 className="ml-10 font-bold text-2xl">User Profile</h2>
+        <div className="w-[85%] m-auto border-[1px] border-gray-200 bg-white rounded-md mt-8 p-6 mb-8">
+          <h2 className="ml-10 font-bold text-2xl mt-4">User Profile</h2>
           <div className="flex">
             <div
               className="w-32 h-32 rounded-full object-cover text-center text-6xl text-white font-bold flex justify-center items-center m-5 bg-green-800"

@@ -1,5 +1,5 @@
-import gift from "../assets/images/gift.png";
-import search from "../assets/images/magnifying-glass.png";
+import gift from "../../assets/images/gift.png";
+import search from "../../assets/images/magnifying-glass.png";
 function WorkMethod() {
   return (
     <>

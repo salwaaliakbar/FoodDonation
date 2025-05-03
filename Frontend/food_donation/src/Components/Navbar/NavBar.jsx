@@ -1,8 +1,8 @@
 import { useState } from "react";
-import logo from "../assets/images/logo.jpg";
-import Login from "./LoginPage";
-import SignUpPage from "./SignUpPage";
-import ContactUs from "./ContactUs";
+import logo from "../../assets/images/logo.jpg";
+import Login from "../LoginPage";
+import SignUpPage from "../SignUpPage";
+import ContactUs from "../ContactUs/ContactUs";
 import { Link } from "react-router-dom";
 
 function Navbar() {

@@ -1,6 +1,6 @@
-import pic1 from "../assets/images/love.png";
-import pic2 from "../assets/images/heart.png";
-import pic3 from "../assets/images/group.png";
+import pic1 from "../../assets/images/love.png";
+import pic2 from "../../assets/images/heart.png";
+import pic3 from "../../assets/images/group.png";
 
 function WhyDonate() {
   return (

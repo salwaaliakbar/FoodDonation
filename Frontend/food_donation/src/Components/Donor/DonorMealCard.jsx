@@ -7,7 +7,7 @@ const MealCard = ({ meal, color, status }) => {
   return (
     <div
       onClick={() => setExpanded((prev) => !prev)}
-      className="w-full px-4 py-3 my-2  mb-2 border-b rounded-md border-gray-200 hover:bg-gray-100 cursor-pointer transition-all duration-300"
+      className="w-full px-4 py-3 my-2  mb-0 border-b rounded-xl border-gray-300 hover:bg-gray-100 cursor-pointer transition-all duration-300"
     >
       {/* Row Header */}
       <div className="flex items-center justify-between gap-4">
@@ -20,7 +20,7 @@ const MealCard = ({ meal, color, status }) => {
             <p className="text-sm font-semibold text-gray-700">
             {meal.createdBy?.fullname || ""}
             </p>
-            <p className={`text-base font-bold ${color}`}>{meal.title}</p>
+            <p className={`text-base font-bold ${color} text-[17px]`}>{meal.title}</p>
           </div>
         </div>
 

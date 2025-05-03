@@ -1,11 +1,11 @@
 import HeroSection from "./HeroSection";
-import Navbar from "./NavBar";
+import Navbar from "../Navbar/NavBar";
 import OurVision from "./Ourvision";
 import WhyDonate from "./WhyDonate";
 import WorkMethod from "./WorkMethod";
 import Motivation from "./Motivation";
 import Staticics from "./Staticsics";
-import Footer from "./Footer";
+import Footer from "../Footer/Footer";
 
 function LandingPage() {
   return (
