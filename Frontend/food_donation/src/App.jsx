@@ -27,7 +27,7 @@ function App() {
           <Route path="/granted" element={<GrantedMeals />} />
           <Route path="/active" element={<ActiveMeals />} />
           <Route path="/donorDashBoard" element={<DonorDashboard />} />
-          <Route path="/donorDashBoard/campaign" element={<CreateCampaign />} />
+          <Route path="/donorDashBoard/createCampaign" element={<CreateCampaign />} />
           <Route path="/donorDashBoard/profile" element={<DonorProfile />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/donorDashBoard/history" element={<DonationHistory />} />

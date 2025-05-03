@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
-const MealCard = ({ meal }) => {
+const MealCard = ({ meal, color, status }) => {
   const [expanded, setExpanded] = useState(false);
+  const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
 
   return (
     <div
@@ -13,34 +14,37 @@ const MealCard = ({ meal }) => {
         {/* Left Side: Photo + User + Title */}
         <div className="flex items-center gap-4 w-[40%]">
           <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
-            {meal.userPhoto}
+            {firstLetter}
           </div>
           <div>
             <p className="text-sm font-semibold text-gray-700">
-              {meal.userName}
+            {meal.createdBy?.fullname || ""}
             </p>
-            <p className="text-base font-bold text-green-700">
-              {meal.mealTitle}
-            </p>
+            <p className={`text-base font-bold ${color}`}>{meal.title}</p>
           </div>
         </div>
 
         {/* Middle: Quick Info */}
         <div className="flex flex-col w-[30%] text-sm text-gray-600">
-          <span>🍽️ {meal.mealCount} meals</span>
-          <span>🕒 Applied: {meal.appliedOn}</span>
+          <span>🍽️ {meal.amount} meals</span>
+          <span>🕒 Applied: {meal.expiration}</span>
         </div>
 
         {/* Right Side: Applicants */}
         <div className="w-[20%]  text-right">
           {meal.granted ? (
             <span>
-              ✅ Awarded <p className="text-green-600">{meal.granted}</p>
+              ✅ {status} <p className="text-green-600">{meal.status}</p>
             </span>
           ) : (
-            <p className=" text-amber-600">
-              👥 {meal.totalApplicants} applicants{" "}
-            </p>
+            <>
+              <span>
+                ✅ {status} <p className="text-green-600">{meal.status}</p>
+              </span>
+              <p className=" text-amber-600">
+                👥 {meal.totalApplicants} applicants{" "}
+              </p>
+            </>
           )}
         </div>
       </div>
@@ -55,7 +59,7 @@ const MealCard = ({ meal }) => {
             <strong>Location:</strong> {meal.location}
           </p>
           <p>
-            <strong>Posted On:</strong> {meal.postedOn}
+            <strong>Posted On:</strong> {meal.expiration}
           </p>
         </div>
       )}

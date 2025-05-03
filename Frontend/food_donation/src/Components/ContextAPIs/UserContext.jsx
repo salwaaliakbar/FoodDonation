@@ -13,5 +13,8 @@ export const UserProvider = ({ children })=>{
 
 export const useData = () =>{
     const data = useContext(UserContext)
-    return {user: data.user, setUser: data.setUser}
+    return ({
+        user: data.user, 
+        setUser: data.setUser
+    })
 }

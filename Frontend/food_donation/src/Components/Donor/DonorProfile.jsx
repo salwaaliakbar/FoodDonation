@@ -41,8 +41,8 @@ const Myprofile = () => {
     }
   }
 
-  const firstLetter = user.fullname
-    ? user.fullname.charAt(0).toUpperCase()
+  const firstLetter = user?.fullname
+    ? user?.fullname.charAt(0).toUpperCase()
     : "U";
 
   return (

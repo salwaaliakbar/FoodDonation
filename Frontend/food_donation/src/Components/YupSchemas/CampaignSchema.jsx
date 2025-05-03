@@ -20,6 +20,13 @@ const CampaignSchema = Yup.object().shape({
   location: Yup.string()
     .min(5, "Location must be at least 5 characters long")
     .required("Location is required"),
+  phone: Yup.string()
+    .matches(/^[0-9]{11}$/, "Invalid format")
+    .required("Phone number is required"),
+  description: Yup.string()
+    .min(10, "Description must be at least 10 characters long")
+    .max(500, "Description cannot be more than 500 characters")
+    .required("Description is required"),
 });
 
 export default CampaignSchema;

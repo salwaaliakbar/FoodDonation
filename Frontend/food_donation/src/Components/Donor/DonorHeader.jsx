@@ -2,7 +2,7 @@ import React from "react";
 import { useData } from "../ContextAPIs/UserContext";
 
 const Header = () => {
-  const { user, setUser } = useData();
+  const { user } = useData();
   const firstLetter = user.fullname ? user.fullname.charAt(0).toUpperCase() : "U";
   return (
     <div className="flex justify-around items-center h-20 border-b-[1.5px] border-b-green-700 bg-white">
