@@ -32,7 +32,7 @@ export default function StatsSection() {
   const COLORS = ['#15803d', '#d1d5db'] // green-700 and light gray
 
   return (
-    <div className='flex w-full h-[50vh] gap-4  mt-4'>
+    <div className='flex w-full h-[55vh] gap-4  mt-4'>
       {/* Pie Chart Section */}
       <div className='w-[30%] bg-white rounded-xl shadow-md p-4 flex flex-col justify-between'>
         <div className='flex justify-between items-center text-sm text-gray-500'>
