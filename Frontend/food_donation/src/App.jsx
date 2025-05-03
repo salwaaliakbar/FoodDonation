@@ -31,7 +31,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/recepeinetDashBoard" element={<Recipent_Dashboard />} />
           <Route path="/donorDashBoard" element={<DonorDashboard />} />
-          <Route path="/donorDashBoard/campaign" element={<CreateCampaign />} />
+          <Route path="/donorDashBoard/createCampaign" element={<CreateCampaign />} />
           <Route path="/donorDashBoard/profile" element={<DonorProfile />} />
           <Route path="/donorDashBoard/history" element={<DonationHistory />} />
         </Routes>

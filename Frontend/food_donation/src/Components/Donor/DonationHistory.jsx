@@ -1,89 +1,8 @@
 import ActiveMealsSection from "./DonorActiveMealsSection";
-import { useState } from "react";
-import { useData } from "../ContextAPIs/UserContext";
 import DonorSidebar from "./DonorSidebar";
 import Header from "./DonorHeader";
 
 function DonationHistory() {
-    const {user, setUser} = useData()
-    const firstLetter = user.fullname ? user.fullname.charAt(0).toUpperCase() : "U";
-  const [activeMeals, setActiveMeals] = useState([
-    {
-      userPhoto: firstLetter,
-      userName: "Ali Khan",
-      mealTitle: "Lunch Pack",
-      mealCount: 3,
-      appliedOn: "20 Apr 2025",
-      totalApplicants: 5,
-      description: "Freshly cooked rice and curry for lunch.",
-      location: "Sector 11, Karachi",
-      postedOn: "19 Apr 2025",
-    },
-    {
-      userPhoto: firstLetter,
-      userName: "Fatima Noor",
-      mealTitle: "Dinner Boxes",
-      mealCount: 4,
-      appliedOn: "21 Apr 2025",
-      totalApplicants: 3,
-      description: "Home-cooked meat and bread packs.",
-      location: "Gulshan Block 5",
-      postedOn: "20 Apr 2025",
-    },
-  ]);
-
-  const [grantedMeals, setGrantedMeals] = useState([
-    {
-      userPhoto: firstLetter,
-      userName: "Ali Khan",
-      mealTitle: "Lunch Pack",
-      mealCount: 3,
-      appliedOn: "20 Apr 2025",
-      totalApplicants: 5,
-      description: "Freshly cooked rice and curry for lunch.",
-      location: "Sector 11, Karachi",
-      postedOn: "19 Apr 2025",
-      granted: "20 Apr 2025",
-    },
-    {
-      userPhoto: firstLetter,
-      userName: "Fatima Noor",
-      mealTitle: "Dinner Boxes",
-      mealCount: 4,
-      appliedOn: "21 Apr 2025",
-      totalApplicants: 3,
-      description: "Home-cooked meat and bread packs.",
-      location: "Gulshan Block 5",
-      postedOn: "20 Apr 2025",
-      granted: "20 Apr 2025",
-    },
-  ]);
-  const [blacklistMeals, setBlacklistMeals] = useState([
-    {
-      userPhoto: firstLetter,
-      userName: "Ali Khan",
-      mealTitle: "Lunch Pack",
-      mealCount: 3,
-      appliedOn: "20 Apr 2025",
-      totalApplicants: 5,
-      description: "Freshly cooked rice and curry for lunch.",
-      location: "Sector 11, Karachi",
-      postedOn: "19 Apr 2025",
-      granted: "20 Apr 2025",
-    },
-    {
-      userPhoto: firstLetter,
-      userName: "Fatima Noor",
-      mealTitle: "Dinner Boxes",
-      mealCount: 4,
-      appliedOn: "21 Apr 2025",
-      totalApplicants: 3,
-      description: "Home-cooked meat and bread packs.",
-      location: "Gulshan Block 5",
-      postedOn: "20 Apr 2025",
-      granted: "20 Apr 2025",
-    },
-  ]);
   return (
     <div className="flex">
       <DonorSidebar />
@@ -91,16 +10,22 @@ function DonationHistory() {
         <Header />
         <div className="px-4">
           <ActiveMealsSection
-            activeMeals={activeMeals}
             title={"Active Meals"}
+            color={'text-yellow-500'}
+            bg={'bg-yellow-100'}
+            status={'Active'}
           />
           <ActiveMealsSection
-            activeMeals={grantedMeals}
             title={"Granted Meals"}
+            color={'text-green-800'}
+            bg={'bg-[#AFE1AF]'}
+            status={'Awarded'}
           />
           <ActiveMealsSection
-            activeMeals={blacklistMeals}
             title={"BlackList Meals"}
+            color={'text-red-800'}
+            bg={'bg-red-200'}
+            status={'Expired'}
           />
         </div>
       </div>

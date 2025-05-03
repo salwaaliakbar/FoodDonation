@@ -1,7 +1,7 @@
 const campaignModel = require("../Models/campaignModel");
 
 async function campaignController(req, res) {
-  const { title, foodType, amount, expiration, mealType, location } = req.body;
+  const { title, foodType, amount, expiration, mealType, location, phone, description } = req.body;
   try {
     const newCampaign = await campaignModel.create({
       createdBy: req.user._id,
@@ -11,7 +11,9 @@ async function campaignController(req, res) {
       expiration,
       mealType,
       location,
-      status: 'active'
+      status: 'Expired',
+      phone,
+      description
     });
     res
       .status(200)

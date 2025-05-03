@@ -1,8 +1,10 @@
 import { Field, Formik, Form } from "formik";
 import CampaignSchema from "../../Components/YupSchemas/CampaignSchema";
 import DonorSidebar from "./DonorSidebar";
+import { useChange } from "../ContextAPIs/ChangeContext";
 
 function CreateCampaign() {
+  const { setIsChange } = useChange()
   return (
     <Formik
       initialValues={{
@@ -12,11 +14,12 @@ function CreateCampaign() {
         expiration: "",
         mealType: "vegetarian",
         location: "",
+        phone: "", 
+        description: "",
       }}
       onSubmit={async (values) => {
-        alert(JSON.stringify(values, null, 2));
         try {
-          const response = await fetch("http://localhost:5000/api/campaign", {
+          const response = await fetch("http://localhost:5000/api/createCampaign", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -26,11 +29,11 @@ function CreateCampaign() {
           });
 
           const data = await response.json()
-          console.log(data)
-          if(data.success){
+          if (data.success) {
             alert('New campaign added successfully')
-          } else{
-            alert("Error during new campaign creation ",data.error);
+            setIsChange(true)
+          } else {
+            alert("Error during new campaign creation ", data.error);
           }
         } catch (error) {
           console.error("Error during new campaign creation:", err);
@@ -187,6 +190,46 @@ function CreateCampaign() {
                 />
                 {errors.location && touched.location ? (
                   <div className="text-red-600">{errors.location}</div>
+                ) : null}
+              </div>
+
+              {/* Phone Number */}
+              <div className="mb-6">
+                <label
+                  htmlFor="phone"
+                  className="block text-lg font-medium text-gray-700"
+                >
+                  Phone Number
+                </label>
+                <Field
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="Enter your phone number"
+                  className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md"
+                />
+                {errors.phone && touched.phone ? (
+                  <div className="text-red-600">{errors.phone}</div>
+                ) : null}
+              </div>
+
+              {/* Description */}
+              <div className="mb-6">
+                <label
+                  htmlFor="description"
+                  className="block text-lg font-medium text-gray-700"
+                >
+                  Description
+                </label>
+                <Field
+                  as="textarea"
+                  id="description"
+                  name="description"
+                  placeholder="Enter a description for your campaign"
+                  className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md"
+                />
+                {errors.description && touched.description ? (
+                  <div className="text-red-600">{errors.description}</div>
                 ) : null}
               </div>
 

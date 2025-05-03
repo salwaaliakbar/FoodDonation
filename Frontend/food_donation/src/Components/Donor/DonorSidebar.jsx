@@ -1,13 +1,16 @@
+import { useState } from 'react';
 import logo from '../../assets/images/logo.jpg';
 import {useData} from '../ContextAPIs/UserContext';
 
 // Import FontAwesome icons CSS
 import "font-awesome/css/font-awesome.min.css";
 import { Link, useNavigate } from "react-router-dom";
+import { useChange } from '../ContextAPIs/ChangeContext';
 
 const DonorSidebar = () => {
   const navigate = useNavigate();
-  const {user,setUser} = useData()
+  const { setUser } = useData()
+  const { setIsChange, setLoading } = useChange()
 
   const handleLogout = async () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
@@ -17,6 +20,8 @@ const DonorSidebar = () => {
         credentials: 'include'
       });
       setUser(null);
+      setIsChange(true)
+      setLoading(false)
       navigate("/");
     } else {
       alert("Logout cancelled");
@@ -64,7 +69,7 @@ const DonorSidebar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/donorDashBoard/campaign">
+            <Link to="/donorDashBoard/createCampaign">
             <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
               <i className="fa fa-bullhorn text-lg"></i>{" "}
               {/* Bullhorn icon for Create Campaigns */}

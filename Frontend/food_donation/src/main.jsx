@@ -3,11 +3,14 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { UserProvider } from "./Components/ContextAPIs/UserContext.jsx";
+import { ChangeProvider } from "./Components/ContextAPIs/ChangeContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <UserProvider>
-    <StrictMode>
+    <ChangeProvider>
+      {/* <StrictMode> */}
       <App />
-    </StrictMode>
+      {/* </StrictMode> */}
+    </ChangeProvider>
   </UserProvider>
 );
