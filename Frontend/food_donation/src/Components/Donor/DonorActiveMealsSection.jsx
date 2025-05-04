@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import MealCard from "./DonorMealCard";
 import { useData } from "../ContextAPIs/UserContext";
 import { useChange } from "../ContextAPIs/ChangeContext";
@@ -30,7 +30,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
             },
           }
         );
-
+  
         const data = await response.json();
         return Array.isArray(data.campaigns) ? data.campaigns : [];
       } catch (err) {
@@ -38,35 +38,50 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
         return [];
       }
     }
-
+  
     const fetchData = async () => {
       setLoading(true);
-
-      // Simulate delay using setTimeout to show loader initially
+  
       setTimeout(async () => {
         const activeData = await fetchMealData("Active");
         setActiveMeals(activeData);
-
+  
         const grantedData = await fetchMealData("Awarded");
         setGrantedMeals(grantedData);
-
+  
         const expiredData = await fetchMealData("Expired");
         setBlacklistMeals(expiredData);
-
-        setLoading(false); // Stop loading after data is fetched
+  
+        setLoading(false);
       }, 1000);
     };
-
-    // Fetch data only when isChange is true
+  
+    // Logic for blacklist meals
+    const now = new Date();
+    const expired = activeMeals
+      .filter((meal) => new Date(meal.expiration) <= now)
+      .map((meal) => ({ ...meal, status: "Expired" }));
+  
+    const stillActive = activeMeals.filter(
+      (meal) => new Date(meal.expiration) > now
+    );
+  
+    setActiveMeals(stillActive);
+    setBlacklistMeals((prev) => [...prev, ...expired]);
+  
+    //  Only fetch from DB when isChange is true
     if (isChange) {
       fetchData();
       setIsChange(false);
     }
   }, [user._id, isChange]);
+  
 
   return (
     <section className="w-full mx-auto bg-white border-[1px] border-zinc-200 rounded-xl shadow-lg mt-4 mb-4">
-      <h2 className={`text-[23px] font-bold ${color} p-4 border-b ${bg} rounded-t-xl`}>
+      <h2
+        className={`text-[23px] font-bold ${color} p-4 border-b ${bg} rounded-t-xl`}
+      >
         {name}
       </h2>
 

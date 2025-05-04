@@ -5,6 +5,7 @@ const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const donorRoutes = require("./routes/donorRoutes");
 const cookieParser = require("cookie-parser");
+const startExpirationCron = require("./cronJobs/expireMeal"); 
 
 const app = express();
 
@@ -12,8 +13,8 @@ const app = express();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173", // Allow the frontend to access the backend
-    credentials: true, // Allow cookies to be sent with requests
+    origin: "http://localhost:5173",
+    credentials: true,
   })
 );
 app.use(express.json());
@@ -24,10 +25,9 @@ app.use(donorRoutes);
 const startServer = async () => {
   try {
     await connectDB();
-    console.log("chk2");
-    // If you're in production, serve the static frontend build files
+    startExpirationCron();
+
     if (process.env.NODE_ENV === "production") {
-      console.log("chk1");
       app.use(
         express.static(
           path.join(__dirname, "..", "Frontend", "food_donation", "dist")
