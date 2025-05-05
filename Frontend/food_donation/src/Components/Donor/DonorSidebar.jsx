@@ -10,7 +10,7 @@ import { useChange } from "../ContextAPIs/ChangeContext";
 const DonorSidebar = () => {
   const navigate = useNavigate();
   const { setUser } = useData();
-  const { setIsChange, setLoading } = useChange();
+  const { setIsChangeActive, setIsChangeGranted, setIsChangeExpired, setLoading } = useChange();
 
   const handleLogout = async () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
@@ -20,7 +20,9 @@ const DonorSidebar = () => {
         credentials: "include",
       });
       setUser(null);
-      setIsChange(true);
+      setIsChangeActive(true);
+      setIsChangeGranted(true);
+      setIsChangeExpired(true);
       setLoading(false);
       navigate("/");
     } else {

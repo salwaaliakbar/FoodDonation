@@ -4,7 +4,7 @@ import DonorSidebar from "./DonorSidebar";
 import { useChange } from "../ContextAPIs/ChangeContext";
 
 function CreateCampaign() {
-  const { setIsChange } = useChange();
+  const { setIsChangeActive } = useChange();
   return (
     <Formik
       initialValues={{
@@ -34,7 +34,7 @@ function CreateCampaign() {
           const data = await response.json();
           if (data.success) {
             alert("New campaign added successfully");
-            setIsChange(true);
+            setIsChangeActive(true);
           } else {
             alert("Error during new campaign creation ", data.error);
           }

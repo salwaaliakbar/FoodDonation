@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { format } from 'date-fns';
 
 const MealCard = ({ meal, color, status }) => {
   const [expanded, setExpanded] = useState(false);
@@ -27,7 +28,7 @@ const MealCard = ({ meal, color, status }) => {
         {/* Middle: Quick Info */}
         <div className="flex flex-col w-[30%] text-sm text-gray-600">
           <span>🍽️ {meal.amount} meals</span>
-          <span>🕒 Applied: {meal.expiration}</span>
+          <span>🕒 Applied: {format(new Date(meal.expiration), 'MM/dd/yyyy hh:mm a')}</span>
         </div>
 
         {/* Right Side: Applicants */}

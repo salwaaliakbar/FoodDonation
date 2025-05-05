@@ -2,12 +2,17 @@ import React, { useEffect } from "react";
 import MealCard from "./DonorMealCard";
 import { useData } from "../ContextAPIs/UserContext";
 import { useChange } from "../ContextAPIs/ChangeContext";
+import { format } from 'date-fns';
 
 const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   const { user } = useData();
   const {
-    isChange,
-    setIsChange,
+    isChangeActive,
+    setIsChangeActive,
+    isChangeGranted,
+    setIsChangeGranted,
+    isChangeExpired,
+    setIsChangeExpired, 
     loading,
     setLoading,
     activeMeals,
@@ -19,63 +24,73 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   } = useChange();
 
   useEffect(() => {
-    async function fetchMealData(status) {
-      try {
-        const response = await fetch(
-          `http://localhost:5000/api/getHistoy?userId=${user._id}&status=${status}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-  
-        const data = await response.json();
-        return Array.isArray(data.campaigns) ? data.campaigns : [];
-      } catch (err) {
-        console.error("Error fetching user campaigns:", err);
-        return [];
-      }
+    // Logic for blacklist meals
+    if (
+      (status === "Active" || status === "Expired") &&
+      activeMeals.length > 0
+    ) {
+      console.log('chk')
+      const now = new Date();
+      const expired = activeMeals
+        .filter((meal) => new Date(meal.expiration) <= now)
+        .map((meal) => ({ ...meal, status: "Expired" }));
+
+      const stillActive = activeMeals.filter(
+        (meal) => new Date(meal.expiration) > now
+      );
+
+      setActiveMeals(stillActive);
+      setBlacklistMeals((prev) => [...prev, ...expired]);
     }
-  
-    const fetchData = async () => {
-      setLoading(true);
-  
-      setTimeout(async () => {
+
+    //  Only fetch from DB when isChange is true
+    if (isChangeActive && status==='Active' || isChangeGranted && status==='Awarded' || isChangeExpired && status==='Expired') {
+      fetchData();
+    }
+  }, [user._id, isChangeActive, isChangeGranted, isChangeExpired, status]);
+
+  async function fetchMealData(status) {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/getHistoy?userId=${user._id}&status=${status}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+      return Array.isArray(data.campaigns) ? data.campaigns : [];
+    } catch (err) {
+      console.error("Error fetching user campaigns:", err);
+      return [];
+    }
+  }
+
+  async function fetchData() {
+    setLoading(true);
+
+    setTimeout(async () => {
+      console.log('abcd')
+      if (status === "Active") {
         const activeData = await fetchMealData("Active");
         setActiveMeals(activeData);
-  
+        setIsChangeActive(false)
+      } else if (status === "Awarded") {
         const grantedData = await fetchMealData("Awarded");
         setGrantedMeals(grantedData);
-  
+        setIsChangeGranted(false)
+      } else if (status === "Expired") {
         const expiredData = await fetchMealData("Expired");
         setBlacklistMeals(expiredData);
-  
-        setLoading(false);
-      }, 1000);
-    };
-  
-    // Logic for blacklist meals
-    const now = new Date();
-    const expired = activeMeals
-      .filter((meal) => new Date(meal.expiration) <= now)
-      .map((meal) => ({ ...meal, status: "Expired" }));
-  
-    const stillActive = activeMeals.filter(
-      (meal) => new Date(meal.expiration) > now
-    );
-  
-    setActiveMeals(stillActive);
-    setBlacklistMeals((prev) => [...prev, ...expired]);
-  
-    //  Only fetch from DB when isChange is true
-    if (isChange) {
-      fetchData();
-      setIsChange(false);
-    }
-  }, [user._id, isChange]);
-  
+        setIsChangeExpired(false)
+      }
+
+      setLoading(false);
+    }, 1000);
+  }
 
   return (
     <section className="w-full mx-auto bg-white border-[1px] border-zinc-200 rounded-xl shadow-lg mt-4 mb-4">

@@ -3,7 +3,10 @@ import { createContext, useContext, useState } from "react";
 export const ChangeContext = createContext();
 
 export const ChangeProvider = ({ children }) => {
-  const [isChange, setIsChange] = useState(true);
+  const [isChangeActive, setIsChangeActive] = useState(true)
+  const [isChangeGranted, setIsChangeGranted] = useState(true)
+  const [isChangeExpired, setIsChangeExpired] = useState(true)
+
   const [loading, setLoading] = useState(false);
   const [activeMeals, setActiveMeals] = useState([]);
   const [grantedMeals, setGrantedMeals] = useState([]);
@@ -12,8 +15,12 @@ export const ChangeProvider = ({ children }) => {
   return (
     <ChangeContext.Provider
       value={{ 
-        isChange, 
-        setIsChange, 
+        isChangeActive,
+        setIsChangeActive,
+        isChangeGranted,
+        setIsChangeGranted,
+        isChangeExpired,
+        setIsChangeExpired, 
         loading, 
         setLoading, 
         activeMeals, 
@@ -31,8 +38,12 @@ export const ChangeProvider = ({ children }) => {
 export const useChange = () => {
   const changeConsumer = useContext(ChangeContext);
   return {
-    isChange: changeConsumer.isChange,
-    setIsChange: changeConsumer.setIsChange,
+    isChangeActive: changeConsumer.isChangeActive,
+    setIsChangeActive: changeConsumer.setIsChangeActive,
+    isChangeGranted: changeConsumer.isChangeGranted,
+    setIsChangeGranted: changeConsumer.setIsChangeGranted,
+    isChangeExpired: changeConsumer.isChangeExpired,
+    setIsChangeExpired: changeConsumer.setIsChangeExpired,
     loading: changeConsumer.loading,
     setLoading: changeConsumer.setLoading,
     activeMeals: changeConsumer.activeMeals,

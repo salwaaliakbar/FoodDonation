@@ -17,11 +17,11 @@ function DonorDashboard() {
             color={"text-green-800"}
             status={'Active'}
           />
-          <ActiveMealsSection
+          {/* <ActiveMealsSection
             title={"Your Granted Meals"}
             color={"text-green-800"}
             status={'Awarded'}
-          />
+          /> */}
         </div>
       </div>
     </div>
