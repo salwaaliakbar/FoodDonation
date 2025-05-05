@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import SideBar from './SideBar'
-import Header from '../Header'
+import Header from './Header'
 import MealCard from './MealCard'
 import userPic from '/src/assets/images/user_pic.jpg';
 import Loader from '../Loader';

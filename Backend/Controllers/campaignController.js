@@ -33,8 +33,13 @@ async function campaignController(req, res) {
       description,
     });
 
-    res.status(200).json({ message: "New Campaign added successfully", success: true, newCampaign });
-    
+    res
+      .status(200)
+      .json({
+        message: "New Campaign added successfully",
+        success: true,
+        newCampaign,
+      });
   } catch (err) {
     res.status(500).json({ error: "Server Error", success: false, err });
   }

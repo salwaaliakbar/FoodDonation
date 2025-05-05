@@ -1,8 +1,12 @@
 import React from 'react'
-import userPic from '/src/assets/images/user_pic.jpg';
+import { useData } from '../ContextAPIs/UserContext';
 
 
 const Header = () => {
+    const { user } = useData();
+
+    const firstLetter = user.fullname.charAt(0).toUpperCase() || "U";
+    // console.log(user);
     return (
         <div className='flex justify-around items-center h-20 border-b-[1.5px] border-b-green-700 bg-white'>
             {/* <div className='border-2 w-[70%] flex justify-center items-center'>
@@ -37,15 +41,11 @@ const Header = () => {
             {/* User Info */}
             <div className="flex items-center border-gray-300 rounded-lg p-2">
                 <div className="mr-4 text-right">
-                    <p className="text-sm font-semibold">Name</p>
-                    <p className="text-xs text-gray-500">Recipient</p>
+                    <p className="text-sm font-semibold">{user.fullname}</p>
+                    <p className="text-xs text-gray-500">{user.role}</p>
                 </div>
-                <div>
-                    <img
-                        src={userPic}
-                        alt="User"
-                        className="w-11 h-11 rounded-full object-cover"
-                    />
+                <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
+                    {firstLetter}
                 </div>
             </div>
         </div>
