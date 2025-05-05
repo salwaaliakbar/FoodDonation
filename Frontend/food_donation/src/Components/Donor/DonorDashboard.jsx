@@ -14,12 +14,12 @@ function DonorDashboard() {
         <div className="px-4">
           <StatsSection />
           <ActiveMealsSection
-            title={"Active Meals"}
+            title={"Your Active Meals"}
             color={"text-green-800"}
             status={'Active'}
           />
           <ActiveMealsSection
-            title={"Granted Meals"}
+            title={"Your Granted Meals"}
             color={"text-green-800"}
             status={'Awarded'}
           />

@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Recipent_Dashboard from "./Components/Recipent/Recipent_Dashboard";
-import LandingPage from "./Components/Landingpage";
+import LandingPage from "./Components/LandingPage/Landingpage";
 import DonorDashboard from "./Components/Donor/DonorDashboard";
-import About from "./Components/About";
+import About from "./Components/AboutSection/About";
 import CreateCampaign from "./Components/Donor/CreateCampaign";
 import DonorProfile from './Components/Donor/DonorProfile'
 import Myprofile from "./Components/Recipent/Myprofile";
@@ -11,7 +11,7 @@ import GrantedMeals from "./Components/Recipent/GrantedMeals";
 import ActiveMeals from "./Components/Recipent/ActiveMeals";
 import DonationHistory from "./Components/Donor/DonationHistory";
 import ScrollToTop from "./Components/ScrollToTop";
-import ContactUs from "./Components/ContactUs";
+import ContactUs from "./Components/ContactUs/ContactUs";
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
           <Route path="/active" element={<ActiveMeals />} />
           <Route path="/donorDashBoard" element={<DonorDashboard />} />
           <Route path="/donorDashBoard/createCampaign" element={<CreateCampaign />} />
+          <Route path="/donorDashBoard/generalfeed" element={<GeneralFeed />}/>
           <Route path="/donorDashBoard/profile" element={<DonorProfile />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/donorDashBoard/history" element={<DonationHistory />} />

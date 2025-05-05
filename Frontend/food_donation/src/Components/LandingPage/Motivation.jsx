@@ -1,7 +1,7 @@
 import React from "react";
-import free from "../assets/images/puzzle.png";
-import donate from "../assets/images/food-donation.png";
-import help from "../assets/images/give-love.png";
+import free from "../../assets/images/puzzle.png";
+import donate from "../../assets/images/food-donation.png";
+import help from "../../assets/images/give-love.png";
 
 function Motivation() {
   return (

@@ -1,4 +1,4 @@
-import donation from "../assets/images/donation.webp";
+import donation from "../../assets/images/donation.webp";
 function OurVision() {
   return (
     <>

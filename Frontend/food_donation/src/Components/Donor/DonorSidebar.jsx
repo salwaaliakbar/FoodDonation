@@ -1,27 +1,27 @@
-import { useState } from 'react';
-import logo from '../../assets/images/logo.jpg';
-import {useData} from '../ContextAPIs/UserContext';
+import { useState } from "react";
+import logo from "../../assets/images/logo.jpg";
+import { useData } from "../ContextAPIs/UserContext";
 
 // Import FontAwesome icons CSS
 import "font-awesome/css/font-awesome.min.css";
 import { Link, useNavigate } from "react-router-dom";
-import { useChange } from '../ContextAPIs/ChangeContext';
+import { useChange } from "../ContextAPIs/ChangeContext";
 
 const DonorSidebar = () => {
   const navigate = useNavigate();
-  const { setUser } = useData()
-  const { setIsChange, setLoading } = useChange()
+  const { setUser } = useData();
+  const { setIsChange, setLoading } = useChange();
 
   const handleLogout = async () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
     if (confirmed) {
-      await fetch('http://localhost:5000/api/logout', {
-        method: 'POST',
-        credentials: 'include'
+      await fetch("http://localhost:5000/api/logout", {
+        method: "POST",
+        credentials: "include",
       });
       setUser(null);
-      setIsChange(true)
-      setLoading(false)
+      setIsChange(true);
+      setLoading(false);
       navigate("/");
     } else {
       alert("Logout cancelled");
@@ -42,48 +42,48 @@ const DonorSidebar = () => {
       <nav className="flex-1 px-4 py-6 space-y-4">
         <ul className="space-y-2">
           <li>
-            <Link to='/donorDashBoard'>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
-              <i className="fa fa-home text-lg"></i>{" "}
-              {/* Home icon for Dashboard */}
+            <Link to="/donorDashBoard">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
+                <i className="fa fa-home text-lg"></i>{" "}
+                {/* Home icon for Dashboard */}
                 Dashboard
-            </div>
+              </div>
             </Link>
           </li>
           <li>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
-              <i className="fa fa-newspaper-o text-lg"></i>{" "}
-              {/* Newspaper icon for General Feed */}
-              <a href="#" className="text-[1.1rem]">
+            <Link to="/donorDashBoard/generalfeed">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
+                <i className="fa fa-newspaper-o text-lg"></i>{" "}
+                {/* Newspaper icon for General Feed */}
                 General Feed
-              </a>
-            </div>
+              </div>
+            </Link>
           </li>
           <li>
-            <Link to='/donorDashBoard/history'>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
-              <i className="fa fa-history text-lg"></i>{" "}
-              {/* History icon for Donation History */}
+            <Link to="/donorDashBoard/history">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
+                <i className="fa fa-history text-lg"></i>{" "}
+                {/* History icon for Donation History */}
                 Donation History
-            </div>
+              </div>
             </Link>
           </li>
           <li>
             <Link to="/donorDashBoard/createCampaign">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
-              <i className="fa fa-bullhorn text-lg"></i>{" "}
-              {/* Bullhorn icon for Create Campaigns */}
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
+                <i className="fa fa-bullhorn text-lg"></i>{" "}
+                {/* Bullhorn icon for Create Campaigns */}
                 Create Campaigns
-            </div>
+              </div>
             </Link>
           </li>
           <li>
-            <Link to='/donorDashBoard/profile'>
-            <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
-              <i className="fa fa-user-circle text-lg"></i>{" "}
-              {/* User Circle icon for My Profile */}
+            <Link to="/donorDashBoard/profile">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
+                <i className="fa fa-user-circle text-lg"></i>{" "}
+                {/* User Circle icon for My Profile */}
                 My Profile
-            </div>
+              </div>
             </Link>
           </li>
         </ul>

@@ -4,7 +4,7 @@ import DonorSidebar from "./DonorSidebar";
 import { useChange } from "../ContextAPIs/ChangeContext";
 
 function CreateCampaign() {
-  const { setIsChange } = useChange()
+  const { setIsChange } = useChange();
   return (
     <Formik
       initialValues={{
@@ -14,30 +14,35 @@ function CreateCampaign() {
         expiration: "",
         mealType: "vegetarian",
         location: "",
-        phone: "", 
+        phone: "",
         description: "",
       }}
       onSubmit={async (values) => {
         try {
-          const response = await fetch("http://localhost:5000/api/createCampaign", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-            credentials: "include"
-          });
+          const response = await fetch(
+            "http://localhost:5000/api/createCampaign",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(values),
+              credentials: "include",
+            }
+          );
 
-          const data = await response.json()
+          const data = await response.json();
           if (data.success) {
-            alert('New campaign added successfully')
-            setIsChange(true)
+            alert("New campaign added successfully");
+            setIsChange(true);
           } else {
             alert("Error during new campaign creation ", data.error);
           }
         } catch (error) {
           console.error("Error during new campaign creation:", err);
-          alert("An error occurred during new campaign creation. Please try again.");
+          alert(
+            "An error occurred during new campaign creation. Please try again."
+          );
         }
       }}
       validationSchema={CampaignSchema}

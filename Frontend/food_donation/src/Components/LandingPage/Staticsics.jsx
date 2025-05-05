@@ -1,7 +1,7 @@
-import pic1 from "../assets/images/growth.png";
-import pic2 from "../assets/images/donors.png";
-import pic3 from "../assets/images/puzzle-pieces.png";
-import pic4 from "../assets/images/database-file.png";
+import pic1 from "../../assets/images/growth.png";
+import pic2 from "../../assets/images/donors.png";
+import pic3 from "../../assets/images/puzzle-pieces.png";
+import pic4 from "../../assets/images/database-file.png";
 import {
   AreaChart,
   Area,
