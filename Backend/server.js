@@ -4,6 +4,7 @@ const connectDB = require("./config/db");
 const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const donorRoutes = require("./routes/donorRoutes");
+const recipentRoutes = require("./routes/recipentRoutes");
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(authRoutes);
 app.use(donorRoutes);
+app.use(recipentRoutes);
 
 const startServer = async () => {
   try {

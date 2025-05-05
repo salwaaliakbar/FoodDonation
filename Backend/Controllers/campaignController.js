@@ -1,7 +1,16 @@
 const campaignModel = require("../Models/campaignModel");
 
 async function campaignController(req, res) {
-  const { title, foodType, amount, expiration, mealType, location, phone, description } = req.body;
+  const {
+    title,
+    foodType,
+    amount,
+    expiration,
+    mealType,
+    location,
+    phone,
+    description,
+  } = req.body;
   try {
     const newCampaign = await campaignModel.create({
       createdBy: req.user._id,
@@ -11,13 +20,17 @@ async function campaignController(req, res) {
       expiration,
       mealType,
       location,
-      status: 'Expired',
+      status: "Active",
       phone,
-      description
+      description,
     });
     res
       .status(200)
-      .json({ message: "New Campaign added successfully",success:true , newCampaign });
+      .json({
+        message: "New Campaign added successfully",
+        success: true,
+        newCampaign,
+      });
   } catch (err) {
     res.status(500).json({ error: "Server Error", err, success: false });
   }

@@ -6,7 +6,7 @@ import About from "./Components/About";
 import CreateCampaign from "./Components/Donor/CreateCampaign";
 import DonorProfile from './Components/Donor/DonorProfile'
 import Myprofile from "./Components/Recipent/Myprofile";
-import GeneralFeed from "./Components/GeneralFeed";
+import GeneralFeed from "./Components/Recipent/GeneralFeed";
 import GrantedMeals from "./Components/Recipent/GrantedMeals";
 import ActiveMeals from "./Components/Recipent/ActiveMeals";
 import DonationHistory from "./Components/Donor/DonationHistory";

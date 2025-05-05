@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
-import Header from '../Header'
+import Header from './Header'
 import SideBar from './SideBar'
 import StatsSection from '../StatsSection'
 import ActiveMealsSection from '../ActiveMealsSection'
 import userPic from '/src/assets/images/user_pic.jpg';
+import { useData } from '../ContextAPIs/UserContext'
 
 
 
 function Recipent_Dashboard() {
+
+    const { user } = useData();
 
     const [activeMeals, setActiveMeals] = useState([
         {

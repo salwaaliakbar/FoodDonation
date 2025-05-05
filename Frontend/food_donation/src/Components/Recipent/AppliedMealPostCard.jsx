@@ -1,12 +1,16 @@
 import React from 'react'
 import { useState } from 'react';
+import { useData } from '../ContextAPIs/UserContext';
 
 const AppliedMealPostCard = ({ mealData }) => {
 
     const [expanded, setExpanded] = useState(false);
+    const { user } = useData();
+
+    const firstLetter = user.fullname.charAt(0).toUpperCase() || "U";
+
 
     const {
-        donorPic,
         donorName,
         mealTitle,
         mealDescription,
@@ -27,9 +31,10 @@ const AppliedMealPostCard = ({ mealData }) => {
             onClick={() => setExpanded(prev => !prev)}
             className="bg-white rounded-lg shadow-md p-6 mb-4 w-full cursor-pointer transition-all duration-1000"
         >
-            <div className="flex items-center mb-3">
-                <img src={donorPic} alt="Donor" className="w-12 h-12 rounded-full mr-3 border-[1px] border-black object-cover" />
-                <div>
+            <div className="flex items-center gap-2 mb-3">
+                <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
+                    {firstLetter}
+                </div>                <div>
                     <h3 className="text-lg font-bold">{donorName}</h3>
                     <p className="text-gray-500 text-sm">{location}</p>
                 </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import SideBar from './SideBar'
-import Header from '../Header'
+import Header from './Header'
 import userPic from '/src/assets/images/user_pic.jpg';
 import penPic from '/src/assets/images/call.png'
 

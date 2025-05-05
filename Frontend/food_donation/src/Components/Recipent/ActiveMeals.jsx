@@ -1,58 +1,49 @@
 import { useState, useEffect } from 'react'
 import React from 'react'
 import SideBar from './SideBar'
-import Header from '../Header'
+import Header from './Header'
 import Loader from '../Loader'
 import AppliedMealPostCard from './AppliedMealPostCard'
+import { useData } from '../ContextAPIs/UserContext'
 
 const ActiveMeals = () => {
     const [loading, setLoading] = useState(true);
-    const [mealPosts, setMealPosts] = useState([]);
+    const [mealPosts, setMealPosts] = useState();
+    const { user } = useData()
 
     useEffect(() => {
-        setTimeout(() => {
-            setMealPosts([
-                {
-                    id: 1,
-                    donorPic: '/src/assets/images/user_pic.jpg',
-                    donorName: 'Alice Johnson',
-                    mealTitle: 'Fresh Homemade Pasta',
-                    mealDescription: 'Delicious handmade pasta with a rich tomato sauce, suitable for a family.',
-                    personCount: 4,
-                    location: 'New York, NY',
-                    postedAt: '2 hours ago',
-                    applicants: 4,
-                    applied: true,
-                    status: 'Active',
-                    appliedAt: '20 May',
-                    appliedDetails: [
-                        { name: 'John Doe', count: 1 },
-                        { name: 'Emily Brown', count: 2 },
-                        { name: 'Chris Green', count: 1 },
-                        { name: 'Myname', count: 2 }
-                    ]
-                },
-                {
-                    id: 2,
-                    donorPic: '/src/assets/images/user_pic.jpg',
-                    donorName: 'Mark Smith',
-                    mealTitle: 'Vegan Buddha Bowls',
-                    mealDescription: 'Nutritious vegan bowls packed with fresh veggies and grains.',
-                    personCount: 2,
-                    location: 'San Francisco, CA',
-                    postedAt: '5 hours ago',
-                    applicants: 3,
-                    applied: true,
-                    status: 'Active',
-                    appliedAt: '20 May',
-                    appliedDetails: [
-                        { name: 'Anna Lee', count: 1 },
-                        { name: 'David White', count: 1 },
-                        { name: 'Myname', count: 2 }
-                    ]
+
+        async function fetchActiveMeals() {
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/activeFeed?userId=${user._id}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    // use result.campaigns
+                    // console.log(result);
+                    return result.campaigns;
+                } else {
+                    console.log("Error:", result.error);
                 }
-            ]);
-            setLoading(false);
+            } catch (error) {
+                console.error("Fetch error:", error);
+            }
+
+        }
+
+        setTimeout(() => {
+            const result = fetchActiveMeals();
+            console.log(result);
+            setMealPosts(result)
+            console.log(mealPosts);
+            setLoading(true);
         }, 1000);
     }, []);
 
