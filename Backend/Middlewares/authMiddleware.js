@@ -5,6 +5,7 @@ const userModel = require('../Models/userModel');
 const SECRET_KEY = process.env.JWT_SECRET;
 
 const authMiddleware = async (req, res, next) => {
+    console.log('inside middleware')
     const token = req.cookies.authToken;
 
     if (!token) {

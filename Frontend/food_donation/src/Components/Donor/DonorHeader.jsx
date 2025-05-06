@@ -3,7 +3,9 @@ import { useData } from "../ContextAPIs/UserContext";
 
 const Header = () => {
   const { user } = useData();
-  const firstLetter = user.fullname ? user.fullname.charAt(0).toUpperCase() : "U";
+  const firstLetter = user?.fullname
+  ? user?.fullname.charAt(0).toUpperCase()
+  : "U";
   return (
     <div className="flex justify-around items-center h-20 border-b-[1.5px] border-b-green-700 bg-white">
       <div className="flex items-center border-2 border-gray-300 rounded-lg p-2 w-[50%]">
@@ -35,8 +37,8 @@ const Header = () => {
       {/* User Info */}
       <div className=" ml-25 flex items-center border-gray-300 rounded-lg p-2">
         <div className="mr-4 text-right">
-          <p className="text-md font-semibold">{user.fullname}</p>
-          <p className="text-sm text-gray-500">{user.role}</p>
+          <p className="text-md font-semibold">{user?.fullname}</p>
+          <p className="text-sm text-gray-500">{user?.role}</p>
         </div>
         <div>
           <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">

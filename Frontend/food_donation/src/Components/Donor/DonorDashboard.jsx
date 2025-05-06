@@ -5,7 +5,6 @@ import ActiveMealsSection from "./DonorActiveMealsSection";
 import DonorSidebar from "./DonorSidebar";
 
 function DonorDashboard() {
-  // console.log(user);
   return (
     <div className="flex">
       <DonorSidebar />

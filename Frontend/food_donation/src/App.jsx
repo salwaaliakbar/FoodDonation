@@ -12,8 +12,43 @@ import ActiveMeals from "./Components/Recipent/ActiveMeals";
 import DonationHistory from "./Components/Donor/DonationHistory";
 import ScrollToTop from "./Components/ScrollToTop";
 import ContactUs from "./Components/ContactUs/ContactUs";
+import DonorGeneralFeed from './Components/Donor/DonorGeneralFeed'
+import { useEffect } from "react";
+import { useData } from "./Components/ContextAPIs/UserContext"; 
+import { useChange } from "./Components/ContextAPIs/ChangeContext";
 
 function App() {
+  const { setUser} = useData()
+  const { setActiveMeals, setGrantedMeals, setBlacklistMeals} = useChange()
+  useEffect(()=>{
+    console.log('running')
+    try{
+      async function restoreSession(){
+        const response = await fetch('http://localhost:5000/api/refresh',{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: 'include'
+        })
+        console.log('hello dtaa')
+        const data = await response.json()
+        console.log(data)
+        if(data.success){
+          setUser(data.userDetails)
+          setActiveMeals(data.activeMeals)
+          setGrantedMeals(data.grantedMeals)
+          setBlacklistMeals(data.blacklistMeals)
+        } else{
+          alert("Failed to restore session", err)
+        }    
+      }
+      restoreSession()
+    } catch (err) {
+      console.error("Error during session restore:", err);
+      alert("An error occurred during session restore. Please try again.");
+    }
+  },[])
   return (
     <>
       <BrowserRouter>
@@ -28,7 +63,7 @@ function App() {
           <Route path="/active" element={<ActiveMeals />} />
           <Route path="/donorDashBoard" element={<DonorDashboard />} />
           <Route path="/donorDashBoard/createCampaign" element={<CreateCampaign />} />
-          <Route path="/donorDashBoard/generalfeed" element={<GeneralFeed />}/>
+          <Route path="/donorDashBoard/generalfeed" element={<DonorGeneralFeed/>}/>
           <Route path="/donorDashBoard/profile" element={<DonorProfile />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/donorDashBoard/history" element={<DonationHistory />} />

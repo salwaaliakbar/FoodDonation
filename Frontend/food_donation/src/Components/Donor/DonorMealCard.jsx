@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { format } from 'date-fns';
 
-const MealCard = ({ meal, color, status }) => {
+const MealCard = ({ meal, color }) => {
   const [expanded, setExpanded] = useState(false);
   const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
 
@@ -28,23 +28,39 @@ const MealCard = ({ meal, color, status }) => {
         {/* Middle: Quick Info */}
         <div className="flex flex-col w-[30%] text-sm text-gray-600">
           <span>🍽️ {meal.amount} meals</span>
-          <span>🕒 Applied: {format(new Date(meal.expiration), 'MM/dd/yyyy hh:mm a')}</span>
+          <span>🕒 Created At: {format(new Date(meal.createdAt), 'MM/dd/yyyy hh:mm a')}</span>
         </div>
 
         {/* Right Side: Applicants */}
         <div className="w-[20%]  text-right">
-          {meal.granted ? (
-            <span>
-              ✅ {status} <p className="text-green-600">{meal.status}</p>
-            </span>
-          ) : (
+        {meal.status === 'Active' && (
             <>
               <span>
-                ✅ {status} <p className="text-green-600">{meal.status}</p>
+                ✅ {meal.status} <p className="text-green-600"></p>
               </span>
               <p className=" text-amber-600">
                 👥 {meal.totalApplicants} applicants{" "}
               </p>
+            </>
+          )}
+          {meal.status === 'Awarded' && (
+            <>
+              <span>
+              🏅 {meal.status} <p className="text-green-600"></p>
+              </span>
+              <p className=" text-amber-600">
+                {/* 👥 {meal.totalApplicants} applicants{" "} */}{'Sara Khan'}
+              </p>
+            </>
+          )}
+          {meal.status === 'Expired' && (
+            <>
+              <span>
+              ❌ {meal.status} <p className="text-green-600"></p>
+              </span>
+              {/* <p className=" text-amber-600">
+                👥 {meal.totalApplicants} applicants{" "}
+              </p> */}
             </>
           )}
         </div>
