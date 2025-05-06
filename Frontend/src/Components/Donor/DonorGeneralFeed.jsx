@@ -5,7 +5,7 @@ import { useData } from "../ContextAPIs/UserContext";
 import Loader from "../Loader";
 import MealPostCard from "../Recipent/MealPostCard";
 
-const DonorGeneralFeed = () => {
+function DonorGeneralFeed() {
   const [loading, setLoading] = useState(true);
   const [mealPosts, setMealPosts] = useState([]);
   const { user } = useData();
@@ -76,15 +76,16 @@ const DonorGeneralFeed = () => {
             ))}
           </div>
         ) : (
-          <div className="w-[94%] min-h-[70vh] m-auto">
-            <div className="bg-white rounded-lg shadow-md p-6 mb-4 w-full cursor-pointer">
-              <h1>There is no any Data</h1>
-            </div>
+          <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+            <p className="text-lg font-semibold">No meals to display</p>
+            <p className="text-sm">
+              Once meals are added, they’ll appear here in your feed.
+            </p>
           </div>
         )}
       </div>
     </div>
   );
-};
+}
 
 export default DonorGeneralFeed;
