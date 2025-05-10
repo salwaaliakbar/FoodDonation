@@ -16,7 +16,7 @@ function ContactUs() {
               Get in Touch
             </h1>
             <p className="text-lg md:text-xl text-white max-w-2xl mx-auto">
-              Have questions about donating food or volunteering? We're here to
+              Have questions about donating food or receiveing food? We're here to
               help you make a difference in our community.
             </p>
           </div>

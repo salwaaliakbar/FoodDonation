@@ -16,6 +16,7 @@ import DonorGeneralFeed from './Components/Donor/DonorGeneralFeed'
 import { useEffect } from "react";
 import { useData } from "./Components/ContextAPIs/UserContext"; 
 import { useChange } from "./Components/ContextAPIs/ChangeContext";
+import Services from "./Components/ServicesSection/Services";
 
 function App() {
   const { setUser} = useData()
@@ -39,9 +40,7 @@ function App() {
           setActiveMeals(data.activeMeals)
           setGrantedMeals(data.grantedMeals)
           setBlacklistMeals(data.blacklistMeals)
-        } else{
-          alert("Failed to restore session", err)
-        }    
+        } 
       }
       restoreSession()
     } catch (err) {
@@ -56,6 +55,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services/>}/>
           <Route path="/recipent" element={<Recipent_Dashboard />} />
           <Route path="/recipent/profile" element={<Myprofile />} />
           <Route path="/generalfeed" element={<GeneralFeed />} />

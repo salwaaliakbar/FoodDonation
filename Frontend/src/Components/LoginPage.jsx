@@ -2,10 +2,19 @@ import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
 import { useNavigate } from 'react-router-dom';
 import { useData } from "./ContextAPIs/UserContext";
+import { useEffect } from "react";
 
 function Login({ setIsLogin, setIsSignup }) {
   const navigate = useNavigate()
-  const { user, setUser } = useData()
+  const { setUser } = useData()
+
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
+  
   return (
     <>
       <div className="fixed inset-0 bg-black opacity-60 z-10"></div>

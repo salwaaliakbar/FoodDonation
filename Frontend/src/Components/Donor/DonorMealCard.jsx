@@ -76,7 +76,7 @@ const MealCard = ({ meal, color }) => {
             <strong>Location:</strong> {meal.location}
           </p>
           <p>
-            <strong>Posted On:</strong> {meal.expiration}
+            <strong>Expired On: </strong> {format(new Date(meal.expiration), 'MM/dd/yyyy hh:mm a')}
           </p>
         </div>
       )}

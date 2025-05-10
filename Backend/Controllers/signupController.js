@@ -30,6 +30,7 @@ async function signup(req, res) {
       password: hashedPassword,
       confrimPassword: hashedPassword,
     });
+    console.log('chk1');
 
     // Generate New Token for first time user
     const token = jwt.sign(
@@ -55,6 +56,7 @@ async function signup(req, res) {
         user: newuser
       });
   } catch (err) {
+    console.log('cathxh ere')
     res.status(500).json({ error: "Server error ", err, success: false });
   }
 }

@@ -35,9 +35,11 @@ function Navbar() {
                 About
               </li>
             </Link>
-            <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
-              Services
-            </li>
+            <Link to="/services">
+              <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
+                Services
+              </li>
+            </Link>
             <Link to="/contact">
               <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
                 Contact Us

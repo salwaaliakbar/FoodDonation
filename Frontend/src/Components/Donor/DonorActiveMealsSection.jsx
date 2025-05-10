@@ -55,7 +55,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   async function fetchMealData(status) {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/getHistoy?userId=${user._id}&status=${status}`,
+        `http://localhost:5000/api/getHistoy?userId=${user?._id}&status=${status}`,
         {
           method: "GET",
           headers: {
