@@ -4,16 +4,18 @@ import { useState, useEffect } from "react";
 import { useData } from "../ContextAPIs/UserContext";
 import Loader from "../Loader";
 import MealPostCard from "../Recipent/MealPostCard";
+import { useSecureFetch } from "../Refresh/SecureFetch";
 
 function DonorGeneralFeed() {
   const [loading, setLoading] = useState(true);
   const [mealPosts, setMealPosts] = useState([]);
   const { user } = useData();
+  const secureFetch = useSecureFetch()
 
   useEffect(() => {
     async function fetchMealFeedData() {
       try {
-        const response = await fetch(
+        const data = await secureFetch(
           `http://localhost:5000/api/generalFeed?userId=${
             user._id
           }&status=${"Active"}`,
@@ -25,8 +27,7 @@ function DonorGeneralFeed() {
             credentials: "include",
           }
         );
-
-        const data = await response.json();
+        
         // console.log(data.message);  // Error Message or Replied Message from server
         return Array.isArray(data.campaigns) ? data.campaigns : [];
       } catch (err) {

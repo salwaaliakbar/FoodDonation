@@ -8,7 +8,7 @@ function DonorDashboard() {
   return (
     <div className="flex">
       <DonorSidebar />
-      <div className="w-[80%] absolute right-0 bg-gray-200">
+      <div className="w-[80%] absolute right-0 bg-gray-200 min-h-screen">
         <Header />
         <div className="px-4">
           <StatsSection />

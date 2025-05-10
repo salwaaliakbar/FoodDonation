@@ -2,9 +2,12 @@ import React, { useEffect } from "react";
 import MealCard from "./DonorMealCard";
 import { useData } from "../ContextAPIs/UserContext";
 import { useChange } from "../ContextAPIs/ChangeContext";
+import { useSecureFetch } from "../Refresh/SecureFetch";
 
 const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   const { user } = useData();
+  const secureFetch = useSecureFetch()
+  
   const {
     isChangeActive,
     setIsChangeActive,
@@ -54,7 +57,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
 
   async function fetchMealData(status) {
     try {
-      const response = await fetch(
+      const data = await secureFetch(
         `http://localhost:5000/api/getHistoy?userId=${user?._id}&status=${status}`,
         {
           method: "GET",
@@ -64,7 +67,6 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
         }
       );
 
-      const data = await response.json();
       return Array.isArray(data.campaigns) ? data.campaigns : [];
     } catch (err) {
       console.error("Error fetching user campaigns:", err);

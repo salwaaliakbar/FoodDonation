@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import SideBar from "./DonorSidebar";
 import Header from "./DonorHeader";
-import { Phone, Mail, User, Building } from "lucide-react"; // Import Lucide icons
+import { Phone, Mail, User, Building } from "lucide-react";
 import { useData } from "../ContextAPIs/UserContext";
+import { useSecureFetch } from "../Refresh/SecureFetch";
 
 const Myprofile = () => {
   const { user, setUser } = useData();
   const [edit, setEdit] = useState(false);
+  const secureFetch = useSecureFetch()
 
   function handleInput(e) {
     const { name, value } = e.target;
@@ -19,7 +21,7 @@ const Myprofile = () => {
 
   async function handleSubmit() {
     try {
-      const response = await fetch("http://localhost:5000/api/updateProfile", {
+      const data = await secureFetch("http://localhost:5000/api/updateProfile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +29,6 @@ const Myprofile = () => {
         body: JSON.stringify(user),
         credentials: 'include',
       });
-      const data = await response.json();
       console.log(data)
       if (data.success) {
         alert("Profile Updated Successfully");

@@ -2,7 +2,7 @@ const userModel = require("../Models/userModel");
 const campaignModel = require("../Models/campaignModel");
 
 async function refresh(req, res) {
-    console.log('inside controller')
+  console.log("inside controller");
   try {
     const user = req.user;
 
@@ -26,15 +26,23 @@ async function refresh(req, res) {
       .populate("createdBy", "fullname")
       .sort({ createdAt: -1 })
       .exec();
-      
+
     const blacklistMeals = await campaignModel
       .find({ createdBy: user._id, status: "Expired" })
       .populate("createdBy", "fullname")
       .sort({ createdAt: -1 })
       .exec();
 
-      res.status(200).json({message:'Data fetch successfully', success: true, userDetails, activeMeals, grantedMeals, blacklistMeals})
-
+    res
+      .status(200)
+      .json({
+        message: "Data fetch successfully",
+        success: true,
+        userDetails,
+        activeMeals,
+        grantedMeals,
+        blacklistMeals,
+      });
   } catch (err) {
     console.error("Error refreshing data:", err);
     res.status(500).json({ success: false, error: "Server error", err });

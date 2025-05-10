@@ -2,9 +2,11 @@ import { Field, Formik, Form } from "formik";
 import CampaignSchema from "../../Components/YupSchemas/CampaignSchema";
 import DonorSidebar from "./DonorSidebar";
 import { useChange } from "../ContextAPIs/ChangeContext";
+import { useSecureFetch } from "../Refresh/SecureFetch";
 
 function CreateCampaign() {
   const { setIsChangeActive } = useChange();
+  const secureFetch = useSecureFetch()
   return (
     <Formik
       initialValues={{
@@ -19,7 +21,7 @@ function CreateCampaign() {
       }}
       onSubmit={async (values) => {
         try {
-          const response = await fetch(
+          const data = await secureFetch(
             "http://localhost:5000/api/createCampaign",
             {
               method: "POST",
@@ -31,7 +33,6 @@ function CreateCampaign() {
             }
           );
 
-          const data = await response.json();
           if (data.success) {
             alert("New campaign added successfully");
             setIsChangeActive(true);

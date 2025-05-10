@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./App.jsx";
 import { UserProvider } from "./Components/ContextAPIs/UserContext.jsx";
 import { ChangeProvider } from "./Components/ContextAPIs/ChangeContext.jsx";
+import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")).render(
-  <UserProvider>
-    <ChangeProvider>
-      {/* <StrictMode> */}
-      <App />
-      {/* </StrictMode> */}
-    </ChangeProvider>
-  </UserProvider>
+  <BrowserRouter>
+    <UserProvider>
+      <ChangeProvider>
+       {/* <StrictMode> */}
+        <App />
+        {/* </StrictMode> */}
+      </ChangeProvider>
+    </UserProvider>
+  </BrowserRouter>
 );
