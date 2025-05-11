@@ -6,19 +6,20 @@ import { useData } from "./ContextAPIs/UserContext";
 import { useEffect } from "react";
 
 function SignUpPage({ setIsLogin, setIsSignup }) {
-  const navigate = useNavigate()
-  const { setUser } = useData()
+  const navigate = useNavigate();
+  const { setUser } = useData();
 
   useEffect(() => {
-      document.body.classList.add("overflow-hidden");
-      return () => {
-        document.body.classList.remove("overflow-hidden");
-      };
-    }, []);
+    document.body.classList.add("overflow-hidden");
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
+
   return (
     <>
       <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
-      <div className="fixed inset-0 flex justify-center items-center z-20">
+      <div className="fixed inset-0 flex justify-center items-center z-20 px-4 sm:px-6 lg:px-8">
         <Formik
           initialValues={{
             fullname: "",
@@ -31,7 +32,6 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
             confrimPassword: "",
           }}
           onSubmit={async (values) => {
-            // Perform signup logic here
             try {
               const response = await fetch("http://localhost:5000/api/signup", {
                 method: "POST",
@@ -39,16 +39,15 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
-                credentials: "include"
+                credentials: "include",
               });
 
               const data = await response.json();
               if (data.success) {
-                alert("Registration Successfull");
+                alert("Registration Successful");
                 setIsSignup(false);
                 setIsLogin(true);
-                // set signup user data into context
-                setUser(data.user)
+                setUser(data.user);
                 if (data.user.role === "donor") {
                   navigate("/donorDashBoard");
                 } else {
@@ -65,7 +64,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
           validationSchema={ValidationSchema}
         >
           {({ errors, touched }) => (
-            <Form className="bg-white shadow-2xl rounded-2xl w-full max-w-lg h-4xl flex flex-col justify-between relative px-8 py-4">
+            <Form className="bg-white shadow-2xl rounded-2xl w-full max-w-lg sm:max-w-xl lg:max-w-lg h-auto flex flex-col justify-between relative px-6 sm:px-8 py-4">
               <button
                 type="button"
                 onClick={() => setIsSignup(false)}
@@ -74,14 +73,14 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 &times;
               </button>
 
-              <div className="relative ">
+              <div className="relative">
                 <h1 className="text-3xl text-center font-bold mb-2 text-green-800 py-2">
                   Register Yourself
                 </h1>
               </div>
 
-              <div className="flex space-x-2 py-2">
-                <div className="relative w-1/2">
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 py-2">
+                <div className="relative w-full sm:w-1/2">
                   <i className="fa fa-user absolute left-3 top-3 text-gray-400"></i>
                   <Field
                     name="fullname"
@@ -95,7 +94,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                   ) : null}
                 </div>
 
-                <div className="relative w-1/2">
+                <div className="relative w-full sm:w-1/2">
                   <i className="fa fa-envelope absolute left-3 top-3 text-gray-400"></i>
                   <Field
                     name="email"
@@ -108,8 +107,8 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 </div>
               </div>
 
-              <div className="flex space-x-2 py-2">
-                <div className="relative w-1/2">
+              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 py-2">
+                <div className="relative w-full sm:w-1/2">
                   <i className="fa fa-phone absolute left-3 top-3 text-gray-400"></i>
                   <Field
                     name="phone"
@@ -121,7 +120,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                   ) : null}
                 </div>
 
-                <div className="relative w-1/2">
+                <div className="relative w-full sm:w-1/2">
                   <i className="fa fa-building absolute left-3 top-3 text-gray-400"></i>
                   <Field
                     name="organization"
@@ -136,11 +135,11 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 </div>
               </div>
 
-              <div className="relative flex py-2">
-                <label className="block text-gray-700 font-bold mx-15">
+              <div className="relative flex flex-col sm:flex-row items-start sm:items-center py-2">
+                <label className="block text-gray-700 font-bold mb-2 sm:mb-0 sm:mr-4">
                   Role
                 </label>
-                <div className="flex space-x-10">
+                <div className="flex space-x-4">
                   <div className="flex items-center">
                     <Field
                       type="radio"
@@ -162,7 +161,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 </div>
               </div>
               {errors.role && touched.role ? (
-                <div className="text-red-600 text-sm mx-15">{errors.role}</div>
+                <div className="text-red-600 text-sm">{errors.role}</div>
               ) : null}
 
               <div className="relative py-2">

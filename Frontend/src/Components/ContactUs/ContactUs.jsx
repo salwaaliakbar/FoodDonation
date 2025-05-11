@@ -16,14 +16,14 @@ function ContactUs() {
               Get in Touch
             </h1>
             <p className="text-lg md:text-xl text-white max-w-2xl mx-auto">
-              Have questions about donating food or receiveing food? We're here to
+              Have questions about donating food or receiving food? We're here to
               help you make a difference in our community.
             </p>
           </div>
         </div>
         {/* contact form and information */}
-        <div className="flex">
-          <div>
+        <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-10 px-4 md:px-10 lg:px-20 py-10 mx-2">
+          <div className="w-full lg:w-1/2">
             <Formik
               initialValues={{
                 fullname: "",
@@ -33,12 +33,11 @@ function ContactUs() {
               }}
               onSubmit={() => {
                 alert("Your message sent successfully");
-                setIsContact(false);
               }}
               validationSchema={ContactusSchema}
             >
               {({ errors, touched }) => (
-                <Form className="border-green-200 border-[1.5px] rounded-2xl shadow-2xl w-[500px] h-[520px] mx-30 my-15 p-10">
+                <Form className="border-green-200 border-[1.5px] rounded-2xl shadow-2xl w-full max-w-md mx-auto p-6">
                   <h1 className="text-3xl text-center mb-4 text-green-800 font-bold">
                     Send Us a Message
                   </h1>
@@ -110,8 +109,8 @@ function ContactUs() {
               )}
             </Formik>
           </div>
-          <div>
-            <h2 className="text-3xl text-center mb-10 text-green-800 font-bold mt-25">
+          <div className="w-full lg:w-1/2 px-3">
+            <h2 className="text-3xl text-left mb-10 text-green-800 font-bold">
               Contact Information
             </h2>
             <div className="space-y-6">

@@ -15,7 +15,7 @@ function JoinMission() {
             a real difference in someone's life. Together, we can create a hunger-free community.
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto px-2">
             <div className="bg-white/20 rounded-xl p-8">
               <HandHeart className="h-12 w-12 mx-auto mb-4" />
               <h3 className="text-2xl font-bold mb-4">Become a Donor</h3>

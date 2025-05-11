@@ -47,7 +47,7 @@ return (
                         </div>
                     ))}
                 </div>
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap md:flex-row flex-col gap-4">
                     <span className="px-6 py-3 bg-white/20 rounded-full text-lg">Food Rescue</span>
                     <span className="px-6 py-3 bg-white/20 rounded-full text-lg">Community Support</span>
                     <span className="px-6 py-3 bg-white/20 rounded-full text-lg">Zero Waste</span>

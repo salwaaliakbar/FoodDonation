@@ -18,7 +18,7 @@ function Login({ setIsLogin, setIsSignup }) {
   return (
     <>
       <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
-      <div className="fixed inset-12 flex justify-center items-start pt-8 z-20">
+      <div className="fixed md:inset-12 inset-6 flex justify-center items-start pt-8 z-20">
         <Formik
           initialValues={{ username: "", password: "" }}
           onSubmit={async (values) => {
@@ -32,7 +32,9 @@ function Login({ setIsLogin, setIsSignup }) {
                 body: JSON.stringify(values),
                 credentials: "include"
               });
-
+                if (!response.ok) {
+                throw new Error("Network response was not ok");
+                }
               const data = await response.json();
               if (data.success) {
                 alert("Login successful!");
@@ -58,7 +60,7 @@ function Login({ setIsLogin, setIsSignup }) {
           }}
         >
           {() => (
-            <Form className="bg-white shadow-2xl rounded-2xl p-10 w-96 z-20 relative">
+            <Form className="bg-white shadow-2xl rounded-2xl md:p-10 px-5 py-10 w-92 z-20 relative">
               <button
                 type="button"
                 onClick={() => setIsLogin(false)}

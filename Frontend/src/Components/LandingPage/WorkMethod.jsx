@@ -15,11 +15,9 @@ function WorkMethod() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-15 max-w-6xl mx-30">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Donors Section */}
-            <div
-              className="p-8  shadow-lg transition-all duration-300 border-2 border-green-500 rounded-lg" 
-            >
+            <div className="p-8 mx-3 md:ml-15 shadow-lg transition-all duration-300 border-2 border-green-500 rounded-lg">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-green-200 rounded-full">
                   <img src={gift} className="w-6 h-6" />
@@ -53,10 +51,10 @@ function WorkMethod() {
             </div>
 
             {/* Recipients Section */}
-            <div className="p-8  shadow-lg transition-all duration-300 border-2 border-green-500 rounded-lg">
+            <div className="p-8 mx-3 md:mr-15 shadow-lg transition-all duration-300 border-2 border-green-500 rounded-lg">
               <div className="flex items-center gap-3 mb-6">
                 <div className="p-3 bg-green-200 rounded-full">
-                  <img src={search} className="w-6 h-6 " />
+                  <img src={search} className="w-6 h-6" />
                 </div>
                 <h2 className="text-2xl font-semibold text-gray-800">
                   For Recipients

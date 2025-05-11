@@ -5,9 +5,9 @@ import OurServices  from "./Ourservices";
 import Introduction from "./Introduction";
 import JoinMission from "../AboutSection/JoinMission";
 
-const Services = () => {
+function Services () {
   return (
-    <div className="">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       <div className="bg-green-800 pt-15 pb-12 md:pb-24">
         <div className="mx-auto px-4 md:px-6 text-center">
@@ -20,9 +20,11 @@ const Services = () => {
           </p>
         </div>
       </div>
-      <Introduction />
-      <JoinMission/>
-      <OurServices />
+      <div className="flex-grow">
+        <Introduction />
+        <JoinMission />
+        <OurServices />
+      </div>
       <Footer />
     </div>
   );

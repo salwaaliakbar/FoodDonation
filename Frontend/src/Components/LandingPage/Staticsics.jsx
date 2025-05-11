@@ -23,7 +23,7 @@ function Staticics() {
   return (
     <>
       <div className="py-16 text-center">
-        <div className="mb-20">
+        <div className="mb-20 mx-2">
           <h2 className="text-4xl font-bold text-gray-800 mb-6">
             Food Secure Impact at a Glance
           </h2>
@@ -34,7 +34,7 @@ function Staticics() {
         </div>
 
         {/* growth chart */}
-        <div>
+        <div className="mx-2">
           <div className="bg-gradient-to-r from-orange-100/30 to-yellow-100/30 rounded-2xl shadow-lg max-w-5xl mx-auto py-10 px-6 mb-10 flex flex-col items-center border-2 border-orange-200">
             <ResponsiveContainer width="100%" minHeight={220} height={260}>
               <AreaChart
@@ -55,7 +55,6 @@ function Staticics() {
                     borderRadius: 10,
                     boxShadow: "0 4px 24px #0002",
                   }}
-                  //   formatter={(value: number) => value.toLocaleString()}
                 />
                 <Area
                   type="monotone"
@@ -73,9 +72,9 @@ function Staticics() {
           </div>
         </div>
 
-        {/* horizantal area */}
-        <div className="grid grid-cols-4 mt-20 bg-amber-100 pl-7">
-          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-2 m-10">
+        {/* horizontal area */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-20 bg-amber-100 p-4">
+          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-2 m-4">
             <span className="rounded-full bg-white/80 p-2 shadow-md">
               <img src={pic1} className="w-8 h-8" />
             </span>
@@ -89,7 +88,7 @@ function Staticics() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-2 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-2 m-4">
             <span className="rounded-full bg-white/80 p-2 shadow-md">
               <img src={pic2} className="w-8 h-8" />
             </span>
@@ -103,7 +102,7 @@ function Staticics() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-2 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-2 m-4">
             <span className="rounded-full bg-white/80 p-2 shadow-md">
               <img src={pic3} className="w-8 h-8" />
             </span>
@@ -117,7 +116,7 @@ function Staticics() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-end gap-2 md:gap-2 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-2 m-4">
             <span className="rounded-full bg-white/80 p-2 shadow-md">
               <img src={pic4} className="w-8 h-8" />
             </span>
