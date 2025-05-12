@@ -32,40 +32,40 @@ export default function StatsSection() {
   const COLORS = ['#15803d', '#d1d5db'] // green-700 and light gray
 
   return (
-    <div className='flex w-full h-[50vh] gap-4  mt-4'>
+    <div className='flex flex-col lg:flex-row w-full h-auto lg:h-[50vh] gap-4 mt-4'>
       {/* Pie Chart Section */}
-        <div className='w-[30%] bg-white rounded-xl shadow-md p-4 flex flex-col justify-between'>
-          <div className='flex justify-between items-center text-sm text-gray-500'>
-            <h2 className='text-green-700 font-semibold text-lg'>Donations Awarded: {awarded}</h2>
-            <span>15 Apr 2025</span>
-          </div>
-
-          <ResponsiveContainer width='100%' height={180}>
-            <PieChart>
-          <Pie
-            data={pieData}
-            dataKey='value'
-            cx='50%'
-            cy='50%'
-            innerRadius={50}
-            outerRadius={70}
-            startAngle={90}
-            endAngle={-270}
-          >
-            {pieData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-
-          <div className=' mt-0'>
-            <span className=' text-lg font-semibold text-green-700'>Total Donations: {applied}</span>
-          </div>
+      <div className='w-full lg:w-[30%] bg-white rounded-xl shadow-md p-4 flex flex-col justify-between'>
+        <div className='flex justify-between items-center text-sm text-gray-500'>
+          <h2 className='text-green-700 font-semibold text-lg'>Donations Awarded: {awarded}</h2>
+          <span>15 Apr 2025</span>
         </div>
 
-        {/* Bar Chart Section */}
-      <div className='w-[70%] bg-white rounded-xl shadow-md p-4'>
+        <ResponsiveContainer width='100%' height={180}>
+          <PieChart>
+            <Pie
+              data={pieData}
+              dataKey='value'
+              cx='50%'
+              cy='50%'
+              innerRadius={50}
+              outerRadius={70}
+              startAngle={90}
+              endAngle={-270}
+            >
+              {pieData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+
+        <div className='mt-0'>
+          <span className='text-lg font-semibold text-green-700'>Total Donations: {applied}</span>
+        </div>
+      </div>
+
+      {/* Bar Chart Section */}
+      <div className='w-full lg:w-[70%] bg-white rounded-xl shadow-md p-4'>
         <h2 className='text-green-700 font-semibold text-lg mb-2'>Food Distribution Stats</h2>
 
         <ResponsiveContainer width='100%' height={250}>
@@ -86,7 +86,6 @@ export default function StatsSection() {
           </BarChart>
         </ResponsiveContainer>
       </div>
-
     </div>
   )
 }

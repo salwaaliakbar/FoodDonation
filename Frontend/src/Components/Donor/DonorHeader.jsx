@@ -7,8 +7,8 @@ const Header = () => {
   ? user?.fullname.charAt(0).toUpperCase()
   : "U";
   return (
-    <div className="flex justify-around items-center h-20 border-b-[1.5px] border-b-green-700 bg-white">
-      <div className="flex items-center border-2 border-gray-300 rounded-lg p-2 w-[50%]">
+    <div className="flex flex-row justify-between items-center h-20 md:h-20 border-b-[1.5px] border-b-green-700 bg-white p-4 md:px-15 md:pl-0 pl-12">
+      <div className="flex items-center border-2 border-gray-300 rounded-lg p-2 w-[80%] md:w-[50%] mb-4 md:mb-0 md:ml-15 md:mt-0 mt-4">
         <input
           type="text"
           name="search"
@@ -19,7 +19,7 @@ const Header = () => {
           {/* Search Icon (Heroicons) */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
+            className="md:h-5 md:w-5 w-4 h-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -35,13 +35,13 @@ const Header = () => {
       </div>
 
       {/* User Info */}
-      <div className=" ml-25 flex items-center border-gray-300 rounded-lg p-2">
-        <div className="mr-4 text-right">
+      <div className="flex items-center border-gray-300 rounded-lg p-2 md:w-auto">
+        <div className="mr-4 text-right md:block hidden">
           <p className="text-md font-semibold">{user?.fullname}</p>
           <p className="text-sm text-gray-500">{user?.role}</p>
         </div>
         <div>
-          <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
+          <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800 md:ml-0 ml-2">
             {firstLetter}
           </div>
         </div>

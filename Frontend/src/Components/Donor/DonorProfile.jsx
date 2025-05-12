@@ -47,19 +47,21 @@ const Myprofile = () => {
     : "U";
 
   return (
-    <div className="flex">
+    <div className="flex flex-col lg:flex-row">
       <SideBar />
-      <div className="w-[80%] absolute right-0 bg-gray-200">
+      <div className="lg:w-[80%] w-full lg:absolute lg:right-0 bg-gray-200">
         <Header />
-        <div className="w-[85%] m-auto border-[1px] border-gray-200 bg-white rounded-md mt-8 p-6 mb-8">
-          <h2 className="ml-10 font-bold text-2xl mt-4">User Profile</h2>
-          <div className="flex">
+        <div className="w-[90%] lg:w-[85%] m-auto border-[1px] border-gray-200 bg-white rounded-md mt-8 p-6 mb-8">
+          <h2 className="ml-4 lg:ml-10 font-bold text-xl lg:text-2xl mt-4">
+            User Profile
+          </h2>
+          <div className="flex flex-col lg:flex-row items-center lg:items-start">
             <div
-              className="w-32 h-32 rounded-full object-cover text-center text-6xl text-white font-bold flex justify-center items-center m-5 bg-green-800"
+              className="w-24 h-24 lg:w-32 lg:h-32 rounded-full object-cover text-center text-4xl lg:text-6xl text-white font-bold flex justify-center items-center m-5 bg-green-800"
             >
               {firstLetter}
             </div>
-            <span className="content-center">
+            <span className="text-center lg:text-left">
               <p className="font-bold text-lg">{user.fullname}</p>
               <p className="text-lg">{user.role}</p>
               <button
@@ -70,7 +72,7 @@ const Myprofile = () => {
               </button>
             </span>
           </div>
-          <div className="grid grid-cols-2 mt-8 ml-4 gap-y-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 mt-8 gap-y-6 lg:gap-y-10 gap-x-4">
             <TextField
               fieldName="fullname"
               Icon={User}
@@ -102,7 +104,7 @@ const Myprofile = () => {
           </div>
           {edit ? (
             <button
-              className="rounded-md bg-green-800 text-white mt-12 py-2 px-8 text-[1.1rem] border-[1px] border-green-700 hover:bg-green-700 relative left-[67%] cursor-pointer"
+              className="rounded-md bg-green-800 text-white mt-8 lg:mt-12 py-2 px-6 lg:px-8 text-[1rem] lg:text-[1.1rem] border-[1px] border-green-700 hover:bg-green-700 self-center lg:relative lg:left-[67%] cursor-pointer"
               onClick={handleSubmit}
             >
               Submit

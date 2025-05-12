@@ -4,32 +4,41 @@ import Header from "./DonorHeader";
 
 function DonationHistory() {
   return (
-    <div className="flex">
+    <div className="flex overflow-hidden bg-gray-200">
+      {/* Sidebar */}
       <DonorSidebar />
-      <div className="w-[80%] absolute right-0 bg-gray-200">
+
+      {/* Main Content Area */}
+      <div
+        className={`
+          flex-1 flex flex-col transition-all duration-300 ease-in-out 
+          md:ml-20 lg:ml-[20%]
+        `}
+      >
         <Header />
-        <div className="px-4">
+        <div className="flex-1 overflow-y-auto px-4 py-4">
           <ActiveMealsSection
             title={"Your Active Meals"}
-            color={'text-yellow-600'}
-            bg={'bg-yellow-100'}
-            status={'Active'}
+            color={"text-yellow-600"}
+            bg={"bg-yellow-100"}
+            status={"Active"}
           />
           <ActiveMealsSection
             title={"Your Granted Meals"}
-            color={'text-green-800'}
-            bg={'bg-[#AFE1AF]'}
-            status={'Awarded'}
+            color={"text-green-800"}
+            bg={"bg-[#AFE1AF]"}
+            status={"Awarded"}
           />
           <ActiveMealsSection
             title={"Your BlackList Meals"}
-            color={'text-red-800'}
-            bg={'bg-red-200'}
-            status={'Expired'}
+            color={"text-red-800"}
+            bg={"bg-red-200"}
+            status={"Expired"}
           />
         </div>
       </div>
     </div>
   );
 }
+
 export default DonationHistory;

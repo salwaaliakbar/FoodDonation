@@ -33,12 +33,12 @@ function CreateCampaign() {
             }
           );
 
-          if (data.success) {
+            if (data.success) {
             alert("New campaign added successfully");
             setIsChangeActive(true);
-          } else {
+            } else {
             alert("Error during new campaign creation ", data.error);
-          }
+            }
         } catch (error) {
           console.error("Error during new campaign creation:", err);
           alert(

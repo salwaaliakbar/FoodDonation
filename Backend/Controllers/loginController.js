@@ -30,7 +30,7 @@ async function login(req, res) {
         },
         ACCESS_SECRET_KEY,
         {
-            expiresIn: "1m"
+            expiresIn: "1h"
         }
     );
 
@@ -43,7 +43,7 @@ async function login(req, res) {
       },
       REFRESH_SECRET_KEY,
         {
-            expiresIn: "1m"
+            expiresIn: "30d"
         }
     )
 
@@ -51,16 +51,16 @@ async function login(req, res) {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'Lax',
-        maxAge: 1 * 60 * 1000 // 1 hour
+        maxAge: 60 * 60 * 1000 // 1 hour
     });
 
     res.cookie('refreshToken', refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'Lax',
-        maxAge: 1 * 60 * 1000 // 1 hour
+        // maxAge: 1 * 60 * 1000 // 1 hour
 
-        // maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
     });
 
     res.status(200).json({ message: "Login successful", success: true, user });

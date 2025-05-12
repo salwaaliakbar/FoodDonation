@@ -58,13 +58,13 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   async function fetchMealData(status) {
     try {
       const data = await secureFetch(
-        `http://localhost:5000/api/getHistoy?userId=${user?._id}&status=${status}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      `http://localhost:5000/api/getHistoy?userId=${user?._id}&status=${status}`,
+      {
+        method: "GET",
+        headers: {
+        "Content-Type": "application/json",
+        },
+      }
       );
 
       return Array.isArray(data.campaigns) ? data.campaigns : [];
