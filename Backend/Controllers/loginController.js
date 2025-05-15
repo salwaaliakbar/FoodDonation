@@ -3,10 +3,10 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const SECRET_KEY = process.env.JWT_SECRET;
+const ACCESS_SECRET_KEY = process.env.JWT_SECRET;
+const REFRESH_SECRET_KEY = process.env.REFRESH_SECRET
 
 async function login(req, res) {
-  console.log(SECRET_KEY)
   const { username, password } = req.body;
 
   try {
@@ -21,28 +21,49 @@ async function login(req, res) {
       return res.status(400).json({ error: "Invalid Password", success: false });
     }
 
-    // Generate New Token
-    const token = jwt.sign(
+    // Generate New access Token
+    const accessToken = jwt.sign(
         {
             id: user._id,
             username: user.username,
             email: user.email
         },
-        SECRET_KEY,
+        ACCESS_SECRET_KEY,
         {
             expiresIn: "1h"
         }
     );
-    console.log(token)
-    console.log(process.env.NODE_ENV)
 
-    res.cookie('authToken', token, {
-      httpOnly: true, 
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'Lax',
-      maxAge: 3600000     // 1 hour expiration
-    }).status(200).json({ message: "Login successful", success: true, user, token });
-    
+    //Generate New Refresh TOken
+    const refreshToken = jwt.sign(
+      {
+         id: user._id,
+            username: user.username,
+            email: user.email
+      },
+      REFRESH_SECRET_KEY,
+        {
+            expiresIn: "30d"
+        }
+    )
+
+    res.cookie('authToken', accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'Lax',
+        maxAge: 60 * 60 * 1000 // 1 hour
+    });
+
+    res.cookie('refreshToken', refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'Lax',
+        // maxAge: 1 * 60 * 1000 // 1 hour
+
+        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+    });
+
+    res.status(200).json({ message: "Login successful", success: true, user });
 
   } catch (err) {
     res.status(500).json({ error: "Server error ", err, success: false });

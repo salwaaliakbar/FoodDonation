@@ -12,6 +12,7 @@ async function getHistory(req, res) {
     // Find campaigns based on userId and status
     const campaigns = await Campaign.find({ createdBy: userId, status: status })
       .populate("createdBy", "fullname") // Populate createdBy with user's fullname
+      .sort({ createdAt: -1 })
       .exec();
 
     console.log("campaigns", campaigns);
