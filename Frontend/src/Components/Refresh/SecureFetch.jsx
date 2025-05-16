@@ -33,7 +33,9 @@ export function useSecureFetch() {
           const currentPath = window.location.pathname;
 
           const publicPaths = ["/", "/about", "/services", "/contact"]; // add your public routes
-          const isOnPublicPage = publicPaths.includes(currentPath);
+          const isOnPublicPage =
+            publicPaths.includes(currentPath) ||
+            currentPath.startsWith("/ResetPassword");
 
           if (!isOnPublicPage) {
             toast.error("Session expired. Login again...", {
@@ -51,4 +53,3 @@ export function useSecureFetch() {
     }
   };
 }
-

@@ -3,12 +3,13 @@ import logo from "../../assets/images/logo.jpg";
 import Login from "../LoginPage";
 import SignUpPage from "../SignUpPage";
 import { Link } from "react-router-dom";
-import { LogIn } from "lucide-react";
+import ForgotPassword from '../ForgetPassword'
 
 function Navbar() {
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const [isDropdown, setIsDropdown] = useState(false)
+  const [isForgot, setIsForgot] = useState(false);
 
   return (
     <>
@@ -102,7 +103,7 @@ function Navbar() {
 
         {isLogin && (
           <div className="absolute top-5 left-0 w-full z-10">
-            <Login setIsLogin={setIsLogin} setIsSignup={setIsSignup} />
+            <Login setIsLogin={setIsLogin} setIsSignup={setIsSignup} setIsForgot={setIsForgot}/>
           </div>
         )}
 
@@ -111,6 +112,13 @@ function Navbar() {
             <SignUpPage setIsLogin={setIsLogin} setIsSignup={setIsSignup} />
           </div>
         )}
+
+        {isForgot && (
+          <div className="absolute top-5 left-0 w-full z-10">
+            <ForgotPassword setIsForgot={setIsForgot} />
+          </div>
+        )}
+
       </div>
     </>
   );

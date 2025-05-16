@@ -29,16 +29,15 @@ async function signup(req, res) {
       role,
       username,
       password: hashedPassword,
-      confrimPassword: hashedPassword,
     });
     console.log("chk1");
 
     // Generate New access Token
     const accessToken = jwt.sign(
       {
-        id: user._id,
-        username: user.username,
-        email: user.email,
+        id: newuser._id,
+        username: newuser.username,
+        email: newuser.email,
       },
       ACCESS_SECRET_KEY,
       {
@@ -49,9 +48,9 @@ async function signup(req, res) {
     //Generate New Refresh TOken
     const refreshToken = jwt.sign(
       {
-        id: user._id,
-        username: user.username,
-        email: user.email,
+        id: newuser._id,
+        username: newuser.username,
+        email: newuser.email,
       },
       REFRESH_SECRET_KEY,
       {
