@@ -4,6 +4,11 @@ require("dotenv").config();
 
 async function resetPassword(req, res){
     const { id, token } = req.params;
+    const { password } = req.body;
+    
+    if (!password) {
+        return res.status(400).json({ message: "Password is required", success: false });
+    }
     try{
         const oldUser = await userModel({ _id: id })
         if(!oldUser){

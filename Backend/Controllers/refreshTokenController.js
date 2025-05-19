@@ -40,6 +40,7 @@ const refreshTokenController = async (req, res) => {
     });
 
     return res.status(200).json({ success: true, message: 'Access token refreshed' });
+
   } catch (err) {
     console.error('Refresh token error:', err);
     return res.status(401).json({ message: 'Invalid or expired refresh token', code: 'INVALID_REFRESH' });

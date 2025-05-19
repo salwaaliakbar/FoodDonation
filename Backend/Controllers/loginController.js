@@ -8,6 +8,9 @@ const REFRESH_SECRET_KEY = process.env.REFRESH_SECRET
 
 async function login(req, res) {
   const { username, password } = req.body;
+   if (!username || !password) {
+      return res.status(400).json({ error: "All fields are required", success: false });
+    }
 
   try {
     const user = await userModel.findOne({ username });
@@ -16,6 +19,7 @@ async function login(req, res) {
         .status(400)
         .json({ error: "Username not Found in our Database", success: false });
     }
+
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid Password", success: false });
@@ -62,8 +66,10 @@ async function login(req, res) {
 
         maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
     });
+    console.log(user)
+    const { password:_, ...userData } = user._doc;
 
-    res.status(200).json({ message: "Login successful", success: true, user });
+    res.status(200).json({ message: "Login successful", success: true, userData });
 
   } catch (err) {
     res.status(500).json({ error: "Server error ", err, success: false });

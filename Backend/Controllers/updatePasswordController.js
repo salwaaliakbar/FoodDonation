@@ -7,6 +7,13 @@ async function updatePassword(req, res) {
   const { id } = req.params;
   const { password } = req.body;
 
+  if (!password) {
+    return res.status(400).json({
+      error: "Password field is required",
+      success: false,
+    });
+  }
+
   try {
     const user = await userModel.findOne({ _id: id });
     if (!user) {

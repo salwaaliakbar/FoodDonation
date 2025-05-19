@@ -10,6 +10,21 @@ async function signup(req, res) {
   const { fullname, email, phone, organization, role, username, password } =
     req.body;
 
+  if (
+    !fullname ||
+    !email ||
+    !phone ||
+    !organization ||
+    !role ||
+    !username ||
+    !password
+  ) {
+    return res.status(400).json({
+      error: "All fields are required",
+      success: false,
+    });
+  }
+
   try {
     const user = await userModel.findOne({ username });
     if (user) {
@@ -18,6 +33,7 @@ async function signup(req, res) {
         .json({ error: "Username Should be Unique", success: false });
     }
 
+    console.log("before bcrypt");
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -72,10 +88,14 @@ async function signup(req, res) {
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
 
+    console.log(newuser);
+    const { password: _, ...userData } = newuser._doc;
+    console.log(userData);
+
     res.status(200).json({
       message: "Newuser Registered Successfully",
       success: true,
-      user: newuser,
+      userData,
     });
   } catch (err) {
     console.log("cathxh ere");

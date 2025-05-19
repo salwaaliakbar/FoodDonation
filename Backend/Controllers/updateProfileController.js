@@ -1,5 +1,10 @@
 async function updateProfile(req, res) {
   const { fullname, email, phone, organization } = req.body;
+
+  if (!fullname || !email || !phone || !organization) {
+    return res.status(400).json({ success: false, error: "All fields are required" });
+  }
+  
   try {
     const user = req.user;
 

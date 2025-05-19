@@ -12,6 +12,19 @@ async function campaignController(req, res) {
     description,
   } = req.body;
 
+  if (
+    !title ||
+    !foodType ||
+    !amount ||
+    !expiration ||
+    !mealType ||
+    !location ||
+    !phone ||
+    !description
+  ) {
+    return res.status(400).json({ error: "All fields are required", success: false });
+  }
+
   try {
     // Convert expiration string into Date object
     const expirationDate = new Date(expiration);

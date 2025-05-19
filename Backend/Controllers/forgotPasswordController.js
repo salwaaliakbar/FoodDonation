@@ -5,6 +5,12 @@ require("dotenv").config();
 
 async function forgotPassword(req, res) {
   const { email } = req.body; 
+  if (!email) {
+    return res.status(400).json({
+      error: "Email field is required",
+      success: false,
+    });
+  }
 
   try {
     const oldUser = await userModel.findOne({ email });

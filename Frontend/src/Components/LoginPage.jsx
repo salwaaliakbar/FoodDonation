@@ -42,10 +42,10 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                 setIsSignup(false);
 
                 // set login user data into context
-                setUser(data.user);
+                setUser(data.userData);
 
                 console.log(data.token);
-                if (data.user.role === "donor") {
+                if (data.userData.role === "donor") {
                   navigate("/donorDashBoard");
                 } else {
                   navigate("/recipent");

@@ -3,6 +3,15 @@ const Campaign = require("../Models/campaignModel");
 async function getHistory(req, res) {
   try {
     const { userId, status } = req.query;
+    if (!userId || !status) {
+      return res.status(400).json({ error: "userId and status are required" });
+    }
+    
+    for (const key in req.body) {
+      if (req.body[key] === null || req.body[key] === undefined) {
+        return res.status(400).json({ error: `Field '${key}' in body cannot be null or undefined` });
+      }
+    }
 
     // Validate the status (active, granted, blacklisted)
     if (!["Active", "Awarded", "Expired"].includes(status)) {
