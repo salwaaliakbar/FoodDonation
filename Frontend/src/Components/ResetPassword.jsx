@@ -22,7 +22,7 @@ function ResetPassword() {
               const response = await fetch(
                 `http://localhost:5000/api/resetPassword/${id}/${token}`,
                 {
-                  method: "POST",
+                  method: "PUT",
                   headers: {
                     "Content-Type": "application/json",
                   },

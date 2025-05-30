@@ -78,6 +78,7 @@ async function signup(req, res) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Lax",
+      path: "/",
       maxAge: 60 * 60 * 1000, // 1 hour
     });
 
@@ -85,6 +86,7 @@ async function signup(req, res) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Lax",
+      path: "/api/refresh",
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
 

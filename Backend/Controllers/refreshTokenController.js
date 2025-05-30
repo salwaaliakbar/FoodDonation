@@ -6,6 +6,7 @@ const ACCESS_SECRET = process.env.JWT_SECRET
 const REFRESH_SECRET = process.env.REFRESH_SECRET
 
 const refreshTokenController = async (req, res) => {
+  console.log('refresh token called')
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
@@ -36,6 +37,7 @@ const refreshTokenController = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'Lax',
+      path: "/",
       maxAge: 60 * 60 * 1000 // 1 hour
     });
 

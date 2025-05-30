@@ -3,13 +3,18 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 
 async function updatePassword(req, res) {
-  console.log("hello");
   const { id } = req.params;
-  const { password } = req.body;
+  const { password, confrimPassword } = req.body;
 
-  if (!password) {
+  if (!password || !confrimPassword) {
     return res.status(400).json({
-      error: "Password field is required",
+      error: "Password or confrim password fields is required",
+      success: false,
+    });
+  }
+  if(password != confrimPassword){
+     return res.status(400).json({
+      error: "Password and confrim password must be same!",
       success: false,
     });
   }

@@ -32,7 +32,7 @@ export function useSecureFetch() {
           // Check current path before showing toast
           const currentPath = window.location.pathname;
 
-          const publicPaths = ["/", "/about", "/services", "/contact"]; // add your public routes
+          const publicPaths = ["/", "/about", "/services", "/contact", "/ResetPassword"]; // add your public routes
           const isOnPublicPage =
             publicPaths.includes(currentPath) ||
             currentPath.startsWith("/ResetPassword");

@@ -51,7 +51,7 @@ function CreateCampaign() {
       {({ errors, touched }) => (
         <div className="flex">
           <DonorSidebar />
-          <div className="w-[80%] absolute right-0">
+          <div className="md:w-[80%] w-full absolute right-0">
             <div className="bg-green-800 text-white py-10">
               <div className="container mx-auto text-center">
                 <h1 className="text-4xl font-bold mb-4">
@@ -64,7 +64,7 @@ function CreateCampaign() {
               </div>
             </div>
 
-            <Form className="py-10 px-20">
+            <Form className="py-10 md:px-20 px-10 md:mb-8 mb-38">
               {/* Campaign Title */}
               <div className="mb-6">
                 <label

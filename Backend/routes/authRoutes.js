@@ -16,6 +16,6 @@ router.post('/api/me', authMiddleware, me)
 router.post('/api/refresh', refreshToken)
 router.post('/api/forgotPassword', forgetPassword)
 router.get('/api/resetPassword/:id/:token', resetPassword)
-router.post('/api/resetPassword/:id/:token', updatePassword)
+router.put('/api/resetPassword/:id/:token', updatePassword)
 
 module.exports = router;

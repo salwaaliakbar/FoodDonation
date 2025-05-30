@@ -32,9 +32,9 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                 body: JSON.stringify(values),
                 credentials: "include",
               });
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
+              // if (!response.ok) {
+              //   throw new Error("Network response was not ok");
+              // }
               const data = await response.json();
               if (data.success) {
                 alert("Login successful!");

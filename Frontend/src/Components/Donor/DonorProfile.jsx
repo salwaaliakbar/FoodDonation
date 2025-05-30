@@ -51,8 +51,8 @@ const Myprofile = () => {
       <SideBar />
       <div className="lg:w-[80%] w-full lg:absolute lg:right-0 bg-gray-200">
         <Header />
-        <div className="w-[90%] lg:w-[85%] m-auto border-[1px] border-gray-200 bg-white rounded-md mt-8 p-6 mb-8">
-          <h2 className="ml-4 lg:ml-10 font-bold text-xl lg:text-2xl mt-4">
+        <div className="mt-25 w-[90%] lg:w-[85%] m-auto border-[1px] border-gray-200 bg-white rounded-md p-6 md:mb-8 mb-38">
+          <h2 className="ml-4 lg:ml-10 font-bold text-2xl lg:text-3xl mt-4 md:text-left text-center">
             User Profile
           </h2>
           <div className="flex flex-col lg:flex-row items-center lg:items-start">
@@ -61,7 +61,7 @@ const Myprofile = () => {
             >
               {firstLetter}
             </div>
-            <span className="text-center lg:text-left">
+            <span className="text-center lg:text-left md:18">
               <p className="font-bold text-lg">{user.fullname}</p>
               <p className="text-lg">{user.role}</p>
               <button
