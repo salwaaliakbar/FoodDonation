@@ -41,9 +41,8 @@ const DonorSidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-screen w-[55%] sm:w-[50%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg text-black z-40 transform ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 lg:translate-x-0`}
+        className={`fixed top-0 left-0 h-screen w-[55%] sm:w-[50%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg text-black z-40 transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } transition-transform duration-300 lg:translate-x-0`}
       >
         {/* Logo Section */}
         <div className="h-20 border-b-[1.5px] border-b-green-800 flex items-center justify-center">
@@ -69,7 +68,7 @@ const DonorSidebar = () => {
               <Link to="/donorDashBoard/generalfeed">
                 <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
                   <i className="fa fa-newspaper-o text-lg"></i>
-                  General Feed
+                  Campaign Applicants
                 </div>
               </Link>
             </li>

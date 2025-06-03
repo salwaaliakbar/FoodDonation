@@ -29,7 +29,7 @@ const Myprofile = () => {
         body: JSON.stringify(user),
         credentials: 'include',
       });
-      console.log(data)
+      // console.log(data)
       if (data.success) {
         alert("Profile Updated Successfully");
         setEdit(!edit);
@@ -123,9 +123,8 @@ function TextField({ fieldName, Icon, fieldValue, edit, handleInput }) {
         {fieldName}
       </p>
       <div
-        className={`flex items-center text-xs p-1.5 border-[1.7px] ${
-          edit ? "border-red-700" : "border-gray-800"
-        } rounded-md w-[60%] focus-within:border-green-700`}
+        className={`flex items-center text-xs p-1.5 border-[1.7px] ${edit ? "border-red-700" : "border-gray-800"
+          } rounded-md w-[60%] focus-within:border-green-700`}
       >
         <Icon className="w-4 h-4 mr-1.5 text-gray-600" />
         <input

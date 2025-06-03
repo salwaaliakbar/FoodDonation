@@ -14,7 +14,7 @@ function Login({ setIsLogin, setIsSignup }) {
       document.body.classList.remove("overflow-hidden");
     };
   }, []);
-  
+
   return (
     <>
       <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
@@ -32,9 +32,9 @@ function Login({ setIsLogin, setIsSignup }) {
                 body: JSON.stringify(values),
                 credentials: "include"
               });
-                if (!response.ok) {
+              if (!response.ok) {
                 throw new Error("Network response was not ok");
-                }
+              }
               const data = await response.json();
               if (data.success) {
                 alert("Login successful!");

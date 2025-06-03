@@ -1,4 +1,3 @@
-// MealPostCard.jsx
 import React, { useEffect, useState } from 'react';
 import MealApplyModal from './MealApplyModal';
 import { useData } from '../ContextAPIs/UserContext';
@@ -15,6 +14,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
     const [applied, setApplied] = useState(
         meal.applied?.some(entry => entry.p_id._id === user._id)
     );
+    // console.log(meal._id);
     // console.log(applied);
     // console.log('meal applied ids: ', meal.applied);
     // console.log('userid ', user._id);
@@ -44,9 +44,23 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
                 alert('Error During Applying');
                 console.log(result.error)
             }
-
             setSubmitStatus('success');
             setApplied(true);
+
+            const newApplication = {
+                p_id: { fullname: user.username },
+                date: { $date: new Date().toISOString() },
+                persons: selectedPeople
+            };
+
+            setMealPosts(prevPosts =>
+                prevPosts.map(post =>
+                    post._id === meal._id
+                        ? { ...post, applied: [...post.applied, newApplication] }
+                        : post
+                )
+            );
+
         } catch (error) {
             console.error("Error during new campaign creation:", err);
             alert("An error occurred during new campaign creation. Please try again.");

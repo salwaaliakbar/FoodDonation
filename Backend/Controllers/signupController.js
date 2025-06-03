@@ -32,6 +32,7 @@ async function signup(req, res) {
       confrimPassword: hashedPassword,
     });
     console.log("chk1");
+    user = newuser;
 
     // Generate New access Token
     const accessToken = jwt.sign(
@@ -79,7 +80,7 @@ async function signup(req, res) {
       user: newuser,
     });
   } catch (err) {
-    console.log("cathxh ere");
+    console.log("cathxh ere: ", err);
     res.status(500).json({ error: "Server error ", err, success: false });
   }
 }
