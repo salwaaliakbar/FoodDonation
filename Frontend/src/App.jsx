@@ -21,6 +21,7 @@ import Services from "./Components/ServicesSection/Services";
 import { useSecureFetch } from "./Components/Refresh/SecureFetch";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ResetPassword from "./Components/ResetPassword";
 
 function App() {
   const { setUser } = useData();
@@ -62,6 +63,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/resetPassword/:id/:token" element={<ResetPassword />}/>
         <Route path="/recipent" element={<Recipent_Dashboard />} />
         <Route path="/recipent/profile" element={<Myprofile />} />
         <Route path="/generalfeed" element={<GeneralFeed />} />

@@ -10,6 +10,21 @@ async function signup(req, res) {
   const { fullname, email, phone, organization, role, username, password } =
     req.body;
 
+  if (
+    !fullname ||
+    !email ||
+    !phone ||
+    !organization ||
+    !role ||
+    !username ||
+    !password
+  ) {
+    return res.status(400).json({
+      error: "All fields are required",
+      success: false,
+    });
+  }
+
   try {
     const user = await userModel.findOne({ username });
     if (user) {
@@ -18,6 +33,7 @@ async function signup(req, res) {
         .json({ error: "Username Should be Unique", success: false });
     }
 
+    console.log("before bcrypt");
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -29,7 +45,6 @@ async function signup(req, res) {
       role,
       username,
       password: hashedPassword,
-      confrimPassword: hashedPassword,
     });
     console.log("chk1");
     user = newuser;
@@ -37,9 +52,9 @@ async function signup(req, res) {
     // Generate New access Token
     const accessToken = jwt.sign(
       {
-        id: user._id,
-        username: user.username,
-        email: user.email,
+        id: newuser._id,
+        username: newuser.username,
+        email: newuser.email,
       },
       ACCESS_SECRET_KEY,
       {
@@ -50,9 +65,9 @@ async function signup(req, res) {
     //Generate New Refresh TOken
     const refreshToken = jwt.sign(
       {
-        id: user._id,
-        username: user.username,
-        email: user.email,
+        id: newuser._id,
+        username: newuser.username,
+        email: newuser.email,
       },
       REFRESH_SECRET_KEY,
       {
@@ -64,6 +79,7 @@ async function signup(req, res) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Lax",
+      path: "/",
       maxAge: 60 * 60 * 1000, // 1 hour
     });
 
@@ -71,13 +87,18 @@ async function signup(req, res) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Lax",
+      path: "/api/refresh",
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     });
+
+    console.log(newuser);
+    const { password: _, ...userData } = newuser._doc;
+    console.log(userData);
 
     res.status(200).json({
       message: "Newuser Registered Successfully",
       success: true,
-      user: newuser,
+      userData,
     });
   } catch (err) {
     console.log("cathxh ere: ", err);

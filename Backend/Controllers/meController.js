@@ -13,7 +13,7 @@ async function refresh(req, res) {
         .json({ success: false, error: "User not found or invalid token" });
     }
 
-    const userDetails = await userModel.findOne({ _id: user._id });
+    const users = await userModel.findOne({ _id: user._id });
 
     const activeMeals = await campaignModel
       .find({ createdBy: user._id, status: "Active" })
@@ -32,6 +32,8 @@ async function refresh(req, res) {
       .populate("createdBy", "fullname")
       .sort({ createdAt: -1 })
       .exec();
+
+      const { password:_, ...userDetails } = users._doc;
 
     res
       .status(200)

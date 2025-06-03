@@ -7,7 +7,6 @@ const awardCampaign = require("../Controllers/awardCampaign");
 
 router.post("/api/createCampaign", authMiddleware, createCampaign);
 router.put("/api/updateProfile", authMiddleware, updateProfile);
-router.get("/api/getHistoy", getHistory);
-router.post("/api/awardCampaign", authMiddleware, awardCampaign);
+router.get("/api/getHistoy", authMiddleware, getHistory);
 
 module.exports = router;

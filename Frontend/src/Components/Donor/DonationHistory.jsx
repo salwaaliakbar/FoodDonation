@@ -16,7 +16,7 @@ function DonationHistory() {
         `}
       >
         <Header />
-        <div className="flex-1 overflow-y-auto px-4 py-4">
+        <div className="flex-1 overflow-y-auto px-4 py-4 mt-18 md:mb-8 mb-38">
           <ActiveMealsSection
             title={"Your Active Meals"}
             color={"text-yellow-600"}

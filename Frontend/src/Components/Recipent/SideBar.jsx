@@ -9,9 +9,18 @@ const SideBar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const handleLogout = () => {
+   const handleLogout = async () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
     if (confirmed) {
+      await fetch("http://localhost:5000/api/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      setUser(null);
+      setIsChangeActive(true);
+      setIsChangeGranted(true);
+      setIsChangeExpired(true);
+      setLoading(false);
       navigate("/");
     } else {
       alert("Logout cancelled");

@@ -7,7 +7,7 @@ const Header = () => {
   ? user?.fullname.charAt(0).toUpperCase()
   : "U";
   return (
-    <div className="flex flex-row justify-between items-center h-20 md:h-20 border-b-[1.5px] border-b-green-700 bg-white p-4 md:px-15 md:pl-0 pl-12">
+    <div className="fixed flex flex-row justify-between items-center h-20 md:h-20 border-b-[1.5px] border-b-green-700 bg-white p-4 md:px-15 md:pl-0 pl-12 md:w-[80%] w-full z-49">
       <div className="flex items-center border-2 border-gray-300 rounded-lg p-2 w-[80%] md:w-[50%] mb-4 md:mb-0 md:ml-15 md:mt-0 mt-4">
         <input
           type="text"

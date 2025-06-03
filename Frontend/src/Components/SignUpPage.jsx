@@ -47,8 +47,9 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 alert("Registration Successful");
                 setIsSignup(false);
                 setIsLogin(true);
-                setUser(data.user);
-                if (data.user.role === "donor") {
+                setUser(data.userData);
+                console.log(data.userData)
+                if (data.userData.role === "donor") {
                   navigate("/donorDashBoard");
                 } else {
                   navigate("/recipent");

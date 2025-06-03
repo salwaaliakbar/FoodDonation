@@ -1,12 +1,12 @@
 import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useData } from "./ContextAPIs/UserContext";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-function Login({ setIsLogin, setIsSignup }) {
-  const navigate = useNavigate()
-  const { setUser } = useData()
+function Login({ setIsLogin, setIsSignup, setIsForgot }) {
+  const navigate = useNavigate();
+  const { setUser } = useData();
 
   useEffect(() => {
     document.body.classList.add("overflow-hidden");
@@ -30,11 +30,11 @@ function Login({ setIsLogin, setIsSignup }) {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
-                credentials: "include"
+                credentials: "include",
               });
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
+              // if (!response.ok) {
+              //   throw new Error("Network response was not ok");
+              // }
               const data = await response.json();
               if (data.success) {
                 alert("Login successful!");
@@ -42,10 +42,10 @@ function Login({ setIsLogin, setIsSignup }) {
                 setIsSignup(false);
 
                 // set login user data into context
-                setUser(data.user)
+                setUser(data.userData);
 
-                console.log(data.token)
-                if (data.user.role === "donor") {
+                console.log(data.token);
+                if (data.userData.role === "donor") {
                   navigate("/donorDashBoard");
                 } else {
                   navigate("/recipent");
@@ -103,9 +103,16 @@ function Login({ setIsLogin, setIsSignup }) {
               </button>
 
               <div className="text-center mt-4">
-                <a href="#" className="text-green-600 hover:underline">
+                <span
+                  className="text-green-800 hover:underline hover:text-green-600 cursor-pointer"
+                  onClick={() => {
+                    console.log('enter')
+                    setIsForgot(true);
+                    setIsLogin(false);
+                  }}
+                >
                   Forgot Password?
-                </a>
+                </span>
               </div>
 
               <div className="text-center mt-4">

@@ -55,9 +55,10 @@ function DonorGeneralFeed() {
   return (
     <div className="flex">
       <SideBar />
-      <div className="w-[80%] absolute right-0 bg-gray-200">
+      <div className="w-full md:w-[80%] absolute right-0 bg-gray-200">
         <Header />
-        <h1 className="text-3xl font-bold mb-8 text-green-600 text-center m-4">
+        <div className="md:mb-8 mb-38 mt-25">
+        <h1 className=" mb-4 text-3xl font-bold text-green-600 text-center m-4">
           General Meal Feed
         </h1>
 
@@ -84,6 +85,7 @@ function DonorGeneralFeed() {
             </p>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
