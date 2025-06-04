@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import logo from "../../assets/images/logo.jpg";
 import { useData } from "../ContextAPIs/UserContext";
 import "font-awesome/css/font-awesome.min.css";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useChange } from "../ContextAPIs/ChangeContext";
 
 const DonorSidebar = () => {
   const navigate = useNavigate();
   const { setUser } = useData();
-  const { setIsChangeActive, setIsChangeGranted, setIsChangeExpired, setLoading } = useChange();
+  const {
+    setIsChangeActive,
+    setIsChangeGranted,
+    setIsChangeExpired,
+    setLoading,
+  } = useChange();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogout = async () => {
@@ -41,7 +46,7 @@ const DonorSidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-screen w-[55%] sm:w-[50%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg text-black z-40 transform ${
+        className={`fixed top-0 left-0 h-screen w-[55%] sm:w-[50%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg z-40 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0`}
       >
@@ -58,44 +63,74 @@ const DonorSidebar = () => {
         <nav className="flex-1 md:px-4 py-6 space-y-4 overflow-y-auto">
           <ul className="space-y-2">
             <li>
-              <Link to="/donorDashBoard">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
-                  <i className="fa fa-home text-lg"></i>
-                  Dashboard
-                </div>
-              </Link>
+              <NavLink to="/donorDashBoard" end>
+                {({ isActive }) => (
+                  <div
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                      isActive ? "bg-green-800 text-white" : ""
+                    }`}
+                  >
+                    <i className="fa fa-home text-lg"></i>
+                    Dashboard
+                  </div>
+                )}
+              </NavLink>
             </li>
             <li>
-              <Link to="/donorDashBoard/generalfeed">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
-                  <i className="fa fa-newspaper-o text-lg"></i>
-                  General Feed
-                </div>
-              </Link>
+              <NavLink to="/donorDashBoard/generalfeed">
+                {({ isActive }) => (
+                  <div
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                      isActive ? "bg-green-800 text-white" : ""
+                    }`}
+                  >
+                    <i className="fa fa-newspaper-o text-lg"></i>
+                    General Feed
+                  </div>
+                )}
+              </NavLink>
             </li>
             <li>
-              <Link to="/donorDashBoard/history">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
-                  <i className="fa fa-history text-lg"></i>
-                  Donation History
-                </div>
-              </Link>
+              <NavLink to="/donorDashBoard/history">
+                {({ isActive }) => (
+                  <div
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                      isActive ? "bg-green-800 text-white" : ""
+                    }`}
+                  >
+                    <i className="fa fa-history text-lg"></i>
+                    Donation History
+                  </div>
+                )}
+              </NavLink>
             </li>
             <li>
-              <Link to="/donorDashBoard/createCampaign">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
-                  <i className="fa fa-bullhorn text-lg"></i>
-                  Create Campaigns
-                </div>
-              </Link>
+              <NavLink to="/donorDashBoard/createCampaign">
+                {({ isActive }) => (
+                  <div
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                      isActive ? "bg-green-800 text-white" : ""
+                    }`}
+                  >
+                    <i className="fa fa-bullhorn text-lg"></i>
+                    Create Campaigns
+                  </div>
+                )}
+              </NavLink>
             </li>
             <li>
-              <Link to="/donorDashBoard/profile">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-800 hover:text-white transition-colors">
-                  <i className="fa fa-user-circle text-lg"></i>
-                  My Profile
-                </div>
-              </Link>
+              <NavLink to="/donorDashBoard/profile">
+                {({ isActive }) => (
+                  <div
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                      isActive ? "bg-green-800 text-white" : ""
+                    }`}
+                  >
+                    <i className="fa fa-user-circle text-lg"></i>
+                    My Profile
+                  </div>
+                )}
+              </NavLink>
             </li>
           </ul>
         </nav>

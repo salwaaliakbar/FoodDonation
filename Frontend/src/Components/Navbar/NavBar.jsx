@@ -2,13 +2,14 @@ import { useState } from "react";
 import logo from "../../assets/images/logo.jpg";
 import Login from "../LoginPage";
 import SignUpPage from "../SignUpPage";
-import { Link } from "react-router-dom";
-import ForgotPassword from '../ForgetPassword'
+import { NavLink } from "react-router-dom";
+import ForgotPassword from "../ForgetPassword";
+import styles from "./NavBar.module.css";
 
 function Navbar() {
   const [isLogin, setIsLogin] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
-  const [isDropdown, setIsDropdown] = useState(false)
+  const [isDropdown, setIsDropdown] = useState(false);
   const [isForgot, setIsForgot] = useState(false);
 
   return (
@@ -16,13 +17,16 @@ function Navbar() {
       <div className="relative">
         <div className="flex justify-between items-center p-2 bg-white hover:shadow-lg transition-all duration-300 hover:text-green-600">
           <div>
-            <Link to="/">
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
               <img
                 className="md:w-70 md:h-20 w-40 h-12 rounded-full cursor-pointer"
                 src={logo}
                 alt="Logo"
               />
-            </Link>
+            </NavLink>
           </div>
 
           {/* Hamburger Menu for Mobile */}
@@ -37,26 +41,32 @@ function Navbar() {
 
           {/* Navigation options */}
           <ul className="hidden md:flex justify-between text-xl font-semibold text-black mt-2">
-            <Link to="/">
-              <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
-                Home
-              </li>
-            </Link>
-            <Link to="/about">
-              <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
-                About
-              </li>
-            </Link>
-            <Link to="/services">
-              <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
-                Services
-              </li>
-            </Link>
-            <Link to="/contact">
-              <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
+            <NavLink
+              to="/"
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              <li className="cursor-pointer p-3 border-green-800">Home</li>
+            </NavLink>
+            <NavLink
+              to="/about"
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              <li className="cursor-pointer p-3 border-green-800">About</li>
+            </NavLink>
+            <NavLink
+              to="/services"
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              <li className="cursor-pointer p-3 border-green-800">Services</li>
+            </NavLink>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              <li className="cursor-pointer p-3 border-green-800">
                 Contact Us
               </li>
-            </Link>
+            </NavLink>
           </ul>
 
           <button
@@ -71,26 +81,40 @@ function Navbar() {
         {isDropdown && (
           <div className="md:hidden bg-white shadow-lg p-4">
             <ul className="flex flex-col text-lg font-semibold text-black">
-              <Link to="/" onClick={() => setIsLogin(false)}>
+              <NavLink
+                to="/"
+                onClick={() => setIsLogin(false)}
+                className={({ isActive }) => (isActive ? styles.active : "")}
+              >
                 <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
                   Home
                 </li>
-              </Link>
-              <Link to="/about" onClick={() => setIsLogin(false)}>
-                <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
-                  About
-                </li>
-              </Link>
-              <Link to="/services" onClick={() => setIsLogin(false)}>
-                <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
+              </NavLink>
+              <NavLink
+                to="/about"
+                onClick={() => setIsLogin(false)}
+                className={({ isActive }) => (isActive ? styles.active : "")}
+              >
+                <li className="cursor-pointer p-3 border-green-800">About</li>
+              </NavLink>
+              <NavLink
+                to="/services"
+                onClick={() => setIsLogin(false)}
+                className={({ isActive }) => (isActive ? styles.active : "")}
+              >
+                <li className="cursor-pointer p-3 border-green-800">
                   Services
                 </li>
-              </Link>
-              <Link to="/contact" onClick={() => setIsLogin(false)}>
-                <li className="cursor-pointer p-3 hover:border-b-3 border-green-800">
+              </NavLink>
+              <NavLink
+                to="/contact"
+                onClick={() => setIsLogin(false)}
+                className={({ isActive }) => (isActive ? styles.active : "")}
+              >
+                <li className="cursor-pointer p-3 border-green-800">
                   Contact Us
                 </li>
-              </Link>
+              </NavLink>
               <button
                 className="bg-green-700 px-10 rounded text-lg font-medium hover:bg-green-600 cursor-pointer h-12 text-white mt-3 hover:transform hover:translate-x-2 transition-all duration-300 delay-150"
                 onClick={() => setIsLogin(true)}
@@ -103,7 +127,11 @@ function Navbar() {
 
         {isLogin && (
           <div className="absolute top-5 left-0 w-full z-10">
-            <Login setIsLogin={setIsLogin} setIsSignup={setIsSignup} setIsForgot={setIsForgot}/>
+            <Login
+              setIsLogin={setIsLogin}
+              setIsSignup={setIsSignup}
+              setIsForgot={setIsForgot}
+            />
           </div>
         )}
 
@@ -118,7 +146,6 @@ function Navbar() {
             <ForgotPassword setIsForgot={setIsForgot} />
           </div>
         )}
-
       </div>
     </>
   );
