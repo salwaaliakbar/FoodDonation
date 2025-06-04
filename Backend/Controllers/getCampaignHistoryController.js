@@ -21,17 +21,19 @@ async function getHistory(req, res) {
     // Find campaigns based on userId and status
     const campaigns = await Campaign.find({ createdBy: userId, status: status })
       .populate("createdBy", "fullname") // Populate createdBy with user's fullname
+      .populate({
+        path: "applied.p_id", // Populate the user inside applied array
+        select: "fullname", // Only fetch fullname from users
+      })
       .sort({ createdAt: -1 })
       .exec();
 
     console.log("campaigns", campaigns);
-    res
-      .status(200)
-      .json({
-        message: "Fetch Campaigns sucsessfully",
-        success: true,
-        campaigns,
-      });
+    res.status(200).json({
+      message: "Fetch Campaigns sucsessfully",
+      success: true,
+      campaigns,
+    });
   } catch (error) {
     console.error("Error fetching campaigns:", error);
     res.status(500).json({ error: "Server error" });

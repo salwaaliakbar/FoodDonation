@@ -9,43 +9,48 @@ import { useData } from '../ContextAPIs/UserContext'
 const ActiveMeals = () => {
     const [loading, setLoading] = useState(true);
     const [mealPosts, setMealPosts] = useState();
-    const { user } = useData()
+    const { user } = useData();
 
     useEffect(() => {
 
-        async function fetchActiveMeals() {
-
+        async function fetchMealFeedData() {
             try {
                 const response = await fetch(`http://localhost:5000/api/activeFeed?userId=${user._id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    credentials: "include",
+                    credentials: "include"
                 });
 
-                const result = await response.json();
-                if (result.success) {
-                    // use result.campaigns
-                    // console.log(result);
-                    return result.campaigns;
-                } else {
-                    console.log("Error:", result.error);
-                }
-            } catch (error) {
-                console.error("Fetch error:", error);
+                const data = await response.json();
+                // console.log(data.message);  // Error Message or Replied Message from server
+                return Array.isArray(data.campaigns) ? data.campaigns : [];
+            } catch (err) {
+                console.error("Error fetching Feed Campaigns:", err);
+                return [];
             }
 
         }
 
-        setTimeout(() => {
-            const result = fetchActiveMeals();
-            console.log(result);
-            setMealPosts(result)
-            console.log(mealPosts);
+        const fetchData = async () => {
             setLoading(true);
-        }, 1000);
+
+            setTimeout(async () => {
+
+                const feedData = await fetchMealFeedData()
+                setMealPosts(feedData);
+                // console.log(feedData);  // Consoling the data for checking\
+                // console.log
+
+                setLoading(false);
+            }, 1000);
+
+        }
+
+        fetchData();
     }, []);
+
 
     return (
         <div className='flex'>
