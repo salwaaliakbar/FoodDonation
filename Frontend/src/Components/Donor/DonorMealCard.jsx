@@ -41,7 +41,7 @@ const MealCard = ({ meal, color }) => {
           {meal.status === ACTIVE && (
             <>
               <span>
-                ✅ {meal.status} <p className="text-green-600"></p>
+                ✅ {meal.status} <p className="text-yellow-600"></p>
               </span>
               <p className="text-amber-600">
                 👥 {meal.totalApplicants} applicants{" "}
@@ -60,7 +60,7 @@ const MealCard = ({ meal, color }) => {
           {meal.status === EXPIRED && (
             <>
               <span>
-                ❌ {meal.status} <p className="text-green-600"></p>
+                🚫 {meal.status} <p className="text-red-800"></p>
               </span>
             </>
           )}

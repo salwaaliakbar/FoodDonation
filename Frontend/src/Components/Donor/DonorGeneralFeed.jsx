@@ -6,6 +6,7 @@ import Loader from "../Loader";
 import MealPostCard from "./DonorMealPostCard";
 import { useSecureFetch } from "../Refresh/SecureFetch";
 import DonorSidebar from "./DonorSidebar";
+import { ACTIVE } from "../CONSTANTS";
 
 function DonorGeneralFeed() {
   const [loading, setLoading] = useState(true);
@@ -16,7 +17,7 @@ function DonorGeneralFeed() {
     async function fetchMealFeedData() {
       try {
         const data = await secureFetch(
-          `http://localhost:5000/api/generalFeed?status=${"Active"}`,
+          `http://localhost:5000/api/generalFeed?status=${ACTIVE}`,
           {
             method: "GET",
             headers: {

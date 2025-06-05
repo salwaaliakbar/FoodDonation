@@ -89,7 +89,7 @@ async function signup(req, res) {
   }
 
   try {
-    const user = await userModel.findOne({ username });
+    let user = await userModel.findOne({ username });
     if (user) {
       return res.status(400).json({ error: "Username Should be Unique", success: false });
     }

@@ -1,13 +1,22 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSecureFetch } from "../Refresh/SecureFetch";
 import { useChange } from "../ContextAPIs/ChangeContext";
+import { GRANTED } from "../CONSTANTS";
+import { useData } from "../ContextAPIs/UserContext";
 
-function MealAcceptModel({ mealId, setShowModal, selectedUserData }) {
+function MealAcceptModel({
+  mealId,
+  createdBy,
+  setShowModal,
+  selectedUserData,
+  status,
+  setStatus,
+  setAwardedTo,
+}) {
   const secureFetch = useSecureFetch();
   const [selectedUser, setSelectedUser] = useState({});
-  
-    const { setIsChangeActive, setIsChangeGranted } = useChange();
+  const { setIsChangeActive, setIsChangeGranted } = useChange();
+  const { user } = useData();
 
   useEffect(() => {
     async function fetchSelectedUserData() {
@@ -23,7 +32,7 @@ function MealAcceptModel({ mealId, setShowModal, selectedUserData }) {
         );
         setSelectedUser(data.UserData);
       } catch (err) {
-        console.error("Error fetching selected recepient data:  ", err);
+        console.error("Error fetching selected recipient data: ", err);
       }
     }
 
@@ -32,10 +41,9 @@ function MealAcceptModel({ mealId, setShowModal, selectedUserData }) {
 
   async function handleAccept() {
     const confirmed = window.confirm("Are you sure you want to accept?");
-    console.log(mealId);
     if (confirmed) {
       try {
-        const data = await secureFetch(
+        await secureFetch(
           `http://localhost:5000/api/updateStatus/${mealId}/${selectedUser.fullname}`,
           {
             method: "PUT",
@@ -46,11 +54,15 @@ function MealAcceptModel({ mealId, setShowModal, selectedUserData }) {
         );
         setIsChangeActive(true);
         setIsChangeGranted(true);
+        setStatus(GRANTED);
+        setAwardedTo(selectedUser.fullname);
+        setShowModal(false);
       } catch (err) {
-        console.error("Error fetching selected recepient data:  ", err);
+        console.error("Error updating status: ", err);
       }
     }
   }
+
   return (
     <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
       <div className="bg-white p-6 rounded-lg w-[350px] animate-zoomIn shadow-lg">
@@ -75,21 +87,35 @@ function MealAcceptModel({ mealId, setShowModal, selectedUserData }) {
               {selectedUser.organization}
             </div>
           )}
+          <div>
+            <span className="font-medium">
+              Status:{" "}
+              {status === "Accepted" ? (
+                <span className="text-green-600 font-semibold">🏅 Awarded</span>
+              ) : (
+                <span className="text-yellow-600 font-semibold">
+                  ⏳ Pending
+                </span>
+              )}
+            </span>
+          </div>
         </div>
 
         <div className="flex justify-between mt-6">
           <button
             onClick={() => setShowModal(false)}
-            className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition"
+            className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition cursor-pointer"
           >
             Cancel
           </button>
           <button
-            onClick={() => {
-              handleAccept();
-              setShowModal(false);
-            }}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+            disabled={status === GRANTED || createdBy._id !== user._id}
+            onClick={handleAccept}
+            className={`px-4 py-2 rounded transition text-white  ${
+              status === GRANTED || createdBy._id !== user._id
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-green-600 hover:bg-green-700 cursor-pointer"
+            }`}
           >
             Accept
           </button>
