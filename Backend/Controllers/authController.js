@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const campaignModel = require("../Models/campaignModel");
+const nodemailer = require('nodemailer');
 
 const ACCESS_SECRET_KEY = process.env.JWT_SECRET;
 const REFRESH_SECRET_KEY = process.env.REFRESH_SECRET;

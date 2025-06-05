@@ -6,7 +6,7 @@ import Loader from "../Loader";
 import MealPostCard from "./DonorMealPostCard";
 import { useSecureFetch } from "../Refresh/SecureFetch";
 import DonorSidebar from "./DonorSidebar";
-import { ACTIVE } from "../CONSTANTS";
+import { ACTIVE } from "../constants";
 
 function DonorGeneralFeed() {
   const [loading, setLoading] = useState(true);

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import MealAcceptModel from "./MealAcceptModal";
-import { GRANTED, PENDING } from "../CONSTANTS";
+import { EXPIRED, GRANTED, PENDING } from "../constants";
 
 const MealPostCard = ({ meal }) => {
   const [expanded, setExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selecteduser, setSelectedUser] = useState({});
-  const [status, setStatus] = useState(meal.status || PENDING);
-  const [awardedTo, setAwardedTo] = useState(meal.awarded || 'none');
+  const [status, setStatus] = useState(meal.status);
+  const [awardedTo, setAwardedTo] = useState(meal.awarded || "none");
 
   const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
 
@@ -56,15 +56,23 @@ const MealPostCard = ({ meal }) => {
         {expanded && (
           <div className="transition-all duration-1000 mt-8">
             <div className="mb-2">
-              <p className="text-sm font-semibold text-gray-600 mb-1">
+              <p className="text-sm font-bold text-gray-600 mb-1">
                 Applicants:
               </p>
-              {status !== "Accepted" ? (
+              {status === GRANTED ? (
+                <p className="text-sm text-green-600 italic">
+                  Meal has been awarded.
+                </p>
+              ) : status === EXPIRED ? (
+                <p className="text-sm text-red-600 italic">
+                  Meal has been expired.
+                </p>
+              ) : meal.applied.length > 0 ? (
                 <ul className="list-disc pl-5 text-sm text-gray-700">
                   {meal.applied.map((user, i) => (
                     <li
                       key={i}
-                      className="transition transform duration-300 delay-150 hover:font-bold mt-2 cursor-pointer"
+                      className="transition transform duration-300 delay-150 hover:scale-110 mt-2 cursor-pointer"
                       onClick={() => {
                         setShowModal(true);
                         setSelectedUser(user.p_id);
@@ -77,7 +85,7 @@ const MealPostCard = ({ meal }) => {
                 </ul>
               ) : (
                 <p className="text-sm text-gray-500 italic">
-                  Meal has been accepted. No more applicants can be selected.
+                  No one has applied yet.
                 </p>
               )}
             </div>

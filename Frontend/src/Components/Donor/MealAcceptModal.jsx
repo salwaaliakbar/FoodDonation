@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSecureFetch } from "../Refresh/SecureFetch";
 import { useChange } from "../ContextAPIs/ChangeContext";
-import { GRANTED } from "../CONSTANTS";
+import { GRANTED } from "../constants";
 import { useData } from "../ContextAPIs/UserContext";
 
 function MealAcceptModel({
@@ -90,8 +90,8 @@ function MealAcceptModel({
           <div>
             <span className="font-medium">
               Status:{" "}
-              {status === "Accepted" ? (
-                <span className="text-green-600 font-semibold">🏅 Awarded</span>
+              {status === GRANTED ? (
+                <span className="text-gray-700 font-semibold"> Allocated</span>
               ) : (
                 <span className="text-yellow-600 font-semibold">
                   ⏳ Pending

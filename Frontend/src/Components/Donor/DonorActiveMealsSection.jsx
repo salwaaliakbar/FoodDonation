@@ -3,7 +3,7 @@ import MealCard from "./DonorMealCard";
 import { useData } from "../ContextAPIs/UserContext";
 import { useChange } from "../ContextAPIs/ChangeContext";
 import { useSecureFetch } from "../Refresh/SecureFetch";
-import { ACTIVE, GRANTED, EXPIRED } from '../CONSTANTS'
+import { ACTIVE, GRANTED, EXPIRED } from '../constants'
 
 const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   const { user } = useData();
@@ -32,7 +32,6 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
       (status === ACTIVE || status === EXPIRED) &&
       activeMeals.length > 0
     ) {
-      console.log("chk");
       const now = new Date();
       const expired = activeMeals
         .filter((meal) => new Date(meal.expiration) <= now)
@@ -113,10 +112,10 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
       ) : (
         <>
           {/* Render active meals if status is 'Active' */}
-          {status === "Active" ? (
+          {status === ACTIVE ? (
             activeMeals.length > 0 ? (
               activeMeals.map((meal, i) => (
-                <MealCard key={i} meal={meal} color={color} />
+                <MealCard key={i} meal={meal} color={color} status={ACTIVE} />
               ))
             ) : (
               <div className="flex flex-col items-center justify-center h-64 text-gray-500">
@@ -127,10 +126,10 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
           ) : null}
 
           {/* Render granted meals if status is 'Awarded' */}
-          {status === "Awarded" ? (
+          {status === GRANTED ? (
             grantedMeals.length > 0 ? (
               grantedMeals.map((meal, i) => (
-                <MealCard key={i} meal={meal} color={color} />
+                <MealCard key={i} meal={meal} color={color} status={GRANTED} />
               ))
             ) : (
               <div className="flex flex-col items-center justify-center h-64 text-gray-500">
@@ -141,10 +140,10 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
           ) : null}
 
           {/* Render expired meals if status is 'Expired' */}
-          {status === "Expired" ? (
+          {status === EXPIRED ? (
             blacklistMeals.length > 0 ? (
               blacklistMeals.map((meal, i) => (
-                <MealCard key={i} meal={meal} color={color} />
+                <MealCard key={i} meal={meal} color={color} status={EXPIRED} />
               ))
             ) : (
               <div className="flex flex-col items-center justify-center h-64 text-gray-500">

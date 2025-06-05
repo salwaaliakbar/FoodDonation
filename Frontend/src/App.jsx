@@ -13,7 +13,6 @@ import DonationHistory from "./Components/Donor/DonationHistory";
 import ScrollToTop from "./Components/ScrollToTop";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import DonorGeneralFeed from "./Components/Donor/DonorGeneralFeed";
-import CampaignApplicants from "./Components/Donor/CampaignApplicants";
 import { useEffect } from "react";
 import { useData } from "./Components/ContextAPIs/UserContext";
 import { useChange } from "./Components/ContextAPIs/ChangeContext";

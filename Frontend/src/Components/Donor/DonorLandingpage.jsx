@@ -1,6 +1,7 @@
 import ActiveMealsSection from "./DonorActiveMealsSection"
 import StatsSection from "./DonorStatsSection"
 import Header from "./DonorHeader"
+import { ACTIVE } from "../constants"
 
 function DonorLandingPage(){
     return(
@@ -11,7 +12,7 @@ function DonorLandingPage(){
           <ActiveMealsSection
             title={"Your Active Meals"}
             color={"text-green-800"}
-            status={'Active'}
+            status={ACTIVE}
           />
         </div>
         </>
