@@ -1,22 +1,20 @@
 import ActiveMealsSection from "./DonorActiveMealsSection";
-import DonorSidebar from "./DonorSidebar";
 import Header from "./DonorHeader";
 
 function DonationHistory() {
   return (
     <div className="flex overflow-hidden bg-gray-200">
       {/* Sidebar */}
-      <DonorSidebar />
+      {/* <DonorSidebar /> */}
 
       {/* Main Content Area */}
       <div
         className={`
           flex-1 flex flex-col transition-all duration-300 ease-in-out 
-          md:ml-20 lg:ml-[20%]
         `}
       >
         <Header />
-        <div className="flex-1 overflow-y-auto px-4 py-4 mt-18 md:mb-8 mb-38">
+        <div className="flex-1 overflow-y-auto px-4 py-4 mt-18 md:mb-8">
           <ActiveMealsSection
             title={"Your Active Meals"}
             color={"text-yellow-600"}

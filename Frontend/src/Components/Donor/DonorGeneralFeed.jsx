@@ -3,22 +3,20 @@ import Header from "./DonorHeader";
 import { useState, useEffect } from "react";
 import { useData } from "../ContextAPIs/UserContext";
 import Loader from "../Loader";
-import MealPostCard from "../Recipent/MealPostCard";
+import MealPostCard from "./DonorMealPostCard";
 import { useSecureFetch } from "../Refresh/SecureFetch";
+import DonorSidebar from "./DonorSidebar";
 
 function DonorGeneralFeed() {
   const [loading, setLoading] = useState(true);
   const [mealPosts, setMealPosts] = useState([]);
-  const { user } = useData();
   const secureFetch = useSecureFetch()
 
   useEffect(() => {
     async function fetchMealFeedData() {
       try {
         const data = await secureFetch(
-          `http://localhost:5000/api/generalFeed?userId=${
-            user._id
-          }&status=${"Active"}`,
+          `http://localhost:5000/api/generalFeed?status=${"Active"}`,
           {
             method: "GET",
             headers: {
@@ -28,7 +26,6 @@ function DonorGeneralFeed() {
           }
         );
         
-        // console.log(data.message);  // Error Message or Replied Message from server
         return Array.isArray(data.campaigns) ? data.campaigns : [];
       } catch (err) {
         console.error("Error fetching Feed Campaigns:", err);
@@ -42,9 +39,6 @@ function DonorGeneralFeed() {
       setTimeout(async () => {
         const feedData = await fetchMealFeedData();
         setMealPosts(feedData);
-        // console.log(feedData);  // Consoling the data for checking\
-        // console.log
-
         setLoading(false);
       }, 1000);
     };
@@ -54,10 +48,10 @@ function DonorGeneralFeed() {
 
   return (
     <div className="flex">
-      <SideBar />
-      <div className="w-full md:w-[80%] absolute right-0 bg-gray-200">
+      {/* <DonorSidebar /> */}
+      <div className="w-full absolute right-0 bg-gray-200">
         <Header />
-        <div className="md:mb-8 mb-38 mt-25">
+        <div className="md:mb-8 mt-25">
         <h1 className=" mb-4 text-3xl font-bold text-green-600 text-center m-4">
           General Meal Feed
         </h1>
@@ -73,7 +67,7 @@ function DonorGeneralFeed() {
                 key={post._id}
                 meal={post}
                 index={index}
-                setMealPosts={setMealPosts}
+                // setMealPosts={setMealPosts}
               />
             ))}
           </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { format } from 'date-fns';
+import { ACTIVE, EXPIRED, GRANTED } from "../CONSTANTS";
 
 const MealCard = ({ meal, color }) => {
   const [expanded, setExpanded] = useState(false);
@@ -37,7 +38,7 @@ const MealCard = ({ meal, color }) => {
 
         {/* Right Side: Applicants */}
         <div className="w-full sm:w-[20%] text-right">
-          {meal.status === "Active" && (
+          {meal.status === ACTIVE && (
             <>
               <span>
                 ✅ {meal.status} <p className="text-green-600"></p>
@@ -47,15 +48,16 @@ const MealCard = ({ meal, color }) => {
               </p>
             </>
           )}
-          {meal.status === "Awarded" && (
+          {meal.status === GRANTED && (
             <>
               <span>
                 🏅 {meal.status} <p className="text-green-600"></p>
               </span>
-              <p className="text-amber-600">{'Sara Khan'}</p>
+              {console.log("awarded",meal.awarded)}
+              <p className="text-amber-600">{meal.awarded}</p>
             </>
           )}
-          {meal.status === "Expired" && (
+          {meal.status === EXPIRED && (
             <>
               <span>
                 ❌ {meal.status} <p className="text-green-600"></p>

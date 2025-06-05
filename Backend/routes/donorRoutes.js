@@ -1,12 +1,11 @@
 const router = require("express").Router();
-const createCampaign = require("../Controllers/campaignController");
-const updateProfile = require("../Controllers/updateProfileController");
 const authMiddleware = require("../Middlewares/authMiddleware");
-const getHistory = require("../Controllers/getCampaignHistoryController");
-const awardCampaign = require("../Controllers/awardCampaign");
+const donorController = require('../Controllers/donorController')
 
-router.post("/api/createCampaign", authMiddleware, createCampaign);
-router.put("/api/updateProfile", authMiddleware, updateProfile);
-router.get("/api/getHistoy", authMiddleware, getHistory);
+router.post("/api/createCampaign", authMiddleware, donorController.createCampaign);
+router.put("/api/updateProfile", authMiddleware, donorController.updateProfile);
+router.get("/api/getHistoy", authMiddleware, donorController.getHistory);
+router.get("/api/getUserData/:id", authMiddleware, donorController.getUserData)
+router.put("/api/updateStatus/:id/:name", authMiddleware, donorController.updateStatus)
 
 module.exports = router;

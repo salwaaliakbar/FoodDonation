@@ -76,8 +76,7 @@ const campaignSchema = mongoose.Schema(
       default: [],
     },
     awarded: {
-      type: [AwardedSchema],
-      default: [],
+      type: String,
     },
   },
   { timestamps: true }

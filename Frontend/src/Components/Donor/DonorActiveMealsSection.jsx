@@ -3,11 +3,12 @@ import MealCard from "./DonorMealCard";
 import { useData } from "../ContextAPIs/UserContext";
 import { useChange } from "../ContextAPIs/ChangeContext";
 import { useSecureFetch } from "../Refresh/SecureFetch";
+import { ACTIVE, GRANTED, EXPIRED } from '../CONSTANTS'
 
 const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   const { user } = useData();
-  const secureFetch = useSecureFetch()
-  
+  const secureFetch = useSecureFetch();
+
   const {
     isChangeActive,
     setIsChangeActive,
@@ -28,14 +29,14 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   useEffect(() => {
     // Logic for blacklist meals
     if (
-      (status === "Active" || status === "Expired") &&
+      (status === ACTIVE || status === EXPIRED) &&
       activeMeals.length > 0
     ) {
       console.log("chk");
       const now = new Date();
       const expired = activeMeals
         .filter((meal) => new Date(meal.expiration) <= now)
-        .map((meal) => ({ ...meal, status: "Expired" }));
+        .map((meal) => ({ ...meal, status: EXPIRED }));
 
       const stillActive = activeMeals.filter(
         (meal) => new Date(meal.expiration) > now
@@ -47,9 +48,9 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
 
     //  Only fetch from DB when isChange is true
     if (
-      (isChangeActive && status === "Active") ||
-      (isChangeGranted && status === "Awarded") ||
-      (isChangeExpired && status === "Expired")
+      (isChangeActive && status === ACTIVE) ||
+      (isChangeGranted && status === GRANTED) ||
+      (isChangeExpired && status === EXPIRED)
     ) {
       fetchData();
     }
@@ -58,13 +59,13 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   async function fetchMealData(status) {
     try {
       const data = await secureFetch(
-      `http://localhost:5000/api/getHistoy?userId=${user?._id}&status=${status}`,
-      {
-        method: "GET",
-        headers: {
-        "Content-Type": "application/json",
-        },
-      }
+        `http://localhost:5000/api/getHistoy?userId=${user?._id}&status=${status}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       return Array.isArray(data.campaigns) ? data.campaigns : [];
@@ -78,17 +79,16 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
     setLoading(true);
 
     setTimeout(async () => {
-      console.log("abcd");
-      if (status === "Active") {
-        const activeData = await fetchMealData("Active");
+      if (status === ACTIVE) {
+        const activeData = await fetchMealData(ACTIVE);
         setActiveMeals(activeData);
         setIsChangeActive(false);
-      } else if (status === "Awarded") {
-        const grantedData = await fetchMealData("Awarded");
+      } else if (status === GRANTED) {
+        const grantedData = await fetchMealData(GRANTED);
         setGrantedMeals(grantedData);
         setIsChangeGranted(false);
-      } else if (status === "Expired") {
-        const expiredData = await fetchMealData("Expired");
+      } else if (status === EXPIRED) {
+        const expiredData = await fetchMealData(EXPIRED);
         setBlacklistMeals(expiredData);
         setIsChangeExpired(false);
       }

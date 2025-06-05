@@ -22,6 +22,7 @@ import { useSecureFetch } from "./Components/Refresh/SecureFetch";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./Components/ResetPassword";
+import DonorLandingPage from "./Components/Donor/DonorLandingpage";
 
 function App() {
   const { setUser } = useData();
@@ -59,28 +60,30 @@ function App() {
     <>
       <ScrollToTop />
       <ToastContainer />
+
       <Routes>
+        {/* static routes/ home page routes */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/resetPassword/:id/:token" element={<ResetPassword />}/>
+        <Route path="/contact" element={<ContactUs />} />
+        <Route path="/resetPassword/:id/:token" element={<ResetPassword />} />
+
+        {/* Donor Routes */}
+        <Route path="/donorDashBoard" element={<DonorDashboard />}>
+          <Route index element={<DonorLandingPage />} />
+          <Route path="createCampaign" element={<CreateCampaign />} />
+          <Route path="generalfeed" element={<DonorGeneralFeed />} />
+          <Route path="profile" element={<DonorProfile />} />
+          <Route path="history" element={<DonationHistory />} />
+        </Route>
+
+         {/* Recipent Routes */}
         <Route path="/recipent" element={<Recipent_Dashboard />} />
         <Route path="/recipent/profile" element={<Myprofile />} />
         <Route path="/generalfeed" element={<GeneralFeed />} />
         <Route path="/granted" element={<GrantedMeals />} />
         <Route path="/active" element={<ActiveMeals />} />
-        <Route path="/donorDashBoard" element={<DonorDashboard />} />
-        <Route
-          path="/donorDashBoard/createCampaign"
-          element={<CreateCampaign />}
-        />
-        <Route
-          path="/donorDashBoard/generalfeed"
-          element={<CampaignApplicants />}
-        />
-        <Route path="/donorDashBoard/profile" element={<DonorProfile />} />
-        <Route path="/contact" element={<ContactUs />} />
-        <Route path="/donorDashBoard/history" element={<DonationHistory />} />
       </Routes>
     </>
   );

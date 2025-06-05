@@ -3,17 +3,26 @@ import logo from '../../assets/images/logo.jpg';
 // Import FontAwesome icons CSS
 import "font-awesome/css/font-awesome.min.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useData } from '../ContextAPIs/UserContext';
+import { useChange } from '../ContextAPIs/ChangeContext';
 
 const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
+  const { setUser } = useData()
+   const {
+      setIsChangeActive,
+      setIsChangeGranted,
+      setIsChangeExpired,
+      setLoading,
+    } = useChange();
 
    const handleLogout = async () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
     if (confirmed) {
       await fetch("http://localhost:5000/api/logout", {
-        method: "POST",
+        method: "GET",
         credentials: "include",
       });
       setUser(null);

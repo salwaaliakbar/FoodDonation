@@ -28,7 +28,7 @@ const MealApplyModal = ({ selectedPeople, setSelectedPeople, personCount, submit
                     </button>
                     <button
                         onClick={() => { setShowModal(false); handleApply() }}
-                        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                        className="bg-green-900 text-white px-4 py-2 rounded hover:bg-green-700"
                     >
                         Apply
                     </button>

@@ -20,7 +20,7 @@ const DonorSidebar = () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
     if (confirmed) {
       await fetch("http://localhost:5000/api/logout", {
-        method: "POST",
+        method: "GET",
         credentials: "include",
       });
       setUser(null);
@@ -46,13 +46,9 @@ const DonorSidebar = () => {
 
       {/* Sidebar */}
       <div
-// <<<<<<< HEAD
-//         className={`fixed top-0 left-0 h-screen w-[55%] sm:w-[50%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg z-40 transform ${
-//           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-//         } transition-transform duration-300 lg:translate-x-0`}
-// =======
-        className={`fixed top-0 left-0 h-screen w-[55%] sm:w-[50%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg text-black z-40 transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } transition-transform duration-300 lg:translate-x-0`}
+        className={`fixed top-0 left-0 h-screen w-[55%] sm:w-[50%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg z-40 transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 lg:translate-x-0`}
       >
         {/* Logo Section */}
         <div className="h-20 border-b-[1.5px] border-b-green-800 flex items-center justify-center">
@@ -71,7 +67,7 @@ const DonorSidebar = () => {
                 {({ isActive }) => (
                   <div
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isActive ? "bg-green-800 text-white" : ""
+                      isActive ? "bg-green-900 text-white" : ""
                     }`}
                   >
                     <i className="fa fa-home text-lg"></i>
@@ -85,11 +81,11 @@ const DonorSidebar = () => {
                 {({ isActive }) => (
                   <div
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isActive ? "bg-green-800 text-white" : ""
+                      isActive ? "bg-green-900 text-white" : ""
                     }`}
                   >
                     <i className="fa fa-newspaper-o text-lg"></i>
-                    Campaign Applicants
+                    General Field
                   </div>
                 )}
               </NavLink>
@@ -99,7 +95,7 @@ const DonorSidebar = () => {
                 {({ isActive }) => (
                   <div
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isActive ? "bg-green-800 text-white" : ""
+                      isActive ? "bg-green-900 text-white" : ""
                     }`}
                   >
                     <i className="fa fa-history text-lg"></i>
@@ -113,7 +109,7 @@ const DonorSidebar = () => {
                 {({ isActive }) => (
                   <div
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isActive ? "bg-green-800 text-white" : ""
+                      isActive ? "bg-green-900 text-white" : ""
                     }`}
                   >
                     <i className="fa fa-bullhorn text-lg"></i>
@@ -127,7 +123,7 @@ const DonorSidebar = () => {
                 {({ isActive }) => (
                   <div
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isActive ? "bg-green-800 text-white" : ""
+                      isActive ? "bg-green-900 text-white" : ""
                     }`}
                   >
                     <i className="fa fa-user-circle text-lg"></i>

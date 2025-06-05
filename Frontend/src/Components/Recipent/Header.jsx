@@ -5,7 +5,7 @@ import { useData } from '../ContextAPIs/UserContext';
 const Header = () => {
     const { user } = useData();
 
-    const firstLetter = user.fullname.charAt(0).toUpperCase() || "U";
+    const firstLetter = user.fullname?.charAt(0).toUpperCase() || "U";
     // console.log(user);
     return (
         <div className='flex justify-around items-center h-20 border-b-[1.5px] border-b-green-700 bg-white'>

@@ -4,7 +4,7 @@ async function CampaignsFeed(req, res) {
   try {
     // Find campaigns based on status
 
-    const { userId, status } = req.query;
+    const { status } = req.query;
 
     // Validate the status (active, granted, blacklisted)
     if (!["Active", "Awarded", "Expired"].includes(status)) {
@@ -15,7 +15,7 @@ async function CampaignsFeed(req, res) {
       .populate("createdBy", "fullname") // Populate createdBy with user's fullname
       .populate({
         path: "applied.p_id", // Populate the user inside applied array
-        select: "fullname", // Only fetch fullname from users
+        select: "fullname _id", // Only fetch fullname and id  from users
       })
       .exec();
 
