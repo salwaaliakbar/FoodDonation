@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { format } from "date-fns";
 import { ACTIVE, EXPIRED, GRANTED } from "../constants";
 import MealAcceptModel from "./MealAcceptModal";
+import { useLocation } from "react-router-dom";
 
 const MealCard = ({ meal, color }) => {
   const [expanded, setExpanded] = useState(false);
@@ -10,13 +11,14 @@ const MealCard = ({ meal, color }) => {
   const [awardedTo, setAwardedTo] = useState(meal.awarded || "none");
   const [showModal, setShowModal] = useState(false);
   const [selecteduser, setSelectedUser] = useState({});
+  const { pathname } = useLocation()
 
   return (
     <div
       onClick={() => setExpanded((prev) => !prev)}
       className="w-full px-4 py-3 my-2 mb-0 border-b rounded-xl border-gray-300 hover:bg-gray-100 cursor-pointer transition-all duration-300"
     >
-      {status === GRANTED && awardedTo && (
+      {pathname === "/donorDashBoard/generalfeed" && status === GRANTED && awardedTo && (
         <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded-md text-base font-semibold mb-4 shadow-sm">
           🏅 Meal Awarded to <span className="underline">{awardedTo}</span>
         </div>
@@ -64,7 +66,6 @@ const MealCard = ({ meal, color }) => {
               <span>
                 🏅 {meal.status} <p className="text-green-600"></p>
               </span>
-              {console.log("awarded", meal.awarded)}
               <p className="text-amber-600">{meal.awarded}</p>
             </>
           )}

@@ -23,14 +23,13 @@ import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./Components/ResetPassword";
 import DonorLandingPage from "./Components/Donor/DonorLandingpage";
 
+
 function App() {
   const { setUser } = useData();
   const { setActiveMeals, setGrantedMeals, setBlacklistMeals } = useChange();
   const secureFetch = useSecureFetch();
 
   useEffect(() => {
-    console.log("running");
-
     try {
       async function restoreSession() {
         const data = await secureFetch("http://localhost:5000/api/me", {

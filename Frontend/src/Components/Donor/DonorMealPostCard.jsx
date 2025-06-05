@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MealAcceptModel from "./MealAcceptModal";
-import { EXPIRED, GRANTED, PENDING } from "../constants";
+import { EXPIRED, GRANTED } from "../constants";
+import { useLocation } from "react-router-dom";
 
 const MealPostCard = ({ meal }) => {
   const [expanded, setExpanded] = useState(false);
@@ -8,6 +9,7 @@ const MealPostCard = ({ meal }) => {
   const [selecteduser, setSelectedUser] = useState({});
   const [status, setStatus] = useState(meal.status);
   const [awardedTo, setAwardedTo] = useState(meal.awarded || "none");
+  const { pathname } = useLocation();
 
   const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
 
@@ -17,7 +19,7 @@ const MealPostCard = ({ meal }) => {
         onClick={() => setExpanded((prev) => !prev)}
         className="bg-white rounded-lg shadow-md p-6 mb-4 w-full cursor-pointer transition-all duration-1000"
       >
-        {status === GRANTED && awardedTo && (
+        {pathname === "/donorDashBoard/generalfeed" && status === GRANTED && awardedTo && (
           <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded-md text-base font-semibold mb-4 shadow-sm">
             🏅 Meal Awarded to <span className="underline">{awardedTo}</span>
           </div>
@@ -72,7 +74,7 @@ const MealPostCard = ({ meal }) => {
                   {meal.applied.map((user, i) => (
                     <li
                       key={i}
-                      className="transition transform duration-300 delay-150 hover:scale-110 mt-2 cursor-pointer"
+                      className="transition transform duration-300 delay-150 hover:font-medium mt-2 cursor-pointer"
                       onClick={() => {
                         setShowModal(true);
                         setSelectedUser(user.p_id);
