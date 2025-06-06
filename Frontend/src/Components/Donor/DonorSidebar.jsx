@@ -67,7 +67,7 @@ const DonorSidebar = () => {
                 {({ isActive }) => (
                   <div
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isActive ? "bg-green-900 text-white" : ""
+                      isActive ? "bg-green-800 text-white" : ""
                     }`}
                   >
                     <i className="fa fa-home text-lg"></i>
@@ -81,7 +81,7 @@ const DonorSidebar = () => {
                 {({ isActive }) => (
                   <div
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isActive ? "bg-green-900 text-white" : ""
+                      isActive ? "bg-green-800 text-white" : ""
                     }`}
                   >
                     <i className="fa fa-newspaper-o text-lg"></i>
@@ -95,7 +95,7 @@ const DonorSidebar = () => {
                 {({ isActive }) => (
                   <div
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isActive ? "bg-green-900 text-white" : ""
+                      isActive ? "bg-green-800 text-white" : ""
                     }`}
                   >
                     <i className="fa fa-history text-lg"></i>
@@ -109,7 +109,7 @@ const DonorSidebar = () => {
                 {({ isActive }) => (
                   <div
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isActive ? "bg-green-900 text-white" : ""
+                      isActive ? "bg-green-800 text-white" : ""
                     }`}
                   >
                     <i className="fa fa-bullhorn text-lg"></i>
@@ -123,7 +123,7 @@ const DonorSidebar = () => {
                 {({ isActive }) => (
                   <div
                     className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
-                      isActive ? "bg-green-900 text-white" : ""
+                      isActive ? "bg-green-800 text-white" : ""
                     }`}
                   >
                     <i className="fa fa-user-circle text-lg"></i>
@@ -139,7 +139,7 @@ const DonorSidebar = () => {
         <div className="px-4 py-4">
           <button
             href="#"
-            className="block w-full text-center px-4 py-2 bg-green-900 text-white font-bold text-lg rounded-lg transition-colors hover:bg-green-600"
+            className="block w-full text-center px-4 py-2 bg-green-800 text-white font-bold text-lg rounded-lg transition-colors hover:bg-green-600"
             onClick={handleLogout}
           >
             Logout

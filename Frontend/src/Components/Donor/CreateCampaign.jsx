@@ -64,7 +64,7 @@ function CreateCampaign() {
               </div>
             </div>
 
-            <Form className="py-10 md:px-20 px-10 md:mb-8bg-gray-200">
+            <Form className="py-10 md:px-20 px-10 md:mb-8 bg-gray-200">
               {/* Campaign Title */}
               <div className="mb-6">
                 <label

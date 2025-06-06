@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSecureFetch } from "../Refresh/SecureFetch";
 import { useChange } from "../ContextAPIs/ChangeContext";
-import { GRANTED } from "../constants";
+import { EXPIRED, GRANTED } from "../constants";
 import { useData } from "../ContextAPIs/UserContext";
+import Chat from "./Chat";
 
 function MealAcceptModel({
   mealId,
@@ -12,11 +13,12 @@ function MealAcceptModel({
   status,
   setStatus,
   setAwardedTo,
+  setIsChatOpen
 }) {
   const secureFetch = useSecureFetch();
   const [selectedUser, setSelectedUser] = useState({});
   const { setIsChangeActive, setIsChangeGranted } = useChange();
-  const { user } = useData();
+  const { user } = useData()
 
   useEffect(() => {
     async function fetchSelectedUserData() {
@@ -37,7 +39,7 @@ function MealAcceptModel({
     }
 
     fetchSelectedUserData();
-  }, []);
+  }, [selectedUserData._id, secureFetch]);
 
   async function handleAccept() {
     const confirmed = window.confirm("Are you sure you want to accept?");
@@ -65,7 +67,16 @@ function MealAcceptModel({
 
   return (
     <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded-lg w-[350px] animate-zoomIn shadow-lg">
+      <div className="bg-white p-6 rounded-lg w-[350px] animate-zoomIn shadow-lg relative">
+        {/* Close button */}
+        <button
+          onClick={() => setShowModal(false)}
+          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-2xl font-bold"
+          aria-label="Close modal"
+        >
+          &times;
+        </button>
+
         <div className="flex flex-col mb-4 items-center">
           <h2 className="text-xl font-semibold mt-3 text-gray-800 mb-6">
             Accept Meal Request
@@ -103,15 +114,27 @@ function MealAcceptModel({
 
         <div className="flex justify-between mt-6">
           <button
-            onClick={() => setShowModal(false)}
-            className="bg-gray-400 text-white px-4 py-2 rounded hover:bg-gray-500 transition cursor-pointer"
+            disabled={status === EXPIRED || createdBy._id !== user._id}
+            onClick={() => {
+              setIsChatOpen(true);
+              setShowModal(false);
+            }}
+            className={`px-7 py-2 rounded transition text-white  ${
+              status === GRANTED || createdBy._id !== user._id
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-green-600 hover:bg-green-700 cursor-pointer"
+            }`}
           >
-            Cancel
+            Start Chat
           </button>
           <button
-            disabled={status === GRANTED || createdBy._id !== user._id}
+            disabled={
+              status === GRANTED ||
+              status === EXPIRED ||
+              createdBy._id !== user._id
+            }
             onClick={handleAccept}
-            className={`px-4 py-2 rounded transition text-white  ${
+            className={`px-9 py-2 rounded transition text-white  ${
               status === GRANTED || createdBy._id !== user._id
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-green-600 hover:bg-green-700 cursor-pointer"

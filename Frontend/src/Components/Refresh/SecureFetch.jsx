@@ -10,10 +10,26 @@ export function useSecureFetch() {
         ...options,
         credentials: "include",
       });
-      const data = await res.json();
 
-      if (res.status !== 401) return data;
+      const contentType = res.headers.get("content-type");
+      let data;
 
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        throw new Error(text);
+      }
+
+      // Handle rate limit errors
+      if (res.status === 429) {
+        toast.error(
+          data.message || "Too many requests. Please try again later."
+        );
+        throw new Error(data.message);
+      }
+
+      // Handle token expiration
       if (
         res.status === 401 &&
         (data.code === "TOKEN_MISSING" || data.code === "TOKEN_EXPIRE") &&
@@ -29,10 +45,14 @@ export function useSecureFetch() {
         if (refreshData.success) {
           return secureFetch(url, options, false);
         } else {
-          // Check current path before showing toast
           const currentPath = window.location.pathname;
-
-          const publicPaths = ["/", "/about", "/services", "/contact", "/ResetPassword"]; // add your public routes
+          const publicPaths = [
+            "/",
+            "/about",
+            "/services",
+            "/contact",
+            "/ResetPassword",
+          ];
           const isOnPublicPage =
             publicPaths.includes(currentPath) ||
             currentPath.startsWith("/ResetPassword");
@@ -44,11 +64,26 @@ export function useSecureFetch() {
             });
           }
         }
+
+        return;
+      }
+
+      // Generic error handling
+      if (!res.ok) {
+        toast.error(data?.message || "Something went wrong.");
+        throw new Error(data?.message || "Request failed.");
       }
 
       return data;
     } catch (err) {
       console.error("secureFetch error:", err);
+      const msg = err.message.toLowerCase();
+      if (
+        !msg.includes("too many requests") &&
+        !msg.includes("session expired")
+      ) {
+        toast.error("Something went wrong. Please try again later.");
+      }
       throw err;
     }
   };

@@ -15,15 +15,8 @@ import {
 import Loader from "../Loader";
 
 export default function StatsSection() {
-  const { loading, activeMeals, grantedMeals, blacklistMeals } =
+  const { activeMeals, grantedMeals, blacklistMeals } =
     useContext(ChangeContext);
-
-  // Show loading state first
-  if (loading) {
-    return (
-     <Loader/>
-    );
-  }
 
   const totalDonations =
     activeMeals.length + grantedMeals.length + blacklistMeals.length;

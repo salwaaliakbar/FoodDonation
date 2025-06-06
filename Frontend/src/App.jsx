@@ -13,52 +13,20 @@ import DonationHistory from "./Components/Donor/DonationHistory";
 import ScrollToTop from "./Components/ScrollToTop";
 import ContactUs from "./Components/ContactUs/ContactUs";
 import DonorGeneralFeed from "./Components/Donor/DonorGeneralFeed";
-import { useEffect } from "react";
-import { useData } from "./Components/ContextAPIs/UserContext";
-import { useChange } from "./Components/ContextAPIs/ChangeContext";
 import Services from "./Components/ServicesSection/Services";
-import { useSecureFetch } from "./Components/Refresh/SecureFetch";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ResetPassword from "./Components/ResetPassword";
 import DonorLandingPage from "./Components/Donor/DonorLandingpage";
-
+import SessionInitializer from "./Components/SessionInitializer";
 
 function App() {
-  const { setUser } = useData();
-  const { setActiveMeals, setGrantedMeals, setBlacklistMeals } = useChange();
-  const secureFetch = useSecureFetch();
-
-  useEffect(() => {
-    try {
-      async function restoreSession() {
-        const data = await secureFetch("http://localhost:5000/api/me", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
-        console.log("hello dtaa");
-        console.log(data);
-        if (data.success) {
-          setUser(data.userDetails);
-          setActiveMeals(data.activeMeals);
-          setGrantedMeals(data.grantedMeals);
-          setBlacklistMeals(data.blacklistMeals);
-        }
-      }
-      restoreSession();
-    } catch (err) {
-      console.error("Error during session restore:", err);
-      alert("An error occurred during session restore. Please try again.");
-    }
-  }, []);
+  console.log('app re-render')
   return (
     <>
+    <SessionInitializer/>
       <ScrollToTop />
       <ToastContainer />
-
       <Routes>
         {/* static routes/ home page routes */}
         <Route path="/" element={<LandingPage />} />

@@ -53,7 +53,7 @@ function DonorGeneralFeed() {
       <div className="w-full absolute right-0 bg-gray-200">
         <Header />
         <div className="md:mb-8 mt-25">
-        <h1 className=" mb-4 text-3xl font-bold text-green-600 text-center m-4">
+        <h1 className=" mb-4 text-3xl font-bold text-green-800 text-center m-4">
           General Meal Feed
         </h1>
 

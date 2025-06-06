@@ -1,8 +1,7 @@
 import DonorSidebar from "./DonorSidebar";
 import { Outlet } from "react-router-dom";
-import React from "react";
 
-const DonorDashboard = React.memo(() => {
+function DonorDashboard () {
   console.log("donor dashboard rerender");
   return (
     <div className="flex flex-col md:flex-row overflow-hidden">
@@ -12,6 +11,6 @@ const DonorDashboard = React.memo(() => {
       </div>
     </div>
   );
-});
+};
 
 export default DonorDashboard;

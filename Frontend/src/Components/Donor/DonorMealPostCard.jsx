@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import MealAcceptModel from "./MealAcceptModal";
 import { EXPIRED, GRANTED } from "../constants";
 import { useLocation } from "react-router-dom";
+import Chat from "./Chat";
 
 const MealPostCard = ({ meal }) => {
   const [expanded, setExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [selecteduser, setSelectedUser] = useState({});
   const [status, setStatus] = useState(meal.status);
   const [awardedTo, setAwardedTo] = useState(meal.awarded || "none");
@@ -104,8 +106,17 @@ const MealPostCard = ({ meal }) => {
           status={status}
           setStatus={setStatus}
           setAwardedTo={setAwardedTo}
+          setIsChatOpen={setIsChatOpen}
         />
       )}
+
+      {isChatOpen && (
+            <Chat
+              selectedUser={selecteduser}
+              user={meal.createdBy}
+              setIsChatOpen={setIsChatOpen}
+            />
+          )}
     </>
   );
 };

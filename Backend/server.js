@@ -7,6 +7,7 @@ const donorRoutes = require("./routes/donorRoutes");
 const recipentRoutes = require("./routes/recipentRoutes");
 const cookieParser = require("cookie-parser");
 const startExpirationCron = require("./cronJobs/expireMeal"); 
+const { globalLimiter } = require("./Middlewares/rateLimiterMiddleware");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(globalLimiter)
 app.use(authRoutes);
 app.use(donorRoutes);
 app.use(recipentRoutes);
