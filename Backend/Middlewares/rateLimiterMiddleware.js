@@ -2,11 +2,11 @@ const rateLimit = require("express-rate-limit");
 
 const feedLimiter = rateLimit({
   windowMs: 60 * 1000, // 1 minute
-  max: 10,
+  max: 10, // allow 10 requests per IP
   handler: (req, res) => {
     res.status(429).json({
       success: false,
-      message: "You're sending too many requests. Please wait a moment and try again.",
+      message: "You're sending too many requests. Please wait a moment and try again.feed",
     });
   },
 });
@@ -18,7 +18,7 @@ const recipientLimiter = rateLimit({
   handler: (req, res) => {
     res.status(429).json({
       success: false,
-      message: "You're sending too many requests. Please wait a moment and try again.",
+      message: "You're sending too many requests. Please wait a moment and try again.recipient",
     });
   },
 });
@@ -29,7 +29,7 @@ const globalLimiter = rateLimit({
   handler: (req, res) => {
     res.status(429).json({
       success: false,
-      message: "You're sending too many requests. Please wait a moment and try again.",
+      message: "You're sending too many requests. Please wait a moment and try again.global",
     });
   },
 });
