@@ -116,7 +116,7 @@ function Navbar() {
                 </li>
               </NavLink>
               <button
-                className="bg-green-700 px-10 rounded text-lg font-medium hover:bg-green-600 cursor-pointer h-12 text-white mt-3 hover:transform hover:translate-x-2 transition-all duration-300 delay-150"
+                className="bg-green-800 px-10 rounded text-lg font-medium hover:bg-green-600 cursor-pointer h-12 text-white mt-3 hover:transform hover:translate-x-2 transition-all duration-300 delay-150"
                 onClick={() => setIsLogin(true)}
               >
                 Login

@@ -66,7 +66,7 @@ const DonorSidebar = () => {
               <NavLink to="/donorDashBoard" end>
                 {({ isActive }) => (
                   <div
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-2 mx-2 px-4 py-2 rounded-lg transition-colors ${
                       isActive ? "bg-green-800 text-white" : ""
                     }`}
                   >
@@ -80,7 +80,7 @@ const DonorSidebar = () => {
               <NavLink to="/donorDashBoard/generalfeed">
                 {({ isActive }) => (
                   <div
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-2 mx-2 px-4 py-2 rounded-lg transition-colors ${
                       isActive ? "bg-green-800 text-white" : ""
                     }`}
                   >
@@ -94,7 +94,7 @@ const DonorSidebar = () => {
               <NavLink to="/donorDashBoard/history">
                 {({ isActive }) => (
                   <div
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-2 mx-2 px-4 py-2 rounded-lg transition-colors ${
                       isActive ? "bg-green-800 text-white" : ""
                     }`}
                   >
@@ -108,7 +108,7 @@ const DonorSidebar = () => {
               <NavLink to="/donorDashBoard/createCampaign">
                 {({ isActive }) => (
                   <div
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-2 mx-2 px-4 py-2 rounded-lg transition-colors ${
                       isActive ? "bg-green-800 text-white" : ""
                     }`}
                   >
@@ -122,7 +122,7 @@ const DonorSidebar = () => {
               <NavLink to="/donorDashBoard/profile">
                 {({ isActive }) => (
                   <div
-                    className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-2 mx-2 px-4 py-2 rounded-lg transition-colors ${
                       isActive ? "bg-green-800 text-white" : ""
                     }`}
                   >

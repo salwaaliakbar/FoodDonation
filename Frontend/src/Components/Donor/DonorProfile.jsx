@@ -61,9 +61,9 @@ const Myprofile = () => {
             >
               {firstLetter}
             </div>
-            <span className="text-center lg:text-left md:18">
-              <p className="font-bold text-lg">{user.fullname}</p>
-              <p className="text-lg">{user.role}</p>
+            <span className="text-center lg:text-left md:18 mt-8">
+              <p className="font-bold text-lg">{user?.fullname}</p>
+              <p className="text-lg">{user?.role}</p>
               <button
                 className="rounded-md bg-gray-200 mt-2 p-2 text-[0.8rem] hover:border-[1px] border-green-400 hover:bg-gray-300"
                 onClick={() => setEdit(true)}
