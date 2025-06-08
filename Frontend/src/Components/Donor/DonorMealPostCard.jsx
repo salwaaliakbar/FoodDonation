@@ -115,6 +115,7 @@ const MealPostCard = ({ meal }) => {
               selectedUser={selecteduser}
               user={meal.createdBy}
               setIsChatOpen={setIsChatOpen}
+              campaignId={meal._id}
             />
           )}
     </>

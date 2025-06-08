@@ -169,6 +169,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
           selectedUser={meal.createdBy}
           user={user}
           setIsChatOpen={setShowChatModal}
+          campaignId={meal._id}
         />
       )}
     </>

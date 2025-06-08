@@ -4,13 +4,13 @@ import { io } from "socket.io-client";
 // Connect to backend
 const socket = io("http://localhost:5000");
 
-function Chat({ selectedUser, user, setIsChatOpen }) {
+function Chat({ selectedUser, user, setIsChatOpen, campaignId }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef(null);
 
   // Generate consistent roomId (donor & recipient)
-  const roomId = [user._id, selectedUser._id].sort().join("-");
+  const roomId = [user._id, selectedUser._id, campaignId].sort().join("-");
 
   useEffect(() => {
     // Join room
@@ -21,9 +21,15 @@ function Chat({ selectedUser, user, setIsChatOpen }) {
       setMessages((prev) => [...prev, msg]);
     });
 
+    // Receive previous messages from DB
+    socket.on("loadPreviousMessages", (msgsFromDb) => {
+      setMessages(msgsFromDb);
+    });
+
     // Cleanup on unmount
     return () => {
       socket.off("receiveMessage");
+      socket.off("loadPreviousMessages");
     };
   }, [roomId]);
 
@@ -43,7 +49,9 @@ function Chat({ selectedUser, user, setIsChatOpen }) {
     const msg = {
       id: Date.now(),
       sender: user.fullname,
+      senderId: user._id,
       receiver: selectedUser.fullname,
+      receiverId: selectedUser._id,
       text: newMessage.trim(),
       time,
     };
@@ -83,12 +91,12 @@ function Chat({ selectedUser, user, setIsChatOpen }) {
               <div
                 key={msg.id}
                 className={`mb-2 flex ${
-                  msg.sender === user.fullname ? "justify-end" : "justify-start"
+                  msg.senderId === user._id ? "justify-end" : "justify-start"
                 }`}
               >
                 <div
                   className={`flex justify-between px-3 py-2 rounded-lg max-w-[85%] sm:max-w-[70%] min-w-[30%] break-words ${
-                    msg.sender === user.fullname
+                    msg.senderId === user._id
                       ? "bg-green-600 text-white"
                       : "bg-gray-300 text-gray-900"
                   }`}
@@ -96,7 +104,7 @@ function Chat({ selectedUser, user, setIsChatOpen }) {
                   <div className="flex-1 break-all">{msg.text}</div>
                   <div
                     className={`text-xs ml-4 flex items-end ${
-                      msg.sender === user.fullname
+                      msg.senderId === user._id
                         ? "text-white"
                         : "text-gray-600"
                     }`}

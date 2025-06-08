@@ -6,13 +6,14 @@ const authRoutes = require("./routes/authRoutes");
 const donorRoutes = require("./routes/donorRoutes");
 const recipentRoutes = require("./routes/recipentRoutes");
 const cookieParser = require("cookie-parser");
-const startExpirationCron = require("./cronJobs/expireMeal"); 
+const startExpirationCron = require("./cronJobs/expireMeal");
 const { globalLimiter } = require("./Middlewares/rateLimiterMiddleware");
 const { Server } = require("socket.io");
 const { createServer } = require("http");
+const messageSchema = require("./Models/messageModel");
 
 const app = express();
-const server = createServer(app)
+const server = createServer(app);
 
 // Middlewares
 app.use(cookieParser());
@@ -24,31 +25,39 @@ app.use(
 );
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // your frontend domain
-    methods: ["GET", "POST"]
-  }
+    origin: "http://localhost:5173", 
+    methods: ["GET", "POST"],
+  },
 });
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(authRoutes);
 app.use(donorRoutes);
 app.use(recipentRoutes);
-app.use(globalLimiter)
-
+app.use(globalLimiter);
 
 io.on("connection", (socket) => {
   console.log("New user connected:", socket.id);
 
   // Join private room for chat
-  socket.on("joinRoom", (roomId) => {
+  socket.on("joinRoom",async (roomId) => {
     socket.join(roomId);
-    console.log(`User ${socket.id} joined room: ${roomId}`);
+    const messages = await messageSchema.find({ roomId }).sort('time')
+    socket.emit('loadPreviousMessages', messages)
   });
 
   // Handle message sending
-  socket.on("sendMessage", ({ roomId, message }) => {
+  socket.on("sendMessage", async ({ roomId, message }) => {
     // Broadcast to room only (except sender)
     socket.to(roomId).emit("receiveMessage", message);
+
+    await messageSchema.create({
+      senderId: message.senderId,
+      receiverId: message.receiverId,
+      roomId,
+      text: message.text,
+      time: message.time,
+    });
   });
 
   socket.on("disconnect", () => {
