@@ -8,7 +8,10 @@ const MealPostCard = ({ meal }) => {
   const [expanded, setExpanded] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [selecteduser, setSelectedUser] = useState({});
+  const [selectedUser, setSelectedUser] = useState({
+    selectedUserId: "",
+    selectedusername: "",
+  });
   const [status, setStatus] = useState(meal.status);
   const [awardedTo, setAwardedTo] = useState(meal.awarded || "none");
   const { pathname } = useLocation();
@@ -21,17 +24,19 @@ const MealPostCard = ({ meal }) => {
         onClick={() => setExpanded((prev) => !prev)}
         className="bg-white rounded-lg shadow-md p-6 mb-4 w-full cursor-pointer transition-all duration-1000"
       >
-        {pathname === "/donorDashBoard/generalfeed" && status === GRANTED && awardedTo && (
-          <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded-md text-base font-semibold mb-4 shadow-sm">
-            🏅 Meal Awarded to <span className="underline">{awardedTo}</span>
-          </div>
-        )}
+        {pathname === "/donorDashBoard/generalfeed" &&
+          status === GRANTED &&
+          awardedTo && (
+            <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded-md text-base font-semibold mb-4 shadow-sm">
+              🏅 Meal Awarded to <span className="underline">{awardedTo}</span>
+            </div>
+          )}
         <div className="flex items-center gap-2 mb-3">
           <div className="w-11 h-11 rounded-full text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
             {firstLetter}
           </div>
           <div>
-            <h3 className="text-lg font-bold">{meal.createdBy.fullname}</h3>
+            <h3 className="text-lg font-bold">{meal.createdBy?.fullname}</h3>
             <p className="text-gray-500 text-sm">{meal.location}</p>
           </div>
         </div>
@@ -79,7 +84,10 @@ const MealPostCard = ({ meal }) => {
                       className="transition transform duration-300 delay-150 hover:font-medium mt-2 cursor-pointer"
                       onClick={() => {
                         setShowModal(true);
-                        setSelectedUser(user.p_id);
+                        setSelectedUser({
+                          selectedUserId: user.p_id._id,
+                          selectedusername: user.p_id.fullname,
+                        });
                       }}
                     >
                       {user.p_id.fullname} - {user.persons}{" "}
@@ -102,22 +110,22 @@ const MealPostCard = ({ meal }) => {
           mealId={meal._id}
           createdBy={meal.createdBy}
           setShowModal={setShowModal}
-          selectedUserData={selecteduser}
           status={status}
           setStatus={setStatus}
           setAwardedTo={setAwardedTo}
           setIsChatOpen={setIsChatOpen}
+          selectedUserData={selectedUser}
         />
       )}
 
       {isChatOpen && (
-            <Chat
-              selectedUser={selecteduser}
-              user={meal.createdBy}
-              setIsChatOpen={setIsChatOpen}
-              campaignId={meal._id}
-            />
-          )}
+        <Chat
+          selectedUserData={selectedUser}
+          user={meal.createdBy}
+          setIsChatOpen={setIsChatOpen}
+          campaignId={meal._id}
+        />
+      )}
     </>
   );
 };

@@ -28,6 +28,18 @@ const AwardedSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const awardedSchema = mongoose.Schema({
+  p_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "users",
+    required: true,
+  },
+  p_name: {
+    type: String,
+    required: true,
+  },
+});
+
 const campaignSchema = mongoose.Schema(
   {
     createdBy: {
@@ -75,9 +87,7 @@ const campaignSchema = mongoose.Schema(
       type: [AppliedSchema],
       default: [],
     },
-    awarded: {
-      type: String,
-    },
+    awarded: awardedSchema,
   },
   { timestamps: true }
 );

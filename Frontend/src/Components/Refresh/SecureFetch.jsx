@@ -70,6 +70,7 @@ export function useSecureFetch() {
 
       // Generic error handling
       if (!res.ok) {
+        console.log(res)
         toast.error(data?.message || "Something went wrong.");
         throw new Error(data?.message || "Request failed.");
       }

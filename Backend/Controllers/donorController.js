@@ -184,10 +184,10 @@ async function getUserData(req, res) {
 
 // update status handler
 async function updateStatus(req, res) {
-  const { id, name } = req.params;
-  console.log(id, name);
+  const { id,p_id, p_name } = req.params;
+  console.log(id, p_id, p_name);
 
-  if (!id || !name) {
+  if (!id || !p_id || !p_name) {
     return res
       .status(400)
       .json({ message: "Plz provide required data!", success: false });
@@ -198,7 +198,7 @@ async function updateStatus(req, res) {
       {
         $set: {
           status: GRANTED,
-          awarded: name
+          awarded: { p_id, p_name }
         },
       }
     );

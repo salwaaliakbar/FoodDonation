@@ -11,6 +11,7 @@ const { globalLimiter } = require("./Middlewares/rateLimiterMiddleware");
 const { Server } = require("socket.io");
 const { createServer } = require("http");
 const messageSchema = require("./Models/messageModel");
+const messageCron = require("./cronJobs/messagesCron");
 
 const app = express();
 const server = createServer(app);
@@ -42,7 +43,7 @@ io.on("connection", (socket) => {
   // Join private room for chat
   socket.on("joinRoom",async (roomId) => {
     socket.join(roomId);
-    const messages = await messageSchema.find({ roomId }).sort('time')
+    const messages = await messageSchema.find({ roomId }).sort({ createdAt: 1 })
     socket.emit('loadPreviousMessages', messages)
   });
 
@@ -68,6 +69,7 @@ const startServer = async () => {
   try {
     await connectDB();
     startExpirationCron();
+    messageCron()
 
     if (process.env.NODE_ENV === "production") {
       app.use(

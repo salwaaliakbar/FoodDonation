@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { ACTIVE, EXPIRED, GRANTED } from "../constants";
 import MealAcceptModel from "./MealAcceptModal";
 import { useLocation } from "react-router-dom";
+import Chat from "./Chat";
 
 const MealCard = ({ meal, color }) => {
   const [expanded, setExpanded] = useState(false);
@@ -10,19 +11,25 @@ const MealCard = ({ meal, color }) => {
   const [status, setStatus] = useState(meal.status);
   const [awardedTo, setAwardedTo] = useState(meal.awarded || "none");
   const [showModal, setShowModal] = useState(false);
-  const [selecteduser, setSelectedUser] = useState({});
-  const { pathname } = useLocation()
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState({
+    selectedUserId: "",
+    selectedusername: "",
+  });
+  const { pathname } = useLocation();
 
   return (
     <div
       onClick={() => setExpanded((prev) => !prev)}
       className="w-full px-4 py-3 my-2 mb-0 border-b rounded-xl border-gray-300 hover:bg-gray-100 cursor-pointer transition-all duration-300"
     >
-      {pathname === "/donorDashBoard/generalfeed" && status === GRANTED && awardedTo && (
-        <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded-md text-base font-semibold mb-4 shadow-sm">
-          🏅 Meal Awarded to <span className="underline">{awardedTo}</span>
-        </div>
-      )}
+      {pathname === "/donorDashBoard/generalfeed" &&
+        status === GRANTED &&
+        awardedTo && (
+          <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded-md text-base font-semibold mb-4 shadow-sm">
+            🏅 Meal Awarded to <span className="underline">{awardedTo}</span>
+          </div>
+        )}
       {/* Row Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         {/* Left Side: Photo + User + Title */}
@@ -63,10 +70,19 @@ const MealCard = ({ meal, color }) => {
           )}
           {meal.status === GRANTED && (
             <>
-              <span>
-                🏅 {meal.status} <p className="text-green-600"></p>
-              </span>
-              <p className="text-amber-600">{meal.awarded}</p>
+              <span>🏅 {meal.status}</span>
+              <p
+                className="text-amber-600"
+                onClick={() => {
+                  setShowModal(true);
+                  setSelectedUser({
+                    selectedUserId: meal.awarded?.p_id,
+                    selectedusername: meal.awarded?.p_name,
+                  });
+                }}
+              >
+                {meal.awarded?.p_name}
+              </p>
             </>
           )}
           {meal.status === EXPIRED && (
@@ -115,7 +131,10 @@ const MealCard = ({ meal, color }) => {
                       className="transition transform duration-300 delay-150 hover:scale-110 mt-2 cursor-pointer"
                       onClick={() => {
                         setShowModal(true);
-                        setSelectedUser(user.p_id);
+                        setSelectedUser({
+                          selectedUserId: user.p_id._id,
+                          selectedusername: user.p_id.fullname,
+                        });
                       }}
                     >
                       {user.p_id.fullname} - {user.persons}{" "}
@@ -138,10 +157,20 @@ const MealCard = ({ meal, color }) => {
           mealId={meal._id}
           createdBy={meal.createdBy}
           setShowModal={setShowModal}
-          selectedUserData={selecteduser}
           status={status}
           setStatus={setStatus}
           setAwardedTo={setAwardedTo}
+          setIsChatOpen={setIsChatOpen}
+          selectedUserData={selectedUser}
+        />
+      )}
+
+      {isChatOpen && (
+        <Chat
+          selectedUserData={selectedUser}
+          user={meal.createdBy}
+          setIsChatOpen={setIsChatOpen}
+          campaignId={meal._id}
         />
       )}
     </div>

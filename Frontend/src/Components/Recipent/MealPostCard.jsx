@@ -16,6 +16,10 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
   const [applied, setApplied] = useState(
     meal.applied?.some((entry) => entry.p_id._id === user._id)
   );
+   const [selectedUser, setSelectedUser] = useState({
+      selectedUserId: "",
+      selectedusername: "",
+    });
   // console.log(meal._id);
   // console.log(applied);
   // console.log('meal applied ids: ', meal.applied);
@@ -129,6 +133,10 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowChatModal(true);
+                  setSelectedUser({
+                    selectedUserId: meal.createdBy?._id,
+                    selectedusername: meal.createdBy?.fullname
+                  })
                 }}
               >
                 Chat
@@ -166,7 +174,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
 
       {showChatModal && (
         <Chat
-          selectedUser={meal.createdBy}
+          selectedUserData={selectedUser}
           user={user}
           setIsChatOpen={setShowChatModal}
           campaignId={meal._id}

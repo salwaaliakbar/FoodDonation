@@ -4,13 +4,13 @@ import { io } from "socket.io-client";
 // Connect to backend
 const socket = io("http://localhost:5000");
 
-function Chat({ selectedUser, user, setIsChatOpen, campaignId }) {
+function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef(null);
 
   // Generate consistent roomId (donor & recipient)
-  const roomId = [user._id, selectedUser._id, campaignId].sort().join("-");
+  const roomId = [user._id, selectedUserData.selectedUserId, campaignId].sort().join("-");
 
   useEffect(() => {
     // Join room
@@ -50,8 +50,8 @@ function Chat({ selectedUser, user, setIsChatOpen, campaignId }) {
       id: Date.now(),
       sender: user.fullname,
       senderId: user._id,
-      receiver: selectedUser.fullname,
-      receiverId: selectedUser._id,
+      receiver: selectedUserData.selectedusername,
+      receiverId: selectedUserData.selectedUserId,
       text: newMessage.trim(),
       time,
     };
@@ -77,7 +77,7 @@ function Chat({ selectedUser, user, setIsChatOpen, campaignId }) {
     <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4 sm:p-6">
       <div className="flex flex-col w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto p-4 sm:p-6 rounded-2xl shadow-lg bg-white max-h-[90vh] overflow-hidden">
         <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-center text-gray-800">
-          Chat with {selectedUser?.fullname}
+          Chat with {selectedUserData.selectedusername}
         </h3>
 
         <div

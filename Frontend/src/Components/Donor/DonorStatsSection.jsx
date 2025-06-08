@@ -19,8 +19,8 @@ export default function StatsSection() {
     useContext(ChangeContext);
 
   const totalDonations =
-    activeMeals.length + grantedMeals.length + blacklistMeals.length;
-  const granted = grantedMeals.length;
+    activeMeals?.length + grantedMeals?.length + blacklistMeals?.length;
+  const granted = grantedMeals?.length;
   const remaining = totalDonations - granted;
 
   const pieData = [

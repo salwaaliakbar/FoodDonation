@@ -3,7 +3,7 @@ import MealCard from "./DonorMealCard";
 import { useData } from "../ContextAPIs/UserContext";
 import { useChange } from "../ContextAPIs/ChangeContext";
 import { useSecureFetch } from "../Refresh/SecureFetch";
-import { ACTIVE, GRANTED, EXPIRED } from '../constants'
+import { ACTIVE, GRANTED, EXPIRED } from "../constants";
 
 const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   const { user } = useData();
@@ -28,10 +28,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
 
   useEffect(() => {
     // Logic for blacklist meals
-    if (
-      (status === ACTIVE || status === EXPIRED) &&
-      activeMeals.length > 0
-    ) {
+    if ((status === ACTIVE || status === EXPIRED) && activeMeals?.length > 0) {
       const now = new Date();
       const expired = activeMeals
         .filter((meal) => new Date(meal.expiration) <= now)
@@ -57,17 +54,21 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
 
   async function fetchMealData(status) {
     try {
-      const data = await secureFetch(
-        `http://localhost:5000/api/getHistoy?userId=${user?._id}&status=${status}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      return Array.isArray(data.campaigns) ? data.campaigns : [];
+      // console.log("user: ", user);
+      let data;
+      if (user?._id) {
+        data = await secureFetch(
+          `http://localhost:5000/api/getHistoy?userId=${user?._id}&status=${status}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        return Array.isArray(data.campaigns) ? data.campaigns : [];
+      }
+      return 
     } catch (err) {
       console.error("Error fetching user campaigns:", err);
       return [];
@@ -113,7 +114,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
         <>
           {/* Render active meals if status is 'Active' */}
           {status === ACTIVE ? (
-            activeMeals.length > 0 ? (
+            activeMeals?.length > 0 ? (
               activeMeals.map((meal, i) => (
                 <MealCard key={i} meal={meal} color={color} status={ACTIVE} />
               ))
