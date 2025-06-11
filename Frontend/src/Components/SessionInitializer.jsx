@@ -18,7 +18,7 @@ function SessionInitializer() {
           },
           credentials: "include",
         });
-        if (data.success) {
+        if (data?.success) {
           setUser(data.userDetails);
           setActiveMeals(data.activeMeals);
           setGrantedMeals(data.grantedMeals);

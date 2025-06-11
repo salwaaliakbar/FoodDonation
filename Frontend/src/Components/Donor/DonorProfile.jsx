@@ -76,28 +76,28 @@ const Myprofile = () => {
             <TextField
               fieldName="fullname"
               Icon={User}
-              fieldValue={user.fullname}
+              fieldValue={user?.fullname}
               edit={edit}
               handleInput={handleInput}
             />
             <TextField
               fieldName="email"
               Icon={Mail}
-              fieldValue={user.email}
+              fieldValue={user?.email}
               edit={edit}
               handleInput={handleInput}
             />
             <TextField
               fieldName="phone"
               Icon={Phone}
-              fieldValue={user.phone}
+              fieldValue={user?.phone}
               edit={edit}
               handleInput={handleInput}
             />
             <TextField
               fieldName="organization"
               Icon={Building}
-              fieldValue={user.organization}
+              fieldValue={user?.organization}
               edit={edit}
               handleInput={handleInput}
             />

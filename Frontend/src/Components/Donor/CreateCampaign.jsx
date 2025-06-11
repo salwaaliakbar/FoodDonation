@@ -40,7 +40,7 @@ function CreateCampaign() {
             alert("Error during new campaign creation ", data.error);
             }
         } catch (error) {
-          console.error("Error during new campaign creation:", err);
+          console.error("Error during new campaign creation:", error);
           alert(
             "An error occurred during new campaign creation. Please try again."
           );

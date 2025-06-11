@@ -17,6 +17,7 @@ async function CampaignsFeed(req, res) {
         path: "applied.p_id", // Populate the user inside applied array
         select: "fullname _id", // Only fetch fullname and id  from users
       })
+      .sort({ createdAt: -1 })
       .exec();
 
     console.log("campaigns", campaigns);

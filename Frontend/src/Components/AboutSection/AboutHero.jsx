@@ -28,10 +28,10 @@ return (
         </div>
         <div className="mx-auto px-4 md:px-6 relative z-10">
             <div className="max-w-4xl">
-                <h1 className="text-4xl font-serif md:text-6xl font-bold mb-8">
+                <h1 className="text-4xl md:text-6xl font-bold mb-8 font-poppins">
                     About FoodSecure
                 </h1>
-                <p className="text-xl mb-12 leading-relaxed">
+                <p className="text-lg mb-12 leading-relaxed">
                     Bridging the gap between food abundance and scarcity, we're creating a community 
                     where no one goes hungry and no food goes to waste. Our mission is powered by 
                     compassion, driven by efficiency, and sustained by community support.

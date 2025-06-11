@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ChangeContext } from "../ContextAPIs/ChangeContext";
+import { useEffect } from "react";
 import {
   ResponsiveContainer,
   PieChart,
@@ -12,20 +13,75 @@ import {
   Tooltip,
   Label,
 } from "recharts";
-import Loader from "../Loader";
+import { useData } from "../ContextAPIs/UserContext";
 
 export default function StatsSection() {
-  const { activeMeals, grantedMeals, blacklistMeals } =
-    useContext(ChangeContext);
+  const {
+    isChangeActive,
+    isChangeGranted,
+    isChangeExpired,
+    isLoggedout,
+    activeMeals,
+    grantedMeals,
+    blacklistMeals,
+  } = useContext(ChangeContext);
+  const [statsSummary, setStatsSummary] = useState({
+    totalDonations: 0,
+    granted: 0,
+    remaining: 0,
+  });
 
-  const totalDonations =
-    activeMeals?.length + grantedMeals?.length + blacklistMeals?.length;
-  const granted = grantedMeals?.length;
-  const remaining = totalDonations - granted;
+  const { user } = useData();
+  useEffect(() => {
+    async function getStats() {
+      try {
+        if (user._id) {
+          const response = await fetch(
+            `http://localhost:5000/api/statSummary/${user?._id}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          const data = await response.json();
+          if (data.success) {
+            const td =
+              data.data?.active + data.data?.granting + data.data.blacklist;
+            const gran = data.data?.granting;
+            const rem = td - gran;
+            setStatsSummary(() => ({
+              totalDonations: td,
+              granted: gran,
+              remaining: rem,
+            }));
+          }
+        }
+      } catch (err) {
+        console.error("Error while fetching stats summary!", err);
+      }
+    }
+
+    if (isChangeActive && isChangeGranted && isChangeExpired && !isLoggedout) {
+      getStats();
+    } else {
+      const td =
+        activeMeals?.length + grantedMeals?.length + blacklistMeals?.length;
+      const gran = grantedMeals?.length;
+      const rem = td - gran;
+      setStatsSummary(() => ({
+        totalDonations: td,
+        granted: gran,
+        remaining: rem,
+      }));
+    }
+  }, [user]);
 
   const pieData = [
-    { name: "Granted", value: granted },
-    { name: "Not Granted", value: remaining },
+    { name: "Granted", value: statsSummary.granted },
+    { name: "Not Granted", value: statsSummary.remaining },
   ];
 
   const COLORS = ["#15803d", "#d1d5db"]; // green and gray
@@ -44,7 +100,7 @@ export default function StatsSection() {
       <div className="w-full lg:w-[30%] bg-white rounded-xl shadow-md p-4 flex flex-col justify-between">
         <div className="flex justify-between items-center text-sm text-gray-500">
           <h2 className="text-green-700 font-semibold text-lg">
-            Meals Granted: {granted}
+            Meals Granted: {statsSummary.granted}
           </h2>
           <span>{new Date().toLocaleDateString()}</span>
         </div>
@@ -74,7 +130,7 @@ export default function StatsSection() {
 
         <div className="mt-0">
           <span className="text-lg font-semibold text-green-700">
-            Total Donations: {totalDonations}
+            Total Donations: {statsSummary.totalDonations}
           </span>
         </div>
       </div>

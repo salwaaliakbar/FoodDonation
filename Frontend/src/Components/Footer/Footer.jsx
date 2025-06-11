@@ -21,10 +21,10 @@ function Footer() {
           <Link to="/about" className="hover:text-green-400 transform hover:scale-105 transition-all duration-300 delay-75">
             About
           </Link>
-          <Link to="/" className="hover:text-green-400 transform hover:scale-105 transition-all duration-300 delay-75">
+          <Link to="/services" className="hover:text-green-400 transform hover:scale-105 transition-all duration-300 delay-75">
             Services
           </Link>
-          <Link to="/" className="hover:text-green-400 transform hover:scale-105 transition-all duration-300 delay-75 mb-6">
+          <Link to="/contact" className="hover:text-green-400 transform hover:scale-105 transition-all duration-300 delay-75 mb-6">
             Contact Us
           </Link>
         </div>

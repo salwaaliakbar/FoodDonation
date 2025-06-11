@@ -3,9 +3,10 @@ import { createContext, useContext, useState } from "react";
 export const ChangeContext = createContext();
 
 export const ChangeProvider = ({ children }) => {
-  const [isChangeActive, setIsChangeActive] = useState(true)
-  const [isChangeGranted, setIsChangeGranted] = useState(true)
-  const [isChangeExpired, setIsChangeExpired] = useState(true)
+  const [isChangeActive, setIsChangeActive] = useState(true);
+  const [isChangeGranted, setIsChangeGranted] = useState(true);
+  const [isChangeExpired, setIsChangeExpired] = useState(true);
+  const [isLoggedout, setIsLoggedOut] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [activeMeals, setActiveMeals] = useState([]);
@@ -14,21 +15,24 @@ export const ChangeProvider = ({ children }) => {
 
   return (
     <ChangeContext.Provider
-      value={{ 
+      value={{
         isChangeActive,
         setIsChangeActive,
         isChangeGranted,
         setIsChangeGranted,
         isChangeExpired,
-        setIsChangeExpired, 
-        loading, 
-        setLoading, 
-        activeMeals, 
-        setActiveMeals, 
-        grantedMeals, 
-        setGrantedMeals, 
-        blacklistMeals, 
-        setBlacklistMeals }}
+        setIsChangeExpired,
+        loading,
+        setLoading,
+        activeMeals,
+        setActiveMeals,
+        grantedMeals,
+        setGrantedMeals,
+        blacklistMeals,
+        setBlacklistMeals,
+        isLoggedout,
+        setIsLoggedOut,
+      }}
     >
       {children}
     </ChangeContext.Provider>
@@ -51,6 +55,8 @@ export const useChange = () => {
     grantedMeals: changeConsumer.grantedMeals,
     setGrantedMeals: changeConsumer.setGrantedMeals,
     blacklistMeals: changeConsumer.blacklistMeals,
-    setBlacklistMeals: changeConsumer.setBlacklistMeals
+    setBlacklistMeals: changeConsumer.setBlacklistMeals,
+    isLoggedout: changeConsumer.isLoggedout,
+    setIsLoggedOut: changeConsumer.setIsLoggedOut
   };
 };

@@ -1,8 +1,8 @@
 function Journey() {
   return (
     <div className="text-center container mx-auto px-4 py-8 bg-gray-100 rounded-lg shadow-lg">
-      <h1 className="text-4xl font-bold text-gray-700 mb-6">The Story of Our Growth and Impact</h1>
-      <p className="text-lg mb-6 text-gray-600 px-4 sm:px-8 lg:px-16">
+      <h1 className="text-4xl font-bold text-gray-700 mb-6 font-poppins">The Story of Our Growth and Impact</h1>
+      <p className="text-lg mb-10 text-gray-600 px-4 sm:px-8 lg:px-16">
         Our journey began with a powerful vision: to tackle food waste while
         providing nourishment to those in need. We believe that no one should
         ever go hungry, especially when so much food is being wasted every day.

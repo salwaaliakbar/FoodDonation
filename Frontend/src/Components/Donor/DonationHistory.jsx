@@ -1,3 +1,4 @@
+import { ACTIVE, EXPIRED, GRANTED } from "../constants";
 import ActiveMealsSection from "./DonorActiveMealsSection";
 import Header from "./DonorHeader";
 
@@ -19,19 +20,19 @@ function DonationHistory() {
             title={"Your Active Meals"}
             color={"text-yellow-600"}
             bg={"bg-yellow-100"}
-            status={"Active"}
+            status={ACTIVE}
           />
           <ActiveMealsSection
             title={"Your Granted Meals"}
             color={"text-green-800"}
             bg={"bg-[#AFE1AF]"}
-            status={"Awarded"}
+            status={GRANTED}
           />
           <ActiveMealsSection
             title={"Your BlackList Meals"}
             color={"text-red-800"}
             bg={"bg-red-200"}
-            status={"Expired"}
+            status={EXPIRED}
           />
         </div>
       </div>

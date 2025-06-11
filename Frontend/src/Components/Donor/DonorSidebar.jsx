@@ -13,6 +13,10 @@ const DonorSidebar = () => {
     setIsChangeGranted,
     setIsChangeExpired,
     setLoading,
+    setActiveMeals,
+    setGrantedMeals,
+    setBlacklistMeals,
+    setIsLoggedOut
   } = useChange();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -24,9 +28,13 @@ const DonorSidebar = () => {
         credentials: "include",
       });
       setUser(null);
+      setActiveMeals([])
+      setGrantedMeals([])
+      setBlacklistMeals([])
       setIsChangeActive(true);
       setIsChangeGranted(true);
       setIsChangeExpired(true);
+      setIsLoggedOut(true)
       setLoading(false);
       navigate("/");
     } else {

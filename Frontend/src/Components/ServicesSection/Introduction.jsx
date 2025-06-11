@@ -4,7 +4,7 @@ function Introduction() {
   return (
     <div className="mx-auto px-4 md:px-6 my-20">
       <div className="mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800 font-poppins">
           From Kindness to Connection
         </h2>
         <p className="text-lg md:text-xl mb-12 text-gray-600 px-4 md:px-30 text-center">

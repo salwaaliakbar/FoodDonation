@@ -338,7 +338,6 @@ async function updatePassword(req, res) {
 
 // refresh token handler
 async function refreshToken (req, res) {
-  console.log('refresh token called')
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {

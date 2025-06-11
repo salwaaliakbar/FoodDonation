@@ -14,7 +14,7 @@ const Services = () => {
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8 my-10">
       <div className="text-center">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-800 mt-20">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-800 mt-20 font-poppins">
           Engage, Contribute, and Track
         </h2>
         <p className="text-base sm:text-lg md:text-xl mb-8 text-gray-600 max-w-3xl mx-auto">

@@ -11,7 +11,7 @@ function Services () {
       <Navbar />
       <div className="bg-green-800 pt-15 pb-12 md:pb-24">
         <div className="mx-auto px-4 md:px-6 text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-poppins">
             Our Services
           </h1>
           <p className="text-lg md:text-xl text-white max-w-2xl mx-auto">

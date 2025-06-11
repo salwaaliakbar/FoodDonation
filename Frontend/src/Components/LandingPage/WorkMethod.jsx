@@ -6,7 +6,7 @@ function WorkMethod() {
       <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
         <div className="mx-auto px-4 pb-16">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h1 className="text-4xl md:text-4xl font-bold mb-6 text-gray-900">
+            <h1 className="text-4xl md:text-4xl font-bold mb-6 text-gray-800 font-poppins">
               Making Food Sharing Safe & Easy
             </h1>
             <p className="text-xl text-gray-600 mb-8">

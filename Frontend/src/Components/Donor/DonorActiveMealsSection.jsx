@@ -24,6 +24,8 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
     setGrantedMeals,
     blacklistMeals,
     setBlacklistMeals,
+    isLoggedout,
+    setIsLoggedOut,
   } = useChange();
 
   useEffect(() => {
@@ -41,14 +43,17 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
       setActiveMeals(stillActive);
       setBlacklistMeals((prev) => [...prev, ...expired]);
     }
-
-    //  Only fetch from DB when isChange is true
-    if (
-      (isChangeActive && status === ACTIVE) ||
-      (isChangeGranted && status === GRANTED) ||
-      (isChangeExpired && status === EXPIRED)
-    ) {
-      fetchData();
+    if (isLoggedout) {
+      setIsLoggedOut(false);
+    } else {
+      //  Only fetch from DB when isChange is true
+      if (
+        (isChangeActive && status === ACTIVE) ||
+        (isChangeGranted && status === GRANTED) ||
+        (isChangeExpired && status === EXPIRED)
+      ) {
+        fetchData();
+      }
     }
   }, [user?._id, isChangeActive, isChangeGranted, isChangeExpired, status]);
 
@@ -68,7 +73,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
         );
         return Array.isArray(data.campaigns) ? data.campaigns : [];
       }
-      return 
+      return;
     } catch (err) {
       console.error("Error fetching user campaigns:", err);
       return [];
@@ -128,7 +133,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
 
           {/* Render granted meals if status is 'Awarded' */}
           {status === GRANTED ? (
-            grantedMeals.length > 0 ? (
+            grantedMeals?.length > 0 ? (
               grantedMeals.map((meal, i) => (
                 <MealCard key={i} meal={meal} color={color} status={GRANTED} />
               ))
@@ -142,7 +147,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
 
           {/* Render expired meals if status is 'Expired' */}
           {status === EXPIRED ? (
-            blacklistMeals.length > 0 ? (
+            blacklistMeals?.length > 0 ? (
               blacklistMeals.map((meal, i) => (
                 <MealCard key={i} meal={meal} color={color} status={EXPIRED} />
               ))

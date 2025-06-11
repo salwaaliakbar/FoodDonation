@@ -141,7 +141,6 @@ async function getHistory(req, res) {
       .sort({ createdAt: -1 })
       .exec();
 
-    console.log("campaigns", campaigns);
     res.status(200).json({
       message: "Fetch Campaigns sucsessfully",
       success: true,
@@ -184,8 +183,7 @@ async function getUserData(req, res) {
 
 // update status handler
 async function updateStatus(req, res) {
-  const { id,p_id, p_name } = req.params;
-  console.log(id, p_id, p_name);
+  const { id, p_id, p_name } = req.params;
 
   if (!id || !p_id || !p_name) {
     return res
@@ -198,11 +196,10 @@ async function updateStatus(req, res) {
       {
         $set: {
           status: GRANTED,
-          awarded: { p_id, p_name }
+          awarded: { p_id, p_name },
         },
       }
     );
-    console.log(updateStatus);
 
     res.status(200).json({
       message: "Meal Status update successfully!",
@@ -215,10 +212,49 @@ async function updateStatus(req, res) {
       .json({ message: "Server error while updating status!", success: false });
   }
 }
+
+// get meal summary
+async function statsSummary(req, res) {
+  const { id } = req.params;
+  if (!id) {
+    return res
+      .status(500)
+      .json({ message: "Plz provide required Fields!", success: false });
+  }
+  try {
+    const active = await campaignModel.countDocuments({
+      createdBy: id,
+      status: ACTIVE,
+    });
+    const granting = await campaignModel.countDocuments({
+      createdBy: id,
+      status: GRANTED,
+    });
+    console.log(granting);
+    const blacklist = await campaignModel.countDocuments({
+      createdBy: id,
+      status: EXPIRED,
+    });
+    console.log(blacklist);
+
+    res.status(200).json({
+      message: "Fetch stats summary successfully!",
+      success: true,
+      data: { active, granting, blacklist },
+    });
+  } catch (err) {
+    return res.status(500).json({
+      message: "Server error while fetching stats summary!",
+      success: false,
+    });
+  }
+}
+
 module.exports = {
   createCampaign,
   updateProfile,
   getHistory,
   getUserData,
   updateStatus,
+  statsSummary,
 };

@@ -21,10 +21,10 @@ import DonorLandingPage from "./Components/Donor/DonorLandingpage";
 import SessionInitializer from "./Components/SessionInitializer";
 
 function App() {
-  console.log('app re-render')
+  console.log("app re-render");
   return (
     <>
-    <SessionInitializer/>
+      <SessionInitializer />
       <ScrollToTop />
       <ToastContainer />
       <Routes>
@@ -44,7 +44,7 @@ function App() {
           <Route path="history" element={<DonationHistory />} />
         </Route>
 
-         {/* Recipent Routes */}
+        {/* Recipent Routes */}
         <Route path="/recipent" element={<Recipent_Dashboard />} />
         <Route path="/recipent/profile" element={<Myprofile />} />
         <Route path="/generalfeed" element={<GeneralFeed />} />

@@ -8,7 +8,7 @@ function Motivation() {
     <div className="bg-gray-100 my-20 flex flex-col items-center justify-center">
       <div className="text-center max-w-full">
         <div className="">
-          <h1 className="px-6 text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
+          <h1 className="px-6 text-2xl sm:text-3xl font-bold text-gray-800 mb-4 font-poppins">
             Every day, we provide meals to thousands in need.
           </h1>
           <p className="text-base sm:text-lg text-gray-600 mb-6 mx-4 sm:mx-6 lg:px-40">

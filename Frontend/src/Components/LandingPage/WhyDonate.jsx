@@ -6,7 +6,7 @@ function WhyDonate() {
   return (
       <div className="py-16">
         <div className="text-center mx-2">
-          <h2 className="text-4xl font-bold text-gray-800 mb-6">
+          <h2 className="text-4xl font-bold text-gray-800 mb-6 font-poppins">
             Why Donate with FoodSecure?
           </h2>
           <p className="text-lg mb-6 text-gray-600">
