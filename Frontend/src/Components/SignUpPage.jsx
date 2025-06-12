@@ -4,6 +4,7 @@ import ValidationSchema from "./YupSchemas/ValidationSchema";
 import { useNavigate } from "react-router-dom";
 import { useData } from "./ContextAPIs/UserContext";
 import { useEffect } from "react";
+import { useState } from "react";
 
 function SignUpPage({ setIsLogin, setIsSignup }) {
   const navigate = useNavigate();
@@ -16,10 +17,13 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
     };
   }, []);
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   return (
     <>
       <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
-      <div className="fixed inset-0 flex justify-center items-center z-20 px-4 sm:px-6 lg:px-8">
+      <main className="fixed inset-0 flex justify-center items-center z-20 px-4 sm:px-6 lg:px-8">
         <Formik
           initialValues={{
             fullname: "",
@@ -70,17 +74,18 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 type="button"
                 onClick={() => setIsSignup(false)}
                 className="absolute top-2 right-3 text-2xl text-gray-600 hover:text-gray-800 cursor-pointer"
+                aria-label="Close"
               >
                 &times;
               </button>
 
-              <div className="relative">
+              <header className="relative">
                 <h1 className="text-3xl text-center font-bold mb-2 text-green-800 py-2">
                   Register Yourself
                 </h1>
-              </div>
+              </header>
 
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 py-2">
+              <section className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 py-2">
                 <div className="relative w-full sm:w-1/2">
                   <i className="fa fa-user absolute left-3 top-3 text-gray-400"></i>
                   <Field
@@ -106,9 +111,9 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                     <div className="text-red-600 text-sm">{errors.email}</div>
                   ) : null}
                 </div>
-              </div>
+              </section>
 
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 py-2">
+              <section className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 py-2">
                 <div className="relative w-full sm:w-1/2">
                   <i className="fa fa-phone absolute left-3 top-3 text-gray-400"></i>
                   <Field
@@ -134,9 +139,9 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                     </div>
                   ) : null}
                 </div>
-              </div>
+              </section>
 
-              <div className="relative flex flex-col sm:flex-row items-start sm:items-center py-2">
+              <section className="relative flex flex-col sm:flex-row items-start sm:items-center py-2">
                 <label className="block text-gray-700 font-bold mb-2 sm:mb-0 sm:mr-4">
                   Role
                 </label>
@@ -160,12 +165,12 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                     <span>Recipient</span>
                   </div>
                 </div>
-              </div>
+              </section>
               {errors.role && touched.role ? (
                 <div className="text-red-600 text-sm">{errors.role}</div>
               ) : null}
 
-              <div className="relative py-2">
+              <section className="relative py-2">
                 <i className="fa fa-user-circle absolute left-3 top-5 text-gray-400"></i>
                 <Field
                   name="username"
@@ -175,62 +180,81 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 {errors.username && touched.username ? (
                   <div className="text-red-600 text-sm">{errors.username}</div>
                 ) : null}
-              </div>
+              </section>
 
-              <div className="relative py-2">
+              <section className="relative py-2">
                 <i className="fa fa-lock absolute left-3 top-5 text-gray-400"></i>
                 <Field
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  className="block p-2 pl-10 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-green-600"
+                  className="block p-2 pl-10 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-green-600 pr-10"
                 />
+                <span
+                  className="absolute right-3 top-5 text-gray-400 cursor-pointer"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                </span>
                 {errors.password && touched.password ? (
                   <div className="text-red-600 text-sm">{errors.password}</div>
                 ) : null}
-              </div>
+              </section>
 
-              <div className="relative py-2">
+              <section className="relative py-2">
                 <i className="fa fa-lock absolute left-3 top-5 text-gray-400"></i>
                 <Field
                   name="confrimPassword"
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
-                  className="block p-2 pl-10 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-green-600"
+                  className="block p-2 pl-10 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-green-600 pr-10"
                 />
+                <span
+                  className="absolute right-3 top-5 text-gray-400 cursor-pointer"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                >
+                  <i className={`fa ${showConfirmPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                </span>
                 {errors.confrimPassword && touched.confrimPassword ? (
                   <div className="text-red-600 text-sm">
                     {errors.confrimPassword}
                   </div>
                 ) : null}
-              </div>
+              </section>
 
-              <button
-                type="submit"
-                className="bg-green-800 hover:bg-green-600 text-white font-bold py-2 my-2 px-4 rounded-md w-full transition duration-300"
-              >
-                Register
-              </button>
+              <section>
+                <button
+                  type="submit"
+                  className="bg-green-800 hover:bg-green-600 text-white font-bold py-2 my-2 px-4 rounded-md w-full transition duration-300"
+                >
+                  Register
+                </button>
 
-              <div className="text-center m-2">
-                <p className="text-gray-600">
-                  Already have an account?{" "}
-                  <span
-                    href="#"
-                    className="text-green-800 hover:underline font-bold cursor-pointer"
-                    onClick={() => {
-                      setIsSignup(false);
-                      setIsLogin(true);
-                    }}
-                  >
-                    LogIn
-                  </span>
-                </p>
-              </div>
+                <div className="text-center m-2">
+                  <p className="text-gray-600">
+                    Already have an account?{" "}
+                    <span
+                      className="text-green-800 hover:underline font-bold cursor-pointer"
+                      onClick={() => {
+                        setIsSignup(false);
+                        setIsLogin(true);
+                      }}
+                    >
+                      LogIn
+                    </span>
+                  </p>
+                </div>
+              </section>
             </Form>
           )}
         </Formik>
-      </div>
+      </main>
     </>
   );
 }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <>
+    <footer>
       {/* Footer Section */}
       <div className="bg-green-800 mt-20 p-7 flex flex-col md:flex-row justify-between items-center space-y-10 md:space-y-0">
         <div className="text-center md:text-left">
@@ -107,7 +107,7 @@ function Footer() {
           </a>
         </div>
       </div>
-    </>
+    </footer>
   );
 }
 

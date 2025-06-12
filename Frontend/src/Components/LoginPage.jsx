@@ -2,11 +2,12 @@ import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
 import { useNavigate } from "react-router-dom";
 import { useData } from "./ContextAPIs/UserContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Login({ setIsLogin, setIsSignup, setIsForgot }) {
   const navigate = useNavigate();
   const { setUser } = useData();
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     document.body.classList.add("overflow-hidden");
@@ -22,7 +23,6 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
         <Formik
           initialValues={{ username: "", password: "" }}
           onSubmit={async (values) => {
-            // Perform login logic here
             try {
               const response = await fetch("http://localhost:5000/api/login", {
                 method: "POST",
@@ -32,18 +32,12 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                 body: JSON.stringify(values),
                 credentials: "include",
               });
-              // if (!response.ok) {
-              //   throw new Error("Network response was not ok");
-              // }
               const data = await response.json();
               if (data.success) {
                 alert("Login successful!");
                 setIsLogin(false);
                 setIsSignup(false);
-
-                // set login user data into context
                 setUser(data.userData);
-
                 if (data.userData.role === "donor") {
                   navigate("/donorDashBoard");
                 } else {
@@ -64,16 +58,19 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                 type="button"
                 onClick={() => setIsLogin(false)}
                 className="absolute top-2 right-3 text-2xl text-gray-600 hover:text-gray-800"
+                aria-label="Close login form"
               >
                 &times;
               </button>
 
-              <h1 className="text-4xl text-center font-bold mb-6 text-green-800">
-                Welcome Back
-              </h1>
-              <p className="text-center text-gray-600 mb-8">
-                Please login to your account
-              </p>
+              <header>
+                <h1 className="text-4xl text-center font-bold mb-6 text-green-800">
+                  Welcome Back
+                </h1>
+                <p className="text-center text-gray-600 mb-8">
+                  Please login to your account
+                </p>
+              </header>
 
               <div className="relative mb-4">
                 <i className="fa fa-user absolute left-3 top-4 text-gray-400"></i>
@@ -88,10 +85,19 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                 <i className="fa fa-lock absolute left-3 top-4 text-gray-400"></i>
                 <Field
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  className="block p-3 pl-10 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-600"
+                  className="block p-3 pl-10 pr-10 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-600"
                 />
+                <span
+                  className="absolute right-3 top-4 text-gray-400 cursor-pointer"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  tabIndex={0}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  role="button"
+                >
+                  <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                </span>
               </div>
 
               <button
@@ -102,30 +108,31 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
               </button>
 
               <div className="text-center mt-4">
-                <span
-                  className="text-green-800 hover:underline hover:text-green-600 cursor-pointer"
+                <button
+                  type="button"
+                  className="text-green-800 hover:underline hover:text-green-600 cursor-pointer bg-transparent border-none p-0"
                   onClick={() => {
-                    console.log('enter')
                     setIsForgot(true);
                     setIsLogin(false);
                   }}
                 >
                   Forgot Password?
-                </span>
+                </button>
               </div>
 
               <div className="text-center mt-4">
                 <p className="text-gray-600">
                   Don't have an account?{" "}
-                  <span
-                    className="text-green-800 hover:underline font-bold cursor-pointer"
+                  <button
+                    type="button"
+                    className="text-green-800 hover:underline font-bold cursor-pointer bg-transparent border-none p-0"
                     onClick={() => {
                       setIsSignup(true);
                       setIsLogin(false);
                     }}
                   >
                     Sign Up
-                  </span>
+                  </button>
                 </p>
               </div>
             </Form>
