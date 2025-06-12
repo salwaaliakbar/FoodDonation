@@ -6,10 +6,7 @@ import { useLocation } from "react-router-dom";
 import Chat from "./Chat";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { io } from "socket.io-client";
-
-// Connect to backend
-const socket = io("http://localhost:5000");
+import socket from "./socket";
 
 const MealCard = ({ meal, color }) => {
   const [expanded, setExpanded] = useState(false);
@@ -22,38 +19,17 @@ const MealCard = ({ meal, color }) => {
     selectedUserId: "",
     selectedusername: "",
   });
-  const [appliedList, setAppliedList] = useState(meal.applied)
+  const [appliedList, setAppliedList] = useState(meal.applied);
   const { pathname } = useLocation();
 
   // Donor-side socket setup (React)
   useEffect(() => {
+    // Only create socket when status is active
+    if (status !== ACTIVE) return;
+    // Only connect once
+    if (!socket.connected) socket.connect();
+
     socket.emit("joinNotificationRoom", meal.createdBy?._id);
-
-    socket.on("notifyDonor", (data) => {
-      if (data.campaignId !== meal._id) return;
-
-      // Show toast
-      toast.success(
-        `✅ ${data.recipientName} applied to "${data.campaignTitle}" for ${
-          data.appliedPersons
-        } ${data.appliedPersons > 1 ? "people" : "person"}`,
-        {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          style: {
-            background: "#38a169",
-            color: "#fff",
-            fontWeight: "bold",
-            fontSize: "16px",
-            boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-          },
-        }
-      );
-    });
 
     socket.on("meal_applied", (data) => {
       if (data.mealId !== meal._id) return;
@@ -63,10 +39,8 @@ const MealCard = ({ meal, color }) => {
     });
 
     return () => {
-      socket.off("notifyDonor");
       socket.off("meal_applied");
-    }
-
+    };
   }, []);
 
   return (

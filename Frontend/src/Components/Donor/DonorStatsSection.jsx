@@ -17,7 +17,6 @@ import { useData } from "../ContextAPIs/UserContext";
 
 export default function StatsSection() {
   const {
-    isChangeActive,
     isChangeGranted,
     isChangeExpired,
     isLoggedout,
@@ -77,7 +76,7 @@ export default function StatsSection() {
         remaining: rem,
       }));
     }
-  }, [user]);
+  }, [user, activeMeals]);
 
   const pieData = [
     { name: "Granted", value: statsSummary.granted },
