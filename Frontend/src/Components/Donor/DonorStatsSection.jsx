@@ -33,9 +33,39 @@ export default function StatsSection() {
 
   const { user } = useData();
   useEffect(() => {
-  const timer = setTimeout(() => {
-    if (isChangeActive && isChangeGranted && isChangeExpired && !isLoggedout) {
-      getStats(); // use backend data
+    async function getStats() {
+      try {
+        if (user._id) {
+          const response = await fetch(
+            `http://localhost:5000/api/statSummary/${user?._id}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          const data = await response.json();
+          if (data.success) {
+            const td =
+              data.data?.active + data.data?.granting + data.data.blacklist;
+            const gran = data.data?.granting;
+            const rem = td - gran;
+            setStatsSummary(() => ({
+              totalDonations: td,
+              granted: gran,
+              remaining: rem,
+            }));
+          }
+        }
+      } catch (err) {
+        console.error("Error while fetching stats summary!", err);
+      }
+    }
+
+    if (isChangeGranted && isChangeExpired && !isLoggedout) {
+      getStats();
     } else {
       const td =
         activeMeals?.length + grantedMeals?.length + blacklistMeals?.length;
@@ -47,20 +77,7 @@ export default function StatsSection() {
         remaining: rem,
       }));
     }
-  }, 100); // wait for state to stabilize
-
-  return () => clearTimeout(timer);
-}, [
-  user,
-  isChangeActive,
-  isChangeGranted,
-  isChangeExpired,
-  isLoggedout,
-  activeMeals,
-  grantedMeals,
-  blacklistMeals,
-]);
-
+  }, [user]);
 
   const pieData = [
     { name: "Granted", value: statsSummary.granted },

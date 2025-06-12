@@ -29,6 +29,10 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   } = useChange();
 
   useEffect(() => {
+    console.log('status', status)
+    console.log('active', activeMeals)
+    console.log('grant', grantedMeals)
+    console.log('blacklist', blacklistMeals)
     // Logic for blacklist meals
     if ((status === ACTIVE || status === EXPIRED) && activeMeals?.length > 0) {
       const now = new Date();
