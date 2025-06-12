@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { ACTIVE, EXPIRED, GRANTED } from "../constants";
 import MealAcceptModel from "./MealAcceptModal";
 import { useLocation } from "react-router-dom";
 import Chat from "./Chat";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { io } from "socket.io-client";
+
+// Connect to backend
+const socket = io("http://localhost:5000");
 
 const MealCard = ({ meal, color }) => {
   const [expanded, setExpanded] = useState(false);
@@ -16,7 +22,52 @@ const MealCard = ({ meal, color }) => {
     selectedUserId: "",
     selectedusername: "",
   });
+  const [appliedList, setAppliedList] = useState(meal.applied)
   const { pathname } = useLocation();
+
+  // Donor-side socket setup (React)
+  useEffect(() => {
+    socket.emit("joinNotificationRoom", meal.createdBy?._id);
+
+    socket.on("notifyDonor", (data) => {
+      if (data.campaignId !== meal._id) return;
+
+      // Show toast
+      toast.success(
+        `✅ ${data.recipientName} applied to "${data.campaignTitle}" for ${
+          data.appliedPersons
+        } ${data.appliedPersons > 1 ? "people" : "person"}`,
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          style: {
+            background: "#38a169",
+            color: "#fff",
+            fontWeight: "bold",
+            fontSize: "16px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+          },
+        }
+      );
+    });
+
+    socket.on("meal_applied", (data) => {
+      if (data.mealId !== meal._id) return;
+
+      // Add new applicant to appliedList
+      setAppliedList((prevList) => [...prevList, data.newApplicant]);
+    });
+
+    return () => {
+      socket.off("notifyDonor");
+      socket.off("meal_applied");
+    }
+
+  }, []);
 
   return (
     <div
@@ -64,7 +115,7 @@ const MealCard = ({ meal, color }) => {
                 ✅ {meal.status} <p className="text-yellow-600"></p>
               </span>
               <div className="flex justify-end items-center text-sm text-gray-700 mt-2">
-                <p>👥 {meal.applied.length} Applied</p>
+                <p>👥 {appliedList.length} Applied</p>
               </div>
             </>
           )}
@@ -123,9 +174,9 @@ const MealCard = ({ meal, color }) => {
                 <p className="text-sm text-red-600 italic">
                   Meal has been expired.
                 </p>
-              ) : meal.applied.length > 0 ? (
+              ) : appliedList.length > 0 ? (
                 <ul className="list-disc pl-5 text-sm text-gray-700">
-                  {meal.applied.map((user, i) => (
+                  {appliedList.map((user, i) => (
                     <li
                       key={i}
                       className="transition transform duration-300 delay-150 hover:scale-110 mt-2 cursor-pointer"

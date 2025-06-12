@@ -30,6 +30,11 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
+
+// send io instance to the routes
+app.set("io", io)
+
+// middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(authRoutes);
@@ -39,6 +44,12 @@ app.use(globalLimiter);
 
 io.on("connection", (socket) => {
   console.log("New user connected:", socket.id);
+
+   // Join private room for applied meal/ notify donor
+  socket.on("joinNotificationRoom",async (donorId) => {
+    socket.join(donorId);
+    console.log(`User ${donorId} joined notification room`);
+  });
 
   // Join private room for chat
   socket.on("joinRoom",async (roomId) => {
