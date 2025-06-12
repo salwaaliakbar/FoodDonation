@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSecureFetch } from "../Refresh/SecureFetch";
-import { useChange } from "../ContextAPIs/ChangeContext";
+import { useChange } from "../../ContextAPIs/ChangeContext";
 import { EXPIRED, GRANTED } from "../constants";
-import { useData } from "../ContextAPIs/UserContext";
+import { useData } from "../../ContextAPIs/UserContext";
 
 function MealAcceptModel({
   mealId,

@@ -1,12 +1,12 @@
 import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
 import { useNavigate } from "react-router-dom";
-import { useData } from "./ContextAPIs/UserContext";
 import { useEffect, useState } from "react";
+import { useData } from "../ContextAPIs/UserContext";
 
 function Login({ setIsLogin, setIsSignup, setIsForgot }) {
   const navigate = useNavigate();
-  const { setUser } = useData();
+  const { setUser } = useData()
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {

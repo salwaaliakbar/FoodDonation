@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.jpg";
-import { useData } from "../ContextAPIs/UserContext";
+import { useData } from "../../ContextAPIs/UserContext";
 import "font-awesome/css/font-awesome.min.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useChange } from "../ContextAPIs/ChangeContext";
+import { useChange } from "../../ContextAPIs/ChangeContext";
 
 const DonorSidebar = () => {
   const navigate = useNavigate();

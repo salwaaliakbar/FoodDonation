@@ -1,5 +1,5 @@
 import React from "react";
-import { useData } from "../ContextAPIs/UserContext";
+import { useData } from "../../ContextAPIs/UserContext";
 
 const Header = () => {
   const { user } = useData();

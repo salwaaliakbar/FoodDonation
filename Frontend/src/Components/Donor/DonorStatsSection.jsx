@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { ChangeContext } from "../ContextAPIs/ChangeContext";
+import { ChangeContext } from "../../ContextAPIs/ChangeContext";
 import { useEffect } from "react";
 import {
   ResponsiveContainer,
@@ -13,7 +13,7 @@ import {
   Tooltip,
   Label,
 } from "recharts";
-import { useData } from "../ContextAPIs/UserContext";
+import { useData } from "../../ContextAPIs/UserContext";
 
 export default function StatsSection() {
   const {

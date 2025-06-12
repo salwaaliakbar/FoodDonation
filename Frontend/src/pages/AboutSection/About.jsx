@@ -1,11 +1,11 @@
 import React from "react";
-import Navbar from "../Navbar/NavBar";
+import Navbar from "../../Common/Navbar/NavBar";
 import AboutHero from "./AboutHero";
-import Footer from "../Footer/Footer";
 import Staticics from "../LandingPage/Staticsics";
 import JoinMission from "./JoinMission";
 import Journey from "./Journey";
 import OurValue from "./OurValue";
+import Footer from "../../common/Footer/Footer";
 
 const About = () => {
     return (
@@ -15,9 +15,8 @@ const About = () => {
         <Journey/>
         <Staticics/>
         <JoinMission/>
-        <OurValue/>  
-        <Footer/>
-        
+        <OurValue/> 
+        <Footer/>  
         </>
     );
 };

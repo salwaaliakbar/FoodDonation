@@ -1,5 +1,3 @@
-import Navbar from "../Navbar/NavBar";
-
 function HeroSection() {
   return (
     <>

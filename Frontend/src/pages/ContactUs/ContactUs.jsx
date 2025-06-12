@@ -1,8 +1,8 @@
-import Navbar from "../Navbar/NavBar";
+import Navbar from "../../Common/Navbar/NavBar";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Formik, Form, Field } from "formik";
-import ContactusSchema from "../YupSchemas/ContactusSchema";
-import Footer from "../Footer/Footer";
+import ContactusSchema from "../../YupSchemas/ContactusSchema";
+import Footer from "../../common/Footer/Footer";
 
 function ContactUs() {
   return (
@@ -16,8 +16,8 @@ function ContactUs() {
               Get in Touch
             </h1>
             <p className="text-lg md:text-xl text-white max-w-2xl mx-auto">
-              Have questions about donating food or receiving food? We're here to
-              help you make a difference in our community.
+              Have questions about donating food or receiving food? We're here
+              to help you make a difference in our community.
             </p>
           </div>
         </div>

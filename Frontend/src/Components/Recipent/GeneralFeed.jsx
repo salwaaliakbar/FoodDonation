@@ -4,7 +4,7 @@ import MealPostCard from './MealPostCard';
 import Header from './Header';
 import SideBar from './SideBar';
 import Loader from '../Loader';
-import { useData } from '../ContextAPIs/UserContext';
+import { useData } from '../../ContextAPIs/UserContext';
 
 const GeneralFeed = () => {
     const [loading, setLoading] = useState(true);

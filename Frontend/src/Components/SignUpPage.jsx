@@ -1,8 +1,8 @@
 import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
-import ValidationSchema from "./YupSchemas/ValidationSchema";
+import ValidationSchema from "../YupSchemas/ValidationSchema";
 import { useNavigate } from "react-router-dom";
-import { useData } from "./ContextAPIs/UserContext";
+import { useData } from "../ContextAPIs/UserContext";
 import { useEffect } from "react";
 import { useState } from "react";
 

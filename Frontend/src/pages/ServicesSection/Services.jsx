@@ -1,14 +1,13 @@
-import React from "react";
-import Navbar from "../Navbar/NavBar";
-import Footer from "../Footer/Footer";
 import OurServices  from "./Ourservices";
 import Introduction from "./Introduction";
 import JoinMission from "../AboutSection/JoinMission";
+import Navbar from "../../Common/Navbar/NavBar";
+import Footer from "../../common/Footer/Footer";
 
 function Services () {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
+     <Navbar/>
       <div className="bg-green-800 pt-15 pb-12 md:pb-24">
         <div className="mx-auto px-4 md:px-6 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-poppins">
@@ -25,7 +24,7 @@ function Services () {
         <JoinMission />
         <OurServices />
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };

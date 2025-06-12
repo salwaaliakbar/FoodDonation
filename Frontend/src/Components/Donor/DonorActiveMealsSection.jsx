@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import MealCard from "./DonorMealCard";
-import { useData } from "../ContextAPIs/UserContext";
-import { useChange } from "../ContextAPIs/ChangeContext";
+import { useData } from "../../ContextAPIs/UserContext";
+import { useChange } from "../../ContextAPIs/ChangeContext";
 import { useSecureFetch } from "../Refresh/SecureFetch";
 import { ACTIVE, GRANTED, EXPIRED } from "../constants";
 

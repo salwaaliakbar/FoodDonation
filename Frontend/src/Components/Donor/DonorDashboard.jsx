@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useData } from "../ContextAPIs/UserContext";
+import { useData } from "../../ContextAPIs/UserContext";
 import DonorSidebar from "./DonorSidebar";
 import socket from "./socket";
-import { useChange } from "../ContextAPIs/ChangeContext";
+import { useChange } from "../../ContextAPIs/ChangeContext";
 
 function DonorDashboard() {
   const { user } = useData();

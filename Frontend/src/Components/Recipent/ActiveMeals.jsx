@@ -4,7 +4,7 @@ import SideBar from './SideBar'
 import Header from './Header'
 import Loader from '../Loader'
 import AppliedMealPostCard from './AppliedMealPostCard'
-import { useData } from '../ContextAPIs/UserContext'
+import { useData } from '../../ContextAPIs/UserContext'
 
 const ActiveMeals = () => {
     const [loading, setLoading] = useState(true);

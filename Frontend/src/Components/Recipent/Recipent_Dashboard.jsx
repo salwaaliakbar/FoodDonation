@@ -4,7 +4,7 @@ import SideBar from './SideBar'
 import StatsSection from '../StatsSection'
 import ActiveMealsSection from '../ActiveMealsSection'
 import userPic from '/src/assets/images/user_pic.jpg';
-import { useData } from '../ContextAPIs/UserContext'
+import { useData } from '../../ContextAPIs/UserContext'
 
 
 

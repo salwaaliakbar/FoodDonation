@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MealApplyModal from "./MealApplyModal";
-import { useData } from "../ContextAPIs/UserContext";
+import { useData } from "../../ContextAPIs/UserContext";
 import Chat from "../Donor/Chat";
 
 const MealPostCard = ({ meal, index, setMealPosts }) => {

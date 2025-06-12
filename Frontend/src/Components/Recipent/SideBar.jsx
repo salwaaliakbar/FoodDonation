@@ -3,8 +3,8 @@ import logo from '../../assets/images/logo.jpg';
 // Import FontAwesome icons CSS
 import "font-awesome/css/font-awesome.min.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useData } from '../ContextAPIs/UserContext';
-import { useChange } from '../ContextAPIs/ChangeContext';
+import { useData } from '../../ContextAPIs/UserContext';
+import { useChange } from '../../ContextAPIs/ChangeContext';
 
 const SideBar = () => {
   const navigate = useNavigate();

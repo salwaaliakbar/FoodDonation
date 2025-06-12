@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
-import ResetSchema from "./YupSchemas/ResetSchema";
+import ResetSchema from "../YupSchemas/ResetSchema"
 import React from "react";
 
 function ResetPassword() {

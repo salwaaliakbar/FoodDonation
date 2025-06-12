@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import SideBar from './SideBar'
 import Header from './Header'
 import { Phone, Mail, User, Building } from "lucide-react";
-import { useData } from '../ContextAPIs/UserContext';
+import { useData } from '../../ContextAPIs/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSecureFetch } from "../Refresh/SecureFetch";
 

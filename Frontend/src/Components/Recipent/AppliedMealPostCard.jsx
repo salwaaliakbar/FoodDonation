@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
-import { useData } from '../ContextAPIs/UserContext';
+import { useData } from '../../ContextAPIs/UserContext';
 import { div } from 'framer-motion/client';
 
 const AppliedMealPostCard = ({ mealData }) => {

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useData } from "./ContextAPIs/UserContext";
-import { useChange } from "./ContextAPIs/ChangeContext";
+import { useData } from "../ContextAPIs/UserContext";
+import { useChange } from "../ContextAPIs/ChangeContext"
 import { useSecureFetch } from "./Refresh/SecureFetch";
 
 function SessionInitializer() {

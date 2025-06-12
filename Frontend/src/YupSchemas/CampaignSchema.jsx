@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+
 const CampaignSchema = Yup.object().shape({
   title: Yup.string()
     .min(5, "Title must be at least 5 characters long")
