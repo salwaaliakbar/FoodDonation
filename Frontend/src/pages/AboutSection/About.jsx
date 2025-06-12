@@ -1,11 +1,11 @@
 import React from "react";
-import Navbar from "../../Common/Navbar/NavBar";
+import Navbar from "../../Components/Navbar/NavBar";
 import AboutHero from "./AboutHero";
 import Staticics from "../LandingPage/Staticsics";
 import JoinMission from "./JoinMission";
 import Journey from "./Journey";
 import OurValue from "./OurValue";
-import Footer from "../../common/Footer/Footer";
+import Footer from "../../Components/Footer/Footer";
 
 const About = () => {
     return (

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import logo from "../../assets/images/logo.jpg";
-import Login from "../../Components/LoginPage"
-import SignUpPage from "../../Components/SignUpPage";
+import Login from "../LoginPage"
+import SignUpPage from "../SignUpPage";
 import { NavLink } from "react-router-dom";
-import ForgotPassword from "../../Components/ForgetPassword";
+import ForgotPassword from "../ForgetPassword";
 import styles from "./NavBar.module.css";
 
 function Navbar() {

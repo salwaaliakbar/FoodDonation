@@ -1,8 +1,8 @@
 import OurServices  from "./Ourservices";
 import Introduction from "./Introduction";
 import JoinMission from "../AboutSection/JoinMission";
-import Navbar from "../../Common/Navbar/NavBar";
-import Footer from "../../common/Footer/Footer";
+import Navbar from "../../Components/Navbar/NavBar";
+import Footer from "../../Components/Footer/Footer";
 
 function Services () {
   return (

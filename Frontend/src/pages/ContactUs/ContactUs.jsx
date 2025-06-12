@@ -1,8 +1,8 @@
-import Navbar from "../../Common/Navbar/NavBar";
+import Navbar from "../../Components/Navbar/NavBar";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Formik, Form, Field } from "formik";
 import ContactusSchema from "../../YupSchemas/ContactusSchema";
-import Footer from "../../common/Footer/Footer";
+import Footer from "../../Components/Footer/Footer";
 
 function ContactUs() {
   return (

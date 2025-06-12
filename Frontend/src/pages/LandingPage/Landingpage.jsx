@@ -4,8 +4,8 @@ import WhyDonate from "./WhyDonate";
 import WorkMethod from "./WorkMethod";
 import Motivation from "./Motivation";
 import Staticics from "./Staticsics";
-import Navbar from "../../Common/Navbar/NavBar";
-import Footer from "../../common/Footer/Footer";
+import Navbar from "../../Components/Navbar/NavBar";
+import Footer from "../../Components/Footer/Footer";
 
 function LandingPage() {
   return (
