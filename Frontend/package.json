@@ -11,6 +11,7 @@
     "start:dev": "concurrently \"npm run dev --prefix frontend\" \"node backend/server.js\""
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.1.4",
     "cookie-parser": "^1.4.7",
     "date-fns": "^4.1.0",

@@ -15,7 +15,7 @@ import DonorGeneralFeed from "./Components/Donor/DonorGeneralFeed";
 import DonorProfile from './Components/Donor/DonorProfile'
 import DonationHistory from "./Components/Donor/DonationHistory";
 import Recipent_Dashboard from "./Components/Recipent/Recipent_Dashboard";
-import Myprofile from "./Components/Donor/DonorProfile";
+import Myprofile from "./Components/Recipent/Myprofile";
 import GeneralFeed from "./Components/Recipent/GeneralFeed";
 import GrantedMeals from "./Components/Recipent/GrantedMeals";
 import ActiveMeals from "./Components/Recipent/ActiveMeals";
@@ -26,9 +26,9 @@ function App() {
   console.log("app re-render");
   return (
     <>
-     <SessionInitializer/>
-      <ScrollToTop/>
-      <ToastContainer/>
+      <SessionInitializer />
+      <ScrollToTop />
+      <ToastContainer />
       <Routes>
         {/* static routes/ home page routes */}
         <Route path="/" element={<LandingPage />} />
