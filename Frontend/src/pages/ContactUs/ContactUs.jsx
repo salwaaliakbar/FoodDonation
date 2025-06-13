@@ -73,7 +73,7 @@ function ContactUs() {
                   </div>
 
                   <div className="relative mb-4">
-                    <i className="fa fa-envelope absolute left-3 top-4 text-gray-400"></i>
+                    <i className="fa fa-envelope absolute left-3 top-3 text-gray-400"></i>
                     <Field
                       name="email"
                       placeholder="Email Address"

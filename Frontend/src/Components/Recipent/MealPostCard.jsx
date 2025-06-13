@@ -16,10 +16,10 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
   const [applied, setApplied] = useState(
     meal.applied?.some((entry) => entry.p_id._id === user._id)
   );
-   const [selectedUser, setSelectedUser] = useState({
-      selectedUserId: "",
-      selectedusername: "",
-    });
+  const [selectedUser, setSelectedUser] = useState({
+    selectedUserId: "",
+    selectedusername: "",
+  });
   // console.log(meal._id);
   // console.log(applied);
   // console.log('meal applied ids: ', meal.applied);
@@ -129,15 +129,20 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
 
             <div className="flex justify-end gap-2 mt-4">
               <button
-                className="px-8 py-2 rounded bg-green-800 text-white hover:bg-green-600"
+                className={`px-9 py-2 text-white rounded ${
+                  !applied
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-green-800 hover:bg-green-700"
+                }`}
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowChatModal(true);
                   setSelectedUser({
                     selectedUserId: meal.createdBy?._id,
-                    selectedusername: meal.createdBy?.fullname
-                  })
+                    selectedusername: meal.createdBy?.fullname,
+                  });
                 }}
+                disabled={!applied}
               >
                 Chat
               </button>
