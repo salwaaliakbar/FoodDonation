@@ -1,45 +1,45 @@
-# 🍱 Food Donation System
+# Food Donation System
 
 A full-stack MERN-based web application built to minimize food waste and ensure food reaches those in need. The system connects **donors** with **recipients**, facilitating smooth campaign creation, meal applications, real-time communication, and tracking — all within a secure and intuitive environment.
 
 ---
 
-## 🌟 Features
+## Features
 
-### 🔐 Authentication & Session Management
+### Authentication & Session Management
 - JWT-based login system with access and refresh tokens
 - Secure token refresh flow via HTTP-only cookies
 - Automatic session handling with toast notifications
 - Public and protected route distinction
 
-### 👨‍🍳 Donor Panel
+### Donor Panel
 - Create and manage food donation campaigns
 - Accept or reject recipient requests
 - Real-time chat with recipients for **associated campaigns only**
 - View donation history
 - Edit personal donor profile
 
-### 👨‍👩‍👧 Recipient Panel
+### Recipient Panel
 - Browse all available food donation campaigns
 - Apply for meals easily
 - Real-time chat with associated donors **after applying**
 - Track application status (active, granted, etc.)
 - View and update recipient profile
 
-### 💬 Real-Time Chat (Socket.IO)
+### Real-Time Chat (Socket.IO)
 - One-to-one messaging between donor and recipient
 - Chat enabled only for:
   - Donor’s **own campaigns**
   - Recipients who applied/granted
 - Auto-deletion of chats after **7 days** via cron job
 
-### 🧠 Smart Access Logic
+### Smart Access Logic
 - Donors can't chat or accept requests for others' campaigns
 - Chat and actions only available for relevant users
 - Unmatched routes handled by a `NotFound` page without unnecessary errors
 
 
-## ⚙️ Tech Stack
+##  Tech Stack
 
 ### Frontend
 - **React.js** (Hooks + Router v6)
@@ -56,11 +56,11 @@ A full-stack MERN-based web application built to minimize food waste and ensure 
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### 1. Clone the repository
 
-  - git clone https://github.com/yourusername/food-donation-system.git
+  - git clone https://github.com/salwaaliakbar/FoodDonation.git
   - cd food-donation-system
 
 ### 2. Backend setup
