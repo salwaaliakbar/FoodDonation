@@ -1,6 +1,6 @@
 import { useState } from "react";
 import logo from "../../assets/images/logo.jpg";
-import Login from "../LoginPage"
+import Login from "../LoginPage";
 import SignUpPage from "../SignUpPage";
 import { NavLink } from "react-router-dom";
 import ForgotPassword from "../ForgetPassword";
@@ -14,7 +14,7 @@ function Navbar() {
 
   return (
     <nav className="relative">
-      <div className="flex justify-between items-center px-2 py-1 bg-white hover:shadow-lg transition-all duration-300 hover:text-green-600">
+      <div className="flex justify-between items-center px-2 py-1 bg-white shadow-lg transition-all duration-300 hover:text-green-600">
         <div>
           <NavLink
             to="/"
@@ -59,6 +59,12 @@ function Navbar() {
             <li className="cursor-pointer p-2 border-green-800">Services</li>
           </NavLink>
           <NavLink
+            to="/FAQ"
+            className={({ isActive }) => (isActive ? styles.active : "")}
+          >
+            <li className="cursor-pointer p-2 border-green-800">FAQs</li>
+          </NavLink>
+          <NavLink
             to="/contact"
             className={({ isActive }) => (isActive ? styles.active : "")}
           >
@@ -100,6 +106,13 @@ function Navbar() {
               className={({ isActive }) => (isActive ? styles.active : "")}
             >
               <li className="cursor-pointer p-2 border-green-800">Services</li>
+            </NavLink>
+            <NavLink
+              to="/FAQ"
+              onClick={() => setIsLogin(false)}
+              className={({ isActive }) => (isActive ? styles.active : "")}
+            >
+              <li className="cursor-pointer p-2 border-green-800">FAQs</li>
             </NavLink>
             <NavLink
               to="/contact"

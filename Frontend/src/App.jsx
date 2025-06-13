@@ -20,6 +20,7 @@ import GeneralFeed from "./Components/Recipent/GeneralFeed";
 import GrantedMeals from "./Components/Recipent/GrantedMeals";
 import ActiveMeals from "./Components/Recipent/ActiveMeals";
 import NotFound from "./pages/notFound/NotFound";
+import FAQSection from "./pages/FAQs/FAQsSection";
 
 function App() {
   console.log("app re-render");
@@ -34,6 +35,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/FAQ" element={<FAQSection />} />
         <Route path="/resetPassword/:id/:token" element={<ResetPassword />} />
 
         {/* Donor Routes */}

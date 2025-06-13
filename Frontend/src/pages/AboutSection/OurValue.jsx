@@ -2,7 +2,7 @@ import { Shield, Leaf, Globe, Users } from 'lucide-react';
 
 function OurValue () {
   return (
-    <section className=" my-20">
+    <section className=" my-20 md:pb-20 pb-10">
       <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">The Core Values That Drive Our Mission</h2>
       <p className="text-center text-gray-600 mb-8 text-lg">These core principles guide our work and shape our approach to creating food security.</p>
 

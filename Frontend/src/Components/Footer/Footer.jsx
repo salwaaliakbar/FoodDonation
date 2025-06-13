@@ -6,7 +6,7 @@ function Footer() {
   return (
     <footer>
       {/* Footer Section */}
-      <div className="bg-green-800 mt-20 p-7 flex flex-col md:flex-row justify-between items-center space-y-10 md:space-y-0">
+      <div className="bg-green-800 p-7 flex flex-col md:flex-row justify-between items-center space-y-10 md:space-y-0">
         <div className="text-center md:text-left">
           <img className="w-40 md:w-80 h-10 md:h-20 mx-auto md:mx-0" src={logo} alt="FoodSecure Logo" />
           <p className="text-white text-lg md:text-xl mt-5 md:pl-10">Rescue, Feed, Empower</p>
@@ -23,6 +23,9 @@ function Footer() {
           </Link>
           <Link to="/services" className="hover:text-green-400 transform hover:scale-105 transition-all duration-300 delay-75">
             Services
+          </Link>
+           <Link to="/FAQ" className="hover:text-green-400 transform hover:scale-105 transition-all duration-300 delay-75">
+            FAQs
           </Link>
           <Link to="/contact" className="hover:text-green-400 transform hover:scale-105 transition-all duration-300 delay-75 mb-6">
             Contact Us

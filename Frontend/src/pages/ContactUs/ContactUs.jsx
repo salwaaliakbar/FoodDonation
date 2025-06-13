@@ -22,7 +22,7 @@ function ContactUs() {
           </div>
         </div>
         {/* contact form and information */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-10 px-4 md:px-10 lg:px-20 py-10 mx-2">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-10 px-4 md:px-10 lg:px-20 py-10 mx-2 pb-20 md:pb-30">
           <div className="w-full lg:w-1/2">
             <Formik
               initialValues={{

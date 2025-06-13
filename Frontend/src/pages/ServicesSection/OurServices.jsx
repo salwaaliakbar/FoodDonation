@@ -64,7 +64,7 @@ const servicesData = [
 function OurServices () {
   // Render the Services section with a title, description, and a grid of service cards
   return (
-    <div className="mx-auto px-4 sm:px-6 lg:px-8 my-10">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 my-10 md:pb-20 pb-10">
       <div className="text-center">
         {/* Section heading */}
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-800 mt-20 font-poppins">
