@@ -19,6 +19,7 @@ import Myprofile from "./Components/Donor/DonorProfile";
 import GeneralFeed from "./Components/Recipent/GeneralFeed";
 import GrantedMeals from "./Components/Recipent/GrantedMeals";
 import ActiveMeals from "./Components/Recipent/ActiveMeals";
+import NotFound from "./pages/notFound/NotFound";
 
 function App() {
   console.log("app re-render");
@@ -50,6 +51,8 @@ function App() {
         <Route path="/generalfeed" element={<GeneralFeed />} />
         <Route path="/granted" element={<GrantedMeals />} />
         <Route path="/active" element={<ActiveMeals />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

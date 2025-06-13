@@ -8,6 +8,7 @@ function Services () {
   return (
     <div className="flex flex-col min-h-screen">
      <Navbar/>
+     {/* services page header */}
       <div className="bg-green-800 pt-15 pb-12 md:pb-24">
         <div className="mx-auto px-4 md:px-6 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-poppins">
@@ -20,6 +21,7 @@ function Services () {
         </div>
       </div>
       <div className="flex-grow">
+        {/* render other components */}
         <Introduction />
         <JoinMission />
         <OurServices />

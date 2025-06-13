@@ -57,7 +57,18 @@ export function useSecureFetch() {
             publicPaths.includes(currentPath) ||
             currentPath.startsWith("/ResetPassword");
 
-          if (!isOnPublicPage) {
+          const privatePaths = [
+            "/recipent",
+            "/recipent/profile",
+            "/generalfeed",
+            "/granted",
+            "/active",
+          ];
+          const isOnPrivatePage =
+            currentPath.startsWith("/donorDashBoard") ||
+            privatePaths.includes(currentPath);
+
+          if (isOnPrivatePage) {
             toast.error("Session expired. Login again...", {
               onClose: () => navigate("/"),
               autoClose: 3000,
@@ -70,7 +81,7 @@ export function useSecureFetch() {
 
       // Generic error handling
       if (!res.ok) {
-        console.log(res)
+        console.log(res);
         toast.error(data?.message || "Something went wrong.");
         throw new Error(data?.message || "Request failed.");
       }
