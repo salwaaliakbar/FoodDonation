@@ -60,21 +60,21 @@ A full-stack MERN-based web application built to minimize food waste and ensure 
 
 ### 1. Clone the repository
 
-git clone https://github.com/yourusername/food-donation-system.git
-cd food-donation-system
+  - git clone https://github.com/yourusername/food-donation-system.git
+  - cd food-donation-system
 
 ### 2. Backend setup
-  cd backend
-  npm install
-  add .env file
-    MONGO_URI=ADD_YOUR_MONGOURL
-    JWT_SECRET=ADD_YOUR_JWT_SECRET
-    REFRESH_SECRET=ADD_YOUR_REFRESH_TOKEN_SECRET
-    EMAIL_USER=ADD_YOUR_EMAIL
-    EMAIL_PASS=ADD_YOUR_EMAIL_PASSKEY
-  npm run dev
+  - cd backend
+  - npm install
+  - add .env file
+    - MONGO_URI=ADD_YOUR_MONGOURL
+    - JWT_SECRET=ADD_YOUR_JWT_SECRET
+    - REFRESH_SECRET=ADD_YOUR_REFRESH_TOKEN_SECRET
+    - EMAIL_USER=ADD_YOUR_EMAIL
+    - EMAIL_PASS=ADD_YOUR_EMAIL_PASSKEY
+  - npm run dev
 
 ### 3. Frontnd setup
-  cd frontend
-  npm install
-  npm run dev
+  - cd frontend
+  - npm install
+  - npm run dev
