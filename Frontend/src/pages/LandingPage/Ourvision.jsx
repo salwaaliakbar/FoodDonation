@@ -1,11 +1,16 @@
 import donation from "../../assets/images/donation.webp";
+
+// OurVision section: outlines mission and long-term goal
 function OurVision() {
   return (
     <>
+      {/* Background section with overlay image */}
       <div className="w-full py-10 text-white relative bg-green-800 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c')] bg-cover bg-center"></div>
         </div>
+
+        {/* Main content */}
         <div className="flex flex-col justify-center items-center w-full px-4 sm:px-10 md:px-20 lg:px-40 my-10">
           <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-poppins mb-3 text-center">
             Our Vision: A World Without Hunger
@@ -18,4 +23,5 @@ function OurVision() {
     </>
   );
 }
+
 export default OurVision;

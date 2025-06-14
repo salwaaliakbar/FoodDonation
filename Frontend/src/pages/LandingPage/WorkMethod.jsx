@@ -1,10 +1,13 @@
 import gift from "../../assets/images/gift.png";
 import search from "../../assets/images/magnifying-glass.png";
+
+// WorkMethod component: Explains how donors and recipients use the platform
 function WorkMethod() {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white">
         <div className="mx-auto px-4 pb-16">
+          {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h1 className="text-4xl md:text-4xl font-bold mb-6 text-gray-800 font-poppins">
               Making Food Sharing Safe & Easy
@@ -15,7 +18,9 @@ function WorkMethod() {
             </p>
           </div>
 
+          {/* Grid for Donor and Recipient steps */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            
             {/* Donors Section */}
             <div className="p-8 mx-3 md:ml-15 shadow-lg transition-all duration-300 border-2 border-green-500 rounded-lg">
               <div className="flex items-center gap-3 mb-6">
@@ -26,6 +31,7 @@ function WorkMethod() {
                   For Donors
                 </h2>
               </div>
+              {/* Step-by-step guide for donors */}
               <div className="space-y-6">
                 <StepItem
                   number="1"
@@ -60,6 +66,7 @@ function WorkMethod() {
                   For Recipients
                 </h2>
               </div>
+              {/* Step-by-step guide for recipients */}
               <div className="space-y-6">
                 <StepItem
                   number="1"
@@ -90,14 +97,16 @@ function WorkMethod() {
   );
 }
 
-// Step Item Component
+// StepItem: Reusable step block component
 function StepItem(props) {
   return (
     <>
       <div className="flex gap-4 items-start group hover:transform hover:translate-x-2 transition-all duration-300 delay-75">
+        {/* Step number icon */}
         <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white border-2 border-current text-gray-400 flex items-center justify-center font-semibold group-hover:text-green-500 transition-colors">
           {props.number}
         </div>
+        {/* Step details */}
         <div>
           <h3 className="font-semibold text-gray-800 mb-1">{props.title}</h3>
           <p className="text-gray-600 text-sm">{props.description}</p>
@@ -106,4 +115,5 @@ function StepItem(props) {
     </>
   );
 }
+
 export default WorkMethod;
