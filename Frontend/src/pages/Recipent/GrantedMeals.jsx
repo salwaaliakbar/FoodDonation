@@ -1,50 +1,56 @@
+// Granted Meals Main Page
+
 import React, { useState, useEffect } from 'react'
 import SideBar from './SideBar'
 import Header from './Header'
 import MealCard from './MealCard'
 import userPic from '/src/assets/images/user_pic.jpg';
 import Loader from '../../Components/Loader';
+import { useData } from '../../context/UserContext';
 
 
 const GrantedMeals = () => {
     const [grantedMeals, setGrantedMeals] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { user } = useData();
 
 
     useEffect(() => {
-        setTimeout(() => {
-            setGrantedMeals([
-                {
-                    userPhoto: userPic,
-                    userName: 'Ali Khan',
-                    mealTitle: 'Lunch Pack',
-                    mealCount: 3,
-                    appliedOn: '20 Apr 2025',
-                    totalApplicants: 5,
-                    description: 'Freshly cooked rice and curry for lunch.',
-                    location: 'Sector 11, Karachi',
-                    postedOn: '19 Apr 2025',
-                    granted: '20 Apr 2025',
-                    appliedFor: 3,
-                    acceptedFor: 1
-                },
-                {
-                    userPhoto: userPic,
-                    userName: 'Fatima Noor',
-                    mealTitle: 'Dinner Boxes',
-                    mealCount: 4,
-                    appliedOn: '21 Apr 2025',
-                    totalApplicants: 3,
-                    description: 'Home-cooked meat and bread packs.',
-                    location: 'Gulshan Block 5',
-                    postedOn: '20 Apr 2025',
-                    granted: '20 Apr 2025',
-                    appliedFor: 3,
-                    acceptedFor: 2
-                }
-            ]);
-            setLoading(false);
-        }, 1000);
+
+        async function fetchGrantedMeals() {
+            try {
+                const response = await fetch(`http://localhost:5000/api/grantedMeals?userId=${user._id}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include"
+                });
+
+                const data = await response.json();
+                // console.log(data.message);  // Error Message or Replied Message from server
+                return Array.isArray(data.campaigns) ? data.campaigns : [];
+            } catch (err) {
+                console.error("Error fetching Granted Campaigns:", err);
+                return [];
+            }
+
+        }
+
+        const fetchData = async () => {
+            setLoading(true);
+
+            setTimeout(async () => {
+
+                const feedData = await fetchGrantedMeals()
+                setGrantedMeals(feedData);
+                // console.log(feedData);  // Consoling the data for checking\
+                // console.log
+
+                setLoading(false);
+            }, 1000);
+        }
+        fetchData();
     }, []);
 
 

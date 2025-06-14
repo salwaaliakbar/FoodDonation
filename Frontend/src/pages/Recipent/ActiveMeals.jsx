@@ -1,3 +1,5 @@
+// Active Meals Main Page
+
 import { useState, useEffect } from 'react'
 import React from 'react'
 import SideBar from './SideBar'
@@ -40,7 +42,7 @@ const ActiveMeals = () => {
 
                 const feedData = await fetchMealFeedData()
                 setMealPosts(feedData);
-                // console.log(feedData);  // Consoling the data for checking\
+                console.log(feedData);  // Consoling the data for checking\
                 // console.log
 
                 setLoading(false);
