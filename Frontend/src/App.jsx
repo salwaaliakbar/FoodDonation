@@ -1,24 +1,24 @@
 import { Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SessionInitializer from "./Components/SessionInitializer";
-import ScrollToTop from './Components/ScrollToTop'
+import SessionInitializer from "./app/SessionInitializer";
+import ScrollToTop from './app/ScrollToTop'
 import LandingPage from "./pages/LandingPage/Landingpage";
-import About from "./pages/AboutSection/About";
-import Services from "./pages/ServicesSection/Services";
+import About from "./pages/About/About";
+import Services from "./pages/Services/Services";
 import ContactUs from "./pages/ContactUs/ContactUs";
-import ResetPassword from "./Components/ResetPassword";
-import DonorDashboard from "./Components/Donor/DonorDashboard";
-import DonorLandingPage from "./Components/Donor/DonorLandingpage";
-import CreateCampaign from "./Components/Donor/CreateCampaign";
-import DonorGeneralFeed from "./Components/Donor/DonorGeneralFeed";
-import DonorProfile from './Components/Donor/DonorProfile'
-import DonationHistory from "./Components/Donor/DonationHistory";
-import Recipent_Dashboard from "./Components/Recipent/Recipent_Dashboard";
-import Myprofile from "./Components/Recipent/Myprofile";
-import GeneralFeed from "./Components/Recipent/GeneralFeed";
-import GrantedMeals from "./Components/Recipent/GrantedMeals";
-import ActiveMeals from "./Components/Recipent/ActiveMeals";
+import ResetPassword from "./pages/Auth/ResetPassword";
+import DonorDashboard from "./pages/Donor/DonorDashboard";
+import DonorLandingPage from "./pages/Donor/DonorLandingpage";
+import CreateCampaign from "./pages/Donor/CreateCampaign";
+import DonorGeneralFeed from "./pages/Donor/DonorGeneralFeed";
+import DonorProfile from './pages/Donor/DonorProfile'
+import DonationHistory from "./pages/Donor/DonationHistory";
+import Recipent_Dashboard from "./pages/Recipent/Recipent_Dashboard";
+import Myprofile from "./pages/Recipent/Myprofile";
+import GeneralFeed from "./pages/Recipent/GeneralFeed";
+import GrantedMeals from "./pages/Recipent/GrantedMeals";
+import ActiveMeals from "./pages/Recipent/ActiveMeals";
 import NotFound from "./pages/notFound/NotFound";
 import FAQSection from "./pages/FAQs/FAQsSection";
 

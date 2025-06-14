@@ -1,5 +1,5 @@
 import React from 'react'
-import MealCard from './Recipent/MealCard'
+import MealCard from '../pages/Recipent/MealCard'
 
 const ActiveMealsSection = ({ activeMeals, title: name }) => {
     return (

@@ -1,8 +1,10 @@
+// Importing necessary hooks, components, and icons
 import { useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import Navbar from "../../Components/Navbar/NavBar";
 import Footer from "../../Components/Footer/Footer";
 
+// Individual FAQ item with toggle functionality
 const FAQItem = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
 
@@ -21,6 +23,7 @@ const FAQItem = ({ question, answer }) => {
   );
 };
 
+// FAQ page section layout with a list of common questions
 const FAQSection = () => {
   const faqs = [
     {
@@ -50,39 +53,44 @@ const FAQSection = () => {
     },
   ];
 
-return (
+  return (
     <>
-        <Navbar />
-        <div className="bg-gray-200 min-h-screen pb-20 pt-15">
-            <div className="max-w-3xl mx-auto px-6 py-6 rounded-xl shadow-lg bg-white/90">
-                <h2 className="text-3xl font-extrabold mb-2 text-green-800 text-center">
-                    Frequently Asked Questions
-                </h2>
-                <p className="text-center text-gray-600 mb-8">
-                    Everything you need to know about donating and receiving food with our platform.
-                </p>
-                <div className="divide-y divide-green-100">
-                    {faqs.map((faq, index) => (
-                        <FAQItem key={index} {...faq} />
-                    ))}
-                </div>
-            </div>
-            <div className="flex justify-center mt-10">
-                <div className="bg-green-800 text-white md:px-4 py-4 pb-6 rounded-lg shadow-md text-center mx-10">
-                    <span className="font-bold text-xl">Still have questions?</span>
-                    <br /><br />
-                    <span>
-                        Contact our support team at{" "}
-                        <a href="mailto:support@fooddonation.com" className="underline font-medium">
-                            support@fooddonation.com
-                        </a>
-                    </span>
-                </div>
-            </div>
+      <Navbar />
+      {/* FAQ section content */}
+      <div className="bg-gray-200 min-h-screen pb-20 pt-15">
+        <div className="max-w-3xl mx-auto px-6 py-6 rounded-xl shadow-lg bg-white/90">
+          <h2 className="text-3xl font-extrabold mb-2 text-green-800 text-center">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-center text-gray-600 mb-8">
+            Everything you need to know about donating and receiving food with our platform.
+          </p>
+
+          {/* Mapping FAQs into expandable items */}
+          <div className="divide-y divide-green-100">
+            {faqs.map((faq, index) => (
+              <FAQItem key={index} {...faq} />
+            ))}
+          </div>
         </div>
-        <Footer />
+
+        {/* Support section at the bottom */}
+        <div className="flex justify-center mt-10">
+          <div className="bg-green-800 text-white md:px-4 py-4 pb-6 rounded-lg shadow-md text-center mx-10">
+            <span className="font-bold text-xl">Still have questions?</span>
+            <br /><br />
+            <span>
+              Contact our support team at{" "}
+              <a href="mailto:support@fooddonation.com" className="underline font-medium">
+                support@fooddonation.com
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <Footer />
     </>
-);
+  );
 };
 
 export default FAQSection;

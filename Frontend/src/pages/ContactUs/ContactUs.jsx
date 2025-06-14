@@ -1,7 +1,8 @@
+// Importing reusable components and icons
 import Navbar from "../../Components/Navbar/NavBar";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Formik, Form, Field } from "formik";
-import ContactusSchema from "../../YupSchemas/ContactusSchema";
+import ContactusSchema from "../../yupschemas/ContactusSchema";
 import Footer from "../../Components/Footer/Footer";
 
 function ContactUs() {
@@ -9,7 +10,7 @@ function ContactUs() {
     <>
       <Navbar />
       <div>
-        {/* contact herosection */}
+        {/* Top hero section with heading and description */}
         <div className="bg-green-800 pt-15 pb-12 md:pb-24">
           <div className="mx-auto px-4 md:px-6 text-center">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
@@ -21,8 +22,10 @@ function ContactUs() {
             </p>
           </div>
         </div>
-        {/* contact form and information */}
+
+        {/* Contact form and contact info side by side */}
         <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-10 px-4 md:px-10 lg:px-20 py-10 mx-2 pb-20 md:pb-30">
+          {/* Contact form section */}
           <div className="w-full lg:w-1/2">
             <Formik
               initialValues={{
@@ -31,6 +34,7 @@ function ContactUs() {
                 email: "",
                 message: "",
               }}
+              // Alert on form submission
               onSubmit={() => {
                 alert("Your message sent successfully");
               }}
@@ -46,6 +50,7 @@ function ContactUs() {
                     possible.
                   </p>
 
+                  {/* Full Name field */}
                   <div className="relative mb-4">
                     <i className="fa fa-user absolute left-3 top-4 text-gray-400"></i>
                     <Field
@@ -60,6 +65,7 @@ function ContactUs() {
                     ) : null}
                   </div>
 
+                  {/* Phone Number field */}
                   <div className="relative mb-4">
                     <i className="fa fa-phone absolute left-3 top-4 text-gray-400"></i>
                     <Field
@@ -72,6 +78,7 @@ function ContactUs() {
                     ) : null}
                   </div>
 
+                  {/* Email field */}
                   <div className="relative mb-4">
                     <i className="fa fa-envelope absolute left-3 top-3 text-gray-400"></i>
                     <Field
@@ -84,6 +91,7 @@ function ContactUs() {
                     ) : null}
                   </div>
 
+                  {/* Message textarea */}
                   <div className="relative mb-6">
                     <i className="fa fa-pencil absolute left-3 top-3 text-gray-400"></i>
                     <Field
@@ -99,6 +107,7 @@ function ContactUs() {
                     ) : null}
                   </div>
 
+                  {/* Submit button */}
                   <button
                     type="submit"
                     className="bg-green-800 hover:bg-green-600 text-white cursor-pointer font-semibold py-2 px-4 rounded-lg w-full transition duration-300"
@@ -109,11 +118,14 @@ function ContactUs() {
               )}
             </Formik>
           </div>
+
+          {/* Contact information section */}
           <div className="w-full lg:w-1/2 px-3">
             <h2 className="text-3xl text-left mb-10 text-green-800 font-bold">
               Contact Information
             </h2>
             <div className="space-y-6">
+              {/* Address */}
               <div className="flex items-start gap-4 transition-transform duration-200 hover:translate-x-1">
                 <div className="bg-green-100 p-3 rounded-full">
                   <MapPin className="h-6 w-6 text-green-800" />
@@ -128,6 +140,7 @@ function ContactUs() {
                 </div>
               </div>
 
+              {/* Email */}
               <div className="flex items-start gap-4 transition-transform duration-200 hover:translate-x-1">
                 <div className="bg-green-100 p-3 rounded-full">
                   <Mail className="h-6 w-6 text-green-800" />
@@ -142,6 +155,7 @@ function ContactUs() {
                 </div>
               </div>
 
+              {/* Phone */}
               <div className="flex items-start gap-4 transition-transform duration-200 hover:translate-x-1">
                 <div className="bg-green-100 p-3 rounded-full">
                   <Phone className="h-6 w-6 text-green-800" />
@@ -158,6 +172,7 @@ function ContactUs() {
             </div>
           </div>
         </div>
+
         <Footer />
       </div>
     </>
