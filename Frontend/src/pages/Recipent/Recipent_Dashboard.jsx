@@ -15,6 +15,7 @@ function Recipent_Dashboard() {
     const [loading, setLoading] = useState(true);
     const [grantedMeals, setGrantedMeals] = useState([]);
     const [activeMeals, setActiveMeals] = useState([]);
+    const [statistics, setStatistics] = useState({});
 
 
     useEffect(() => {
@@ -59,6 +60,32 @@ function Recipent_Dashboard() {
 
         }
 
+        async function fetchMealsStatistics() {
+            try {
+                const response = await fetch(`http://localhost:5000/api/mealStatistics?userId=${user._id}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include"
+                });
+
+                const data = await response.json();
+
+                // console.log(data);
+
+                // Return the object with defaults if keys are missing or data is not valid
+                return {
+                    applied: typeof data.statistics.applied === "number" ? data.statistics.applied : 0,
+                    awarded: typeof data.statistics.awarded === "number" ? data.statistics.awarded : 0,
+                };
+            } catch (err) {
+                console.error("Error fetching Statistics of Campaigns:", err);
+                return [];
+            }
+
+        }
+
         const fetchData = async () => {
             setLoading(true);
 
@@ -66,12 +93,15 @@ function Recipent_Dashboard() {
 
                 let active = await fetchActiveMeals()
                 let feedData = await fetchGrantedMeals()
+                let statistics = await fetchMealsStatistics();
 
                 setActiveMeals(active);
                 setGrantedMeals(feedData);
+                setStatistics(statistics);
 
                 // console.log(feedData);  // Consoling the data for checking
                 // console.log(activeMeals); // Consoling the data for checking
+                // console.log(statistics); // Consoling the data for checking
 
                 setLoading(false);
             }, 1000);
@@ -92,7 +122,7 @@ function Recipent_Dashboard() {
                     </div>
                 ) :
                     (<div className='px-4'>
-                        <StatsSection actives={activeMeals.length} grants={grantedMeals.length} />
+                        <StatsSection actives={statistics.applied} grants={statistics.awarded} />
                         <ActiveMealsSection Meals={activeMeals} title={'Active'} />
                         <ActiveMealsSection Meals={grantedMeals} title={'Granted'} />
                     </div>)}

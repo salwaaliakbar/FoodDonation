@@ -98,7 +98,7 @@ export default function StatsSection() {
   ]; // 🔧 Replace with actual dynamic data if needed
 
   return (
-    <div className="flex flex-col lg:flex-row w-full h-auto lg:h-[50vh] gap-4 mt-4">
+    <div className="flex flex-col lg:flex-row w-full h-auto lg:h-[55vh] gap-4 mt-4">
       {/* Pie Chart - Meals Granted Summary */}
       <div className="w-full lg:w-[30%] bg-white rounded-xl shadow-md p-4 flex flex-col justify-between">
         <div className="flex justify-between items-center text-sm text-gray-500">
