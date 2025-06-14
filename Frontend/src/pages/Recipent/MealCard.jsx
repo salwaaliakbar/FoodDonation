@@ -9,8 +9,9 @@ const MealCard = ({ meal }) => {
 
     const applied = meal.applied.filter(app => app.p_id._id === user._id);
 
-    // console.log(applied);
 
+
+    // console.log(applied);
 
     return (
         <div
@@ -38,7 +39,7 @@ const MealCard = ({ meal }) => {
 
                 {/* Right Side: Applicants */}
                 <div className='w-[20%]  text-right'>
-                    {meal.status === 'Awarded' ? <span>✅ Awarded <p className='text-green-600'>{meal.granted}</p></span> : <p className=' text-amber-600'>👥 {meal.totalApplicants} applicants </p>}
+                    {meal.status === 'Awarded' ? <span>✅ Awarded <p className='text-green-600'>{meal.granted}</p></span> : <p className=' text-amber-600'>👥 {meal.applied.length} applicants </p>}
                 </div>
 
             </div>
@@ -49,12 +50,10 @@ const MealCard = ({ meal }) => {
                     <p><strong>Description:</strong> {meal.description}</p>
                     <p><strong>Location:</strong> {meal.location}</p>
                     <p><strong>Posted On:</strong> {meal.createdAt}</p>
-                    {meal.applied[0].persons && meal.applied[0].persons &&
-                        <>
-                            <p><strong>Applied For: </strong> {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p>
-                            <p><strong>Accepted For: </strong>  {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p>
-                        </>
-                    }
+
+                    {applied[0].persons && <p><strong>Applied For: </strong> {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p>}
+                    {meal.status === 'Awarded' && user._id === meal.awarded.p_id ? <p><strong>Accepted For: </strong>  {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p> : <></>}
+
                 </div>
             )}
         </div>

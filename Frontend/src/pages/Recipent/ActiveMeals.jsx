@@ -42,7 +42,7 @@ const ActiveMeals = () => {
 
                 const feedData = await fetchMealFeedData()
                 setMealPosts(feedData);
-                console.log(feedData);  // Consoling the data for checking\
+                // console.log(feedData);  // Consoling the data for checking\
                 // console.log
 
                 setLoading(false);
@@ -69,7 +69,7 @@ const ActiveMeals = () => {
                     <div className="w-[94%] min-h-[70vh] m-auto">
                         {mealPosts.map((post, index) => (
                             <AppliedMealPostCard
-                                key={post.id}
+                                key={post._id}
                                 mealData={post}
                                 index={index}
                                 setMealPosts={setMealPosts}

@@ -12,9 +12,9 @@ import {
   Label
 } from 'recharts'
 
-export default function StatsSection() {
-  const [applied, setApplied] = useState(20)
-  const [awarded, setAwarded] = useState(14)
+export default function StatsSection({ actives, grants }) {
+  const [applied, setApplied] = useState(actives + grants)
+  const [awarded, setAwarded] = useState(grants)
 
   const [awardData, setAwardData] = useState([
     { event: 'Jan', count: 3 },

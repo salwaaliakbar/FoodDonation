@@ -46,8 +46,8 @@ const AppliedMealPostCard = ({ mealData }) => {
                         <p className="text-sm font-semibold text-gray-600 mb-1">Applicants:</p>
                         <ul className="list-disc pl-5 text-sm text-gray-700">
                             {mealData.applied.map((a, i) => (
-                                <div className='flex justify-between'>
-                                    <li key={i}>
+                                <div className='flex justify-between' key={i}>
+                                    <li >
                                         {a.p_id.fullname} - {a.persons} {a.persons > 1 ? 'people' : 'person'}
                                     </li>
                                     <p>Applied At: {new Date(a.date).toLocaleString('en-PK')}</p>
