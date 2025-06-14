@@ -1,6 +1,7 @@
 const campaignModel = require("../Models/campaignModel");
 const userModel = require("../Models/userModel");
 const { ACTIVE, GRANTED, EXPIRED } = require("../constantVariables");
+const Recipient = require("../Models/recipentModel"); // Import Recipient model
 
 async function createCampaign(req, res) {
   const {
@@ -199,6 +200,13 @@ async function updateStatus(req, res) {
           awarded: { p_id, p_name },
         },
       }
+    );
+
+    // Update the Recipient model (push campaignId into actions.applied)
+    await Recipient.findOneAndUpdate(
+      { userId: p_id },
+      { $addToSet: { "actions.awarded": id } }, // $addToSet avoids duplicates
+      { upsert: true, new: true } // Create if not exists
     );
 
     res.status(200).json({
