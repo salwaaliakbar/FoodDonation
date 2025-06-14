@@ -84,7 +84,7 @@ function Recipent_Dashboard() {
     return (
         <div className='flex'>
             <SideBar />
-            <div className='w-[80%] absolute right-0 bg-gray-200'>
+            <div className='w-[80%] absolute right-0 bg-gray-200 min-h-[100vh]'>
                 <Header />
                 {loading ? (
                     <div className="w-full flex min-h-[85vh] justify-center items-center py-16">

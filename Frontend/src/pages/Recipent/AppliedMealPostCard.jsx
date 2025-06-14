@@ -29,7 +29,7 @@ const AppliedMealPostCard = ({ mealData }) => {
             <h2 className="text-xl font-semibold mb-2">{mealData.title}</h2>
             <p className="text-gray-700 mb-3">{mealData.description}</p>
             <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
-                <p>🍴 Meal for {mealData.amount} {mealData.amount > 1 ? 'persons' : 'person'} </p>
+                <p>🍴 {mealData.foodType} for {mealData.amount} {mealData.amount > 1 ? 'persons' : 'person'} </p>
                 <p>Status: {mealData.status}</p>
             </div>
 

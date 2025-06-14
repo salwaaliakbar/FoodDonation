@@ -65,7 +65,7 @@ const ActiveMeals = () => {
                     <div className="w-full flex min-h-[70vh] justify-center items-center py-16">
                         <Loader />
                     </div>
-                ) : (
+                ) : (mealPosts.length > 0 ?
                     <div className="w-[94%] min-h-[70vh] m-auto">
                         {mealPosts.map((post, index) => (
                             <AppliedMealPostCard
@@ -75,6 +75,13 @@ const ActiveMeals = () => {
                                 setMealPosts={setMealPosts}
                             />
                         ))}
+                    </div>
+                    : // Show fallback UI when no posts are available
+                    <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+                        <p className="text-lg font-semibold">No Active Meals to display</p>
+                        <p className="text-sm">
+                            Start Applying on Meals, they’ll appear here in your feed.
+                        </p>
                     </div>
                 )}
             </div>

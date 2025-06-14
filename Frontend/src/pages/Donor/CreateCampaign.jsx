@@ -97,9 +97,9 @@ function CreateCampaign() {
                   name="foodType"
                   className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md"
                 >
-                  <option value="meals">Meals</option>
-                  <option value="packages">Food Packages</option>
-                  <option value="grocery">Grocery Items</option>
+                  <option value="Meals">Meals</option>
+                  <option value="Food packages">Food Packages</option>
+                  <option value="Grocery Items">Grocery Items</option>
                 </Field>
                 {errors.foodType && touched.foodType && (
                   <div className="text-red-600">{errors.foodType}</div>

@@ -64,12 +64,19 @@ const GrantedMeals = () => {
                     <div className="w-full flex min-h-[70vh] justify-center items-center py-16">
                         <Loader />
                     </div>
-                ) : (
+                ) : (grantedMeals.length > 0 ?
                     <section className="w-[95%] mx-auto bg-white border-[1px] border-zinc-200 rounded-xl shadow-lg mt-4 mb-4 ">
                         {grantedMeals.map((meal, i) => (
                             <MealCard key={i} meal={meal} />
                         ))}
                     </section>
+                    : // Show fallback UI when no posts are available
+                    <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+                        <p className="text-lg font-semibold">No Granted Meals to display</p>
+                        <p className="text-sm">
+                            Once Donor Awards Meal, they’ll appear here in your feed.
+                        </p>
+                    </div>
                 )}
             </div>
         </div>

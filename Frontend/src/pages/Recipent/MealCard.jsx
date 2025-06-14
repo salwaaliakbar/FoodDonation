@@ -33,7 +33,7 @@ const MealCard = ({ meal }) => {
 
                 {/* Middle: Quick Info */}
                 <div className='flex flex-col w-[30%] text-sm text-gray-600'>
-                    <span>🍽️ {meal.amount} meals</span>
+                    <span>🍽️ {meal.amount} {meal.foodType}</span>
                     <span>🕒 Applied: {new Date(applied[0].date).toLocaleString("en-PK")}  </span>
                 </div>
 
