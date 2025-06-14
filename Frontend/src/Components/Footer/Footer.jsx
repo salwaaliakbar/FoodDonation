@@ -6,14 +6,14 @@ function Footer() {
   return (
     <footer>
       {/* Footer Section */}
-      <div className="bg-green-800 p-7 flex flex-col md:flex-row justify-between items-center space-y-10 md:space-y-0">
-        <div className="text-center md:text-left">
-          <img className="w-40 md:w-80 h-10 md:h-20 mx-auto md:mx-0" src={logo} alt="FoodSecure Logo" />
+      <div className="bg-green-800 p-7 flex flex-col md:flex-row md:justify-between md:items-center items-start justify-start space-y-10 md:space-y-0">
+        <div className="text-left">
+          <img className="w-40 md:w-80 h-12 md:h-24 md:mx-0" src={logo} alt="FoodSecure Logo" />
           <p className="text-white text-lg md:text-xl mt-5 md:pl-10">Rescue, Feed, Empower</p>
         </div>
 
         {/* Quick Links */}
-        <div className="flex flex-col items-center md:items-start space-y-2 text-white">
+        <div className="flex flex-col md:items-start space-y-2 text-white">
           <h1 className="font-bold text-xl md:text-2xl md:mb-6 mb-4">Quick Links</h1>
           <Link to="/" className="hover:text-green-400 transform hover:scale-105 transition-all duration-300 delay-75">
             Home
@@ -34,7 +34,7 @@ function Footer() {
         <div>
 
         {/* Contact Info */}
-        <div className="flex flex-col items-center md:items-start space-y-4  mb-10">
+        <div className="flex flex-col md:items-start space-y-4  mb-10">
           <h1 className="font-bold text-xl md:text-2xl mb-4 text-white">Contact Us</h1>
           <span
             className="text-white text-lg hover:text-green-400 flex items-center space-x-3 transform transition-all duration-300 delay-75 hover:scale-105"
@@ -52,7 +52,7 @@ function Footer() {
 
         {/* Social Media Links */}
         <div className="flex space-x-4">
-          <span className="p-1 border-2 border-green-600 rounded-full hover:bg-green-600 w-10 h-10 md:w-12 md:h-12 text-center transform transition-all duration-300 delay-75">
+          <span className="p-1 border-2 border-green-600 rounded-full hover:bg-green-600 w-10 h-10 md:w-12 md:h-12 text-center transform transition-all duration-300 delay-75 flex justify-center items-center">
             <a
               href="https://facebook.com"
               target="_blank"
@@ -62,7 +62,7 @@ function Footer() {
               <i className="fa fa-facebook-f"></i>
             </a>
           </span>
-          <span className="p-1 border-2 border-green-600 rounded-full hover:bg-green-600 w-10 h-10 md:w-12 md:h-12 text-center transform transition-all duration-300 delay-75">
+          <span className=" flex justify-center items-center p-1 border-2 border-green-600 rounded-full hover:bg-green-600 w-10 h-10 md:w-12 md:h-12 text-center transform transition-all duration-300 delay-75">
             <a
               href="https://instagram.com"
               target="_blank"
@@ -72,7 +72,7 @@ function Footer() {
               <i className="fa fa-instagram"></i>
             </a>
           </span>
-          <span className="p-1 border-2 border-green-600 rounded-full hover:bg-green-600 w-10 h-10 md:w-12 md:h-12 text-center transform transition-all duration-300 delay-75">
+          <span className=" flex justify-center items-center p-1 border-2 border-green-600 rounded-full hover:bg-green-600 w-10 h-10 md:w-12 md:h-12 text-center transform transition-all duration-300 delay-75">
             <a
               href="https://twitter.com"
               target="_blank"
@@ -82,7 +82,7 @@ function Footer() {
               <i className="fa fa-twitter"></i>
             </a>
           </span>
-          <span className="p-1 border-2 border-green-600 rounded-full hover:bg-green-600 w-10 h-10 md:w-12 md:h-12 text-center transform transition-all duration-300 delay-75">
+          <span className=" flex justify-center items-center p-1 border-2 border-green-600 rounded-full hover:bg-green-600 w-10 h-10 md:w-12 md:h-12 text-center transform transition-all duration-300 delay-75">
             <a
               href="https://linkedin.com"
               target="_blank"

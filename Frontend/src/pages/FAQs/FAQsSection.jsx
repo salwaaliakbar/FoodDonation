@@ -53,9 +53,9 @@ const FAQSection = () => {
 return (
     <>
         <Navbar />
-        <div className="bg-gray-200 min-h-screen py-20">
-            <div className="max-w-3xl mx-auto px-6 py-8 rounded-xl shadow-lg bg-white/90">
-                <h2 className="text-3xl font-extrabold mb-2 text-green-700 text-center">
+        <div className="bg-gray-200 min-h-screen pb-20 pt-15">
+            <div className="max-w-3xl mx-auto px-6 py-6 rounded-xl shadow-lg bg-white/90">
+                <h2 className="text-3xl font-extrabold mb-2 text-green-800 text-center">
                     Frequently Asked Questions
                 </h2>
                 <p className="text-center text-gray-600 mb-8">
@@ -68,7 +68,7 @@ return (
                 </div>
             </div>
             <div className="flex justify-center mt-10">
-                <div className="bg-green-800 text-white px-4 py-4 pb-6 rounded-lg shadow-md text-center max-w-md">
+                <div className="bg-green-800 text-white md:px-4 py-4 pb-6 rounded-lg shadow-md text-center mx-10">
                     <span className="font-bold text-xl">Still have questions?</span>
                     <br /><br />
                     <span>
