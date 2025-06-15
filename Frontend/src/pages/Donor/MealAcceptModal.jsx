@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useSecureFetch } from "../../Components/Refresh/SecureFetch";
+import { useSecureFetch } from "../../customHooks/useSecureFetch";
 import { useChange } from "../../context/ChangeContext";
-import { EXPIRED, GRANTED } from "../../Components/constants";
+import { EXPIRED, GRANTED } from "../../Components/CONSTANTS";
 import { useData } from "../../context/UserContext";
 
 function MealAcceptModel({
@@ -18,6 +18,14 @@ function MealAcceptModel({
   const [selectedUser, setSelectedUser] = useState({});
   const { setIsChangeActive, setIsChangeGranted } = useChange();
   const { user } = useData();
+
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
 
   // Fetch recipient data when modal opens
   useEffect(() => {
@@ -45,7 +53,7 @@ function MealAcceptModel({
     if (!confirmed) return;
 
     try {
-      await secureFetch(
+      const data = await secureFetch(
         `http://localhost:5000/api/updateStatus/${mealId}/${selectedUser._id}/${selectedUser.fullname}`,
         {
           method: "PUT",
@@ -53,12 +61,16 @@ function MealAcceptModel({
         }
       );
 
-      // Update UI and trigger data refresh
-      setIsChangeActive(true);
-      setIsChangeGranted(true);
-      setStatus(GRANTED);
-      setAwardedTo(selectedUser.fullname);
-      setShowModal(false);
+      if (data.success) {
+        // Update UI and trigger data refresh
+        setIsChangeActive(true);
+        setIsChangeGranted(true);
+        setStatus(GRANTED);
+        setAwardedTo(selectedUser.fullname);
+        setShowModal(false);
+      } else {
+        console.log(data.error || "Failed to update status.");
+      }
     } catch (err) {
       console.error("Error updating status:", err);
     }

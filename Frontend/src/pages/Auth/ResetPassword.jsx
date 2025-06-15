@@ -41,7 +41,7 @@ function ResetPassword() {
                 alert("Password reset successful. You can now log in.");
                 setTimeout(() => navigate("/"), 2000);
               } else {
-                alert("Error", data.error || "Invalid or expired token.");
+                alert(data.error || "Invalid or expired token.");
               }
             } catch (error) {
               alert("Something went wrong. Try again later.");

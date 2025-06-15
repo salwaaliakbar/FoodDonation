@@ -15,7 +15,17 @@ function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
   const messagesEndRef = useRef(null);
 
   // Unique room ID composed of user IDs and campaign ID
-  const roomId = [user._id, selectedUserData.selectedUserId, campaignId].sort().join("-");
+  const roomId = [user._id, selectedUserData.selectedUserId, campaignId]
+    .sort()
+    .join("-");
+
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    document.body.classList.add("overflow-hidden");
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, []);
 
   useEffect(() => {
     // Emit joinRoom event to server with unique room ID
@@ -87,7 +97,6 @@ function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
     <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4 sm:p-6">
       {/* Chat container */}
       <div className="flex flex-col w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto p-4 sm:p-6 rounded-2xl shadow-lg bg-white max-h-[90vh] overflow-hidden">
-        
         {/* Header with recipient name */}
         <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-center text-gray-800">
           Chat with {selectedUserData.selectedusername}
@@ -123,9 +132,7 @@ function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
                   {/* Timestamp */}
                   <div
                     className={`text-xs ml-4 flex items-end ${
-                      msg.senderId === user._id
-                        ? "text-white"
-                        : "text-gray-600"
+                      msg.senderId === user._id ? "text-white" : "text-gray-600"
                     }`}
                   >
                     {msg.time}

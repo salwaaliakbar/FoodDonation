@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import Header from "./DonorHeader";
 import MealPostCard from "./DonorMealPostCard";
 import Loader from "../../Components/Loader";
-import { useSecureFetch } from "../../Components/Refresh/SecureFetch";
-import { ACTIVE } from "../../Components/constants";
+import { useSecureFetch } from "../../customHooks/useSecureFetch";
+import { ACTIVE } from "../../Components/CONSTANTS";
 
 function DonorGeneralFeed() {
-  const [loading, setLoading] = useState(true);         // Track loading state
-  const [mealPosts, setMealPosts] = useState([]);       // Store fetched meal posts
-  const secureFetch = useSecureFetch();                 // Authenticated fetch hook
+  const [loading, setLoading] = useState(true);    // Track loading state
+  const [mealPosts, setMealPosts] = useState([]);  // Store fetched meal posts
+  const secureFetch = useSecureFetch();       // Authenticated fetch hook
 
   useEffect(() => {
     // Fetch general meal feed data
@@ -24,6 +24,10 @@ function DonorGeneralFeed() {
             credentials: "include",
           }
         );
+        if (!data.success) {
+          alert(data.error || "Failed to fetch feed campaign.");
+          return [];
+        }
 
         return Array.isArray(data.campaigns) ? data.campaigns : [];
       } catch (err) {

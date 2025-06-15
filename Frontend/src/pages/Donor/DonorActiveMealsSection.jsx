@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import MealCard from "./DonorMealCard";
 import { useData } from "../../context/UserContext";
 import { useChange } from "../../context/ChangeContext";
-import { useSecureFetch } from "../../Components/Refresh/SecureFetch";
-import { ACTIVE, GRANTED, EXPIRED } from "../../Components/constants";
+import { useSecureFetch } from "../../customHooks/useSecureFetch";
+import { ACTIVE, GRANTED, EXPIRED } from "../../Components/CONSTANTS";
 
 const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   const { user } = useData();
@@ -72,6 +72,10 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
             },
           }
         );
+        if (!data.success) {
+          alert(data.error || "Failed to fetch user campaigns.");
+          return [];
+        }
         return Array.isArray(data.campaigns) ? data.campaigns : [];
       }
     } catch (err) {
@@ -120,28 +124,32 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
       ) : (
         <>
           {/* Render Meals based on status */}
-          {status === ACTIVE && (
-            activeMeals?.length > 0 ? (
+          {status === ACTIVE &&
+            (activeMeals?.length > 0 ? (
               activeMeals.map((meal, i) => (
                 <MealCard key={i} meal={meal} color={color} status={ACTIVE} />
               ))
             ) : (
-              <NoMeals message="No active meals found" hint="Start adding meals to see them here." />
-            )
-          )}
+              <NoMeals
+                message="No active meals found"
+                hint="Start adding meals to see them here."
+              />
+            ))}
 
-          {status === GRANTED && (
-            grantedMeals?.length > 0 ? (
+          {status === GRANTED &&
+            (grantedMeals?.length > 0 ? (
               grantedMeals.map((meal, i) => (
                 <MealCard key={i} meal={meal} color={color} status={GRANTED} />
               ))
             ) : (
-              <NoMeals message="No granted meals found" hint="Check back later for updates." />
-            )
-          )}
+              <NoMeals
+                message="No granted meals found"
+                hint="Check back later for updates."
+              />
+            ))}
 
-          {status === EXPIRED && (
-            blacklistMeals?.length > 0 ? (
+          {status === EXPIRED &&
+            (blacklistMeals?.length > 0 ? (
               blacklistMeals.map((meal, i) => (
                 <MealCard key={i} meal={meal} color={color} status={EXPIRED} />
               ))
@@ -150,8 +158,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
                 message="No expired meals found"
                 hint="All meals are currently active or awarded."
               />
-            )
-          )}
+            ))}
         </>
       )}
     </section>
