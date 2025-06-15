@@ -96,7 +96,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
         <p className="text-gray-700 mb-3">{meal.description}</p>
         <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
           <p>
-            🍴 Meal for {meal.amount} {meal.amount > 1 ? "persons" : "person"}{" "}
+            🍴 {meal.foodType} for {meal.amount} {meal.amount > 1 ? "persons" : "person"}{" "}
           </p>
           <p>Status: {meal.status}</p>
         </div>
@@ -129,11 +129,10 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
 
             <div className="flex justify-end gap-2 mt-4">
               <button
-                className={`px-9 py-2 text-white rounded ${
-                  !applied
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-green-800 hover:bg-green-700"
-                }`}
+                className={`px-9 py-2 text-white rounded ${!applied
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-green-800 hover:bg-green-700"
+                  }`}
                 onClick={(e) => {
                   e.stopPropagation();
                   setShowChatModal(true);
@@ -148,11 +147,10 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
               </button>
 
               <button
-                className={`px-6 py-2 text-white rounded ${
-                  applied
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-green-800 hover:bg-green-700"
-                }`}
+                className={`px-6 py-2 text-white rounded ${applied
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-green-800 hover:bg-green-700"
+                  }`}
                 onClick={(e) => {
                   e.stopPropagation();
                   if (!applied) setShowModal(true);

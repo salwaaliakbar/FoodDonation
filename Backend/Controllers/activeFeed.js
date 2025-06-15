@@ -27,9 +27,10 @@ async function activeFeed(req, res) {
       return res.status(200).json({ success: true, campaigns: [] });
     }
 
-    // Step 3: Fetch campaigns by filtered applied IDs
+    // Step 3: Fetch campaigns by filtered applied IDs and status as active
     const campaigns = await Campaign.find({
       _id: { $in: filteredApplied },
+      status: "Active", // Filter only active campaigns
     })
       .populate("createdBy", "fullname")
       .populate({

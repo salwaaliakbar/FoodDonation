@@ -29,7 +29,7 @@ const AppliedMealPostCard = ({ mealData }) => {
             <h2 className="text-xl font-semibold mb-2">{mealData.title}</h2>
             <p className="text-gray-700 mb-3">{mealData.description}</p>
             <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
-                <p>🍴 Meal for {mealData.amount} {mealData.amount > 1 ? 'persons' : 'person'} </p>
+                <p>🍴 {mealData.foodType} for {mealData.amount} {mealData.amount > 1 ? 'persons' : 'person'} </p>
                 <p>Status: {mealData.status}</p>
             </div>
 
@@ -46,8 +46,8 @@ const AppliedMealPostCard = ({ mealData }) => {
                         <p className="text-sm font-semibold text-gray-600 mb-1">Applicants:</p>
                         <ul className="list-disc pl-5 text-sm text-gray-700">
                             {mealData.applied.map((a, i) => (
-                                <div className='flex justify-between'>
-                                    <li key={i}>
+                                <div className='flex justify-between' key={i}>
+                                    <li >
                                         {a.p_id.fullname} - {a.persons} {a.persons > 1 ? 'people' : 'person'}
                                     </li>
                                     <p>Applied At: {new Date(a.date).toLocaleString('en-PK')}</p>

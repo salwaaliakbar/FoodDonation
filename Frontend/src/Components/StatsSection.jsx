@@ -12,9 +12,9 @@ import {
   Label
 } from 'recharts'
 
-export default function StatsSection() {
-  const [applied, setApplied] = useState(20)
-  const [awarded, setAwarded] = useState(14)
+export default function StatsSection({ actives, grants }) {
+  const [applied, setApplied] = useState(actives)
+  const [awarded, setAwarded] = useState(grants)
 
   const [awardData, setAwardData] = useState([
     { event: 'Jan', count: 3 },
@@ -60,7 +60,7 @@ export default function StatsSection() {
         </ResponsiveContainer>
 
         <div className=' mt-2'>
-          <span className=' text-lg font-semibold text-green-700'>Total: {applied}</span>
+          <span className=' text-lg font-semibold text-green-700'>Applied: {applied}</span>
         </div>
       </div>
 
