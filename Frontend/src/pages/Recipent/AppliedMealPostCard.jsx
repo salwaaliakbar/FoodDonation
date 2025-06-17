@@ -42,7 +42,7 @@ const AppliedMealPostCard = ({ mealData }) => {
                 <div className="transition-all duration-1000 mt-8">
                     {/* <p className="text-gray-700 mb-3">{mealDescription}</p> */}
 
-                    <div className="mb-2">
+                    <div className="mb-2 relative">
                         <p className="text-sm font-semibold text-gray-600 mb-1">Applicants:</p>
                         <ul className="list-disc pl-5 text-sm text-gray-700">
                             {mealData.applied.map((a, i) => (
@@ -55,8 +55,22 @@ const AppliedMealPostCard = ({ mealData }) => {
                             ))}
                         </ul>
                     </div>
+                    <button
+                        className=" ml-auto block mt-4 px-9 py-2 text-white rounded bg-green-800 hover:bg-green-700  "
+                    // onClick={(e) => {
+                    //   e.stopPropagation();
+                    //   setShowChatModal(true);
+                    //   setSelectedUser({
+                    //     selectedUserId: meal.createdBy?._id,
+                    //     selectedusername: meal.createdBy?.fullname,
+                    //   });
+                    // }}
+                    >
+                        Chat
+                    </button>
                 </div>
-            )}
+            )
+            }
         </div >
     )
 }

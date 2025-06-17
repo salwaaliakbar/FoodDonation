@@ -46,16 +46,33 @@ const MealCard = ({ meal }) => {
 
             {/* Expanded Details */}
             {expanded && (
-                <div className='mt-3 ml-14 border-t pt-3 text-sm text-gray-600 space-y-1'>
-                    <p><strong>Description:</strong> {meal.description}</p>
-                    <p><strong>Location:</strong> {meal.location}</p>
-                    <p><strong>Posted On:</strong> {meal.createdAt}</p>
+                <>
+                    <div className='mt-3 ml-14 border-t pt-3 text-sm text-gray-600 space-y-1'>
+                        <p><strong>Description:</strong> {meal.description}</p>
+                        <p><strong>Location:</strong> {meal.location}</p>
+                        <p><strong>Posted On:</strong> {meal.createdAt}</p>
 
-                    {applied[0].persons && <p><strong>Applied For: </strong> {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p>}
-                    {meal.status === 'Awarded' && user._id === meal.awarded.p_id ? <p><strong>Accepted For: </strong>  {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p> : <></>}
+                        {applied[0].persons && <p><strong>Applied For: </strong> {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p>}
+                        {meal.status === 'Awarded' && user._id === meal.awarded.p_id ? <p><strong>Accepted For: </strong>  {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p> : <></>}
 
-                </div>
+                    </div>
+                    <button
+                        className=" ml-auto block mt-4 px-9 py-2 text-white rounded bg-green-800 hover:bg-green-700  "
+                    // onClick={(e) => {
+                    //   e.stopPropagation();
+                    //   setShowChatModal(true);
+                    //   setSelectedUser({
+                    //     selectedUserId: meal.createdBy?._id,
+                    //     selectedusername: meal.createdBy?.fullname,
+                    //   });
+                    // }}
+                    >
+                        Chat
+                    </button>
+                </>
+
             )}
+
         </div>
     )
 }
