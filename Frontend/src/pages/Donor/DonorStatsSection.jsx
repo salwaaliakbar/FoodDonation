@@ -61,6 +61,8 @@ export default function StatsSection() {
             granted,
             remaining,
           });
+        } else {
+          alert(data.error || "Failed to fetch stats summary.")
         }
       } catch (err) {
         console.error("Error while fetching stats summary!", err);

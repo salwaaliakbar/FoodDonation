@@ -1,38 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { format } from "date-fns";
-import { ACTIVE, EXPIRED, GRANTED } from "../../Components/constants";
 import MealAcceptModel from "./MealAcceptModal";
 import { useLocation } from "react-router-dom";
 import Chat from "../../Components/Chat";
-import { toast } from "react-toastify";
+import { Trash2 } from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
 import socket from "../../utils/socket";
+import { useData } from "../../context/UserContext";
+import { useHandleDelete } from "../../customHooks/useHandleDelete";
+import { ACTIVE, GRANTED, EXPIRED } from "../../Components/CONSTANTS";
 
 const MealCard = ({ meal, color }) => {
-  const [expanded, setExpanded] = useState(false); // Toggle expanded view
+  const [expanded, setExpanded] = useState(false);
   const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
-  const [status, setStatus] = useState(meal.status); // Current meal status
-  const [awardedTo, setAwardedTo] = useState(meal.awarded || "none"); // Winner (if granted)
-  const [showModal, setShowModal] = useState(false); // Modal for accept flow
-  const [isChatOpen, setIsChatOpen] = useState(false); // Chat visibility
+  const [status, setStatus] = useState(meal.status);
+  const [awardedTo, setAwardedTo] = useState(meal.awarded || "none");
+  const [showModal, setShowModal] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState({
     selectedUserId: "",
     selectedusername: "",
   });
-  const [appliedList, setAppliedList] = useState(meal.applied); // List of applicants
-  const { pathname } = useLocation(); // Get route path for conditional UI
+  const [appliedList, setAppliedList] = useState(meal.applied);
+  const { pathname } = useLocation();
+  const { user } = useData();
+  const handleDelete = useHandleDelete();
 
-  // Donor-side: setup real-time socket listener for new applications
   useEffect(() => {
     if (status !== ACTIVE) return;
 
-    // Only connect once
     if (!socket.connected) socket.connect();
 
-    // Join notification room based on donor ID
     socket.emit("joinNotificationRoom", meal.createdBy?._id);
 
-    // Listen for new applicants
     socket.on("meal_applied", (data) => {
       if (data.mealId !== meal._id) return;
 
@@ -47,9 +47,8 @@ const MealCard = ({ meal, color }) => {
   return (
     <div
       onClick={() => setExpanded((prev) => !prev)}
-      className="w-full px-4 py-3 my-2 mb-0 border-b rounded-xl border-gray-300 hover:bg-gray-100 cursor-pointer transition-all duration-300"
+      className="relative w-full px-4 py-3 my-2 border-b rounded-xl border-gray-300 hover:bg-gray-100 cursor-pointer transition-all duration-300"
     >
-      {/* If in general feed and meal granted, show award badge */}
       {pathname === "/donorDashBoard/generalfeed" &&
         status === GRANTED &&
         awardedTo && (
@@ -58,9 +57,7 @@ const MealCard = ({ meal, color }) => {
           </div>
         )}
 
-      {/* Top Summary Row */}
       <div className="flex flex-wrap items-center justify-between gap-4">
-        {/* Donor Info + Meal Title */}
         <div className="flex items-center gap-4 w-full sm:w-[40%]">
           <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
             {firstLetter}
@@ -75,7 +72,6 @@ const MealCard = ({ meal, color }) => {
           </div>
         </div>
 
-        {/* Meal Info */}
         <div className="flex flex-col w-full sm:w-[30%] text-sm text-gray-600">
           <span>🍽️ {meal.amount} meals</span>
           <span>
@@ -84,18 +80,34 @@ const MealCard = ({ meal, color }) => {
           </span>
         </div>
 
-        {/* Status & Applicants */}
         <div className="w-full sm:w-[20%] text-right">
           {status === ACTIVE && (
-            <>
-              <span>✅ {status}</span>
-              <div className="flex justify-end items-center text-sm text-gray-700 mt-2">
-                <p>👥 {appliedList.length} Applied</p>
+            <div className="flex gap-3 justify-end">
+              <div>
+                <span>✅ {status}</span>
+                <div className="flex justify-end items-center text-sm text-gray-700 mt-2">
+                  <p>👥 {appliedList.length} Applied</p>
+                </div>
               </div>
-            </>
+              {/* 🗑️ Trash Icon Bottom-Right */}
+              <div>
+                {meal.createdBy?._id === user._id && (
+                  <div
+                    className=" bg-red-100 p-2 rounded-full shadow-md hover:bg-red-200 transition-colors mt-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(meal._id);
+                    }}
+                    title="Delete Meal"
+                  >
+                    <Trash2 className="w-4 h-4 text-red-700 hover:text-red-900 transition-transform duration-200 hover:scale-110" />
+                  </div>
+                )}
+              </div>
+            </div>
           )}
           {status === GRANTED && (
-            <>
+            <div className="mr-6">
               <span>🏅 {status}</span>
               <p
                 className="text-amber-600"
@@ -109,20 +121,19 @@ const MealCard = ({ meal, color }) => {
               >
                 {meal.awarded?.p_name}
               </p>
-            </>
+            </div>
           )}
           {status === EXPIRED && (
-            <>
+            <div className="mr-6">
               <span>🚫 {status}</span>
-            </>
+            </div>
           )}
         </div>
       </div>
 
-      {/* Toggleable Detail Section */}
+      {/* Toggleable Details */}
       {expanded && (
         <div className="mt-3 ml-0 sm:ml-14 border-t pt-3 text-sm text-gray-600 space-y-1 flex justify-between">
-          {/* Meal Details */}
           <div className="mt-2">
             <p className="mb-1">
               <strong>Description:</strong> {meal.description}
@@ -136,10 +147,11 @@ const MealCard = ({ meal, color }) => {
             </p>
           </div>
 
-          {/* Applicants List */}
-          <div className="transition-all duration-1000 my-4 mr-2">
+          <div className="transition-all duration-1000 my-4 mr-2 relative">
             <div className="mb-2">
-              <p className="text-sm font-bold text-gray-600 mb-1">Applicants:</p>
+              <p className="text-sm font-bold text-gray-600 mb-1">
+                Applicants:
+              </p>
               {status === GRANTED ? (
                 <p className="text-sm text-green-600 italic">
                   Meal has been awarded.
@@ -177,7 +189,6 @@ const MealCard = ({ meal, color }) => {
         </div>
       )}
 
-      {/* Modal to Accept/Manage Meal */}
       {showModal && (
         <MealAcceptModel
           mealId={meal._id}
@@ -191,7 +202,6 @@ const MealCard = ({ meal, color }) => {
         />
       )}
 
-      {/* Real-time Chat Box */}
       {isChatOpen && (
         <Chat
           selectedUserData={selectedUser}

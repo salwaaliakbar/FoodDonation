@@ -52,7 +52,7 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                   navigate("/recipent");
                 }
               } else {
-                alert(data.error); // Show error from server
+                alert(data.error || "Failed to login."); // Show error from server
               }
             } catch (err) {
               console.error("Error during login:", err);

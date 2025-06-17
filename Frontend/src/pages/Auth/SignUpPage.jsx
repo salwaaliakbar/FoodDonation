@@ -64,7 +64,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                   navigate("/recipent");
                 }
               } else {
-                alert(data.error); // Show API error
+                alert(data.error || "Failed to signup."); // Show API error
               }
             } catch (err) {
               console.error("Error during signup:", err);

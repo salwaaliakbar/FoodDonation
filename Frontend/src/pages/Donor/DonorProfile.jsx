@@ -3,7 +3,7 @@ import SideBar from "./DonorSidebar";
 import Header from "./DonorHeader";
 import { Phone, Mail, User, Building } from "lucide-react";
 import { useData } from "../../context/UserContext";
-import { useSecureFetch } from "../../Components/Refresh/SecureFetch";
+import { useSecureFetch } from "../../customHooks/useSecureFetch";
 
 const Myprofile = () => {
   const { user, setUser } = useData(); // Access global user context
@@ -35,7 +35,7 @@ const Myprofile = () => {
         alert("Profile Updated Successfully");
         setEdit(false);
       } else {
-        alert("Error updating profile: " + data.error);
+        alert(data.error || "Failed to update profile.");
       }
     } catch (err) {
       console.error("Error updating profile:", err);

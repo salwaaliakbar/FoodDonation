@@ -157,14 +157,14 @@ async function getUserData(req, res) {
   const { id } = req.params;
 
   if (!id) {
-    return res.status(400).json({ message: "Id not found!", success: false });
+    return res.status(400).json({ error: "Id not found!", success: false });
   }
   try {
     const user = await userModel.findOne({ _id: id });
     if (!user) {
       return res
         .status(400)
-        .json({ message: "user Not found!", success: false });
+        .json({ error: "user Not found!", success: false });
     }
 
     const { password: _, ...UserData } = user._doc;
@@ -176,7 +176,7 @@ async function getUserData(req, res) {
     });
   } catch (err) {
     return res.status(500).json({
-      message: "Server error while fetching selected reciepient data!",
+      error: "Server error while fetching selected reciepient data!",
       success: false,
     });
   }
@@ -189,7 +189,7 @@ async function updateStatus(req, res) {
   if (!id || !p_id || !p_name) {
     return res
       .status(400)
-      .json({ message: "Plz provide required data!", success: false });
+      .json({ error: "Plz provide required data!", success: false });
   }
   try {
     const updateStatus = await campaignModel.updateOne(
@@ -217,7 +217,7 @@ async function updateStatus(req, res) {
   } catch (err) {
     return res
       .status(500)
-      .json({ message: "Server error while updating status!", success: false });
+      .json({ error: "Server error while updating status!", success: false });
   }
 }
 
@@ -227,7 +227,7 @@ async function statsSummary(req, res) {
   if (!id) {
     return res
       .status(500)
-      .json({ message: "Plz provide required Fields!", success: false });
+      .json({ error: "Plz provide required Fields!", success: false });
   }
   try {
     const active = await campaignModel.countDocuments({
@@ -252,7 +252,28 @@ async function statsSummary(req, res) {
     });
   } catch (err) {
     return res.status(500).json({
-      message: "Server error while fetching stats summary!",
+      error: "Server error while fetching stats summary!",
+      success: false,
+    });
+  }
+}
+
+// delate a campaign
+async function deleteCampaign(req, res) {
+  const { id } = req.params
+  if(!id){
+    return res.status(400).json({error: 'ID not Found!', success: false})
+  }
+  try{
+    const deletedCampaign = await campaignModel.deleteOne({ _id: id })
+    if(!deleteCampaign){
+      return res.status(400).json({error: "Campaign not Found!", success: false})
+    }
+    res.status(200).json({message: "Campaign deleted successfully!", success: true, deletedCampaign})
+
+  } catch(err){
+    return res.status(500).json({
+      error: "Server error while deleting a campaign!",
       success: false,
     });
   }
@@ -265,4 +286,5 @@ module.exports = {
   getUserData,
   updateStatus,
   statsSummary,
+  deleteCampaign
 };

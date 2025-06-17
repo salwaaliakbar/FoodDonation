@@ -1,7 +1,7 @@
 import { Field, Formik, Form } from "formik";
 import CampaignSchema from "../../yupschemas/CampaignSchema"; // Yup validation schema
 import { useChange } from "../../context/ChangeContext"; // Custom context for change tracking
-import { useSecureFetch } from "../../Components/Refresh/SecureFetch"; // Authenticated fetch utility
+import { useSecureFetch } from "../../customHooks/useSecureFetch"; // Authenticated fetch utility
 
 function CreateCampaign() {
   const { setIsChangeActive } = useChange();
@@ -38,7 +38,7 @@ function CreateCampaign() {
             alert("New campaign added successfully");
             setIsChangeActive(true); // trigger context state to re-fetch or refresh
           } else {
-            alert("Error during new campaign creation ", data.error);
+            alert(data.error || "Failed to add new campaign.");
           }
         } catch (error) {
           console.error("Error during new campaign creation:", error);

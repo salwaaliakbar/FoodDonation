@@ -4,7 +4,7 @@ import Header from './Header'
 import { Phone, Mail, User, Building } from "lucide-react";
 import { useData } from '../../context/UserContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { useSecureFetch } from "../../Components/Refresh/SecureFetch";
+import { useSecureFetch } from "../../customHooks/useSecureFetch";
 
 const Myprofile = () => {
     const [edit, setEdit] = useState(false)

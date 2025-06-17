@@ -95,7 +95,6 @@ async function signup(req, res) {
       return res.status(400).json({ error: "Username Should be Unique", success: false });
     }
 
-    console.log("before bcrypt");
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -154,7 +153,6 @@ async function signup(req, res) {
     res.status(200).json({message: "Newuser Registered Successfully", success: true, userData,
     });
   } catch (err) {
-    console.log("cathxh ere: ", err);
     res.status(500).json({ error: "Server error ", err, success: false });
   }
 }
@@ -182,7 +180,6 @@ async function verifyuser(req, res) {
     const user = req.user;
 
     if (!user || !user._id) {
-      console.log("No user found in the request.");
       return res.status(404).json({ success: false, error: "User not found or invalid token" });
     }
 
@@ -253,7 +250,7 @@ async function forgotPassword(req, res) {
 
     // Compose email options
     const mailOptions = {
-      from: `"Your App Name" <${process.env.EMAIL_USER}>`,
+      from: `"Food Secure " <${process.env.EMAIL_USER}>`,
       to: oldUser.email,
       subject: "Password Reset Link",
       html: `<p>Hi ${oldUser.fullname},</p>
@@ -279,18 +276,18 @@ async function resetPassword(req, res){
     const { password } = req.body;
     
     if (!password) {
-        return res.status(400).json({ message: "Password is required", success: false });
+        return res.status(400).json({ error: "Password is required", success: false });
     }
     try{
         const oldUser = await userModel({ _id: id })
         if(!oldUser){
-            res.status(400).json({ message: "User Not Found ", success: false})
+            res.status(400).json({ error: "User Not Found ", success: false})
         }
 
         const secret = process.env.JWT_SECRET + oldUser.password;
         const isDecoded = jwt.verify(token, secret)
          if (!isDecoded) {
-            return res.status(401).json({ message: "Invalid token", code: "INVALID_TOKEN", success: false });
+            return res.status(401).json({ error: "Invalid token", code: "INVALID_TOKEN", success: false });
         }
         // redirect to the resetPassword Page where user can update its password
         res.redirect(`http://localhost:5173/ResetPassword/${id}/${token}`);
@@ -341,7 +338,7 @@ async function refreshToken (req, res) {
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
-    return res.status(401).json({ message: 'Refresh token missing', code: 'TOKEN_MISSING' });
+    return res.status(401).json({ error: 'Refresh token missing', code: 'TOKEN_MISSING' });
   }
 
   try {
@@ -349,7 +346,7 @@ async function refreshToken (req, res) {
 
     const user = await userModel.findById(decoded.id);
     if (!user) {
-      return res.status(401).json({ message: 'User not found', code: 'USER_MISSING' });
+      return res.status(401).json({ error: 'User not found', code: 'USER_MISSING' });
     }
 
     // Generate new access token
@@ -376,7 +373,7 @@ async function refreshToken (req, res) {
 
   } catch (err) {
     console.error('Refresh token error:', err);
-    return res.status(401).json({ message: 'Invalid or expired refresh token', code: 'INVALID_REFRESH' });
+    return res.status(401).json({ error: 'Invalid or expired refresh token', code: 'INVALID_REFRESH' });
   }
 };
 
