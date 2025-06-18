@@ -84,6 +84,7 @@ const ActiveMeals = () => {
                         </p>
                     </div>
                 )}
+
             </div>
         </div>
     )
