@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useData } from '../../context/UserContext';
+import { GRANTED } from '../../Components/CONSTANTS';
 
 const MealCard = ({ meal }) => {
     const [expanded, setExpanded] = useState(false)
@@ -34,7 +35,7 @@ const MealCard = ({ meal }) => {
                 {/* Middle: Quick Info */}
                 <div className='flex flex-col w-[30%] text-sm text-gray-600'>
                     <span>🍽️ {meal.amount} {meal.foodType}</span>
-                    <span>🕒 Applied: {new Date(applied[0].date).toLocaleString("en-PK")}  </span>
+                    <span>🕒 Applied: {new Date(applied[0]?.date).toLocaleString("en-PK")}  </span>
                 </div>
 
                 {/* Right Side: Applicants */}
@@ -52,7 +53,7 @@ const MealCard = ({ meal }) => {
                     <p><strong>Posted On:</strong> {meal.createdAt}</p>
 
                     {applied[0].persons && <p><strong>Applied For: </strong> {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p>}
-                    {meal.status === 'Awarded' && user._id === meal.awarded.p_id ? <p><strong>Accepted For: </strong>  {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p> : <></>}
+                    {meal.status === GRANTED && user._id === meal.awarded.includes(p_id) ? <p><strong>Accepted For: </strong>  {applied[0].persons > 1 ? <> {applied[0].persons} persons </> : <> {applied[0].persons} person </>} </p> : <></>}
 
                 </div>
             )}

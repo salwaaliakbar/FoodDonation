@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
 import MealCard from "./DonorMealCard";
 import { useData } from "../../context/UserContext";
-import { useChange } from "../../context/ChangeContext";
 import { useSecureFetch } from "../../customHooks/useSecureFetch";
 import { ACTIVE, GRANTED, EXPIRED } from "../../Components/CONSTANTS";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useHandleDelete } from "../../customHooks/useHandleDelete";
+import { useChange } from "../../Context/ChangeContext";
 
 const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   const { user } = useData();
   const secureFetch = useSecureFetch();
+  const deleteMeal = useHandleDelete()
 
   const {
     isChangeActive,
@@ -26,9 +30,11 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
     setBlacklistMeals,
     isLoggedout,
     setIsLoggedOut,
-  } = useChange();
+  } = useChange()
 
   useEffect(() => {
+    console.log('active', activeMeals, 'stats', isChangeActive)
+    console.log('chk user', user)
     // Move expired meals from activeMeals to blacklistMeals
     if ((status === ACTIVE || status === EXPIRED) && activeMeals?.length > 0) {
       const now = new Date();
@@ -61,6 +67,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
 
   // Fetch campaign data for a specific status
   async function fetchMealData(status) {
+    console.log('user',user, "active", activeMeals)
     try {
       if (user?._id) {
         const data = await secureFetch(
@@ -81,7 +88,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
     } catch (err) {
       console.error("Error fetching user campaigns:", err);
     }
-    return [];
+    
   }
 
   // Fetch and update meals based on current status
@@ -108,6 +115,15 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
     }, 1000);
   }
 
+    //  Delete meal and remove from UI
+    const handleDelete = async (id) => {
+      const deletedId = await deleteMeal(id);
+      if (deletedId) {
+        toast.success("Meal deleted successfully!");
+        setActiveMeals((prev) => prev.filter((meal) => meal._id !== deletedId));
+      }
+    };
+
   return (
     <section className="w-full mx-auto bg-white border-[1px] border-zinc-200 rounded-xl shadow-lg mt-4 mb-4">
       <h2
@@ -127,7 +143,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
           {status === ACTIVE &&
             (activeMeals?.length > 0 ? (
               activeMeals.map((meal, i) => (
-                <MealCard key={i} meal={meal} color={color} status={ACTIVE} />
+                <MealCard key={i} meal={meal} color={color} status={ACTIVE} handleDelete={handleDelete} />
               ))
             ) : (
               <NoMeals

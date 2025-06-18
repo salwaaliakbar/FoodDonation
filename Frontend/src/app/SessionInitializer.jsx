@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useData } from "../context/UserContext";
-import { useChange } from "../context/ChangeContext";
 import { useSecureFetch } from "../customHooks/useSecureFetch";
+import { useChange } from "../Context/ChangeContext";
 
 function SessionInitializer() {
   const { setUser } = useData();

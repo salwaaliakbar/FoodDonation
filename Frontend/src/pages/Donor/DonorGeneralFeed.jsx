@@ -4,14 +4,17 @@ import MealPostCard from "./DonorMealPostCard";
 import Loader from "../../Components/Loader";
 import { useSecureFetch } from "../../customHooks/useSecureFetch";
 import { ACTIVE } from "../../Components/CONSTANTS";
+import { useHandleDelete } from "../../customHooks/useHandleDelete";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DonorGeneralFeed() {
-  const [loading, setLoading] = useState(true);    // Track loading state
-  const [mealPosts, setMealPosts] = useState([]);  // Store fetched meal posts
-  const secureFetch = useSecureFetch();       // Authenticated fetch hook
+  const [loading, setLoading] = useState(true);
+  const [mealPosts, setMealPosts] = useState([]);
+  const secureFetch = useSecureFetch();
+  const deleteMeal = useHandleDelete();
 
   useEffect(() => {
-    // Fetch general meal feed data
     async function fetchMealFeedData() {
       try {
         const data = await secureFetch(
@@ -36,10 +39,8 @@ function DonorGeneralFeed() {
       }
     }
 
-    // Wrapper to manage loading state with slight delay (UX-friendly)
     const fetchData = async () => {
       setLoading(true);
-
       setTimeout(async () => {
         const feedData = await fetchMealFeedData();
         setMealPosts(feedData);
@@ -47,14 +48,20 @@ function DonorGeneralFeed() {
       }, 1000);
     };
 
-    fetchData(); // Initial load
+    fetchData();
   }, []);
+
+  //  Delete meal and remove from UI
+  const handleDelete = async (id) => {
+    const deletedId = await deleteMeal(id);
+    if (deletedId) {
+      toast.success("Meal deleted successfully!");
+      setMealPosts((prev) => prev.filter((meal) => meal._id !== deletedId));
+    }
+  };
 
   return (
     <div className="flex">
-      {/* Sidebar placeholder – uncomment if needed */}
-      {/* <DonorSidebar /> */}
-
       <div className="w-full absolute right-0 bg-gray-200">
         <Header />
 
@@ -64,24 +71,21 @@ function DonorGeneralFeed() {
           </h1>
 
           {loading ? (
-            // Show loading spinner while data is being fetched
             <div className="w-full flex min-h-[70vh] justify-center items-center py-16">
               <Loader />
             </div>
           ) : mealPosts.length ? (
-            // Render fetched meal posts
             <div className="w-[94%] min-h-[70vh] m-auto">
               {mealPosts.map((post, index) => (
                 <MealPostCard
                   key={post._id}
                   meal={post}
                   index={index}
-                  // setMealPosts={setMealPosts} // Useful if allowing updates/removals
+                  handleDelete={handleDelete}
                 />
               ))}
             </div>
           ) : (
-            // Show fallback UI when no posts are available
             <div className="flex flex-col items-center justify-center h-64 text-gray-500">
               <p className="text-lg font-semibold">No meals to display</p>
               <p className="text-sm">

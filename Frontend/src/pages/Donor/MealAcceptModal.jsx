@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useSecureFetch } from "../../customHooks/useSecureFetch";
-import { useChange } from "../../context/ChangeContext";
-import { EXPIRED, GRANTED } from "../../Components/CONSTANTS";
+import { ACTIVE, EXPIRED, GRANTED } from "../../Components/CONSTANTS";
 import { useData } from "../../context/UserContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useChange } from "../../Context/ChangeContext";
 
 function MealAcceptModel({
   mealId,
   createdBy,
   setShowModal,
   status,
-  setStatus,
   setAwardedTo,
   setIsChatOpen,
   selectedUserData,
+  remaining,
+  setRemaining,
+  setAppliedList,
+  setAwardedList,
 }) {
   const secureFetch = useSecureFetch();
-  const [selectedUser, setSelectedUser] = useState({});
-  const { setIsChangeActive, setIsChangeGranted } = useChange();
+  const { setActiveMeals, setGrantedMeals } = useChange();
   const { user } = useData();
 
-  // Prevent background scrolling when modal is open
+  const [selectedUser, setSelectedUser] = useState({});
+  const [awardCount, setAwardCount] = useState("");
+  const [localRemaining, setLocalRemaining] = useState(remaining || 0); // for dropdown
+
   useEffect(() => {
     document.body.classList.add("overflow-hidden");
     return () => {
@@ -27,7 +34,6 @@ function MealAcceptModel({
     };
   }, []);
 
-  // Fetch recipient data when modal opens
   useEffect(() => {
     async function fetchSelectedUserData() {
       try {
@@ -47,14 +53,18 @@ function MealAcceptModel({
     fetchSelectedUserData();
   }, [selectedUserData.selectedUserId]);
 
-  // Handle meal acceptance
   async function handleAccept() {
     const confirmed = window.confirm("Are you sure you want to accept?");
     if (!confirmed) return;
 
+    if (!awardCount) {
+      alert("Please select how many meals to award.");
+      return;
+    }
+
     try {
       const data = await secureFetch(
-        `http://localhost:5000/api/updateStatus/${mealId}/${selectedUser._id}/${selectedUser.fullname}`,
+        `http://localhost:5000/api/updateStatus/${mealId}/${selectedUser._id}/${selectedUser.fullname}/${awardCount}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -62,11 +72,36 @@ function MealAcceptModel({
       );
 
       if (data.success) {
-        // Update UI and trigger data refresh
-        setIsChangeActive(true);
-        setIsChangeGranted(true);
-        setStatus(GRANTED);
-        setAwardedTo(selectedUser.fullname);
+        const { campaign } = data;
+
+        toast.success("Meal Granted successfully!");
+        setAppliedList(campaign?.applied || []);
+        setAwardedList(campaign?.awarded || []);
+        if (setAwardedTo) setAwardedTo(selectedUser.fullname);
+
+        // Update remaining in both parent and local
+        if (setRemaining) setRemaining(data.remaining);
+        setLocalRemaining(data.remaining);
+
+        if (campaign?.status === GRANTED) {
+          setActiveMeals((prev) =>
+            prev.filter((meals) => meals._id !== campaign._id)
+          );
+          setGrantedMeals((prev) => {
+            const updated = [...prev, campaign];
+            return updated.sort(
+              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            );
+          });
+        } else {
+          setActiveMeals((prev) =>
+            prev.map((meals) =>
+              meals._id === campaign._id ? campaign : meals
+            )
+          );
+        }
+
+        selectedUserData.selectedUserStatus = GRANTED;
         setShowModal(false);
       } else {
         console.log(data.error || "Failed to update status.");
@@ -76,7 +111,6 @@ function MealAcceptModel({
     }
   }
 
-  // Button permissions
   const isOwner = createdBy._id === user._id;
   const canAccept = isOwner && status !== GRANTED && status !== EXPIRED;
   const canChat = isOwner && status !== EXPIRED;
@@ -95,7 +129,7 @@ function MealAcceptModel({
 
         {/* Header */}
         <div className="flex flex-col mb-4 items-center">
-          <h2 className="text-xl font-semibold mt-3 text-gray-800 mb-6 text-center">
+          <h2 className="text-xl font-semibold my-3 text-gray-800 text-center">
             Accept Meal Request
           </h2>
         </div>
@@ -117,15 +151,62 @@ function MealAcceptModel({
               {selectedUser.organization}
             </div>
           )}
+          {status === ACTIVE ? (
+            <div>
+              <span className="font-medium">Applied for:</span>{" "}
+              {selectedUserData.appliedfor}{" "}
+              {selectedUserData.appliedfor > 1 ? "persons" : "person"}
+            </div>
+          ) : (
+            <div>
+              <span className="font-medium">Awarded for:</span>{" "}
+              {selectedUserData.appliedfor}{" "}
+              {selectedUserData.appliedfor > 1 ? "persons" : "person"}
+            </div>
+          )}
           <div>
             <span className="font-medium">Status:</span>{" "}
-            {status === GRANTED ? (
-              <span className="text-gray-700 font-semibold">Allocated</span>
+            {selectedUserData.selectedUserStatus === GRANTED ? (
+              <span className="text-gray-700 font-semibold">🏅 Awarded</span>
             ) : (
               <span className="text-yellow-600 font-semibold">⏳ Pending</span>
             )}
           </div>
         </div>
+
+        {/* Dropdown to select award count */}
+        {canAccept && selectedUserData.selectedUserStatus !== GRANTED && (
+          <div className="mb-6 mt-2 flex items-center justify-between gap-3">
+            <label
+              htmlFor="awardCount"
+              className="text-sm font-medium text-gray-700 whitespace-nowrap"
+            >
+              Award meal for:
+            </label>
+            <select
+              required
+              id="awardCount"
+              value={awardCount}
+              onChange={(e) => setAwardCount(Number(e.target.value))}
+              className="block border border-gray-300 rounded-md shadow-sm px-3 py-1 focus:outline-none focus:ring-green-800 focus:border-green-800 text-gray-700"
+            >
+              <option value="">Select Persons</option>
+              {Array.from(
+                {
+                  length: Math.min(
+                    Number(selectedUserData.appliedfor) || 0,
+                    Number(localRemaining) || 0
+                  ),
+                },
+                (_, i) => i + 1
+              ).map((num) => (
+                <option key={num} value={num}>
+                  {num} {num === 1 ? "person" : "persons"}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-between mt-6">
@@ -145,10 +226,12 @@ function MealAcceptModel({
           </button>
 
           <button
-            disabled={!canAccept}
+            disabled={
+              !canAccept || selectedUserData.selectedUserStatus === GRANTED
+            }
             onClick={handleAccept}
             className={`px-9 py-2 rounded transition text-white ${
-              canAccept
+              canAccept && selectedUserData.selectedUserStatus !== GRANTED
                 ? "bg-green-800 hover:bg-green-700 cursor-pointer"
                 : "bg-gray-400 cursor-not-allowed"
             }`}

@@ -3,18 +3,14 @@ import { Outlet } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useData } from "../../context/UserContext";
 import DonorSidebar from "./DonorSidebar";
-import socket from "../../utils/socket";
-import { useChange } from "../../context/ChangeContext";
+import { useSocket } from "../../context/SocketProvider";
 
 function DonorDashboard() {
   const { user } = useData();
-  const { setIsChangeActive } = useChange();
+  const socket = useSocket()
 
   useEffect(() => {
     if (!user?._id) return;
-
-    // Only connect once
-    if (!socket.connected) socket.connect();
 
     socket.emit("joinNotificationRoom", user._id);
 
@@ -39,9 +35,7 @@ function DonorDashboard() {
           },
         }
       );
-      setIsChangeActive(true)
     };
-
     socket.on("notifyDonor", handleNotifyDonor);
 
     return () => {

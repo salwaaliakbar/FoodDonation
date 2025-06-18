@@ -11,7 +11,7 @@ async function CampaignsFeed(req, res) {
       return res.status(400).json({ error: "Invalid status" });
     }
 
-    const campaigns = await Campaign.find({ status: status }, { awarded: 0 })
+    const campaigns = await Campaign.find({ status: status })
       .populate("createdBy", "fullname") // Populate createdBy with user's fullname
       .populate({
         path: "applied.p_id", // Populate the user inside applied array

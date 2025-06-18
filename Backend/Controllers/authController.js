@@ -95,6 +95,11 @@ async function signup(req, res) {
       return res.status(400).json({ error: "Username Should be Unique", success: false });
     }
 
+    user = await userModel.findOne({ email });
+    if (user) {
+      return res.status(400).json({ error: "Email Should be Unique", success: false });
+    }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -102,8 +107,7 @@ async function signup(req, res) {
       fullname, email, phone, organization, role, username,
       password: hashedPassword,
     });
-
-    user = newuser;
+    console.log('new user', newuser)
 
     // Generate New access Token
     const accessToken = jwt.sign(
@@ -188,18 +192,30 @@ async function verifyuser(req, res) {
     const activeMeals = await campaignModel
       .find({ createdBy: user._id, status: "Active" })
       .populate("createdBy", "fullname")
+      .populate({
+        path: "applied.p_id", // Populate the user inside applied array
+        select: "fullname", // Only fetch fullname from users
+      })
       .sort({ createdAt: -1 })
       .exec();
 
     const grantedMeals = await campaignModel
       .find({ createdBy: user._id, status: "Awarded" })
       .populate("createdBy", "fullname")
+      .populate({
+        path: "applied.p_id", // Populate the user inside applied array
+        select: "fullname", // Only fetch fullname from users
+      })
       .sort({ createdAt: -1 })
       .exec();
 
     const blacklistMeals = await campaignModel
       .find({ createdBy: user._id, status: "Expired" })
       .populate("createdBy", "fullname")
+      .populate({
+        path: "applied.p_id", // Populate the user inside applied array
+        select: "fullname", // Only fetch fullname from users
+      })
       .sort({ createdAt: -1 })
       .exec();
 

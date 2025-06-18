@@ -43,6 +43,7 @@ async function createCampaign(req, res) {
       title,
       foodType,
       amount,
+      remaining: amount,
       expiration,
       expirationDate,
       mealType,
@@ -162,9 +163,7 @@ async function getUserData(req, res) {
   try {
     const user = await userModel.findOne({ _id: id });
     if (!user) {
-      return res
-        .status(400)
-        .json({ error: "user Not found!", success: false });
+      return res.status(400).json({ error: "user Not found!", success: false });
     }
 
     const { password: _, ...UserData } = user._doc;
@@ -182,42 +181,96 @@ async function getUserData(req, res) {
   }
 }
 
-// update status handler
 async function updateStatus(req, res) {
-  const { id, p_id, p_name } = req.params;
+  const { id, p_id, p_name, awardfor } = req.params;
 
-  if (!id || !p_id || !p_name) {
+  if (!id || !p_id || !p_name || !awardfor) {
     return res
       .status(400)
-      .json({ error: "Plz provide required data!", success: false });
+      .json({ error: "Please provide required data!", success: false });
   }
-  try {
-    const updateStatus = await campaignModel.updateOne(
-      { _id: id },
-      {
-        $set: {
-          status: GRANTED,
-          awarded: { p_id, p_name },
-        },
-      }
-    );
 
-    // Update the Recipient model (push campaignId into actions.applied)
+  try {
+    const campaign = await campaignModel
+      .findById(id)
+      .populate("createdBy", "fullname") // Populate createdBy with user's fullname
+      .populate({
+        path: "applied.p_id", // Populate the user inside applied array
+        select: "fullname", // Only fetch fullname from users
+      });
+
+    if (!campaign) {
+      return res.status(404).json({
+        error: "Campaign not found",
+        success: false,
+      });
+    }
+
+    const awardPersons = parseInt(awardfor);
+    if (isNaN(awardPersons) || awardPersons <= 0) {
+      return res.status(400).json({
+        error: "Invalid number of persons to award!",
+        success: false,
+      });
+    }
+
+    const remaining =
+      campaign.remaining ??
+      campaign.amount -
+        campaign.awarded.reduce(
+          (sum, award) => sum + parseInt(award.a_person || 0),
+          0
+        );
+
+    if (awardPersons > remaining) {
+      return res.status(400).json({
+        error: `Only ${remaining} meals left to award!`,
+        success: false,
+      });
+    }
+
+    // Push new awarded entry
+    const awardedEntry = {
+      p_id,
+      p_name,
+      a_date: new Date(),
+      a_person: awardPersons,
+    };
+    campaign.awarded.push(awardedEntry);
+
+    // Update remaining and status
+    campaign.remaining = remaining - awardPersons;
+
+    if (campaign.remaining <= 0) {
+      campaign.status = GRANTED; // or GRANTED if constant
+    }
+
+    // Remove current and invalid applications
+    campaign.applied = campaign.applied.filter((app) => {
+      return app.p_id._id.toString() !== p_id.toString();
+    });
+
+    await campaign.save();
+
+    // Update recipient side
     await Recipient.findOneAndUpdate(
       { userId: p_id },
-      { $addToSet: { "actions.awarded": id } }, // $addToSet avoids duplicates
-      { upsert: true, new: true } // Create if not exists
+      { $addToSet: { "actions.awarded": id } },
+      { upsert: true, new: true }
     );
 
-    res.status(200).json({
-      message: "Meal Status update successfully!",
+    return res.status(200).json({
+      message: "Meal awarded successfully!",
       success: true,
-      updateStatus,
+      campaign,
+      remaining: campaign.remaining,
     });
   } catch (err) {
-    return res
-      .status(500)
-      .json({ error: "Server error while updating status!", success: false });
+    console.error(err);
+    return res.status(500).json({
+      error: "Server error while updating status!",
+      success: false,
+    });
   }
 }
 
@@ -260,18 +313,23 @@ async function statsSummary(req, res) {
 
 // delate a campaign
 async function deleteCampaign(req, res) {
-  const { id } = req.params
-  if(!id){
-    return res.status(400).json({error: 'ID not Found!', success: false})
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ error: "ID not Found!", success: false });
   }
-  try{
-    const deletedCampaign = await campaignModel.deleteOne({ _id: id })
-    if(!deleteCampaign){
-      return res.status(400).json({error: "Campaign not Found!", success: false})
+  try {
+    const deletedCampaign = await campaignModel.deleteOne({ _id: id });
+    if (!deleteCampaign) {
+      return res
+        .status(400)
+        .json({ error: "Campaign not Found!", success: false });
     }
-    res.status(200).json({message: "Campaign deleted successfully!", success: true, deletedCampaign})
-
-  } catch(err){
+    res.status(200).json({
+      message: "Campaign deleted successfully!",
+      success: true,
+      deletedCampaign,
+    });
+  } catch (err) {
     return res.status(500).json({
       error: "Server error while deleting a campaign!",
       success: false,
@@ -286,5 +344,5 @@ module.exports = {
   getUserData,
   updateStatus,
   statsSummary,
-  deleteCampaign
+  deleteCampaign,
 };

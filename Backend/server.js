@@ -55,7 +55,7 @@ io.on("connection", (socket) => {
   socket.on("joinRoom",async (roomId) => {
     socket.join(roomId);
     const messages = await messageSchema.find({ roomId }).sort({ createdAt: 1 })
-    socket.emit('loadPreviousMessages', messages)
+    io.to(roomId).emit('loadPreviousMessages', messages)
   });
 
   // Handle message sending

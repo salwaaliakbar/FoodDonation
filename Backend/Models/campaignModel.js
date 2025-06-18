@@ -14,19 +14,19 @@ const AppliedSchema = new mongoose.Schema(
   { _id: false }
 );
 
-// Awarded subdocument schema
-const AwardedSchema = new mongoose.Schema(
-  {
-    p_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "users",
-      required: false,
-    },
-    a_date: { type: Date, required: true },
-    a_persons: { type: Number, required: true },
-  },
-  { _id: false }
-);
+// // Awarded subdocument schema
+// const AwardedSchema = new mongoose.Schema(
+//   {
+//     p_id: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: "users",
+//       required: false,
+//     },
+//     a_date: { type: Date, required: true },
+//     a_persons: { type: Number, required: true },
+//   },
+//   { _id: false }
+// );
 
 const awardedSchema = mongoose.Schema({
   p_id: {
@@ -38,7 +38,13 @@ const awardedSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-});
+  a_person: {
+    type: Number,
+    required: true
+  },
+  a_date: { type: Date, required: true },
+},
+ { _id: false });
 
 const campaignSchema = mongoose.Schema(
   {
@@ -56,8 +62,12 @@ const campaignSchema = mongoose.Schema(
       required: true,
     },
     amount: {
-      type: String,
+      type: Number,
       required: true,
+    },
+    remaining: {
+      type: Number,
+      required: true
     },
     expiration: {
       type: Date,
@@ -87,7 +97,8 @@ const campaignSchema = mongoose.Schema(
       type: [AppliedSchema],
       default: [],
     },
-    awarded: awardedSchema,
+    awarded: [awardedSchema],
+    default: []
   },
   { timestamps: true }
 );

@@ -1,16 +1,15 @@
 import { useChange } from "../context/ChangeContext";
 import { useSecureFetch } from "./useSecureFetch";
 
-// call delete end point
 export function useHandleDelete() {
   const { setIsChangeActive } = useChange();
   const secureFetch = useSecureFetch();
 
-  return async function ( id ) {
+  return async function (id) {
     const confirmed = window.confirm(
-      "Are you sure you want to delete the camapign?"
+      "Are you sure you want to delete the campaign?"
     );
-    if (!confirmed) return;
+    if (!confirmed) return null;
 
     try {
       if (id) {
@@ -24,14 +23,17 @@ export function useHandleDelete() {
           }
         );
         if (data.success) {
-          alert("Campaign deleted successfully!");
-          setIsChangeActive(true);
+          // alert("Campaign deleted successfully!");
+          // setIsChangeActive(true);
+          return id; // return the deleted campaign ID
         } else {
-          alert(data.error || "Failed to delete camapign.");
+          alert(data.error || "Failed to delete campaign.");
+          return null;
         }
       }
     } catch (err) {
-      console.error("Error while deleting a camapign", err);
+      console.error("Error while deleting a campaign", err);
+      return null;
     }
-  }
+  };
 }

@@ -24,7 +24,7 @@ router.get(
 
 // route to update status of a campaign
 router.put(
-  "/api/updateStatus/:id/:p_id/:p_name",
+  "/api/updateStatus/:id/:p_id/:p_name/:awardfor",
   authMiddleware,
   donorController.updateStatus
 );
