@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import SideBar from "./DonorSidebar";
-import Header from "./DonorHeader";
+import SideBar from "../pages/Donor/DonorSidebar";
 import { Phone, Mail, User, Building } from "lucide-react";
-import { useData } from "../../context/UserContext";
-import { useSecureFetch } from "../../customHooks/useSecureFetch";
+import { useData } from "../context/UserContext";
+import { useSecureFetch } from "../customHooks/useSecureFetch";
+import Header from "./Header";
 
 const Myprofile = () => {
   const { user, setUser } = useData(); // Access global user context
@@ -51,7 +51,7 @@ const Myprofile = () => {
       {/* <SideBar /> */}
 
       <div className="w-full lg:absolute lg:right-0 bg-gray-200">
-        <Header />
+       <Header />
 
         <div className="mt-25 w-[90%] lg:w-[85%] m-auto border border-gray-200 bg-white rounded-md p-6 md:mb-8">
           <h2 className="ml-4 lg:ml-10 font-bold text-2xl lg:text-3xl mt-4 md:text-left text-center">

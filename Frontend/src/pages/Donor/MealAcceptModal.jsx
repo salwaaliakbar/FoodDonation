@@ -87,12 +87,7 @@ function MealAcceptModel({
           setActiveMeals((prev) =>
             prev.filter((meals) => meals._id !== campaign._id)
           );
-          setGrantedMeals((prev) => {
-            const updated = [...prev, campaign];
-            return updated.sort(
-              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-            );
-          });
+          setGrantedMeals(prev => [campaign, ...prev])
         } else {
           setActiveMeals((prev) =>
             prev.map((meals) =>

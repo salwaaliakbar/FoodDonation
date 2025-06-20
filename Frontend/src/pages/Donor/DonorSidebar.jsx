@@ -4,10 +4,13 @@ import { useData } from "../../context/UserContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
 import { useChange } from "../../Context/ChangeContext";
+import { useLocation } from "react-router-dom";
 
 const DonorSidebar = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const location = useLocation();
+  const isGreenBg = location.pathname === "/donorDashBoard/createCampaign";
 
   // Global state context
   const { setUser } = useData();
@@ -55,10 +58,16 @@ const DonorSidebar = () => {
     <div>
       {/* Hamburger toggle (Mobile only) */}
       <button
-        className="fixed top-5 left-2 z-50 text-2xl text-green-800 lg:hidden"
+        className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
-        <i className={`fa ${isSidebarOpen ? "fa-times" : "fa-bars"}`}></i>
+        <i
+          className={`fa ${
+            isSidebarOpen
+              ? "fa-times text-green-800" // always green when open
+              : `fa-bars ${isGreenBg ? "text-white" : "text-green-800"}`
+          }`}
+        ></i>
       </button>
 
       {/* Sidebar container */}
@@ -80,11 +89,32 @@ const DonorSidebar = () => {
         <nav className="flex-1 md:px-4 py-6 space-y-4 overflow-y-auto">
           <ul className="space-y-2">
             {[
-              { path: "/donorDashBoard", icon: "fa-home", label: "Dashboard", exact: true },
-              { path: "/donorDashBoard/generalfeed", icon: "fa-newspaper-o", label: "General Field" },
-              { path: "/donorDashBoard/history", icon: "fa-history", label: "Donation History" },
-              { path: "/donorDashBoard/createCampaign", icon: "fa-bullhorn", label: "Create Campaigns" },
-              { path: "/donorDashBoard/profile", icon: "fa-user-circle", label: "My Profile" },
+              {
+                path: "/donorDashBoard",
+                icon: "fa-home",
+                label: "Dashboard",
+                exact: true,
+              },
+              {
+                path: "/donorDashBoard/generalfeed",
+                icon: "fa-newspaper-o",
+                label: "General Field",
+              },
+              {
+                path: "/donorDashBoard/history",
+                icon: "fa-history",
+                label: "Donation History",
+              },
+              {
+                path: "/donorDashBoard/createCampaign",
+                icon: "fa-bullhorn",
+                label: "Create Campaigns",
+              },
+              {
+                path: "/donorDashBoard/profile",
+                icon: "fa-user-circle",
+                label: "My Profile",
+              },
             ].map(({ path, icon, label, exact }) => (
               <li key={path}>
                 <NavLink to={path} end={exact}>

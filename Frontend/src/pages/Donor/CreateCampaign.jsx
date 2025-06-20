@@ -1,11 +1,11 @@
 import { Field, Formik, Form } from "formik";
-import CampaignSchema from "../../yupschemas/CampaignSchema"; // Yup validation schema
-import { useSecureFetch } from "../../customHooks/useSecureFetch"; // Authenticated fetch utility
+import CampaignSchema from "../../yupschemas/CampaignSchema";
+import { useSecureFetch } from "../../customHooks/useSecureFetch";
 import { useChange } from "../../Context/ChangeContext";
 
 function CreateCampaign() {
-  const { setIsChangeActive } = useChange();
-  const secureFetch = useSecureFetch(); // secure fetch with token/refresh logic
+  const { setActiveMeals } = useChange();
+  const secureFetch = useSecureFetch();
 
   return (
     <Formik
@@ -19,7 +19,6 @@ function CreateCampaign() {
         phone: "",
         description: "",
       }}
-      // Form submission handler
       onSubmit={async (values) => {
         try {
           const data = await secureFetch(
@@ -30,13 +29,13 @@ function CreateCampaign() {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify(values),
-              credentials: "include", // needed for sending cookies (e.g., JWT)
+              credentials: "include",
             }
           );
 
           if (data.success) {
             alert("New campaign added successfully");
-            setIsChangeActive(true); // trigger context state to re-fetch or refresh
+            setActiveMeals((prev) => [data.newCampaign, ...prev]);
           } else {
             alert(data.error || "Failed to add new campaign.");
           }
@@ -47,31 +46,32 @@ function CreateCampaign() {
           );
         }
       }}
-      validationSchema={CampaignSchema} // Validation with Yup
+      validationSchema={CampaignSchema}
     >
       {({ errors, touched }) => (
-        <div className="flex">
-          {/* Right section for campaign creation form */}
-          <div className="w-full absolute right-0">
-            {/* Header Section */}
-            <div className="bg-green-800 text-white py-10">
-              <div className="container mx-auto text-center">
-                <h1 className="text-4xl font-bold mb-4">
-                  Create a Food Donation Campaign
-                </h1>
-                <p className="text-lg">
-                  Start a campaign and help provide meals to those in need. It’s
-                  easy, and you can make a huge impact!
-                </p>
-              </div>
+        <div className="w-full min-h-screen bg-gray-200 overflow-x-hidden">
+          {/* Fixed Header */}
+          <div className="bg-green-800 text-white py-10 pl-12 w-full z-40 shadow-md">
+            <div className="max-w-5xl mx-auto text-center px-4">
+              <h1 className="text-3xl sm:text-4xl font-bold mb-2">
+                Create a Food Donation Campaign
+              </h1>
+              <p className="text-base sm:text-lg">
+                Start a campaign and help provide meals to those in need. It’s
+                easy, and you can make a huge impact!
+              </p>
             </div>
+          </div>
 
-            {/* Campaign Form */}
-            <Form className="py-10 md:px-20 px-10 md:mb-8 bg-gray-200">
-
-              {/* Campaign Title Field */}
+          {/* Form Container with top padding to avoid overlap */}
+          <div className="pt-4 px-4 sm:px-8 max-w-4xl mx-auto my-4 mb-15">
+            <Form className="bg-white rounded-xl shadow-lg p-6 sm:p-8">
+              {/* Title */}
               <div className="mb-6">
-                <label htmlFor="title" className="block text-lg font-medium text-gray-700">
+                <label
+                  htmlFor="title"
+                  className="block text-lg font-medium text-gray-700"
+                >
                   Campaign Title
                 </label>
                 <Field
@@ -86,9 +86,12 @@ function CreateCampaign() {
                 )}
               </div>
 
-              {/* Food Type Selection */}
+              {/* Food Type */}
               <div className="mb-6">
-                <label htmlFor="foodType" className="block text-lg font-medium text-gray-700">
+                <label
+                  htmlFor="foodType"
+                  className="block text-lg font-medium text-gray-700"
+                >
                   Food Donation Type
                 </label>
                 <Field
@@ -106,9 +109,12 @@ function CreateCampaign() {
                 )}
               </div>
 
-              {/* Amount Field */}
+              {/* Amount */}
               <div className="mb-6">
-                <label htmlFor="amount" className="block text-lg font-medium text-gray-700">
+                <label
+                  htmlFor="amount"
+                  className="block text-lg font-medium text-gray-700"
+                >
                   Amount of Meals to Donate
                 </label>
                 <Field
@@ -123,9 +129,12 @@ function CreateCampaign() {
                 )}
               </div>
 
-              {/* Expiration Time */}
+              {/* Expiration */}
               <div className="mb-6">
-                <label htmlFor="expiration" className="block text-lg font-medium text-gray-700">
+                <label
+                  htmlFor="expiration"
+                  className="block text-lg font-medium text-gray-700"
+                >
                   Expiration Time
                 </label>
                 <Field
@@ -139,21 +148,23 @@ function CreateCampaign() {
                 )}
               </div>
 
-              {/* Meal Type - Radio Buttons */}
+              {/* Meal Type Radio */}
               <div className="mb-6">
                 <label className="block text-lg font-medium text-gray-700">
                   Meal Type
                 </label>
-                <div className="mt-2 space-y-4">
+                <div className="mt-2 space-y-2">
                   <div className="flex items-center">
                     <Field
                       id="vegetarian"
                       name="mealType"
                       type="radio"
                       value="vegetarian"
-                      className="h-5 w-5 text-green-600 border-gray-300 rounded"
+                      className="h-5 w-5 text-green-600"
                     />
-                    <span className="ml-2 text-gray-700">Vegetarian</span>
+                    <label htmlFor="vegetarian" className="ml-2 text-gray-700">
+                      Vegetarian
+                    </label>
                   </div>
                   <div className="flex items-center">
                     <Field
@@ -161,9 +172,14 @@ function CreateCampaign() {
                       name="mealType"
                       type="radio"
                       value="non-vegetarian"
-                      className="h-5 w-5 text-green-800 border-gray-300 rounded"
+                      className="h-5 w-5 text-green-800"
                     />
-                    <span className="ml-2 text-gray-700">Non-Vegetarian</span>
+                    <label
+                      htmlFor="non-vegetarian"
+                      className="ml-2 text-gray-700"
+                    >
+                      Non-Vegetarian
+                    </label>
                   </div>
                 </div>
                 {errors.mealType && touched.mealType && (
@@ -171,9 +187,12 @@ function CreateCampaign() {
                 )}
               </div>
 
-              {/* Location Field */}
+              {/* Location */}
               <div className="mb-6">
-                <label htmlFor="location" className="block text-lg font-medium text-gray-700">
+                <label
+                  htmlFor="location"
+                  className="block text-lg font-medium text-gray-700"
+                >
                   Location
                 </label>
                 <Field
@@ -188,9 +207,12 @@ function CreateCampaign() {
                 )}
               </div>
 
-              {/* Phone Field */}
+              {/* Phone */}
               <div className="mb-6">
-                <label htmlFor="phone" className="block text-lg font-medium text-gray-700">
+                <label
+                  htmlFor="phone"
+                  className="block text-lg font-medium text-gray-700"
+                >
                   Phone Number
                 </label>
                 <Field
@@ -205,9 +227,12 @@ function CreateCampaign() {
                 )}
               </div>
 
-              {/* Description Field */}
+              {/* Description */}
               <div className="mb-6">
-                <label htmlFor="description" className="block text-lg font-medium text-gray-700">
+                <label
+                  htmlFor="description"
+                  className="block text-lg font-medium text-gray-700"
+                >
                   Description
                 </label>
                 <Field
@@ -215,7 +240,8 @@ function CreateCampaign() {
                   id="description"
                   name="description"
                   placeholder="Enter a description for your campaign"
-                  className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md"
+                  rows={4}
+                  className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md resize-none"
                 />
                 {errors.description && touched.description && (
                   <div className="text-red-600">{errors.description}</div>

@@ -1,7 +1,7 @@
 const campaignModel = require("../Models/campaignModel");
 const userModel = require("../Models/userModel");
 const { ACTIVE, GRANTED, EXPIRED } = require("../constantVariables");
-const Recipient = require("../Models/recipentModel"); // Import Recipient model
+const Recipient = require("../Models/recipentModel");
 
 async function createCampaign(req, res) {
   const {
@@ -38,7 +38,7 @@ async function createCampaign(req, res) {
     // Set status based on current datetime
     const initialStatus = expirationDate <= now ? EXPIRED : ACTIVE;
 
-    const newCampaign = await campaignModel.create({
+    const createdCampaign = await campaignModel.create({
       createdBy: req.user._id,
       title,
       foodType,
@@ -52,6 +52,26 @@ async function createCampaign(req, res) {
       phone,
       description,
     });
+
+    if (!createdCampaign) {
+      return res
+        .status(400)
+        .json({ message: "Campaign Not created!", success: false });
+    }
+
+    const newCampaign = await campaignModel
+      .findById(createdCampaign._id)
+      .populate("createdBy", "fullname")
+      .populate({
+        path: "applied.p_id",
+        select: "fullname",
+      });
+
+    if (!newCampaign) {
+      return res
+        .status(404)
+        .json({ message: "Associated Data Not Found!", success: false });
+    }
 
     res.status(200).json({
       message: "New Campaign added successfully",
@@ -94,6 +114,12 @@ async function updateProfile(req, res) {
         },
       }
     );
+
+    if (!updatedUser) {
+      return res
+        .status(400)
+        .json({ message: "Not successed to update user!", success: false });
+    }
 
     res.status(200).json({
       success: true,
@@ -142,6 +168,12 @@ async function getHistory(req, res) {
       })
       .sort({ createdAt: -1 })
       .exec();
+
+    if (!campaigns) {
+      return res
+        .status(404)
+        .json({ message: "Campaign not Found!", success: false });
+    }
 
     res.status(200).json({
       message: "Fetch Campaigns sucsessfully",
@@ -287,16 +319,16 @@ async function statsSummary(req, res) {
       createdBy: id,
       status: ACTIVE,
     });
+
     const granting = await campaignModel.countDocuments({
       createdBy: id,
       status: GRANTED,
     });
-    console.log(granting);
+
     const blacklist = await campaignModel.countDocuments({
       createdBy: id,
       status: EXPIRED,
     });
-    console.log(blacklist);
 
     res.status(200).json({
       message: "Fetch stats summary successfully!",
@@ -321,7 +353,7 @@ async function deleteCampaign(req, res) {
     const deletedCampaign = await campaignModel.deleteOne({ _id: id });
     if (!deleteCampaign) {
       return res
-        .status(400)
+        .status(404)
         .json({ error: "Campaign not Found!", success: false });
     }
     res.status(200).json({

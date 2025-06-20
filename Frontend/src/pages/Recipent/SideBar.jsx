@@ -1,116 +1,111 @@
-import logo from '../../assets/images/logo.jpg';
-
-// Import FontAwesome icons CSS
+import React, { useState } from "react";
+import logo from "../../assets/images/logo.jpg";
 import "font-awesome/css/font-awesome.min.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useData } from '../../context/UserContext';
-import { useChange } from '../../context/ChangeContext';
+import { useData } from "../../context/UserContext";
+import { useChange } from "../../Context/ChangeContext";
 
 const SideBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
-  const { setUser } = useData()
-   const {
-      setIsChangeActive,
-      setIsChangeGranted,
-      setIsChangeExpired,
-      setLoading,
-    } = useChange();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-   const handleLogout = async () => {
+  const { setUser } = useData();
+  const {
+    setIsChangeActive,
+    setIsChangeGranted,
+    setIsChangeExpired,
+    setLoading,
+  } = useChange();
+
+  const handleLogout = async () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
-    if (confirmed) {
+    if (!confirmed) return alert("Logout cancelled");
+
+    try {
       await fetch("http://localhost:5000/api/logout", {
         method: "GET",
         credentials: "include",
       });
+
       setUser(null);
       setIsChangeActive(true);
       setIsChangeGranted(true);
       setIsChangeExpired(true);
       setLoading(false);
       navigate("/");
-    } else {
-      alert("Logout cancelled");
+    } catch (err) {
+      console.error("Logout failed:", err);
+      alert("Something went wrong during logout.");
     }
   };
+
   return (
-    <div className="fixed top-0 left-0 h-screen w-[20%] bg-white-800 flex flex-col justify-around shadow-[4px_0px_12px_0px_rgba(0,0,0,0.5)] text-black">
-      {/* Logo Section */}
-      <div className=" h-20 border-b-[1.5px] border-b-green-700">
-        <Link to={'/recipent'}>
-          <img
-            className="w-120 h-19 rounded-full cursor-pointer "
-            src={logo}
-            alt="Logo"
-          />
-        </Link>
-      </div>
+    <div>
+      {/* Hamburger toggle (Mobile only) */}
+      <button
+        className="fixed top-5 left-2 z-50 text-2xl text-green-800 lg:hidden"
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+      >
+        <i className={`fa ${isSidebarOpen ? "fa-times" : "fa-bars"}`}></i>
+      </button>
 
-      {/* Navigation Menu */}
-      <nav className="flex-1 px-4 py-6 space-y-4">
-        <ul className="space-y-2">
-          <li>
-            <Link to='/recipent'>
-              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors ${currentPath === '/recipent' ? 'bg-green-600 text-white' : ''}`}>
-                <i className="fa fa-home text-lg text-[1.1rem]"></i>{" "}
-                {/* Home icon for Dashboard */}
-                Dashboard
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link to="/generalfeed">
-              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors ${currentPath === '/generalfeed' ? 'bg-green-600 text-white' : ''}`}>
-                <i className="fa fa-newspaper-o text-lg text-[1.1rem]"></i>{" "}
-                {/* Newspaper icon for General Feed */}
-                General Feed
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link to="/active">
-              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors ${currentPath === '/active' ? 'bg-green-600 text-white' : ''}`}>
-                <i className="fa fa-cutlery text-lg text-[1.1rem]"></i>{" "}
-                {/* Changed to fa-cutlery */}
-                Active Meals
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link to="/granted">
-              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors ${currentPath === '/granted' ? 'bg-green-600 text-white' : ''}`}>
-                <i className="fa fa-check-circle text-lg text-[1.1rem]"></i>
-                Granted Meals
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link to='/recipent/profile'>
-              <div className={`flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-green-600 hover:text-white transition-colors ${currentPath === '/recipent/profile' ? 'bg-green-600 text-white' : ''}`}>
-                <i className="fa fa-user-circle text-lg"></i>{" "}
-                {/* User Circle icon for My Profile */}
-                My Profile
-              </div>
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      {/* Sidebar container */}
+      <div
+        className={`fixed top-0 left-0 h-screen w-[60%] sm:w-[45%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg z-40 transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } transition-transform duration-300 lg:translate-x-0`}
+      >
+        {/* Logo Section */}
+        <div className="h-20 border-b-[1.5px] border-b-green-700 flex items-center justify-center">
+          <Link to="/recipent" onClick={() => setIsSidebarOpen(false)}>
+            <img
+              className="md:w-80 md:h-19 w-50 h-15 rounded-full cursor-pointer"
+              src={logo}
+              alt="Logo"
+            />
+          </Link>
+        </div>
 
-      {/* Logout Button */}
-      <div className="px-4 py-4">
-        <a
-          href="#"
-          className="block w-full text-center px-4 py-2 bg-green-900 text-white font-bold text-lg rounded-lg transition-colors hover:bg-green-600"
-          onClick={handleLogout}
-        >
-          Logout
-        </a>
+        {/* Navigation Menu */}
+        <nav className="flex-1 md:px-4 py-6 space-y-4 overflow-y-auto">
+          <ul className="space-y-2">
+            {[
+              { path: "/recipent", icon: "fa-home", label: "Dashboard" },
+              { path: "generalfeed", icon: "fa-newspaper-o", label: "General Feed" },
+              { path: "active", icon: "fa-cutlery", label: "Active Meals" },
+              { path: "granted", icon: "fa-check-circle", label: "Granted Meals" },
+              { path: "profile", icon: "fa-user-circle", label: "My Profile" },
+            ].map(({ path, icon, label }) => (
+              <li key={path}>
+                <Link to={path} onClick={() => setIsSidebarOpen(false)}>
+                  <div
+                    className={`flex items-center gap-2 mx-2 px-4 py-2 rounded-lg transition-colors ${
+                      currentPath === path ? "bg-green-600 text-white" : "hover:bg-green-600 hover:text-white"
+                    }`}
+                  >
+                    <i className={`fa ${icon} text-lg`}></i>
+                    {label}
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Logout Button */}
+        <div className="px-4 py-4">
+          <button
+            className="block w-full text-center px-4 py-2 bg-green-900 text-white font-bold text-lg rounded-lg transition-colors hover:bg-green-600"
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default SideBar;
-

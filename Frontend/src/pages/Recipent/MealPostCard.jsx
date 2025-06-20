@@ -20,10 +20,6 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
     selectedUserId: "",
     selectedusername: "",
   });
-  // console.log(meal._id);
-  // console.log(applied);
-  // console.log('meal applied ids: ', meal.applied);
-  // console.log('userid ', user._id);
 
   const handleApply = async () => {
     let values = {
@@ -46,14 +42,13 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
 
       const result = await response.json();
       if (result.success) {
-        alert("applied successfully");
+        alert("Applied successfully");
         setApplied(true);
       } else {
-        alert("Error During Applying");
+        alert("Error during applying");
         console.log(result.error);
       }
       setSubmitStatus("success");
-      setApplied(true);
 
       const newApplication = {
         p_id: { fullname: user.username },
@@ -68,11 +63,9 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
             : post
         )
       );
-    } catch (error) {
-      console.error("Error during new campaign creation:", err);
-      alert(
-        "An error occurred during new campaign creation. Please try again."
-      );
+    } catch (err) {
+      console.error("Error:", err);
+      alert("An error occurred. Please try again.");
     }
   };
 
@@ -80,43 +73,45 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
     <>
       <div
         onClick={() => setExpanded((prev) => !prev)}
-        className="bg-white rounded-lg shadow-md p-6 mb-4 w-full cursor-pointer transition-all duration-1000"
+        className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-4 w-full cursor-pointer transition-all duration-700"
       >
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
+        {/* Top Section: User Info */}
+        <div className="flex items-center gap-3 mb-4 flex-wrap">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full text-center text-white font-bold flex justify-center items-center bg-green-800 text-lg sm:text-2xl">
             {firstLetter}
           </div>
           <div>
-            <h3 className="text-lg font-bold">{meal.createdBy.fullname}</h3>
+            <h3 className="text-base sm:text-lg font-bold">{meal.createdBy.fullname}</h3>
             <p className="text-gray-500 text-sm">{meal.location}</p>
           </div>
         </div>
 
-        <h2 className="text-xl font-semibold mb-2">{meal.title}</h2>
-        <p className="text-gray-700 mb-3">{meal.description}</p>
-        <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
+        {/* Meal Info */}
+        <h2 className="text-lg sm:text-xl font-semibold mb-2">{meal.title}</h2>
+        <p className="text-gray-700 text-sm sm:text-base mb-3">{meal.description}</p>
+
+        {/* Details Row */}
+        <div className="flex flex-col sm:flex-row justify-between text-sm text-gray-700 gap-1">
           <p>
-            🍴 {meal.foodType} for {meal.amount} {meal.amount > 1 ? "persons" : "person"}{" "}
+            🍴 {meal.foodType} for {meal.amount}{" "}
+            {meal.amount > 1 ? "persons" : "person"}
           </p>
           <p>Status: {meal.status}</p>
         </div>
 
-        <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
+        <div className="flex flex-col sm:flex-row justify-between text-sm text-gray-700 mt-2 gap-1">
           <p>⏰ {new Date(meal.createdAt).toLocaleString("en-PK")}</p>
           <p>
             👥 {meal.applied.length} Applied{" "}
-            {applied && <span className="text-green-600 ml-2">✔️</span>}
+            {applied && <span className="text-green-600 ml-1">✔️</span>}
           </p>
         </div>
 
+        {/* Expanded Section */}
         {expanded && (
-          <div className="transition-all duration-1000 mt-8">
-            {/* <p className="text-gray-700 mb-3">{mealDescription}</p> */}
-
-            <div className="mb-2">
-              <p className="text-sm font-semibold text-gray-600 mb-1">
-                Applicants:
-              </p>
+          <div className="transition-all duration-700 mt-6">
+            <div className="mb-3">
+              <p className="text-sm font-semibold text-gray-600 mb-1">Applicants:</p>
               <ul className="list-disc pl-5 text-sm text-gray-700">
                 {meal.applied.map((a, i) => (
                   <li key={i}>
@@ -127,9 +122,10 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
               </ul>
             </div>
 
-            <div className="flex justify-end gap-2 mt-4">
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row justify-end gap-3 mt-4">
               <button
-                className={`px-9 py-2 text-white rounded ${!applied
+                className={`w-full sm:w-auto px-6 py-2 text-white rounded ${!applied
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-green-800 hover:bg-green-700"
                   }`}
@@ -147,7 +143,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
               </button>
 
               <button
-                className={`px-6 py-2 text-white rounded ${applied
+                className={`w-full sm:w-auto px-6 py-2 text-white rounded ${applied
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-green-800 hover:bg-green-700"
                   }`}
@@ -164,6 +160,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
         )}
       </div>
 
+      {/* Apply Modal */}
       {showModal && (
         <MealApplyModal
           selectedPeople={selectedPeople}
@@ -175,6 +172,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
         />
       )}
 
+      {/* Chat Modal */}
       {showChatModal && (
         <Chat
           selectedUserData={selectedUser}
