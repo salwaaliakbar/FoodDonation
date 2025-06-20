@@ -8,6 +8,7 @@ import { useSocket } from "../../context/SocketProvider";
 function DonorDashboard() {
   const { user } = useData();
   const socket = useSocket()
+  console.log('dashboard render')
 
   useEffect(() => {
     if (!user?._id) return;

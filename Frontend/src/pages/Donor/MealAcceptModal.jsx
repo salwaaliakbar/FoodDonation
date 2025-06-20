@@ -159,6 +159,17 @@ function MealAcceptModel({
               {selectedUserData.appliedfor > 1 ? "persons" : "person"}
             </div>
           )}
+          {status === ACTIVE ? (
+            <div>
+              <span className="font-medium">Applied At:</span>{" "}
+              {new Date(selectedUserData.date).toLocaleString('en-PK')}
+            </div>
+          ) : (
+            <div>
+              <span className="font-medium">Awarded At:</span>{" "}
+              {new Date(selectedUserData.date).toLocaleString('en-PK')}
+            </div>
+          )}
           <div>
             <span className="font-medium">Status:</span>{" "}
             {selectedUserData.selectedUserStatus === GRANTED ? (

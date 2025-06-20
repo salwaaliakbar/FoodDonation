@@ -50,6 +50,7 @@ async function applyCampaign(req, res) {
         newApplicant: {
           p_id: { _id: userId, fullname: user.fullname },
           persons: appliedPersons,
+          date: new Date()
         },
       });
 

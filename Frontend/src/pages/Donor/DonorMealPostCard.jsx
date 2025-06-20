@@ -5,8 +5,6 @@ import { useLocation } from "react-router-dom";
 import Chat from "../../Components/Chat";
 import { Trash2 } from "lucide-react";
 import { useData } from "../../context/UserContext";
-import { useEffect } from "react";
-import socket from "../../utils/socket";
 import useJoinMealSocket from "../../customHooks/useJoinMealSocket";
 
 const MealPostCard = ({ meal, handleDelete }) => {
@@ -19,6 +17,7 @@ const MealPostCard = ({ meal, handleDelete }) => {
     selectedusername: "",
     appliedfor: 0,
     selectedUserStatus: "",
+    date:""
   });
   const [remaining, setRemaining] = useState(meal.remaining)
   const [appliedList, setAppliedList] = useState(meal.applied);
@@ -138,6 +137,7 @@ const MealPostCard = ({ meal, handleDelete }) => {
                             selectedusername: user.p_id?.fullname,
                             appliedfor: user.persons,
                             selectedUserStatus: ACTIVE,
+                            date: user.date
                           });
                         }}
                       >
@@ -169,6 +169,7 @@ const MealPostCard = ({ meal, handleDelete }) => {
                             selectedusername: aw?.p_name,
                             appliedfor: aw?.a_person,
                             selectedUserStatus: GRANTED,
+                            date: aw.a_date
                           });
                         }}
                       >

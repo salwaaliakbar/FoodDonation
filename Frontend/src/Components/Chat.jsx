@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSocket } from "../context/SocketProvider"
+import { useSocket } from "../context/SocketProvider";
 
 function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
   const socket = useSocket();
@@ -15,8 +15,7 @@ function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
     socket.emit("joinRoom", roomId);
 
     const loadHandler = (msgs) => setMessages(msgs);
-    const receiveHandler = (msg) =>
-      setMessages((prev) => [...prev, msg]);
+    const receiveHandler = (msg) => setMessages((prev) => [...prev, msg]);
 
     socket.on("loadPreviousMessages", loadHandler);
     socket.on("receiveMessage", receiveHandler);
@@ -63,7 +62,7 @@ function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
 
   return (
     <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4 sm:p-6">
-      <div className="flex flex-col w-full max-w-md mx-auto p-4 rounded-2xl shadow-lg bg-white max-h-[90vh]">
+      <div className="flex flex-col w-full max-w-md mx-auto p-4 rounded-2xl shadow-lg bg-white h-[90vh]">
         <h3 className="text-center text-xl font-semibold mb-4">
           Chat with {selectedUserData.selectedusername}
         </h3>
@@ -80,14 +79,14 @@ function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
                 }`}
               >
                 <div
-                  className={`px-3 py-2 rounded-lg max-w-[85%] ${
+                  className={`px-3 py-2 rounded-lg max-w-[85%] flex flex-col ${
                     msg.senderId === user._id
-                      ? "bg-green-600 text-white"
-                      : "bg-gray-300 text-gray-900"
+                      ? "bg-green-600 text-white self-end"
+                      : "bg-gray-300 text-gray-900 self-start"
                   }`}
                 >
-                  <div>{msg.text}</div>
-                  <div className="text-xs mt-1">
+                  <div className="text-sm break-words">{msg.text}</div>
+                  <div className="text-[10px] text-right mt-1 opacity-80">
                     {msg.time}
                   </div>
                 </div>

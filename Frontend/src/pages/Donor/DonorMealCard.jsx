@@ -18,7 +18,8 @@ const MealCard = ({ meal, color, handleDelete }) => {
     selectedUserId: "",
     selectedusername: "",
     appliedfor: 0,
-    selectedUserStatus: ""
+    selectedUserStatus: "",
+    date: ""
   });
   const [appliedList, setAppliedList] = useState(meal.applied)
   const [awardedList, setAwardedList] = useState(meal.awarded)
@@ -153,7 +154,8 @@ const MealCard = ({ meal, color, handleDelete }) => {
                           selectedUserId: user.p_id._id,
                           selectedusername: user.p_id.fullname,
                           appliedfor: user.persons,
-                          seltectedUserStatus: ACTIVE
+                          seltectedUserStatus: ACTIVE,
+                          date: user.date
                         });
                       }}
                     >
@@ -184,7 +186,8 @@ const MealCard = ({ meal, color, handleDelete }) => {
                           selectedUserId: aw?.p_id,
                           selectedusername: aw?.p_name,
                           appliedfor: aw?.a_person,
-                          selectedUserStatus: GRANTED
+                          selectedUserStatus: GRANTED,
+                          date: aw.a_date
                         });
                       }}
                     >
