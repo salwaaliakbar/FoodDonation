@@ -4,14 +4,19 @@ async function CampaignsFeed(req, res) {
   try {
     // Find campaigns based on status
 
-    const { status } = req.query;
+    const { status, location } = req.query;
+    const query = { status };
+
+    if (location) {
+      query.location = { $regex: new RegExp(location, "i") }; // case-insensitive search
+    }
 
     // Validate the status (active, granted, blacklisted)
     if (!["Active", "Awarded", "Expired"].includes(status)) {
       return res.status(400).json({ error: "Invalid status" });
     }
 
-    const campaigns = await Campaign.find({ status: status })
+    const campaigns = await Campaign.find(query)
       .populate("createdBy", "fullname") // Populate createdBy with user's fullname
       .populate({
         path: "applied.p_id", // Populate the user inside applied array

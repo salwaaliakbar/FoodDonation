@@ -7,6 +7,7 @@ import { useHandleDelete } from "../../customHooks/useHandleDelete";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../../Components/Header";
+import { useLocation } from "react-router-dom";
 
 function DonorGeneralFeed() {
   const [loading, setLoading] = useState(true);
@@ -14,11 +15,15 @@ function DonorGeneralFeed() {
   const secureFetch = useSecureFetch();
   const deleteMeal = useHandleDelete();
 
+  const locationHook = useLocation();
+  const queryParams = new URLSearchParams(locationHook.search);
+  const locationSearch = queryParams.get("location");
+
   useEffect(() => {
     async function fetchMealFeedData() {
       try {
         const data = await secureFetch(
-          `http://localhost:5000/api/generalFeed?status=${ACTIVE}`,
+          `http://localhost:5000/api/generalFeed?status=${ACTIVE}${locationSearch ? `&location=${locationSearch}` : ''}`,
           {
             method: "GET",
             headers: {
@@ -49,7 +54,7 @@ function DonorGeneralFeed() {
     };
 
     fetchData();
-  }, []);
+  }, [locationSearch]);
 
   //  Delete meal and remove from UI
   const handleDelete = async (id) => {

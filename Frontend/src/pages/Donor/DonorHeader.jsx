@@ -1,8 +1,38 @@
 import React from "react";
 import { useData } from "../../context/UserContext";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
   const { user } = useData();
+  const [search, setSearch] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+
+  // Debounce the search input
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search.trim());
+    }, 1000);
+
+    return () => clearTimeout(handler);
+  }, [search]);
+
+  // Navigate if needed
+  useEffect(() => {
+    const basePath = '/donorDashBoard/generalfeed';
+
+    if (debouncedSearch) {
+      const newURL = `${basePath}?location=${encodeURIComponent(debouncedSearch)}`;
+      if (location.pathname !== basePath || location.search !== `?location=${encodeURIComponent(debouncedSearch)}`) {
+        navigate(newURL);
+      }
+    } else if (location.pathname === basePath && location.search) {
+      // Clear query only if you're on generalfeed and query exists
+      navigate(basePath);
+    }
+  }, [debouncedSearch, location, navigate]);
 
   // Get first letter of the user's name (fallback to "U")
   const firstLetter = user?.fullname
@@ -11,7 +41,7 @@ const Header = () => {
 
   return (
     <div className="fixed flex flex-row justify-between items-center h-20 md:h-20 border-b-[1.5px] border-b-green-700 bg-white p-4 md:px-15 md:pl-0 pl-12 md:w-[80%] w-full z-49">
-      
+
       {/* Search Input */}
       <div className="flex items-center border-2 border-gray-300 rounded-lg p-2 w-[80%] md:w-[50%] mb-4 md:mb-0 md:ml-15 md:mt-0 mt-4">
         <input
@@ -19,6 +49,7 @@ const Header = () => {
           name="search"
           placeholder="Search..."
           className="w-full px-4 text-lg border-none focus:outline-none"
+          onChange={(e) => setSearch(e.target.value)}
         />
         <button className="ml-2 p-2 bg-green-800 text-white rounded-lg hover:bg-green-700">
           {/* Search Icon */}

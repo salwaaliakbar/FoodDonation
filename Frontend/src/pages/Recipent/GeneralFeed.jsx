@@ -4,17 +4,23 @@ import SideBar from "./SideBar";
 import Loader from "../../Components/Loader";
 import { useData } from "../../context/UserContext";
 import Header from "../../Components/Header";
+import { useLocation } from "react-router-dom";
 
 const GeneralFeed = () => {
   const [loading, setLoading] = useState(true);
   const [mealPosts, setMealPosts] = useState([]);
   const { user } = useData();
 
+
+  const locationHook = useLocation();
+  const queryParams = new URLSearchParams(locationHook.search);
+  const locationSearch = queryParams.get("location");
+
   useEffect(() => {
     async function fetchMealFeedData() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/generalFeed?userId=${user._id}&status=Active`,
+          `http://localhost:5000/api/generalFeed?userId=${user._id}&status=Active${locationSearch ? `&location=${locationSearch}` : ''}`,
           {
             method: "GET",
             headers: {
@@ -42,7 +48,7 @@ const GeneralFeed = () => {
     };
 
     fetchData();
-  }, []);
+  }, [locationSearch]);
 
   return (
     <>

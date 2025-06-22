@@ -21,23 +21,6 @@ async function mealStatistics(req, res) {
       return res.status(200).json({ success: true, campaigns: [] });
     }
 
-    // // Step 2: Seperating Awarded campaign IDs into an Array
-    // const awardedIds = recipient.actions.awarded.map((id) => id.toString());
-
-    // if (awardedIds.length === 0) {
-    //   return res.status(200).json({ success: true, campaigns: [] });
-    // }
-
-    // // Step 3: Fetch campaigns
-    // const campaigns = await Campaign.find({
-    //   _id: { $in: awardedIds },
-    // })
-    //   .populate("createdBy", "fullname")
-    //   .populate({
-    //     path: "applied.p_id",
-    //     select: "fullname",
-    //   });
-
     let statistics = {
       applied: recipient.actions.applied.length,
       awarded: recipient.actions.awarded.length,
