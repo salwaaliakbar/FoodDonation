@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import { EXPIRED } from "../Components/CONSTANTS";
 
-function ExpirationLogic({ meals, onFilter, setBlacklistMeals }) {
+function ExpirationLogic({ meals, onFilter }) {
   const hasRun = useRef(false);
 
   useEffect(() => {
@@ -40,13 +40,8 @@ function ExpirationLogic({ meals, onFilter, setBlacklistMeals }) {
     // Filter active meals
     onFilter(active);
 
-    // Append expired meals to blacklist
-    if (typeof setBlacklistMeals === "function") {
-      setBlacklistMeals((prev) => Array.isArray(prev) ? [...expired, ...prev] : [...expired]);
-    }
-
     hasRun.current = true;
-  }, [meals, onFilter, setBlacklistMeals]);
+  }, [meals, onFilter]);
 
   return null;
 }

@@ -89,7 +89,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
     }, 1000);
   }
 
-  // Move expired meals from activeMeals to blacklistMeals without refetch
+  // expired meals from activeMeals to blacklistMeals without refetch
   useEffect(() => {
     if (
       status !== ACTIVE ||
