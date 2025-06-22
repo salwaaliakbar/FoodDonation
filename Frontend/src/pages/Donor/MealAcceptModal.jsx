@@ -108,7 +108,7 @@ function MealAcceptModel({
 
   const isOwner = createdBy._id === user._id;
   const canAccept = isOwner && status !== GRANTED && status !== EXPIRED;
-  const canChat = isOwner && status !== EXPIRED;
+  const canChat = isOwner;
 
   return (
     <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">

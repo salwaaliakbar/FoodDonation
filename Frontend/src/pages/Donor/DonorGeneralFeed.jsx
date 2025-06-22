@@ -56,12 +56,13 @@ function DonorGeneralFeed() {
     fetchData();
   }, [locationSearch]);
 
-  //  Delete meal and remove from UI
+  // Delete meal and remove from UI
   const handleDelete = async (id) => {
     const deletedId = await deleteMeal(id);
     if (deletedId) {
       toast.success("Meal deleted successfully!");
       setMealPosts((prev) => prev.filter((meal) => meal._id !== deletedId));
+      setActiveMeals((prev) => prev.filter((meal) => meal._id !== deletedId));
     }
   };
 

@@ -21,7 +21,7 @@ const Header = () => {
 
   // Navigate if needed
   useEffect(() => {
-    const basePath = '/recipent/generalfeed';
+    const basePath = user.role === 'recipient' ? '/recipent/generalfeed' : '/donorDashBoard/generalfeed';
 
     if (debouncedSearch) {
       const newURL = `${basePath}?location=${encodeURIComponent(debouncedSearch)}`;

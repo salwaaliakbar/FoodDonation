@@ -2,6 +2,7 @@ import { Field, Formik, Form } from "formik";
 import CampaignSchema from "../../yupschemas/CampaignSchema";
 import { useSecureFetch } from "../../customHooks/useSecureFetch";
 import { useChange } from "../../Context/ChangeContext";
+import BtnLoader from "../../Components/Common/btnLoader";
 
 function CreateCampaign() {
   const { setActiveMeals } = useChange();
@@ -19,7 +20,7 @@ function CreateCampaign() {
         phone: "",
         description: "",
       }}
-      onSubmit={async (values) => {
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
         try {
           const data = await secureFetch(
             "http://localhost:5000/api/createCampaign",
@@ -34,21 +35,39 @@ function CreateCampaign() {
           );
 
           if (data.success) {
-            alert("New campaign added successfully");
-            setActiveMeals((prev) => [data.newCampaign, ...prev]);
+            await new Promise((res) => setTimeout(res, 1000));
+            setSubmitting(false);
+
+            setTimeout(() => {
+              alert("New campaign added successfully");
+              setActiveMeals((prev) => [data.newCampaign, ...prev]);
+
+              // Scroll to top
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              // Reset form fields
+              resetForm();
+            }, 100);
           } else {
-            alert(data.error || "Failed to add new campaign.");
+            await new Promise((res) => setTimeout(res, 1000));
+            setSubmitting(false);
+            setTimeout(() => {
+              alert(data.error || "Failed to add new campaign.");
+            }, 100);
           }
         } catch (error) {
-          console.error("Error during new campaign creation:", error);
-          alert(
-            "An error occurred during new campaign creation. Please try again."
-          );
+          setSubmitting(false);
+
+          setTimeout(() => {
+            console.error("Error during new campaign creation:", error);
+            alert(
+              "An error occurred during new campaign creation. Please try again."
+            );
+          }, 100);
         }
       }}
       validationSchema={CampaignSchema}
     >
-      {({ errors, touched }) => (
+      {({ errors, touched, isSubmitting }) => (
         <div className="w-full min-h-screen bg-gray-200 overflow-x-hidden">
           {/* Fixed Header */}
           <div className="bg-green-800 text-white py-10 pl-12 w-full z-40 shadow-md">
@@ -250,12 +269,7 @@ function CreateCampaign() {
 
               {/* Submit Button */}
               <div className="text-center">
-                <button
-                  type="submit"
-                  className="px-6 py-3 bg-green-800 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-300"
-                >
-                  Create Campaign
-                </button>
+                <BtnLoader text={"Create campaign"} btnLoader={isSubmitting}/>
               </div>
             </Form>
           </div>

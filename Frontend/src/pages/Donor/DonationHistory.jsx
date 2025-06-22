@@ -2,13 +2,9 @@ import { ACTIVE, GRANTED, EXPIRED } from "../../Components/CONSTANTS";
 import Header from "../../Components/Header";
 import ActiveMealsSection from "./DonorActiveMealsSection";
 
-
 function DonationHistory() {
   return (
     <div className="flex overflow-hidden bg-gray-200">
-      {/* Sidebar could be added here if needed */}
-      {/* <DonorSidebar /> */}
-
       {/* Main Content Area */}
       <div
         className={`
