@@ -277,10 +277,10 @@ async function updateStatus(req, res) {
       campaign.status = GRANTED; // or GRANTED if constant
     }
 
-    // Remove current and invalid applications
-    campaign.applied = campaign.applied.filter((app) => {
-      return app.p_id._id.toString() !== p_id.toString();
-    });
+    // // Remove current and invalid applications
+    // campaign.applied = campaign.applied.filter((app) => {
+    //   return app.p_id._id.toString() !== p_id.toString();
+    // });
 
     await campaign.save();
 
