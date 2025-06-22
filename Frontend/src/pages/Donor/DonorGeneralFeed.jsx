@@ -7,12 +7,16 @@ import { useHandleDelete } from "../../customHooks/useHandleDelete";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../../Components/Header";
+import ExpirationLogic from "../../Components/ExpirationLogic";
+import { useChange } from "../../Context/ChangeContext";
 
 function DonorGeneralFeed() {
   const [loading, setLoading] = useState(true);
+  const [fetchedMeals, setFetchedMeals] = useState([]);
   const [mealPosts, setMealPosts] = useState([]);
   const secureFetch = useSecureFetch();
   const deleteMeal = useHandleDelete();
+  const { setActiveMeals } = useChange()
 
   useEffect(() => {
     async function fetchMealFeedData() {
@@ -43,20 +47,21 @@ function DonorGeneralFeed() {
       setLoading(true);
       setTimeout(async () => {
         const feedData = await fetchMealFeedData();
-        setMealPosts(feedData);
+        setFetchedMeals(feedData);
         setLoading(false);
-      }, 1000);
+      }, 1000); 
     };
 
     fetchData();
   }, []);
 
-  //  Delete meal and remove from UI
+  // Delete meal and remove from UI
   const handleDelete = async (id) => {
     const deletedId = await deleteMeal(id);
     if (deletedId) {
       toast.success("Meal deleted successfully!");
       setMealPosts((prev) => prev.filter((meal) => meal._id !== deletedId));
+      setActiveMeals((prev) => prev.filter((meal) => meal._id !== deletedId));
     }
   };
 
@@ -74,17 +79,20 @@ function DonorGeneralFeed() {
             <div className="w-full flex min-h-[70vh] justify-center items-center py-16">
               <Loader />
             </div>
-          ) : mealPosts.length ? (
-            <div className="w-[94%] min-h-[70vh] m-auto">
-              {mealPosts.map((post, index) => (
-                <MealPostCard
-                  key={post._id}
-                  meal={post}
-                  index={index}
-                  handleDelete={handleDelete}
-                />
-              ))}
-            </div>
+          ) : fetchedMeals.length ? (
+            <>
+              <ExpirationLogic meals={fetchedMeals} onFilter={setMealPosts} />
+              <div className="w-[94%] min-h-[70vh] m-auto">
+                {mealPosts.map((post, index) => (
+                  <MealPostCard
+                    key={post._id}
+                    meal={post}
+                    index={index}
+                    handleDelete={handleDelete}
+                  />
+                ))}
+              </div>
+            </>
           ) : (
             <div className="flex flex-col items-center justify-center h-64 text-gray-500">
               <p className="text-lg font-semibold">No meals to display</p>

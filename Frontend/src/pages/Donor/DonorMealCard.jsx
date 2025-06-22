@@ -8,7 +8,8 @@ import { useData } from "../../context/UserContext";
 import { ACTIVE, GRANTED, EXPIRED } from "../../Components/CONSTANTS";
 import useJoinMealSocket from "../../customHooks/useJoinMealSocket";
 
-const MealCard = ({ meal, color, handleDelete }) => {
+const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
+  console.log(meal)
   const [expanded, setExpanded] = useState(false);
   const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
   const [status, setStatus] = useState(meal.status);
@@ -48,7 +49,7 @@ const MealCard = ({ meal, color, handleDelete }) => {
           </div>
         </div>
 
-        {status === ACTIVE ? (
+        {(status === ACTIVE && currentStatus === ACTIVE) ? (
           <div className="flex flex-col w-full sm:w-[30%] text-sm text-gray-600">
             <span>🍽️ {meal?.amount} meals</span>
             <span>🥗 Remaining Meal {meal?.remaining}</span>
@@ -65,7 +66,7 @@ const MealCard = ({ meal, color, handleDelete }) => {
         )}
 
         <div className="w-full sm:w-[20%] text-right">
-          {status === ACTIVE && (
+          {(status === ACTIVE && currentStatus === ACTIVE) && (
             <div className="flex gap-3 justify-end">
               <div>
                 <span>✅ {status}</span>
@@ -98,9 +99,9 @@ const MealCard = ({ meal, color, handleDelete }) => {
               </div>
             </div>
           )}
-          {status === EXPIRED && (
+          {(status === EXPIRED || currentStatus === EXPIRED) && (
             <div className="mr-6">
-              <span>🚫 {status}</span>
+              <span>🚫 {currentStatus}</span>
             </div>
           )}
         </div>
