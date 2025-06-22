@@ -19,7 +19,7 @@ function WhyDonate() {
         <div className="mx-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-5 gap-10 mt-20">
           
           {/* Card 1: Fight Hunger Locally */}
-          <div className="mx-3 md:ml-20 rounded-lg border-2 border-green-500 shadow-lg p-8 flex flex-col items-center">
+          <div className="mx-3 md:ml-20 rounded-lg border-2 border-green-500 shadow-lg p-8 flex flex-col items-center transform transition duration-300 ease-in-out hover:scale-105">
             <div className="p-2 bg-green-200 rounded-full mb-3">
               <img src={pic1} className="w-10 h-10" />
             </div>
@@ -33,7 +33,7 @@ function WhyDonate() {
           </div>
 
           {/* Card 2: Reduce Food Waste */}
-          <div className="mx-3 md:mx-10 rounded-lg border-2 border-green-500 shadow-lg p-8 flex flex-col items-center">
+          <div className="mx-3 md:mx-10 rounded-lg border-2 border-green-500 shadow-lg p-8 flex flex-col items-center transform transition duration-300 ease-in-out hover:scale-105">
             <div className="p-2 bg-green-200 rounded-full mb-3">
               <img src={pic2} className="w-10 h-10" />
             </div>
@@ -47,7 +47,7 @@ function WhyDonate() {
           </div>
 
           {/* Card 3: Build Communities */}
-          <div className="mx-3 md:mr-20 rounded-lg border-2 border-green-500 shadow-lg p-8 flex flex-col items-center">
+          <div className="mx-3 md:mr-20 rounded-lg border-2 border-green-500 shadow-lg p-8 flex flex-col items-center transform transition duration-300 ease-in-out hover:scale-105">
             <div className="p-2 bg-green-200 rounded-full mb-3">
               <img src={pic3} className="w-10 h-10" />
             </div>

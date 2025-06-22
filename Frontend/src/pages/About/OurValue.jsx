@@ -19,7 +19,7 @@ function OurValue () {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:mx-20 mx-10 mt-15">
 
         {/* Value Card 1 */}
-        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500">
+        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
           <Shield className="h-16 w-16 text-green-600 mb-4" />
           <h3 className="text-xl font-bold text-gray-800">Food as a Right</h3>
           <p className="text-gray-600">
@@ -28,7 +28,7 @@ function OurValue () {
         </div>
 
         {/* Value Card 2 */}
-        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500">
+        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
           <Leaf className="h-16 w-16 text-green-600 mb-4" />
           <h3 className="text-xl font-bold text-gray-800">Environmental Stewardship</h3>
           <p className="text-gray-600">
@@ -37,7 +37,7 @@ function OurValue () {
         </div>
 
         {/* Value Card 3 */}
-        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500">
+        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
           <Users className="h-16 w-16 text-green-600 mb-4" />
           <h3 className="text-xl font-bold text-gray-800">Community-Led Solutions</h3>
           <p className="text-gray-600">
@@ -46,7 +46,7 @@ function OurValue () {
         </div>
 
         {/* Value Card 4 */}
-        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500">
+        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
           <Globe className="h-16 w-16 text-green-600 mb-4" />
           <h3 className="text-xl font-bold text-gray-800">Global Solidarity</h3>
           <p className="text-gray-600">

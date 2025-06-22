@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
 import ResetSchema from "../../yupschemas/ResetSchema";
 import React from "react";
-
+import BtnLoader from "../../Components/Common/btnLoader";
 function ResetPassword() {
   const { id, token } = useParams(); // Get ID and token from URL
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function ResetPassword() {
             password: "",
             confrimPassword: "", // Typo retained as requested
           }}
-          onSubmit={async (values) => {
+          onSubmit={async (values, { setSubmitting }) => {
             try {
               const response = await fetch(
                 `http://localhost:5000/api/resetPassword/${id}/${token}`,
@@ -38,19 +38,33 @@ function ResetPassword() {
               const data = await response.json();
 
               if (data.success) {
-                alert("Password reset successful. You can now log in.");
-                setTimeout(() => navigate("/"), 2000);
+                await new Promise((res) => setTimeout(res, 1000));
+                setSubmitting(false);
+
+                setTimeout(() => {
+                  alert("Password reset successful. You can now log in.");
+                  navigate("/");
+                }, 100);
               } else {
-                alert(data.error || "Invalid or expired token.");
+                await new Promise((res) => setTimeout(res, 1000));
+                setSubmitting(false);
+
+                setTimeout(() => {
+                  alert(data.error || "Invalid or expired token.");
+                }, 100);
               }
             } catch (error) {
-              alert("Something went wrong. Try again later.");
-              console.error("Reset error:", error);
+              setSubmitting(false);
+
+              setTimeout(() => {
+                alert("Something went wrong. Try again later.");
+                console.error("Reset error:", error);
+              }, 100);
             }
           }}
           validationSchema={ResetSchema}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, isSubmitting }) => (
             <Form className="bg-white shadow-2xl rounded-2xl md:p-10 px-5 py-10 w-92 z-20 relative">
               <h1 className="text-3xl text-center font-bold mb-6 text-green-800">
                 Reset Password
@@ -75,7 +89,9 @@ function ResetPassword() {
                   role="button"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
-                  <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                  <i
+                    className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
+                  ></i>
                 </span>
                 {errors.password && touched.password && (
                   <div className="text-red-600 text-sm">{errors.password}</div>
@@ -96,22 +112,25 @@ function ResetPassword() {
                   onClick={() => setShowConfirmPassword((prev) => !prev)}
                   tabIndex={0}
                   role="button"
-                  aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                  aria-label={
+                    showConfirmPassword ? "Hide password" : "Show password"
+                  }
                 >
-                  <i className={`fa ${showConfirmPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+                  <i
+                    className={`fa ${
+                      showConfirmPassword ? "fa-eye-slash" : "fa-eye"
+                    }`}
+                  ></i>
                 </span>
                 {errors.confrimPassword && touched.confrimPassword && (
-                  <div className="text-red-600 text-sm">{errors.confrimPassword}</div>
+                  <div className="text-red-600 text-sm">
+                    {errors.confrimPassword}
+                  </div>
                 )}
               </div>
 
               {/* Submit button */}
-              <button
-                type="submit"
-                className="bg-green-800 hover:bg-green-600 text-white cursor-pointer font-bold py-2 px-4 rounded-lg w-full transition duration-300 delay-75"
-              >
-                Reset Password
-              </button>
+              <BtnLoader text={"Reset Password"} btnLoader={isSubmitting} />
             </Form>
           )}
         </Formik>
