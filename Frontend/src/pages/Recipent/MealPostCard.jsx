@@ -46,7 +46,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
         alert("Applied successfully");
         setApplied(true);
       } else {
-        alert("Error during applying");
+        alert(result.error);
         console.log(result.error);
       }
       setSubmitStatus("success");

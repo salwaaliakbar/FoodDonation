@@ -73,18 +73,32 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
     setLoading(true);
     setTimeout(async () => {
       if (status === ACTIVE) {
-        const activeData = await fetchMealData(ACTIVE);
-        setActiveMeals(activeData);
-        setIsChangeActive(false);
-      } else if (status === GRANTED) {
-        const grantedData = await fetchMealData(GRANTED);
-        setGrantedMeals(grantedData);
-        setIsChangeGranted(false);
-      } else if (status === EXPIRED) {
-        const expiredData = await fetchMealData(EXPIRED);
-        setBlacklistMeals(expiredData);
-        setIsChangeExpired(false);
-      }
+  const activeData = await fetchMealData(ACTIVE);
+  setActiveMeals((prev) => {
+    const existingIds = new Set(prev.map((meal) => meal._id));
+    const newMeals = activeData.filter((meal) => !existingIds.has(meal._id));
+    return [...prev, ...newMeals];
+  });
+  setIsChangeActive(false);
+} else if (status === GRANTED) {
+  const grantedData = await fetchMealData(GRANTED);
+  setGrantedMeals((prev) => {
+    const existingIds = new Set(prev.map((meal) => meal._id));
+    const newMeals = grantedData.filter((meal) => !existingIds.has(meal._id));
+    return [...prev, ...newMeals];
+  });
+  setIsChangeGranted(false);
+} else if (status === EXPIRED) {
+  const expiredData = await fetchMealData(EXPIRED);
+  setBlacklistMeals((prev) => {
+    const existingIds = new Set(prev.map((meal) => meal._id));
+    const newMeals = expiredData.filter((meal) => !existingIds.has(meal._id));
+    return [...prev, ...newMeals];
+  });
+  setIsChangeExpired(false);
+}
+
+
       setLoading(false);
     }, 1000);
   }
@@ -109,7 +123,11 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
 
     if (expired.length > 0) {
       setActiveMeals(stillActive);
-      setBlacklistMeals((prev) => [...expired, ...prev]);
+      setBlacklistMeals((prev) => {
+        const newIds = new Set(prev.map((m) => m._id));
+        const uniqueExpired = expired.filter((m) => !newIds.has(m._id));
+        return [...uniqueExpired, ...prev];
+      });
 
       toast.error(
         <div>

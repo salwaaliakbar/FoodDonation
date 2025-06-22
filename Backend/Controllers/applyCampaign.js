@@ -10,6 +10,22 @@ async function applyCampaign(req, res) {
       return res.status(400).json({ success: false, error: "Missing fields" });
     }
 
+    const now = new Date();
+    
+    // Fetch the campaign and check if expired
+    const campaign = await Campaign.findById(campaignId)
+    if (!campaign) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Campaign not found" });
+    }
+
+    if (new Date(campaign.expiration) <= now) {
+      return res
+        .status(400)
+        .json({ success: false, error: "Campaign already expired" });
+    }
+
     // Create the sub-object to push into the campaign
     const appliedEntry = {
       p_id: userId,
@@ -50,7 +66,7 @@ async function applyCampaign(req, res) {
         newApplicant: {
           p_id: { _id: userId, fullname: user.fullname },
           persons: appliedPersons,
-          date: new Date()
+          date: new Date(),
         },
       });
 
