@@ -126,7 +126,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row justify-end gap-3 mt-4">
               <button
-                className={`w-full sm:w-auto px-6 py-2 text-white rounded ${!applied
+                className={`w-full sm:w-auto px-5 py-2 text-white rounded ${!applied
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-green-800 hover:bg-green-700"
                   }`}
@@ -140,7 +140,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
                 }}
                 disabled={!applied}
               >
-                Chat
+                Start Chat
               </button>
 
               <button
