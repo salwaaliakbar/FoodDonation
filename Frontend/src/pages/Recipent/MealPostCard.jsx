@@ -17,6 +17,13 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
     meal.applied?.some(entry => entry.p_id._id === user._id) ||
     meal.awarded?.some(entry => entry.p_id === user._id)
   );
+
+  // Applied Array
+  meal.applied = (meal.applied || []).filter(app =>
+    !(meal.awarded || []).some(award => award.p_id === app.p_id._id)
+  );
+
+
   const [selectedUser, setSelectedUser] = useState({
     selectedUserId: "",
     selectedusername: "",

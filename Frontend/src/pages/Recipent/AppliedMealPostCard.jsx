@@ -8,9 +8,15 @@ const AppliedMealPostCard = ({ mealData }) => {
   const [showChatModal, setShowChatModal] = useState(false);
   const { user } = useData();
   const [selectedUser, setSelectedUser] = useState({
-      selectedUserId: "",
-      selectedusername: "",
-    });
+    selectedUserId: "",
+    selectedusername: "",
+  });
+
+  // Applied Array
+  mealData.applied = (mealData.applied || []).filter(app =>
+    !(mealData.awarded || []).some(award => award.p_id === app.p_id._id)
+  );
+
 
   const firstLetter = user.fullname.charAt(0).toUpperCase() || "U";
 
@@ -35,8 +41,8 @@ const AppliedMealPostCard = ({ mealData }) => {
       <p className="text-gray-700 mb-3">{mealData.description}</p>
       <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
         <p>
-          🍴 {mealData.foodType} for {mealData.amount}{" "}
-          {mealData.amount > 1 ? "persons" : "person"}{" "}
+          🍴 {mealData.foodType} for {mealData.remaining}{" "}
+          {mealData.remaining > 1 ? "persons" : "person"}{" "}
         </p>
         <p>Status: {mealData.status}</p>
       </div>
