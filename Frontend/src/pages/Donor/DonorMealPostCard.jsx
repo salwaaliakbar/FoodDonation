@@ -17,8 +17,14 @@ const MealPostCard = ({ meal, handleDelete }) => {
     selectedusername: "",
     appliedfor: 0,
     selectedUserStatus: "",
-    date:""
+    date: ""
   });
+
+  // Removing awardeds from applied list
+  meal.applied = meal.applied.filter((applied) => {
+    return !meal.awarded.some((awarded) => awarded.p_id === applied.p_id._id);
+  });
+
   const [remaining, setRemaining] = useState(meal.remaining)
   const [appliedList, setAppliedList] = useState(meal.applied);
   const [awardedList, setAwardedList] = useState(meal.awarded);

@@ -22,6 +22,13 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
     selectedUserStatus: "",
     date: ""
   });
+
+  // Removing awardeds from applied list
+  meal.applied = meal.applied.filter((applied) => {
+    return !meal.awarded.some((awarded) => awarded.p_id === applied.p_id._id);
+  });
+
+
   const [appliedList, setAppliedList] = useState(meal.applied)
   const [awardedList, setAwardedList] = useState(meal.awarded)
   const { user } = useData();
@@ -58,11 +65,11 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
           <div className="flex flex-col w-full sm:w-[30%] text-sm text-gray-600">
             <span>🍽️ {meal?.amount} meals</span>
             <span>
-            🕒 Created At:{" "}
-            {format(new Date(meal?.createdAt), "MM/dd/yyyy hh:mm a")}
-          </span>
+              🕒 Created At:{" "}
+              {format(new Date(meal?.createdAt), "MM/dd/yyyy hh:mm a")}
+            </span>
           </div>
-          
+
         )}
 
         <div className="w-full sm:w-[20%] text-right">

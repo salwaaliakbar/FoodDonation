@@ -94,7 +94,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
         {/* Details Row */}
         <div className="flex flex-col sm:flex-row justify-between text-sm text-gray-700 gap-1">
           <p>
-            🍴 {meal.foodType} for {meal.amount}{" "}
+            🍴 {meal.foodType} for {meal.remaining}{" "}
             {meal.amount > 1 ? "persons" : "person"}
           </p>
           <p>Status: {meal.status}</p>
@@ -166,7 +166,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
         <MealApplyModal
           selectedPeople={selectedPeople}
           setSelectedPeople={setSelectedPeople}
-          personCount={meal.amount}
+          personCount={meal.remaining}
           submitStatus={submitStatus}
           setShowModal={setShowModal}
           handleApply={handleApply}

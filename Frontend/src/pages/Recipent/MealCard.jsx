@@ -10,6 +10,7 @@ const MealCard = ({ meal }) => {
 
     const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
     const applied = meal.applied.filter(app => app.p_id._id === user._id);
+    const awarded = meal.awarded.filter(app => app.p_id === user._id);
     // const applied = meal.applied.some(app => app.p_id._id === user._id) || meal.awarded.some(app => app.p_id === user._id);
 
 
@@ -34,7 +35,7 @@ const MealCard = ({ meal }) => {
                 {/* Middle: Quick Info */}
                 <div className='flex flex-col w-full sm:w-[30%] text-sm text-gray-600'>
                     <span>🍽️ {meal.amount} {meal.foodType}</span>
-                    <span>🕒 Applied: {new Date(applied[0]?.date).toLocaleString("en-PK")}</span>
+                    <span>🕒 Applied  At: {new Date(applied[0]?.date).toLocaleString("en-PK")}</span>
                 </div>
 
                 {/* Right Side: Applicants */}
@@ -57,8 +58,11 @@ const MealCard = ({ meal }) => {
                         {applied[0].persons && (
                             <p><strong>Applied For:</strong> {applied[0].persons} {applied[0].persons > 1 ? 'persons' : 'person'}</p>
                         )}
-                        {meal.status === 'Awarded' && user._id === meal.awarded.p_id && (
-                            <p><strong>Accepted For:</strong> {applied[0].persons} {applied[0].persons > 1 ? 'persons' : 'person'}</p>
+                        {awarded[0].a_person && (
+                            <>
+                                <p><strong>Accepted For:</strong> {awarded[0].a_person} {awarded[0].a_person > 1 ? 'persons' : 'person'}</p>
+                                <span>🕒 Accepted At: {new Date(awarded[0]?.a_date).toLocaleString("en-PK")}</span>
+                            </>
                         )}
                     </div>
                     <button
