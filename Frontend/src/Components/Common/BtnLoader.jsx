@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-function BtnLoader({ text, btnLoader }) {
+function BtnLoader({ text, btnLoader, onClick }) {
   return (
     <>
       <button
         type="submit"
         disabled={btnLoader}
-        className={`bg-green-800 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg w-full transition duration-300 relative flex justify-center items-center ${
+        onClick={onClick || (() => {})}
+        className={`bg-green-800 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg w-full transition duration-300 relative flex justify-center items-center ${
           btnLoader ? "cursor-not-allowed" : "cursor-pointer"
         }`}
       >

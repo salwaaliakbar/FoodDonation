@@ -4,11 +4,13 @@ import { Phone, Mail, User, Building } from "lucide-react";
 import { useData } from "../context/UserContext";
 import { useSecureFetch } from "../customHooks/useSecureFetch";
 import Header from "./Header";
+import BtnLoader from "./Common/btnLoader";
 
 const Myprofile = () => {
   const { user, setUser } = useData(); // Access global user context
   const [edit, setEdit] = useState(false); // Edit mode toggle
   const secureFetch = useSecureFetch(); // Authenticated fetch hook
+  const [btnLoader, setBtnLoader] = useState(false);
 
   // Handle input change in edit mode
   function handleInput(e) {
@@ -21,25 +23,44 @@ const Myprofile = () => {
 
   // Submit updated profile to backend
   async function handleSubmit() {
+    setBtnLoader(true);
     try {
-      const data = await secureFetch("http://localhost:5000/api/updateProfile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-        credentials: "include",
-      });
+      const data = await secureFetch(
+        "http://localhost:5000/api/updateProfile",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(user),
+          credentials: "include",
+        }
+      );
 
       if (data.success) {
-        alert("Profile Updated Successfully");
-        setEdit(false);
+        await new Promise((res) => setTimeout(res, 1000));
+        setBtnLoader(false);
+
+        setTimeout(() => {
+          alert("Profile Updated Successfully");
+          setEdit(false);
+        }, 100);
       } else {
-        alert(data.error || "Failed to update profile.");
+        await new Promise((res) => setTimeout(res, 1000));
+        setBtnLoader(false);
+
+        setTimeout(() => {
+          alert(data.error || "Failed to update profile.");
+        }, 100);
       }
     } catch (err) {
-      console.error("Error updating profile:", err);
-      alert("An error occurred while updating the profile.");
+      await new Promise((res) => setTimeout(res, 1000));
+      setBtnLoader(false);
+      
+      setTimeout(() => {
+        console.error("Error updating profile:", err);
+        alert("An error occurred while updating the profile.");
+      }, 100);
     }
   }
 
@@ -51,7 +72,7 @@ const Myprofile = () => {
       {/* <SideBar /> */}
 
       <div className="w-full lg:absolute lg:right-0 bg-gray-200">
-       <Header />
+        <Header />
 
         <div className="mt-25 w-[90%] lg:w-[85%] m-auto border border-gray-200 bg-white rounded-md p-6 md:mb-8">
           <h2 className="ml-4 lg:ml-10 font-bold text-2xl lg:text-3xl mt-4 md:text-left text-center">
@@ -109,12 +130,10 @@ const Myprofile = () => {
 
           {/* Submit Button */}
           {edit && (
-            <button
-              className="rounded-md bg-green-800 text-white mt-8 lg:mt-12 py-2 px-6 lg:px-8 text-base lg:text-lg border border-green-700 hover:bg-green-700 self-center lg:relative lg:left-[67%] cursor-pointer"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
+            <div className="mt-8 lg:mt-12 self-center lg:relative lg:left-[67%] w-fit">
+              <BtnLoader text="Submit" btnLoader={btnLoader} onClick={handleSubmit} />
+
+            </div>
           )}
         </div>
       </div>
@@ -138,7 +157,7 @@ function TextField({ fieldName, Icon, fieldValue, edit, handleInput }) {
         <input
           type="text"
           name={fieldName}
-          value={fieldValue}
+          value={fieldValue || ""}
           onChange={handleInput}
           className="border-none focus:outline-none text-[0.9rem] p-0.5 w-full"
           disabled={!edit}

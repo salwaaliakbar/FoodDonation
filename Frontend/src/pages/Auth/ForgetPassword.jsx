@@ -41,6 +41,7 @@ function ForgotPassword({ setIsForgot }) {
       }
     } catch (err) {
       setSubmitting(false);
+
       setTimeout(() => {
         console.error("Error:", err);
         alert("An error occurred. Please try again.");

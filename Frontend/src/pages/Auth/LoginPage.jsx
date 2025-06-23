@@ -67,7 +67,9 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                 }, 100);
               }
             } catch (err) {
+              await new Promise((res) => setTimeout(res, 1000));
               setSubmitting(false);
+              
               setTimeout(() => {
                 console.error("Error during login:", err);
                 alert("An error occurred during login. Please try again.");

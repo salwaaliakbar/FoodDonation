@@ -54,8 +54,9 @@ function ResetPassword() {
                 }, 100);
               }
             } catch (error) {
+              await new Promise((res) => setTimeout(res, 1000));
               setSubmitting(false);
-
+              
               setTimeout(() => {
                 alert("Something went wrong. Try again later.");
                 console.error("Reset error:", error);

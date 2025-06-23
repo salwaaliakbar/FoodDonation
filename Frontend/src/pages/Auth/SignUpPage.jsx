@@ -76,7 +76,9 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                 }, 100);
               }
             } catch (err) {
+              await new Promise((res) => setTimeout(res, 1000));
               setSubmitting(false);
+              
               setTimeout(() => {
                 console.error("Error during signup:", err);
                 alert("An error occurred during signup. Please try again.");
