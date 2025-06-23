@@ -60,7 +60,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
       setMealPosts((prevPosts) =>
         prevPosts.map((post) =>
           post._id === meal._id
-            ? { ...post, applied: [...post.applied, newApplication] }
+            ? { ...post, applied: [newApplication, ...post.applied] }
             : post
         )
       );

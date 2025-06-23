@@ -11,52 +11,48 @@ async function applyCampaign(req, res) {
     }
 
     const now = new Date();
-    
-    // Fetch the campaign and check if expired
-    const campaign = await Campaign.findById(campaignId)
+
+    // Fetch the campaign
+    const campaign = await Campaign.findById(campaignId).populate("createdBy");
     if (!campaign) {
       return res
         .status(404)
         .json({ success: false, error: "Campaign not found" });
     }
 
+    // Check for expiration
     if (new Date(campaign.expiration) <= now) {
       return res
         .status(400)
         .json({ success: false, error: "Campaign already expired" });
     }
 
-    // Create the sub-object to push into the campaign
+    // Create the applied entry
     const appliedEntry = {
       p_id: userId,
       date: new Date(),
       persons: appliedPersons,
     };
 
-    // Update the Campaign model (push into applied array)
-    const updatedCampaign = await Campaign.findByIdAndUpdate(
-      campaignId,
-      { $push: { applied: appliedEntry } },
-      { new: true }
-    ).populate("createdBy"); // Populate to access donor's socket room
+    // Push and sort applied array
+    campaign.applied.push(appliedEntry);
+    campaign.applied.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-    if (!updatedCampaign) {
-      return res
-        .status(404)
-        .json({ success: false, error: "Campaign not found" });
-    }
+    // Save and populate again
+    const updatedCampaign = await campaign.save();
+    await updatedCampaign.populate("createdBy");
 
-    // Update the Recipient model (push campaignId into actions.applied)
+    // Update Recipient model
     await Recipient.findOneAndUpdate(
       { userId },
       { $addToSet: { "actions.applied": campaignId } },
       { upsert: true, new: true }
     );
 
-    // Get applicant's full info
+    // Fetch user's fullname
     const user = await userModel.findById(userId).select("fullname");
 
-    // Emit real-time updates
+    // Emit real-time update
     const io = req.app.get("io");
     const donorId = updatedCampaign.createdBy?._id?.toString();
 
@@ -66,7 +62,7 @@ async function applyCampaign(req, res) {
         newApplicant: {
           p_id: { _id: userId, fullname: user.fullname },
           persons: appliedPersons,
-          date: new Date(),
+          date: appliedEntry.date,
         },
       });
 

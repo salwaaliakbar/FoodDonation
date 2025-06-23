@@ -82,7 +82,7 @@ const SideBar = () => {
                 <Link to={path} onClick={() => setIsSidebarOpen(false)}>
                   <div
                     className={`flex items-center gap-2 mx-2 px-4 py-2 rounded-lg transition-colors ${
-                      currentPath === path ? "bg-green-600 text-white" : "hover:bg-green-600 hover:text-white"
+                      currentPath === path ? "bg-green-800 text-white" : " "
                     }`}
                   >
                     <i className={`fa ${icon} text-lg`}></i>

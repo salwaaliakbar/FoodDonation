@@ -269,6 +269,12 @@ async function updateStatus(req, res) {
       a_person: awardPersons,
     };
     campaign.awarded.push(awardedEntry);
+    console.log('before sorting', campaign.awarded)
+
+    // Sort by award date descending (latest first)
+    campaign.awarded.sort((a, b) => new Date(b.a_date) - new Date(a.a_date));
+    console.log('after sorting', campaign.awarded)
+
 
     // Update remaining and status
     campaign.remaining = remaining - awardPersons;

@@ -9,7 +9,7 @@ import { ACTIVE, GRANTED, EXPIRED } from "../../Components/CONSTANTS";
 import useJoinMealSocket from "../../customHooks/useJoinMealSocket";
 
 const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
-  console.log(meal)
+  console.log(meal);
   const [expanded, setExpanded] = useState(false);
   const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
   const [status, setStatus] = useState(meal.status);
@@ -20,21 +20,39 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
     selectedusername: "",
     appliedfor: 0,
     selectedUserStatus: "",
-    date: ""
+    appliedDate: "",
+    awardedfor: "",
+    awardedDate: "",
   });
 
-  // Removing awardeds from applied list
-  meal.applied = meal.applied.filter((applied) => {
-    return !meal.awarded.some((awarded) => awarded.p_id === applied.p_id._id);
+  const fullAppliedList = meal.applied;
+
+  const nonAwardedAppliedList = fullAppliedList.filter((applied) => {
+    return !meal.awarded.some(
+      (awarded) => awarded.p_id.toString() === applied.p_id._id.toString()
+    );
   });
 
-
-  const [appliedList, setAppliedList] = useState(meal.applied)
-  const [awardedList, setAwardedList] = useState(meal.awarded)
+  const [appliedList, setAppliedList] = useState(nonAwardedAppliedList);
+  const [awardedList, setAwardedList] = useState(meal.awarded);
   const { user } = useData();
 
   // call join meal socket hook
-  useJoinMealSocket({ meal, status, setAppliedList })
+  useJoinMealSocket({ meal, status, setAppliedList });
+
+  function getAppliedPersons(userId) {
+    const entry = fullAppliedList.find(
+      (a) => a.p_id._id?.toString() === userId?.toString()
+    );
+    return entry?.persons || 0;
+  }
+
+  function getAppliedDate(userId) {
+    const entry = fullAppliedList.find(
+      (a) => a.p_id._id?.toString() === userId?.toString()
+    );
+    return entry?.date || null;
+  }
 
   return (
     <div
@@ -56,7 +74,7 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
           </div>
         </div>
 
-        {(status === ACTIVE && currentStatus === ACTIVE) ? (
+        {status === ACTIVE && currentStatus === ACTIVE ? (
           <div className="flex flex-col w-full sm:w-[30%] text-sm text-gray-600">
             <span>🍽️ {meal?.amount} meals</span>
             <span>🥗 Remaining Meal {meal?.remaining}</span>
@@ -69,11 +87,10 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
               {format(new Date(meal?.createdAt), "MM/dd/yyyy hh:mm a")}
             </span>
           </div>
-
         )}
 
         <div className="w-full sm:w-[20%] text-right">
-          {(status === ACTIVE && currentStatus === ACTIVE) && (
+          {status === ACTIVE && currentStatus === ACTIVE && (
             <div className="flex gap-3 justify-end">
               <div>
                 <span>✅ {status}</span>
@@ -162,8 +179,8 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
                           selectedUserId: user.p_id._id,
                           selectedusername: user.p_id.fullname,
                           appliedfor: user.persons,
-                          seltectedUserStatus: ACTIVE,
-                          date: user.date
+                          selectedUserStatus: ACTIVE,
+                          appliedDate: user.date,
                         });
                       }}
                     >
@@ -193,9 +210,11 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
                         setSelectedUser({
                           selectedUserId: aw?.p_id,
                           selectedusername: aw?.p_name,
-                          appliedfor: aw?.a_person,
+                          awardedfor: aw?.a_person,
                           selectedUserStatus: GRANTED,
-                          date: aw.a_date
+                          awardedDate: aw.a_date,
+                          appliedfor: getAppliedPersons(aw?.p_id),
+                          appliedDate: getAppliedDate(aw?.p_id),
                         });
                       }}
                     >

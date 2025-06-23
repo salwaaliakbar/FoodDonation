@@ -17,16 +17,22 @@ const MealPostCard = ({ meal, handleDelete }) => {
     selectedusername: "",
     appliedfor: 0,
     selectedUserStatus: "",
-    date: ""
+    appliedDate: "",
+    awardedfor: "",
+    awardedDate: "",
   });
+
+  const fullAppliedList = meal.applied;
 
   // Removing awardeds from applied list
-  meal.applied = meal.applied.filter((applied) => {
-    return !meal.awarded.some((awarded) => awarded.p_id === applied.p_id._id);
+  const nonAwardedAppliedList = fullAppliedList.filter((applied) => {
+    return !meal.awarded.some(
+      (awarded) => awarded.p_id.toString() === applied.p_id._id.toString()
+    );
   });
 
-  const [remaining, setRemaining] = useState(meal.remaining)
-  const [appliedList, setAppliedList] = useState(meal.applied);
+  const [remaining, setRemaining] = useState(meal.remaining);
+  const [appliedList, setAppliedList] = useState(nonAwardedAppliedList);
   const [awardedList, setAwardedList] = useState(meal.awarded);
   const [status, setStatus] = useState(meal.status); // Track meal status
   const [awardedTo, setAwardedTo] = useState(""); // Track winner
@@ -35,7 +41,22 @@ const MealPostCard = ({ meal, handleDelete }) => {
   const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
 
   // call join meal socket hook
-  useJoinMealSocket({ meal, status, setAppliedList })
+  useJoinMealSocket({ meal, status, setAppliedList });
+
+  function getAppliedPersons(userId) {
+    const entry = fullAppliedList.find(
+      (a) => a.p_id._id?.toString() === userId?.toString()
+    );
+    return entry?.persons || 0;
+  }
+
+  function getAppliedDate(userId) {
+    const entry = fullAppliedList.find(
+      (a) => a.p_id._id?.toString() === userId?.toString()
+    );
+    return entry?.date || null;
+  }
+
   return (
     <>
       <div
@@ -43,12 +64,11 @@ const MealPostCard = ({ meal, handleDelete }) => {
         className="bg-white rounded-lg shadow-md p-6 mb-4 w-full cursor-pointer transition-all duration-1000"
       >
         {/* Only show awarded banner if in generalfeed and meal is granted */}
-        {pathname === "/donorDashBoard/generalfeed" &&
-          awardedTo && (
-            <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded-md text-base font-semibold mb-4 shadow-sm">
-              🏅 Meal Awarded to <span className="underline">{awardedTo}</span>
-            </div>
-          )}
+        {pathname === "/donorDashBoard/generalfeed" && awardedTo && (
+          <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded-md text-base font-semibold mb-4 shadow-sm">
+            🏅 Meal Awarded to <span className="underline">{awardedTo}</span>
+          </div>
+        )}
 
         <div className="flex justify-between">
           {/* Donor info and location */}
@@ -143,7 +163,7 @@ const MealPostCard = ({ meal, handleDelete }) => {
                             selectedusername: user.p_id?.fullname,
                             appliedfor: user.persons,
                             selectedUserStatus: ACTIVE,
-                            date: user.date
+                            appliedDate: user.date,
                           });
                         }}
                       >
@@ -160,7 +180,7 @@ const MealPostCard = ({ meal, handleDelete }) => {
               </div>
 
               {/* Awarded Section */}
-              <div className="md:w-1/2 md:pl-65 ">
+              <div className="md:w-1/2 md:pl-60 ">
                 <p className="text-sm font-bold text-gray-600 mb-1">Awarded:</p>
                 {awardedList && awardedList.length > 0 ? (
                   <ul className="list-disc pl-5 text-sm text-green-700">
@@ -173,9 +193,11 @@ const MealPostCard = ({ meal, handleDelete }) => {
                           setSelectedUser({
                             selectedUserId: aw?.p_id,
                             selectedusername: aw?.p_name,
-                            appliedfor: aw?.a_person,
+                            awardedfor: aw?.a_person,
                             selectedUserStatus: GRANTED,
-                            date: aw.a_date
+                            awardedDate: aw.a_date,
+                            appliedfor: getAppliedPersons(aw?.p_id),
+                            appliedDate: getAppliedDate(aw?.p_id),
                           });
                         }}
                       >

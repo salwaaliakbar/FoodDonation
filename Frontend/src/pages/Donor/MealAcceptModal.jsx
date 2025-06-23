@@ -75,7 +75,14 @@ function MealAcceptModel({
         const { campaign } = data;
 
         toast.success("Meal Granted successfully!");
-        setAppliedList(campaign?.applied || []);
+
+        // Filter out awarded users from applied list
+        const filteredApplied = (campaign?.applied || []).filter((applied) => {
+          return !campaign.awarded.some(
+            (awarded) => awarded.p_id.toString() === applied.p_id._id.toString()
+          );
+        });
+        setAppliedList(filteredApplied);
         setAwardedList(campaign?.awarded || []);
         if (setAwardedTo) setAwardedTo(selectedUser.fullname);
 
@@ -87,12 +94,10 @@ function MealAcceptModel({
           setActiveMeals((prev) =>
             prev.filter((meals) => meals._id !== campaign._id)
           );
-          setGrantedMeals(prev => [campaign, ...prev])
+          setGrantedMeals((prev) => [campaign, ...prev]);
         } else {
           setActiveMeals((prev) =>
-            prev.map((meals) =>
-              meals._id === campaign._id ? campaign : meals
-            )
+            prev.map((meals) => (meals._id === campaign._id ? campaign : meals))
           );
         }
 
@@ -132,48 +137,55 @@ function MealAcceptModel({
         {/* Recipient Info */}
         <div className="space-y-2 text-sm text-gray-700 break-words">
           <div>
-            <span className="font-medium">Name:</span> {selectedUser.fullname}
+            <span className="font-bold">Name:</span> {selectedUser.fullname}
           </div>
           <div>
-            <span className="font-medium">Email:</span> {selectedUser.email}
+            <span className="font-bold">Email:</span> {selectedUser.email}
           </div>
           <div>
-            <span className="font-medium">Phone:</span> {selectedUser.phone}
+            <span className="font-bold">Phone:</span> {selectedUser.phone}
           </div>
           {selectedUser.organization && (
             <div>
-              <span className="font-medium">Organization:</span>{" "}
+              <span className="font-bold">Organization:</span>{" "}
               {selectedUser.organization}
             </div>
           )}
-          {status === ACTIVE ? (
-            <div>
-              <span className="font-medium">Applied for:</span>{" "}
-              {selectedUserData.appliedfor}{" "}
-              {selectedUserData.appliedfor > 1 ? "persons" : "person"}
-            </div>
-          ) : (
-            <div>
-              <span className="font-medium">Awarded for:</span>{" "}
-              {selectedUserData.appliedfor}{" "}
-              {selectedUserData.appliedfor > 1 ? "persons" : "person"}
-            </div>
-          )}
-          {status === ACTIVE ? (
-            <div>
-              <span className="font-medium">Applied At:</span>{" "}
-              {new Date(selectedUserData.date).toLocaleString('en-PK')}
-            </div>
-          ) : (
-            <div>
-              <span className="font-medium">Awarded At:</span>{" "}
-              {new Date(selectedUserData.date).toLocaleString('en-PK')}
-            </div>
-          )}
+
           <div>
-            <span className="font-medium">Status:</span>{" "}
+            <span className="font-bold">Applied At:</span>{" "}
+            {new Date(selectedUserData.appliedDate).toLocaleString("en-PK")}
+          </div>
+
+          <div>
+            <span className="font-bold">Applied for:</span>{" "}
+            {selectedUserData.appliedfor}{" "}
+            {selectedUserData.appliedfor > 1 ? "persons" : "person"}
+          </div>
+
+          <div>
+            {selectedUserData.selectedUserStatus === GRANTED && (
+              <>
+                <div className="mb-2">
+                  <span className="font-bold">Awarded At:</span>{" "}
+                  {new Date(selectedUserData.awardedDate).toLocaleString(
+                    "en-PK"
+                  )}
+                </div>
+
+                <div>
+                  <span className="font-bold">Awarded for:</span>{" "}
+                  {selectedUserData.awardedfor}{" "}
+                  {selectedUserData.awardedfor > 1 ? "persons" : "person"}
+                </div>
+              </>
+            )}
+          </div>
+
+          <div>
+            <span className="font-bold">Status:</span>{" "}
             {selectedUserData.selectedUserStatus === GRANTED ? (
-              <span className="text-gray-700 font-semibold">🏅 Awarded</span>
+              <span className="text-green-700 font-semibold">🏅 Awarded</span>
             ) : (
               <span className="text-yellow-600 font-semibold">⏳ Pending</span>
             )}
@@ -185,7 +197,7 @@ function MealAcceptModel({
           <div className="mb-6 mt-2 flex items-center justify-between gap-3">
             <label
               htmlFor="awardCount"
-              className="text-sm font-medium text-gray-700 whitespace-nowrap"
+              className="text-sm font-bold text-gray-700 whitespace-nowrap"
             >
               Award meal for:
             </label>
