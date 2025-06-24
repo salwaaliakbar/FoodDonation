@@ -8,7 +8,6 @@ router.get('/api/logout', authController.logout)
 router.post('/api/me', authMiddleware, authController.verifyuser)
 router.post('/api/refresh', authController.refreshToken)
 router.post('/api/forgotPassword', authController.forgotPassword)
-router.get('/api/resetPassword/:id/:token',authController.resetPassword )
-router.put('/api/resetPassword/:id/:token', authController.updatePassword)
+router.put('/api/resetPassword/:id/:token', authController.resetPassword)
 
 module.exports = router;

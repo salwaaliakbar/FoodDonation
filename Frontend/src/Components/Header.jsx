@@ -12,7 +12,7 @@ const Header = () => {
 
 
 
-  const basePath = user.role === 'recipient' ? '/recipent/generalfeed' : '/donorDashBoard/generalfeed';
+  const basePath = user?.role === 'recipient' ? '/recipent/generalfeed' : '/donorDashBoard/generalfeed';
 
   // Debounce search input
   useEffect(() => {

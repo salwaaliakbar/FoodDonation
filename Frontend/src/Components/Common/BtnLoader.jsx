@@ -12,7 +12,7 @@ function BtnLoader({ text, btnLoader, onClick }) {
         }`}
       >
         {btnLoader ? (
-          <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent"></div>
+          <div className="animate-spin rounded-full h-6 w-6 border-[3px] border-white border-t-transparent"></div>
         ) : (
           text
         )}

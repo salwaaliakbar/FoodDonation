@@ -50,13 +50,21 @@ function ResetPassword() {
                 setSubmitting(false);
 
                 setTimeout(() => {
+                  if (
+                    data.code === "INVALID_TOKEN" ||
+                    data.error?.includes("expired")
+                  ) {
+                    alert("This link has expired. Please request a new one.");
+                    navigate("/");
+                    return;
+                  }
                   alert(data.error || "Invalid or expired token.");
                 }, 100);
               }
             } catch (error) {
               await new Promise((res) => setTimeout(res, 1000));
               setSubmitting(false);
-              
+
               setTimeout(() => {
                 alert("Something went wrong. Try again later.");
                 console.error("Reset error:", error);
