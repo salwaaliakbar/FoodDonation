@@ -1,4 +1,4 @@
-const { ACTIVE } = require("../constantVariables");
+const { ACTIVE } = require("../utils/constantVariables");
 const Campaign = require("../Models/campaignModel");
 
 async function CampaignsFeed(req, res) {

@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import MealCard from "./DonorMealCard";
 import { useData } from "../../context/UserContext";
 import { useSecureFetch } from "../../customHooks/useSecureFetch";
-import { ACTIVE, GRANTED, EXPIRED } from "../../Components/CONSTANTS";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useHandleDelete } from "../../customHooks/useHandleDelete";
 import { useChange } from "../../Context/ChangeContext";
+import { ACTIVE, GRANTED, EXPIRED } from "../../constants/constants";
 
 const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   const { user } = useData();

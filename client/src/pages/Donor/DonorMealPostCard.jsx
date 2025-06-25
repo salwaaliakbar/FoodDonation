@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MealAcceptModel from "./MealAcceptModal";
-import { ACTIVE, EXPIRED, GRANTED } from "../../Components/CONSTANTS";
+import { ACTIVE, EXPIRED, GRANTED } from "../../constants/constants";
 import { useLocation } from "react-router-dom";
 import Chat from "../../Components/Chat";
 import { Trash2 } from "lucide-react";

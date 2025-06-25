@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSocket } from "../context/SocketProvider";
-import { ACTIVE } from "../Components/CONSTANTS";
+import { ACTIVE } from "../constants/constants";
 import { useChange } from "../Context/ChangeContext";
 
 function useJoinMealSocket({ status, meal, setAppliedList }) {

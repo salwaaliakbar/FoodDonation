@@ -1,4 +1,4 @@
-import { ACTIVE, GRANTED, EXPIRED } from "../../Components/CONSTANTS";
+import { ACTIVE, GRANTED, EXPIRED } from "../../constants/constants"
 import Header from "../../Components/Header";
 import ActiveMealsSection from "./DonorActiveMealsSection";
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import MealPostCard from "./DonorMealPostCard";
 import Loader from "../../Components/Loader";
 import { useSecureFetch } from "../../customHooks/useSecureFetch";
-import { ACTIVE } from "../../Components/CONSTANTS";
+import { ACTIVE } from "../../constants/constants";
 import { useHandleDelete } from "../../customHooks/useHandleDelete";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

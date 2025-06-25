@@ -1,6 +1,6 @@
 const campaignModel = require("../Models/campaignModel");
 const userModel = require("../Models/userModel");
-const { ACTIVE, GRANTED, EXPIRED } = require("../constantVariables");
+const { ACTIVE, GRANTED, EXPIRED } = require("../utils/constantVariables");
 const Recipient = require("../Models/recipentModel");
 
 async function createCampaign(req, res) {

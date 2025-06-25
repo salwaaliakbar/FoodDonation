@@ -1,6 +1,6 @@
 import ActiveMealsSection from "./DonorActiveMealsSection"
 import StatsSection from "./DonorStatsSection"
-import { ACTIVE } from "../../Components/CONSTANTS"
+import { ACTIVE } from "../../constants/constants"
 import Header from "../../Components/Header"
 
 function DonorLandingPage(){

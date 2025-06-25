@@ -12,7 +12,7 @@ import DonorDashboard from "./pages/Donor/DonorDashboard";
 import DonorLandingPage from "./pages/Donor/DonorLandingpage";
 import CreateCampaign from "./pages/Donor/CreateCampaign";
 import DonorGeneralFeed from "./pages/Donor/DonorGeneralFeed";
-import MyProfile from "./Components/MyProfile"
+import MyProfile from "./components/MyProfile"
 import DonationHistory from "./pages/Donor/DonationHistory";
 import Recipent_Dashboard from "./pages/Recipent/Recipent_Dashboard";
 import GeneralFeed from "./pages/Recipent/GeneralFeed";

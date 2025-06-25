@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useData } from "../../context/UserContext";
-import { GRANTED } from "../../Components/CONSTANTS";
 import Chat from "../../Components/Chat";
 
 const MealCard = ({ meal }) => {

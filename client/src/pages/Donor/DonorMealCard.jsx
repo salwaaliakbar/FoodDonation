@@ -5,7 +5,7 @@ import Chat from "../../Components/Chat";
 import { Trash2 } from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
 import { useData } from "../../context/UserContext";
-import { ACTIVE, GRANTED, EXPIRED } from "../../Components/CONSTANTS";
+import { ACTIVE, GRANTED, EXPIRED } from "../../constants/constants";
 import useJoinMealSocket from "../../customHooks/useJoinMealSocket";
 
 const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {

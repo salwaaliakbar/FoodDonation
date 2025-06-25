@@ -1,38 +1,48 @@
 import React from "react";
-import { useData } from "../../context/UserContext";
+import { useData } from "../context/UserContext";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 const Header = () => {
   const { user } = useData();
   const [search, setSearch] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
-  const [debouncedSearch, setDebouncedSearch] = useState('');
 
-  // Debounce the search input
+  const basePath = user?.role === 'recipient' ? '/recipent/generalfeed' : '/donorDashBoard/generalfeed';
+
+  // Debounce search input
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(search.trim());
-    }, 1000);
+    }, 800); // debounce time
 
     return () => clearTimeout(handler);
   }, [search]);
 
-  // Navigate if needed
+  // Navigate with search param only when it changes
   useEffect(() => {
-    const basePath = '/donorDashBoard/generalfeed';
-
-    if (debouncedSearch) {
-      const newURL = `${basePath}?location=${encodeURIComponent(debouncedSearch)}`;
-      if (location.pathname !== basePath || location.search !== `?location=${encodeURIComponent(debouncedSearch)}`) {
-        navigate(newURL);
-      }
-    } else if (location.pathname === basePath && location.search) {
-      // Clear query only if you're on generalfeed and query exists
-      navigate(basePath);
+    if (debouncedSearch !== '') {
+      const targetUrl = `${basePath}?location=${encodeURIComponent(debouncedSearch)}`;
+      navigate(targetUrl, { replace: false });
     }
-  }, [debouncedSearch, location, navigate]);
+    else if (debouncedSearch === '' && location.pathname === `${basePath}`) {
+      // If search is cleared, remove the query param
+      const newUrl = `${basePath}`;
+      navigate(newUrl);
+    }
+  }, [debouncedSearch]);
+
+  // Optional: keep input in sync with URL when landing directly
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const currentLocation = params.get('location');
+    if (currentLocation && currentLocation !== search) {
+      setSearch(currentLocation);
+    }
+  }, [location.search]);
+
 
   // Get first letter of the user's name (fallback to "U")
   const firstLetter = user?.fullname

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSecureFetch } from "../../customHooks/useSecureFetch";
-import { ACTIVE, EXPIRED, GRANTED } from "../../Components/CONSTANTS";
+import { EXPIRED, GRANTED } from "../../constants/constants";
 import { useData } from "../../context/UserContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

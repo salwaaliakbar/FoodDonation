@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import SideBar from "./SideBar";
 import StatsSection from "../../Components/StatsSection";
 import ActiveMealsSection from "../../Components/ActiveMealsSection";
 import { useData } from "../../context/UserContext";
