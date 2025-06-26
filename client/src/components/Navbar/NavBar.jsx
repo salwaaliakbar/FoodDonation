@@ -40,7 +40,7 @@ function Navbar() {
         {/* Hamburger icon for mobile view */}
         <div className="md:hidden">
           <button
-            className="text-black text-3xl focus:outline-none mr-2"
+            className="text-green-800 text-3xl focus:outline-none mr-2"
             onClick={() => setIsDropdown((prev) => !prev)}
           >
             ☰

@@ -110,14 +110,14 @@ async function signup(req, res) {
     if (user) {
       return res
         .status(400)
-        .json({ error: "Username Should be Unique", success: false });
+        .json({ error: "Username Should be Unique!", success: false });
     }
 
     user = await userModel.findOne({ email });
     if (user) {
       return res
         .status(400)
-        .json({ error: "Email Should be Unique", success: false });
+        .json({ error: "Email already exist in out database!", success: false });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -180,7 +180,7 @@ async function signup(req, res) {
     console.log(userData);
 
     res.status(200).json({
-      message: "Newuser Registered Successfully",
+      message: "Newuser Registered Successfully!",
       success: true,
       userData,
     });
@@ -203,7 +203,7 @@ function logout(req, res) {
     secure: process.env.NODE_ENV === "production",
     path: "/api/refresh",
   });
-  res.status(200).json({ message: "Logged out successfully" });
+  res.status(200).json({ message: "Logged out successfully!" });
 }
 
 // verify user handler
@@ -214,7 +214,7 @@ async function verifyuser(req, res) {
     if (!user || !user._id) {
       return res
         .status(404)
-        .json({ success: false, error: "User not found or invalid token" });
+        .json({ success: false, error: "User not found or invalid token!" });
     }
 
     const users = await userModel.findOne({ _id: user._id });
@@ -252,7 +252,7 @@ async function verifyuser(req, res) {
     const { password: _, ...userDetails } = users._doc;
 
     res.status(200).json({
-      message: "Data fetch successfully",
+      message: "Data fetch successfully!",
       success: true,
       userDetails,
       activeMeals,
@@ -271,14 +271,14 @@ async function forgotPassword(req, res) {
   if (!email) {
     return res
       .status(400)
-      .json({ error: "Email field is required", success: false });
+      .json({ error: "Email field is required!", success: false });
   }
 
   try {
     const oldUser = await userModel.findOne({ email });
     if (!oldUser) {
       return res.status(400).json({
-        error: "Email is not Registered in our Database",
+        error: "Email is not Registered in our Database!",
         success: false,
       });
     }

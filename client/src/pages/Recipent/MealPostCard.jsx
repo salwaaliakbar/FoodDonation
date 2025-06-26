@@ -14,8 +14,8 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
 
   const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
   const [applied, setApplied] = useState(
-    meal.applied?.some(entry => entry.p_id._id === user._id) ||
-    meal.awarded?.some(entry => entry.p_id === user._id)
+    meal.applied?.some(entry => entry.p_id._id === user?._id) ||
+    meal.awarded?.some(entry => entry.p_id === user?._id)
   );
 
   // Applied Array

@@ -4,6 +4,7 @@ import "font-awesome/css/font-awesome.min.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useData } from "../../context/UserContext";
 import { useChange } from "../../Context/ChangeContext";
+import { EllipsisVertical, X } from "lucide-react";
 
 const SideBar = () => {
   const navigate = useNavigate();
@@ -43,12 +44,18 @@ const SideBar = () => {
 
   return (
     <div>
-      {/* Hamburger toggle (Mobile only) */}
+      {/* vertical toggle (Mobile only) */}
       <button
-        className="fixed top-5 left-2 z-50 text-2xl text-green-800 lg:hidden"
+        className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
-        <i className={`fa ${isSidebarOpen ? "fa-times" : "fa-bars"}`}></i>
+        {isSidebarOpen ? (
+          <X className="text-green-800 w-6 h-6" />
+        ) : (
+          <EllipsisVertical
+            className={`w-6 h-6 ${isGreenBg ? "text-white" : "text-green-800"}`}
+          />
+        )}
       </button>
 
       {/* Sidebar container */}
