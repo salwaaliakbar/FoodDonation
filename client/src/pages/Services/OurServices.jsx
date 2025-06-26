@@ -75,7 +75,7 @@ function OurServices() {
     <div className="mx-auto px-4 sm:px-6 lg:px-8 my-10 md:pb-20 pb-10">
       <div className="text-center">
         {/* Section heading */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-800 mt-20 font-poppins">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-800 mt-20 font-[Poppins]">
           Engage, Contribute, and Track
         </h2>
         {/* Section description */}

@@ -12,7 +12,7 @@ function OurVision() {
 
         {/* Main content */}
         <div className="flex flex-col justify-center items-center w-full px-4 sm:px-10 md:px-20 lg:px-40 my-10">
-          <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-poppins mb-3 text-center">
+          <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-[Poppins] mb-3 text-center">
             Our Vision: A World Without Hunger
           </div>
           <div className="text-white mb-6 text-sm sm:text-base md:text-lg text-center px-4 mt-6">

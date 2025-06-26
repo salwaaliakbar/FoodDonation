@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useData } from "../../context/UserContext";
 import DonorSidebar from "./DonorSidebar";
 import { useSocket } from "../../context/SocketProvider";
+import Header from "../../components/Header";
 
 function DonorDashboard() {
   const { user } = useData();
@@ -30,9 +31,9 @@ function DonorDashboard() {
           style: {
             background: "#38a169",
             color: "#fff",
-            fontWeight: "bold",
             fontSize: "16px",
             boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+            font: "Montserrat"
           },
         }
       );
@@ -45,12 +46,15 @@ function DonorDashboard() {
   }, [user]);
 
   return (
-    <div className="flex flex-col md:flex-row overflow-hidden">
+    <>
+    <div className="flex flex-col md:flex-row overflow-hidden font-[Montserrat]">
       <DonorSidebar />
       <div className="w-full md:w-[80%] md:absolute md:right-0 bg-gray-200 min-h-screen md:mb-8">
+        <Header />
         <Outlet />
       </div>
     </div>
+    </>
   );
 }
 

@@ -56,7 +56,7 @@ const DonorSidebar = () => {
   };
 
   return (
-    <div>
+    <>
       {/* vertical toggle (Mobile only) */}
       <button
         className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300"
@@ -145,7 +145,7 @@ const DonorSidebar = () => {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

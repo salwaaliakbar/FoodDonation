@@ -73,31 +73,36 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
     setLoading(true);
     setTimeout(async () => {
       if (status === ACTIVE) {
-  const activeData = await fetchMealData(ACTIVE);
-  setActiveMeals((prev) => {
-    const existingIds = new Set(prev.map((meal) => meal._id));
-    const newMeals = activeData.filter((meal) => !existingIds.has(meal._id));
-    return [...prev, ...newMeals];
-  });
-  setIsChangeActive(false);
-} else if (status === GRANTED) {
-  const grantedData = await fetchMealData(GRANTED);
-  setGrantedMeals((prev) => {
-    const existingIds = new Set(prev.map((meal) => meal._id));
-    const newMeals = grantedData.filter((meal) => !existingIds.has(meal._id));
-    return [...prev, ...newMeals];
-  });
-  setIsChangeGranted(false);
-} else if (status === EXPIRED) {
-  const expiredData = await fetchMealData(EXPIRED);
-  setBlacklistMeals((prev) => {
-    const existingIds = new Set(prev.map((meal) => meal._id));
-    const newMeals = expiredData.filter((meal) => !existingIds.has(meal._id));
-    return [...prev, ...newMeals];
-  });
-  setIsChangeExpired(false);
-}
-
+        const activeData = await fetchMealData(ACTIVE);
+        setActiveMeals((prev) => {
+          const existingIds = new Set(prev.map((meal) => meal._id));
+          const newMeals = activeData.filter(
+            (meal) => !existingIds.has(meal._id)
+          );
+          return [...prev, ...newMeals];
+        });
+        setIsChangeActive(false);
+      } else if (status === GRANTED) {
+        const grantedData = await fetchMealData(GRANTED);
+        setGrantedMeals((prev) => {
+          const existingIds = new Set(prev.map((meal) => meal._id));
+          const newMeals = grantedData.filter(
+            (meal) => !existingIds.has(meal._id)
+          );
+          return [...prev, ...newMeals];
+        });
+        setIsChangeGranted(false);
+      } else if (status === EXPIRED) {
+        const expiredData = await fetchMealData(EXPIRED);
+        setBlacklistMeals((prev) => {
+          const existingIds = new Set(prev.map((meal) => meal._id));
+          const newMeals = expiredData.filter(
+            (meal) => !existingIds.has(meal._id)
+          );
+          return [...prev, ...newMeals];
+        });
+        setIsChangeExpired(false);
+      }
 
       setLoading(false);
     }, 1000);
@@ -130,7 +135,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
       });
 
       toast.error(
-        <div>
+        <div className="font-[Montserrat]">
           <p className="font-bold text-lg mb-2">
             {expired.length} meal(s) expired:
           </p>
@@ -153,15 +158,19 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   const handleDelete = async (id) => {
     const deletedId = await deleteMeal(id);
     if (deletedId) {
-      toast.success("Meal deleted successfully!");
+      toast.success(
+        <div className="font-[Montserrat]">
+          <p>Meal Deleted Successfully!</p>
+        </div>
+      );
       setActiveMeals((prev) => prev.filter((meal) => meal._id !== deletedId));
     }
   };
 
   return (
-    <section className="w-full mx-auto bg-white border-[1px] border-zinc-200 rounded-xl shadow-lg mt-4 mb-4">
+    <section className="w-full mx-auto bg-white border-[1px] border-zinc-200 rounded-xl shadow-lg mt-4 mb-4 ">
       <h2
-        className={`text-[23px] font-bold ${color} p-4 border-b ${bg} rounded-t-xl`}
+        className={`text-[23px] font-[Poppins] ${color} p-4 border-b ${bg} rounded-t-xl`}
       >
         {name}
       </h2>

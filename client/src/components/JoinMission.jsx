@@ -14,7 +14,7 @@ function JoinMission() {
       <div className="mx-auto px-4 md:px-6">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main heading */}
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-[Poppins]">
             Join Our Mission Today
           </h2>
 

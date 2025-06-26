@@ -74,7 +74,11 @@ function MealAcceptModel({
       if (data.success) {
         const { campaign } = data;
 
-        toast.success("Meal Granted successfully!");
+        toast.success(
+          <div className="font-[Montserrat]">
+            <p>Meal Granted Successfully!</p>
+          </div>
+        );
 
         // Filter out awarded users from applied list
         const filteredApplied = (campaign?.applied || []).filter((applied) => {
@@ -116,7 +120,7 @@ function MealAcceptModel({
   const canChat = isOwner;
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 font-[Montserrat]">
       <div className="bg-white p-6 rounded-lg w-[350px] animate-zoomIn shadow-lg relative">
         {/* Close Button */}
         <button

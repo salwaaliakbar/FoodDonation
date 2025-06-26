@@ -4,7 +4,7 @@ function Journey() {
     <div className="text-center container mx-auto px-4 py-8 bg-gray-100 rounded-lg shadow-lg">
 
       {/* Heading */}
-      <h1 className="text-4xl font-bold text-gray-700 mb-6 font-poppins">
+      <h1 className="text-4xl font-bold text-gray-700 mb-6 font-[Poppins]">
         The Story of Our Growth and Impact
       </h1>
 

@@ -54,12 +54,12 @@ const FAQSection = () => {
   ];
 
   return (
-    <>
+    <div className="font-[Montserrat]">
       <Navbar />
       {/* FAQ section content */}
       <div className="bg-gray-200 min-h-screen pb-20 pt-15">
         <div className="max-w-3xl mx-auto px-6 py-6 rounded-xl shadow-lg bg-white/90">
-          <h2 className="text-3xl font-extrabold mb-2 text-green-800 text-center">
+          <h2 className="text-3xl font-extrabold mb-2 text-green-800 text-center font-[Poppins]">
             Frequently Asked Questions
           </h2>
           <p className="text-center text-gray-600 mb-8">
@@ -77,7 +77,7 @@ const FAQSection = () => {
         {/* Support section at the bottom */}
         <div className="flex justify-center mt-10">
           <div className="bg-green-800 text-white md:px-4 py-4 pb-6 rounded-lg shadow-md text-center mx-10">
-            <span className="font-bold text-xl">Still have questions?</span>
+            <span className="font-bold text-xl font-[Poppins]">Still have questions?</span>
             <br /><br />
             <span>
               Contact our support team at{" "}
@@ -89,7 +89,7 @@ const FAQSection = () => {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

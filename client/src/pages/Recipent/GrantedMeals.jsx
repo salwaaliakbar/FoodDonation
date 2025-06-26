@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import SideBar from './SideBar';
-import MealCard from './MealCard';
-import Loader from '../../Components/Loader';
-import { useData } from '../../context/UserContext';
-import Header from '../../Components/Header';
+import React, { useState, useEffect } from "react";
+import SideBar from "./SideBar";
+import MealCard from "./MealCard";
+import Loader from "../../Components/Loader";
+import { useData } from "../../context/UserContext";
 
 const GrantedMeals = () => {
   const [grantedMeals, setGrantedMeals] = useState([]);
@@ -16,18 +15,18 @@ const GrantedMeals = () => {
         const response = await fetch(
           `http://localhost:5000/api/grantedMeals?userId=${user._id}`,
           {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
-            credentials: 'include',
+            credentials: "include",
           }
         );
 
         const data = await response.json();
         return Array.isArray(data.campaigns) ? data.campaigns : [];
       } catch (err) {
-        console.error('Error fetching Granted Campaigns:', err);
+        console.error("Error fetching Granted Campaigns:", err);
         return [];
       }
     }
@@ -45,12 +44,10 @@ const GrantedMeals = () => {
   }, []);
 
   return (
-    <>
-      <Header />
-
+    <div className="">
       <div className="flex flex-col min-h-screen bg-gray-200">
         <div className="w-full pt-25 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-green-800 text-center mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-green-800 text-center mb-6 font-[Poppins]">
             Granted Meals
           </h1>
 
@@ -66,7 +63,9 @@ const GrantedMeals = () => {
             </section>
           ) : (
             <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-              <p className="text-lg font-semibold">No Granted Meals to display</p>
+              <p className="text-lg font-semibold">
+                No Granted Meals to display
+              </p>
               <p className="text-sm">
                 Once Donor Awards Meal, they’ll appear here in your feed.
               </p>
@@ -74,7 +73,7 @@ const GrantedMeals = () => {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

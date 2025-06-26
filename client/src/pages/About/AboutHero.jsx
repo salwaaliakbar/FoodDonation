@@ -33,7 +33,7 @@ function AboutHero () {
       <div className="mx-auto px-4 md:px-6 relative z-10">
         <div className="max-w-4xl">
           {/* Section Heading */}
-          <h1 className="text-4xl md:text-6xl font-bold mb-8 font-poppins">
+          <h1 className="text-4xl md:text-6xl font-bold mb-8 font-[Poppins]">
             About FoodSecure
           </h1>
 

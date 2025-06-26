@@ -9,7 +9,7 @@ function WorkMethod() {
         <div className="mx-auto px-4 pb-16">
           {/* Section Header */}
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h1 className="text-4xl md:text-4xl font-bold mb-6 text-gray-800 font-poppins">
+            <h1 className="text-4xl md:text-4xl font-bold mb-6 text-gray-800 font-[Poppins]">
               Making Food Sharing Safe & Easy
             </h1>
             <p className="text-xl text-gray-600 mb-8">
@@ -27,7 +27,7 @@ function WorkMethod() {
                 <div className="p-3 bg-green-200 rounded-full">
                   <img src={gift} className="w-6 h-6" />
                 </div>
-                <h2 className="text-2xl font-semibold text-gray-800">
+                <h2 className="text-2xl font-semibold text-gray-800 font-[Poppins]">
                   For Donors
                 </h2>
               </div>
@@ -62,7 +62,7 @@ function WorkMethod() {
                 <div className="p-3 bg-green-200 rounded-full">
                   <img src={search} className="w-6 h-6" />
                 </div>
-                <h2 className="text-2xl font-semibold text-gray-800">
+                <h2 className="text-2xl font-semibold text-gray-800 font-[Poppins]">
                   For Recipients
                 </h2>
               </div>

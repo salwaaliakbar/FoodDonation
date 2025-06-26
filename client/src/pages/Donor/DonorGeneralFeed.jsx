@@ -6,7 +6,7 @@ import { ACTIVE } from "../../constants/constants";
 import { useHandleDelete } from "../../customHooks/useHandleDelete";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Header from "../../Components/Header";
+import Header from "../../components/Header";
 import { useLocation } from "react-router-dom";
 
 function DonorGeneralFeed() {
@@ -23,7 +23,9 @@ function DonorGeneralFeed() {
     async function fetchMealFeedData() {
       try {
         const data = await secureFetch(
-          `http://localhost:5000/api/generalFeed?status=${ACTIVE}${locationSearch ? `&location=${locationSearch}` : ''}`,
+          `http://localhost:5000/api/generalFeed?status=${ACTIVE}${
+            locationSearch ? `&location=${locationSearch}` : ""
+          }`,
           {
             method: "GET",
             headers: {
@@ -60,7 +62,11 @@ function DonorGeneralFeed() {
   const handleDelete = async (id) => {
     const deletedId = await deleteMeal(id);
     if (deletedId) {
-      toast.success("Meal deleted successfully!");
+      toast.success(
+        <div className="font-[Montserrat]">
+          <p>Meal Deleted Successfully!</p>
+        </div>
+      );
       setMealPosts((prev) => prev.filter((meal) => meal._id !== deletedId));
       setActiveMeals((prev) => prev.filter((meal) => meal._id !== deletedId));
     }
@@ -69,10 +75,8 @@ function DonorGeneralFeed() {
   return (
     <div className="flex">
       <div className="w-full absolute right-0 bg-gray-200">
-        <Header />
-
         <div className="md:mb-8 mt-25">
-          <h1 className="mb-4 text-3xl font-bold text-green-800 text-center m-4">
+          <h1 className="mb-4 text-3xl font-bold text-green-800 text-center m-4 font-[Poppins]">
             General Meal Feed
           </h1>
 

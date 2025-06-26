@@ -9,7 +9,7 @@ import Footer from "../../Components/Footer/Footer";
 
 function LandingPage() {
   return (
-    <>
+    <div className="font-[Montserrat]">
       <Navbar/>
       <HeroSection />
       <Motivation />
@@ -18,7 +18,7 @@ function LandingPage() {
       <WhyDonate />
       <Staticics />
       <Footer/>
-    </>
+    </div>
   );
 }
 

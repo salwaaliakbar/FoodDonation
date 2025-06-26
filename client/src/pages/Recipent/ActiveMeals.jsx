@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
-import React from 'react';
-import SideBar from './SideBar';
-import Loader from '../../Components/Loader';
-import AppliedMealPostCard from './AppliedMealPostCard';
-import { useData } from '../../context/UserContext';
-import Header from '../../Components/Header';
+import { useState, useEffect } from "react";
+import React from "react";
+import SideBar from "./SideBar";
+import Loader from "../../Components/Loader";
+import AppliedMealPostCard from "./AppliedMealPostCard";
+import { useData } from "../../context/UserContext";
 
 const ActiveMeals = () => {
   const [loading, setLoading] = useState(true);
@@ -47,12 +46,10 @@ const ActiveMeals = () => {
 
   return (
     <>
-      <Header />
-
       <div className="flex flex-col lg:flex-row min-h-screen bg-gray-200">
         {/* Main content */}
         <div className="flex-1 pt-25 px-4 sm:px-6 lg:px-8 w-full">
-          <h1 className="text-2xl sm:text-3xl font-bold text-green-800 text-center mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-green-800 text-center mb-6 font-[Poppins]">
             Active Meals
           </h1>
 
@@ -73,7 +70,9 @@ const ActiveMeals = () => {
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-64 text-gray-500">
-              <p className="text-lg font-semibold">No Active Meals to display</p>
+              <p className="text-lg font-semibold">
+                No Active Meals to display
+              </p>
               <p className="text-sm">
                 Start Applying on Meals, they’ll appear here in your feed.
               </p>

@@ -7,7 +7,7 @@ function WhyDonate() {
   return (
     <div className="py-16">
       <div className="text-center mx-2">
-        <h2 className="text-4xl font-bold text-gray-800 mb-6 font-poppins">
+        <h2 className="text-4xl text-gray-800 mb-6 font-[Poppins]">
           Why Donate with FoodSecure?
         </h2>
         <p className="text-lg mb-6 text-gray-600">
@@ -23,7 +23,7 @@ function WhyDonate() {
             <div className="p-2 bg-green-200 rounded-full mb-3">
               <img src={pic1} className="w-10 h-10" />
             </div>
-            <div className="text-black font-medium text-2xl text-center">
+            <div className="text-gray-800 font-bold text-2xl text-center">
               Fight Hunger Locally
             </div>
             <p className="mt-10 text-gray-800 text-lg text-center">
@@ -37,7 +37,7 @@ function WhyDonate() {
             <div className="p-2 bg-green-200 rounded-full mb-3">
               <img src={pic2} className="w-10 h-10" />
             </div>
-            <div className="text-black font-medium text-2xl text-center">
+            <div className="text-gray-800 font-bold text-2xl text-center">
               Reduce Food Waste
             </div>
             <p className="mt-10 text-gray-800 text-lg text-center">
@@ -51,7 +51,7 @@ function WhyDonate() {
             <div className="p-2 bg-green-200 rounded-full mb-3">
               <img src={pic3} className="w-10 h-10" />
             </div>
-            <div className="text-black font-medium text-2xl text-center">
+            <div className="text-gray-800 font-bold text-2xl text-center">
               Build Communities
             </div>
             <p className="mt-10 text-gray-800 text-lg text-center">

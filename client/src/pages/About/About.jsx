@@ -9,7 +9,7 @@ import Footer from "../../Components/Footer/Footer";
 
 const About = () => {
     return (
-        <>
+        <div className="font-[Montserrat]">
         <Navbar/>
         <AboutHero/>
         <Journey/>
@@ -17,7 +17,7 @@ const About = () => {
         <JoinMission/>
         <OurValue/> 
         <Footer />  
-        </>
+        </div>
     );
 };
 

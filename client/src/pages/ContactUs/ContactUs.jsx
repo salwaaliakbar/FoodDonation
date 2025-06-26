@@ -7,13 +7,13 @@ import Footer from "../../Components/Footer/Footer";
 
 function ContactUs() {
   return (
-    <>
+    <div className="font-[Montserrat]">
       <Navbar />
-      <div>
+      <div >
         {/* Top hero section with heading and description */}
         <div className="bg-green-800 pt-15 pb-12 md:pb-24">
           <div className="mx-auto px-4 md:px-6 text-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-[Poppins]">
               Get in Touch
             </h1>
             <p className="text-lg md:text-xl text-white max-w-2xl mx-auto">
@@ -42,7 +42,7 @@ function ContactUs() {
             >
               {({ errors, touched }) => (
                 <Form className="border-green-200 border-[1.5px] rounded-2xl shadow-2xl w-full max-w-md mx-auto p-6">
-                  <h1 className="text-3xl text-center mb-4 text-green-800 font-bold">
+                  <h1 className="text-3xl text-center mb-4 text-green-800 font-bold font-[Poppins]">
                     Send Us a Message
                   </h1>
                   <p className="text-center text-gray-600 mb-5">
@@ -121,7 +121,7 @@ function ContactUs() {
 
           {/* Contact information section */}
           <div className="w-full lg:w-1/2 px-3">
-            <h2 className="text-3xl text-left mb-10 text-green-800 font-bold">
+            <h2 className="text-3xl text-left mb-10 text-green-800 font-bold font-[Poppins] md:mt-7">
               Contact Information
             </h2>
             <div className="space-y-6">
@@ -175,7 +175,7 @@ function ContactUs() {
 
         <Footer />
       </div>
-    </>
+    </div>
   );
 }
 export default ContactUs;

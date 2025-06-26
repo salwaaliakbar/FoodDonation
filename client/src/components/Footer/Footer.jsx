@@ -11,12 +11,12 @@ function Footer() {
         {/* Left section: Logo and tagline */}
         <div className="text-left">
           <img className="w-40 md:w-80 h-12 md:h-24 md:mx-0" src={logo} alt="FoodSecure Logo" />
-          <p className="text-white text-lg md:text-xl mt-5 md:pl-10">Rescue, Feed, Empower</p>
+          <p className="text-white text-lg md:text-xl mt-5 md:pl-10 font-[Poppins]">Rescue, Feed, Empower</p>
         </div>
 
         {/* Middle section: Quick navigation links */}
         <div className="flex flex-col md:items-start space-y-2 text-white">
-          <h1 className="font-bold text-xl md:text-2xl md:mb-6 mb-4">Quick Links</h1>
+          <h1 className="font-bold text-xl md:text-2xl md:mb-4 mb-4 font-[Poppins] md:mt-5">Quick Links</h1>
           <Link to="/" className="hover:text-green-400 transform hover:scale-105 transition-all duration-300 delay-75">
             Home
           </Link>
@@ -37,7 +37,7 @@ function Footer() {
         <div>
           {/* Right section: Contact details */}
           <div className="flex flex-col md:items-start space-y-4  mb-10">
-            <h1 className="font-bold text-xl md:text-2xl mb-4 text-white">Contact Us</h1>
+            <h1 className="font-bold text-xl md:text-2xl mb-4 text-white font-[Poppins]">Contact Us</h1>
             <span
               className="text-white text-lg hover:text-green-400 flex items-center space-x-3 transform transition-all duration-300 delay-75 hover:scale-105"
             >

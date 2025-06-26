@@ -4,7 +4,7 @@ function NotFound(){
     // Render the NotFound page UI
     return (
         // Full-screen container with gradient background and center alignment
-        <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-green-200 flex items-center justify-center px-4">
+        <div className="min-h-screen bg-gradient-to-br from-green-100 via-white to-green-200 flex items-center justify-center px-4 font-[Montserrat]">
             {/* Card container with shadow, rounded corners, and padding */}
             <div className="max-w-xl mx-auto text-center shadow-2xl rounded-3xl bg-white/80 p-10 border border-green-200">
                 {/* Icon and 404 heading */}
@@ -15,7 +15,7 @@ function NotFound(){
                         <path d="M8 12h8M12 8v8" stroke="#22c55e" strokeWidth="2.5" strokeLinecap="round"/>
                     </svg>
                     {/* 404 error code */}
-                    <h1 className="text-8xl font-extrabold text-green-800 drop-shadow-lg mb-2">404</h1>
+                    <h1 className="text-8xl font-extrabold text-green-800 drop-shadow-lg mb-2 font-[Poppins]">404</h1>
                 </div>
                 {/* Error message and description */}
                 <div className="mt-2 mb-8">

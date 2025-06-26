@@ -3,7 +3,6 @@ import StatsSection from "../../Components/StatsSection";
 import ActiveMealsSection from "../../Components/ActiveMealsSection";
 import { useData } from "../../context/UserContext";
 import Loader from "../../Components/Loader";
-import Header from "../../Components/Header";
 
 function Recipent_Dashboard() {
   const { user } = useData();
@@ -61,8 +60,14 @@ function Recipent_Dashboard() {
         );
         const data = await response.json();
         return {
-          applied: typeof data.statistics.applied === "number" ? data.statistics.applied : 0,
-          awarded: typeof data.statistics.awarded === "number" ? data.statistics.awarded : 0,
+          applied:
+            typeof data.statistics.applied === "number"
+              ? data.statistics.applied
+              : 0,
+          awarded:
+            typeof data.statistics.awarded === "number"
+              ? data.statistics.awarded
+              : 0,
         };
       } catch (err) {
         console.error("Error fetching Statistics of Campaigns:", err);
@@ -88,9 +93,7 @@ function Recipent_Dashboard() {
   }, [user._id]);
 
   return (
-    <>
-      <Header />
-
+    <div className="">
       <div className="flex flex-col lg:flex-row min-h-screen bg-gray-200">
         {/* If Sidebar needed: Uncomment next line */}
         {/* <SideBar /> */}
@@ -113,7 +116,7 @@ function Recipent_Dashboard() {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

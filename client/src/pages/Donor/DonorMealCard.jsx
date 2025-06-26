@@ -9,7 +9,6 @@ import { ACTIVE, GRANTED, EXPIRED } from "../../constants/constants";
 import useJoinMealSocket from "../../customHooks/useJoinMealSocket";
 
 const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
-  console.log(meal);
   const [expanded, setExpanded] = useState(false);
   const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
   const [status, setStatus] = useState(meal.status);
@@ -68,7 +67,7 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
             <p className="text-sm font-semibold text-gray-700">
               {meal?.createdBy?.fullname || ""}
             </p>
-            <p className={`text-base font-bold ${color} text-[17px]`}>
+            <p className={`text-base font-extrabold ${color} text-[17px]`}>
               {meal?.title}
             </p>
           </div>

@@ -3,7 +3,6 @@ import SideBar from "../pages/Donor/DonorSidebar";
 import { Phone, Mail, User, Building } from "lucide-react";
 import { useData } from "../context/UserContext";
 import { useSecureFetch } from "../customHooks/useSecureFetch";
-import Header from "./Header";
 import BtnLoader from "./Common/btnLoader";
 
 const Myprofile = () => {
@@ -56,7 +55,7 @@ const Myprofile = () => {
     } catch (err) {
       await new Promise((res) => setTimeout(res, 1000));
       setBtnLoader(false);
-      
+
       setTimeout(() => {
         console.error("Error updating profile:", err);
         alert("An error occurred while updating the profile.");
@@ -67,15 +66,10 @@ const Myprofile = () => {
   const firstLetter = user?.fullname?.charAt(0).toUpperCase() || "U";
 
   return (
-    <div className="flex flex-col lg:flex-row">
-      {/* Sidebar if needed */}
-      {/* <SideBar /> */}
-
+    <div className="flex flex-col lg:flex-row font-[Montserrat]">
       <div className="w-full lg:absolute lg:right-0 bg-gray-200">
-        <Header />
-
         <div className="mt-25 w-[90%] lg:w-[85%] m-auto border border-gray-200 bg-white rounded-md p-6 md:mb-8">
-          <h2 className="ml-4 lg:ml-10 font-bold text-2xl lg:text-3xl mt-4 md:text-left text-center">
+          <h2 className="ml-4 lg:ml-10 font-bold text-2xl lg:text-3xl mt-4 md:text-left text-center font-[Poppins]">
             User Profile
           </h2>
 
@@ -131,8 +125,11 @@ const Myprofile = () => {
           {/* Submit Button */}
           {edit && (
             <div className="mt-8 lg:mt-12 self-center lg:relative lg:left-[67%] w-fit">
-              <BtnLoader text="Submit" btnLoader={btnLoader} onClick={handleSubmit} />
-
+              <BtnLoader
+                text="Submit"
+                btnLoader={btnLoader}
+                onClick={handleSubmit}
+              />
             </div>
           )}
         </div>

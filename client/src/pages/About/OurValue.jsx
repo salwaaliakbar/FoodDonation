@@ -6,7 +6,7 @@ function OurValue () {
     <section className=" my-20 md:pb-20 pb-10">
 
       {/* Section Heading */}
-      <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center">
+      <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center font-[Poppins]">
         The Core Values That Drive Our Mission
       </h2>
 
@@ -21,7 +21,7 @@ function OurValue () {
         {/* Value Card 1 */}
         <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
           <Shield className="h-16 w-16 text-green-600 mb-4" />
-          <h3 className="text-xl font-bold text-gray-800">Food as a Right</h3>
+          <h3 className="text-xl font-bold text-gray-800 pb-4">Food as a Right</h3>
           <p className="text-gray-600">
             We believe access to nutritious food is a fundamental human right, not a privilege.
           </p>
@@ -30,7 +30,7 @@ function OurValue () {
         {/* Value Card 2 */}
         <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
           <Leaf className="h-16 w-16 text-green-600 mb-4" />
-          <h3 className="text-xl font-bold text-gray-800">Environmental Stewardship</h3>
+          <h3 className="text-xl font-bold text-gray-800 pb-4">Environmental Stewardship</h3>
           <p className="text-gray-600">
             Food systems must work in harmony with nature for long-term sustainability.
           </p>
@@ -39,7 +39,7 @@ function OurValue () {
         {/* Value Card 3 */}
         <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
           <Users className="h-16 w-16 text-green-600 mb-4" />
-          <h3 className="text-xl font-bold text-gray-800">Community-Led Solutions</h3>
+          <h3 className="text-xl font-bold text-gray-800 pb-4">Community-Led Solutions</h3>
           <p className="text-gray-600">
             Local communities know their needs best and should lead in developing solutions.
           </p>
@@ -48,7 +48,7 @@ function OurValue () {
         {/* Value Card 4 */}
         <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
           <Globe className="h-16 w-16 text-green-600 mb-4" />
-          <h3 className="text-xl font-bold text-gray-800">Global Solidarity</h3>
+          <h3 className="text-xl font-bold text-gray-800 pb-4">Global Solidarity</h3>
           <p className="text-gray-600">
             Food security challenges require collaborative action across borders.
           </p>

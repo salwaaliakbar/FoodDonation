@@ -25,7 +25,7 @@ function Statistics() {
     <div className="pt-16 text-center pb-36">
       {/* Header */}
       <div className="mb-20 mx-2">
-        <h2 className="text-4xl font-bold text-gray-800 mb-6 font-poppins">
+        <h2 className="text-4xl font-bold text-gray-800 mb-6 font-[Poppins]">
           Food Secure Impact at a Glance
         </h2>
         <p className="text-lg mb-6 text-gray-600">

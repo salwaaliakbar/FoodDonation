@@ -1,5 +1,5 @@
+import Header from "../../components/Header";
 import { ACTIVE, GRANTED, EXPIRED } from "../../constants/constants"
-import Header from "../../Components/Header";
 import ActiveMealsSection from "./DonorActiveMealsSection";
 
 function DonationHistory() {
@@ -11,9 +11,6 @@ function DonationHistory() {
           flex-1 flex flex-col transition-all duration-300 ease-in-out 
         `}
       >
-        {/* Top Header */}
-        <Header />
-
         {/* Donation sections */}
         <div className="flex-1 overflow-y-auto px-4 py-4 mt-18 md:mb-8">
           {/* Active Meals */}
