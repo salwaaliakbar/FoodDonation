@@ -31,7 +31,6 @@ function DonorGeneralFeed() {
             headers: {
               "Content-Type": "application/json",
             },
-            credentials: "include",
           }
         );
         if (!data.success) {
@@ -41,7 +40,7 @@ function DonorGeneralFeed() {
 
         return Array.isArray(data.campaigns) ? data.campaigns : [];
       } catch (err) {
-        console.error("Error fetching Feed Campaigns:", err);
+        alert("Error fetching Feed Campaigns:", err);
         return [];
       }
     }

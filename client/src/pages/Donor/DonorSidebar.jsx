@@ -4,14 +4,11 @@ import { useData } from "../../context/UserContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
 import { useChange } from "../../Context/ChangeContext";
-import { useLocation } from "react-router-dom";
 import { EllipsisVertical, X } from "lucide-react";
 
 const DonorSidebar = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const location = useLocation();
-  const isGreenBg = location.pathname === "/donorDashBoard/createCampaign";
 
   // Global state context
   const { setUser } = useData();
@@ -59,21 +56,15 @@ const DonorSidebar = () => {
     <>
       {/* vertical toggle (Mobile only) */}
       <button
-        className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300"
+        className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300 text-green-800 w-10 h-10"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
-        {isSidebarOpen ? (
-          <X className="text-green-800 w-6 h-6" />
-        ) : (
-          <EllipsisVertical
-            className={`w-6 h-6 ${isGreenBg ? "text-white" : "text-green-800"}`}
-          />
-        )}
+        {isSidebarOpen ? <X /> : <EllipsisVertical />}
       </button>
 
       {/* Sidebar container */}
       <div
-        className={`fixed top-0 left-0 h-screen w-[55%] sm:w-[50%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg z-40 transform ${
+        className={`fixed top-0 left-0 h-screen w-[60%] sm:w-[45%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg z-40 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0`}
       >

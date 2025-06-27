@@ -30,7 +30,7 @@ router.put(
 );
 
 // route for getting stats summary
-router.get("/api/statSummary/:id", donorController.statsSummary);
+router.get("/api/statSummary/",authMiddleware, donorController.statsSummary);
 
 // route for delete a campaign
 router.delete("/api/deleteCampaign/:id", authMiddleware, donorController.deleteCampaign)

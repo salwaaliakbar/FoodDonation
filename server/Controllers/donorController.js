@@ -269,12 +269,9 @@ async function updateStatus(req, res) {
       a_person: awardPersons,
     };
     campaign.awarded.push(awardedEntry);
-    console.log('before sorting', campaign.awarded)
 
     // Sort by award date descending (latest first)
     campaign.awarded.sort((a, b) => new Date(b.a_date) - new Date(a.a_date));
-    console.log('after sorting', campaign.awarded)
-
 
     // Update remaining and status
     campaign.remaining = remaining - awardPersons;
@@ -314,7 +311,7 @@ async function updateStatus(req, res) {
 
 // get meal summary
 async function statsSummary(req, res) {
-  const { id } = req.params;
+  const id = req.user?.id;
   if (!id) {
     return res
       .status(500)

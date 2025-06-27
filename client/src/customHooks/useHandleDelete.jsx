@@ -1,4 +1,4 @@
-import { useChange } from "../context/ChangeContext";
+import { useChange } from "../Context/ChangeContext";
 import { useSecureFetch } from "./useSecureFetch";
 
 export function useHandleDelete() {

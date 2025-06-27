@@ -46,16 +46,10 @@ const SideBar = () => {
     <div>
       {/* vertical toggle (Mobile only) */}
       <button
-        className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300"
+        className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300 text-green-800 w-10 h-10"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
-        {isSidebarOpen ? (
-          <X className="text-green-800 w-6 h-6" />
-        ) : (
-          <EllipsisVertical
-            className={`w-6 h-6 ${isGreenBg ? "text-white" : "text-green-800"}`}
-          />
-        )}
+        {isSidebarOpen ? <X /> : <EllipsisVertical />}
       </button>
 
       {/* Sidebar container */}
@@ -80,9 +74,17 @@ const SideBar = () => {
           <ul className="space-y-2">
             {[
               { path: "/recipent", icon: "fa-home", label: "Dashboard" },
-              { path: "generalfeed", icon: "fa-newspaper-o", label: "General Feed" },
+              {
+                path: "generalfeed",
+                icon: "fa-newspaper-o",
+                label: "General Feed",
+              },
               { path: "active", icon: "fa-cutlery", label: "Active Meals" },
-              { path: "granted", icon: "fa-check-circle", label: "Granted Meals" },
+              {
+                path: "granted",
+                icon: "fa-check-circle",
+                label: "Granted Meals",
+              },
               { path: "profile", icon: "fa-user-circle", label: "My Profile" },
             ].map(({ path, icon, label }) => (
               <li key={path}>

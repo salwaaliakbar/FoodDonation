@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useData } from "../../context/UserContext";
+import { useSecureFetch } from "../../customHooks/useSecureFetch";
+
 import {
   ResponsiveContainer,
   PieChart,
@@ -25,6 +27,7 @@ export default function StatsSection() {
   } = useContext(ChangeContext);
 
   const { user } = useData();
+  const secureFetch = useSecureFetch()
 
   const [statsSummary, setStatsSummary] = useState({
     totalDonations: 0,
@@ -35,8 +38,8 @@ export default function StatsSection() {
   useEffect(() => {
     async function getStats() {
       try {
-        const response = await fetch(
-          `http://localhost:5000/api/statSummary/${user._id}`,
+        const data = await secureFetch(
+          "http://localhost:5000/api/statSummary",
           {
             method: "GET",
             headers: {
@@ -44,8 +47,6 @@ export default function StatsSection() {
             },
           }
         );
-
-        const data = await response.json();
 
         if (data.success) {
           const total =
@@ -65,7 +66,7 @@ export default function StatsSection() {
           alert(data.error || "Failed to fetch stats summary.")
         }
       } catch (err) {
-        console.error("Error while fetching stats summary!", err);
+        alert("Error while fetching stats summary!", err);
       }
     }
 

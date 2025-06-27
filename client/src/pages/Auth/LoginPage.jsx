@@ -36,7 +36,7 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
-                credentials: "include", // To send cookies if needed
+                credentials: "include",
               });
 
               const data = await response.json();

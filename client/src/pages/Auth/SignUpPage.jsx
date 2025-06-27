@@ -46,7 +46,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
-                credentials: "include", // Send cookies
+                credentials: "include",
               });
 
               const data = await response.json();

@@ -34,7 +34,6 @@ function CreateCampaign() {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values),
-                credentials: "include",
               }
             );
 

@@ -44,9 +44,13 @@ function MealAcceptModel({
             headers: { "Content-Type": "application/json" },
           }
         );
-        setSelectedUser(response.UserData);
+        if (response.success) {
+          setSelectedUser(response.UserData);
+        } else {
+          alert(response.error || "Failed to update status.");
+        }
       } catch (err) {
-        console.error("Error fetching recipient data:", err);
+        alert("Error fetching recipient data:", err);
       }
     }
 
@@ -108,10 +112,10 @@ function MealAcceptModel({
         selectedUserData.selectedUserStatus = GRANTED;
         setShowModal(false);
       } else {
-        console.log(data.error || "Failed to update status.");
+        alert(data.error || "Failed to update status.");
       }
     } catch (err) {
-      console.error("Error updating status:", err);
+      alert("Error updating status:", err);
     }
   }
 
