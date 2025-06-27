@@ -2,6 +2,7 @@ import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
 import { useEffect, useState } from "react";
 import BtnLoader from "../../Components/Common/btnLoader"; // ✅ Make sure path is correct
+import * as Yup from "yup";
 
 function ForgotPassword({ setIsForgot }) {
   const [submitted, setSubmitted] = useState(false);
@@ -56,8 +57,16 @@ function ForgotPassword({ setIsForgot }) {
 
       {/* Modal */}
       <div className="fixed md:inset-32 inset-6 flex justify-center items-start pt-8 z-20">
-        <Formik initialValues={{ email: "" }} onSubmit={handleSubmit}>
-          {({ isSubmitting }) => (
+        <Formik
+          initialValues={{ email: "" }}
+          validationSchema={Yup.object().shape({
+            email: Yup.string()
+              .email("Invalid Email")
+              .required("Email is Required"),
+          })}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting, errors, touched }) => (
             <Form className="bg-white shadow-2xl rounded-2xl md:p-10 px-5 py-10 w-92 z-20 relative">
               {/* Close button */}
               <button
@@ -89,6 +98,9 @@ function ForgotPassword({ setIsForgot }) {
                       className="block p-3 pl-10 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-600"
                       required
                     />
+                    {errors.email && touched.email && (
+                      <div className="text-red-600 text-sm">{errors.email}</div>
+                    )}
                   </div>
 
                   {/* Submit Button with Spinner */}

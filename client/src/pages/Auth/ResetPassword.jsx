@@ -4,6 +4,8 @@ import "font-awesome/css/font-awesome.min.css";
 import ResetSchema from "../../yupschemas/ResetSchema";
 import React from "react";
 import BtnLoader from "../../Components/Common/btnLoader";
+import * as Yup from "yup";
+
 function ResetPassword() {
   const { id, token } = useParams(); // Get ID and token from URL
   const navigate = useNavigate();
@@ -20,8 +22,9 @@ function ResetPassword() {
         <Formik
           initialValues={{
             password: "",
-            confrimPassword: "", // Typo retained as requested
+            confrimPassword: "",
           }}
+          
           onSubmit={async (values, { setSubmitting }) => {
             try {
               const response = await fetch(

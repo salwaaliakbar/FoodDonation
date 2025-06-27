@@ -12,7 +12,7 @@ const ResetSchema = Yup.object().shape({
     .required("Password is required"),
 
   confrimPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .oneOf([Yup.ref("password"), null], "Confrim password must match with password")
     .required("Confirm password is required"),
 });
 

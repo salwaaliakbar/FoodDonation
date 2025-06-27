@@ -332,6 +332,14 @@ async function forgotPassword(req, res) {
 // reset password handler
 async function resetPassword(req, res) {
   const { id, token } = req.params;
+  
+  if (!id || !token) {
+    return res.status(400).json({
+      error: 'Invalid or missing reset link parameters',
+      success: false,
+    });
+  }
+
   const { password, confrimPassword } = req.body;
 
   if (!password || !confrimPassword) {
