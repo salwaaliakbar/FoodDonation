@@ -9,7 +9,7 @@ function ContactUs() {
   return (
     <div className="font-[Montserrat]">
       <Navbar />
-      <div >
+      <div>
         {/* Top hero section with heading and description */}
         <div className="bg-green-800 pt-15 pb-12 md:pb-24">
           <div className="mx-auto px-4 md:px-6 text-center">

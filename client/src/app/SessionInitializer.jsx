@@ -13,10 +13,7 @@ function SessionInitializer() {
     async function restoreSession() {
       try {
         const data = await secureFetch("http://localhost:5000/api/me", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          method: "GET",
           credentials: "include", // include cookies for auth
         });
 

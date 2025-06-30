@@ -31,6 +31,9 @@ const DonorSidebar = () => {
     try {
       await fetch("http://localhost:5000/api/logout", {
         method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
         credentials: "include",
       });
 

@@ -217,8 +217,6 @@ async function verifyuser(req, res) {
         .json({ success: false, error: "User not found or invalid token!" });
     }
 
-    const users = await userModel.findOne({ _id: user._id });
-
     const activeMeals = await campaignModel
       .find({ createdBy: user._id, status: "Active" })
       .populate("createdBy", "fullname")
@@ -249,7 +247,7 @@ async function verifyuser(req, res) {
       .sort({ createdAt: -1 })
       .exec();
 
-    const { password: _, ...userDetails } = users._doc;
+    const { password: _, ...userDetails } = user._doc;
 
     res.status(200).json({
       message: "Data fetch successfully!",
@@ -401,6 +399,10 @@ async function refreshToken(req, res) {
 
   try {
     const decoded = jwt.verify(refreshToken, REFRESH_SECRET_KEY);
+
+    if(!decoded) {
+      return res.status(400).json({error: "Invalid Token or Expired Token!", success: false})
+    }
 
     const user = await userModel.findById(decoded.id);
     if (!user) {

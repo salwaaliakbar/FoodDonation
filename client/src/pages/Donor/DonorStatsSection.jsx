@@ -43,7 +43,7 @@ export default function StatsSection() {
           {
             method: "GET",
             headers: {
-              "Content-Type": "application/json",
+              "Accept": "application/json",
             },
           }
         );

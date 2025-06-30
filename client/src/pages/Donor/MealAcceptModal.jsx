@@ -41,7 +41,7 @@ function MealAcceptModel({
           `http://localhost:5000/api/getUserData/${selectedUserData.selectedUserId}`,
           {
             method: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { Accept: "application/json" },
           }
         );
         if (response.success) {
@@ -71,7 +71,10 @@ function MealAcceptModel({
         `http://localhost:5000/api/updateStatus/${mealId}/${selectedUser._id}/${selectedUser.fullname}/${awardCount}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
         }
       );
 

@@ -8,23 +8,23 @@ const authMiddleware = async (req, res, next) => {
     const token = req.cookies.authToken;
 
     if (!token) {
-        return res.status(401).json({ message: "No token, authorization denied",  code: "TOKEN_MISSING"  });
+        return res.status(401).json({ error: "No token, authorization denied",  code: "TOKEN_MISSING", success: false  });
     }
 
     try {
         const isDecoded = jwt.verify(token, SECRET_KEY); // Verify the token
         if (!isDecoded) {
-            return res.status(401).json({ message: "Invalid token", code: "INVALID_TOKEN" });
+            return res.status(401).json({ error: "Invalid token", code: "INVALID_TOKEN", success: false });
         }
         const userData = await userModel.findOne({ email: isDecoded.email });
         if (!userData) {
-            return res.status(401).json({ message: "User not found", code: "USER_MISSING" });
+            return res.status(401).json({ error: "User not found", code: "USER_MISSING", success: false });
         }
         req.user = userData; 
         next(); 
     } catch (err) {
         console.error("Error verifying token:", err);
-        return res.status(401).json({ message: "Invalid or expired token", code: "TOKEN_EXPIRE" });
+        return res.status(401).json({ error: "Invalid or expired token", code: "TOKEN_EXPIRE", success: false });
     }
 }
 

@@ -54,7 +54,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
           `http://localhost:5000/api/getHistoy?userId=${user._id}&status=${status}`,
           {
             method: "GET",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Accept": "application/json" },
           }
         );
         if (!data.success) {

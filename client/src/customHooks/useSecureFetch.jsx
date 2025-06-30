@@ -8,7 +8,7 @@ export function useSecureFetch() {
     try {
       const res = await fetch(url, {
         ...options,
-        credentials: "include",
+        credentials: "include", 
       });
 
       const contentType = res.headers.get("content-type");
@@ -21,41 +21,42 @@ export function useSecureFetch() {
         throw new Error(text);
       }
 
-      // Handle rate limit errors
+      // Rate limit handling
       if (res.status === 429) {
-        toast.error(
-          data.message || "Too many requests. Please try again later."
-        );
-        throw new Error(data.message);
+        toast.error(data.error || "Too many requests. Please try again later.");
+        throw new Error(data.error);
       }
 
-      // Handle token expiration
+      // Token expired or missing, attempt refresh
       if (
         res.status === 401 &&
         (data.code === "TOKEN_MISSING" || data.code === "TOKEN_EXPIRE") &&
         retry
       ) {
-        const refreshRes = await fetch("http://localhost:5000/api/refresh", {
-          method: "POST",
-          credentials: "include",
-        });
+        let refreshData = {};
 
-        const refreshData = await refreshRes.json();
+        try {
+          const refreshRes = await fetch("http://localhost:5000/api/refresh", {
+            method: "GET",
+            credentials: "include",
+          });
+
+          // Silent ignore if no refresh token (first visit or expired session)
+          if (refreshRes.status === 401) return;
+
+          refreshData = await refreshRes.json();
+        } catch (err) {
+          console.warn("Silent refresh error:", err);
+          return;
+        }
 
         if (refreshData.success) {
-          return secureFetch(url, options, false);
+          return secureFetch(url, options, false); // retry once
         } else {
           const currentPath = window.location.pathname;
-          const publicPaths = [
-            "/",
-            "/about",
-            "/services",
-            "/contact",
-            "/ResetPassword",
-          ];
+          const publicPaths = ["/", "/about", "/services", "/contact", "/ResetPassword"];
           const isOnPublicPage =
-            publicPaths.includes(currentPath) ||
-            currentPath.startsWith("/ResetPassword");
+            publicPaths.includes(currentPath) || currentPath.startsWith("/ResetPassword");
 
           const privatePaths = [
             "/recipent",
@@ -65,8 +66,7 @@ export function useSecureFetch() {
             "/active",
           ];
           const isOnPrivatePage =
-            currentPath.startsWith("/donorDashBoard") ||
-            privatePaths.includes(currentPath);
+            currentPath.startsWith("/donorDashBoard") || privatePaths.includes(currentPath);
 
           if (isOnPrivatePage) {
             toast.error("Session expired. Login again...", {
@@ -74,28 +74,39 @@ export function useSecureFetch() {
               autoClose: 3000,
             });
           }
-        }
 
-        return;
+          return;
+        }
       }
 
-      // Generic error handling
+      // Generic error handler
       if (!res.ok) {
-        console.log(res);
-        toast.error(data?.message || "Something went wrong.");
-        throw new Error(data?.message || "Request failed.");
+        toast.error(data?.error || "Something went wrong.");
+        throw new Error(data?.error || "Request failed.");
       }
 
       return data;
     } catch (err) {
-      console.error("secureFetch error:", err);
-      const msg = err.message.toLowerCase();
-      if (
-        !msg.includes("too many requests") &&
-        !msg.includes("session expired")
-      ) {
+      const msg = (err?.message || "").toLowerCase();
+
+      const knownErrors = [
+        "too many requests",
+        "expired token",
+        "no token",
+        "request failed",
+        "unauthorized",
+      ];
+
+      const shouldToast = !knownErrors.some((e) => msg.includes(e));
+      if (shouldToast) {
         toast.error("Something went wrong. Please try again later.");
       }
+
+      // Only log unknown errors
+      if (!msg.includes("unauthorized") && !msg.includes("token")) {
+        console.error("secureFetch error:", err);
+      }
+
       throw err;
     }
   };

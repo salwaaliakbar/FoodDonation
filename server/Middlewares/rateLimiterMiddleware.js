@@ -6,7 +6,7 @@ const feedLimiter = rateLimit({
   handler: (req, res) => {
     res.status(429).json({
       success: false,
-      message: "You're sending too many requests. Please wait a moment and try again.feed",
+      error: "You're sending too many requests.",
     });
   },
 });
@@ -18,7 +18,7 @@ const recipientLimiter = rateLimit({
   handler: (req, res) => {
     res.status(429).json({
       success: false,
-      message: "You're sending too many requests. Please wait a moment and try again.recipient",
+      error: "You're sending too many requests.",
     });
   },
 });
@@ -29,7 +29,7 @@ const globalLimiter = rateLimit({
   handler: (req, res) => {
     res.status(429).json({
       success: false,
-      message: "You're sending too many requests. Please wait a moment and try again.global",
+      error: "You're sending too many requests.",
     });
   },
 });

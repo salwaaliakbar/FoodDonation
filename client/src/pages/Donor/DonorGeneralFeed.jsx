@@ -29,7 +29,7 @@ function DonorGeneralFeed() {
           {
             method: "GET",
             headers: {
-              "Content-Type": "application/json",
+              "Accept": "application/json",
             },
           }
         );
@@ -40,7 +40,7 @@ function DonorGeneralFeed() {
 
         return Array.isArray(data.campaigns) ? data.campaigns : [];
       } catch (err) {
-        alert("Error fetching Feed Campaigns:", err);
+        alert("Error fetching general feed", err);
         return [];
       }
     }
@@ -95,7 +95,7 @@ function DonorGeneralFeed() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+            <div className="flex flex-col items-center justify-center h-64 text-gray-500 text-center">
               <p className="text-lg font-semibold">No meals to display</p>
               <p className="text-sm">
                 Once meals are added, they’ll appear here in your feed.
