@@ -82,7 +82,7 @@ const MealPostCard = ({ meal, handleDelete }) => {
             </div>
           </div>
           <div>
-            {meal.createdBy?._id === user?._id ? (
+            {meal.createdBy?._id === user._id ? (
               <div
                 className="bg-red-100 p-2 rounded-full shadow-md hover:bg-red-200 transition-colors"
                 onClick={(e) => {

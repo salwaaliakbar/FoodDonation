@@ -46,7 +46,6 @@ const DonorSidebar = () => {
 
   // Logout API call with side effects
   const confirmLogout = async () => {
-
     try {
       const res = await fetch("http://localhost:5000/api/logout", {
         method: "GET",
@@ -65,17 +64,7 @@ const DonorSidebar = () => {
         message: "Logged out successfully!",
         error: "",
       });
-      
-      // Reset state after successful logout
-      setUser(null);
-      setActiveMeals([]);
-      setGrantedMeals([]);
-      setBlacklistMeals([]);
-      setIsChangeActive(true);
-      setIsChangeGranted(true);
-      setIsChangeExpired(true);
-      setIsLoggedOut(true);
-      setLoading(false);
+
       setConfirmation({ show: false });
     } catch (err) {
       console.error("Logout failed:", err);
@@ -107,7 +96,19 @@ const DonorSidebar = () => {
           error={status.error}
           onClose={() => {
             setStatus({ ...status, show: false });
-            if (status.success) navigate("/");
+            if (status.success) {
+              // Reset state after successful logout
+              setUser(null);
+              setActiveMeals([]);
+              setGrantedMeals([]);
+              setBlacklistMeals([]);
+              setIsChangeActive(true);
+              setIsChangeGranted(true);
+              setIsChangeExpired(true);
+              setIsLoggedOut(true);
+              setLoading(false);
+              navigate("/");
+            }
           }}
         />
       )}
@@ -187,7 +188,7 @@ const DonorSidebar = () => {
         {/* Logout Button */}
         <div className="px-4 py-4">
           <button
-            className="block w-full text-center px-4 py-2 bg-green-800 text-white font-bold text-lg rounded-lg transition-colors hover:bg-green-600"
+            className="block w-full text-center px-4 py-2 bg-green-800 text-white font-bold text-lg rounded-lg transition-colors hover:bg-green-600 cursor-pointer"
             onClick={handleLogout}
           >
             Logout
