@@ -62,7 +62,7 @@ function ForgotPassword({ setIsForgot }) {
         show: true,
         success: false,
         message: "Error while sent reset link.",
-        error: err || "An error occurred",
+        error: err.message || String(err) || "An error occurred",
       });
       setForgetBox(false);
     } finally {

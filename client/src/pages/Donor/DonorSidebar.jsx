@@ -83,7 +83,7 @@ const DonorSidebar = () => {
         show: true,
         success: false,
         message: "Logout failed",
-        error: err.message,
+        error: err.message || String(err),
       });
     }
   };

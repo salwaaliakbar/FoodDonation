@@ -104,7 +104,7 @@ function ResetPassword() {
                   show: true,
                   success: false,
                   message: "Error during reset.",
-                  error: err || "An error occurred",
+                  error: err.message || String(err) || "An error occurred",
                 });
                 setResetBox(false);
               } finally {

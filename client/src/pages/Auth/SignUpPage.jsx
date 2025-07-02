@@ -113,7 +113,7 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                   show: true,
                   success: false,
                   message: "Error during registration.",
-                  error: err || "An error occurred",
+                  error: err.message || String(err) || "An error occurred",
                 });
                 setSignupBox(false);
               } finally {

@@ -101,7 +101,7 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                   show: true,
                   success: false,
                   message: "Error during login.",
-                  error: err || "An error occurred",
+                  error: err.message || String(err) || "An error occurred",
                 });
                 setLoginBox(false);
               } finally {

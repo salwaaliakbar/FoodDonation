@@ -93,7 +93,7 @@ function CreateCampaign() {
                 show: true,
                 success: false,
                 message: "Error in adding a new Campaign.",
-                error: error || "An error occurred",
+                error: error.message || String(error) || "An error occurred",
               });
             }, 100);
           }

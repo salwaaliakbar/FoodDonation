@@ -79,7 +79,7 @@ const Myprofile = () => {
           show: true,
           success: false,
           message: "Error updating profile.",
-          error: err || "An error occurred",
+          error: err.message || String(err) || "An error occurred",
         });
       }, 100);
     }
