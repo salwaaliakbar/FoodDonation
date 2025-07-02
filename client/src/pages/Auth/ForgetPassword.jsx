@@ -42,22 +42,22 @@ function ForgotPassword({ setIsForgot }) {
           show: true,
           success: true,
           message: "Password reset link has been sent.",
-        });
-        console.log("Password reset link has been sent!");
+        })
         setSubmitted(true);
         setForgetBox(false);
       } else {
+        await new Promise((res) => setTimeout(res, 1000));
+
         setStatus({
           show: true,
           success: false,
           message: data.error || "Failed to send reset link.",
         });
-        console.log(data.error || "Failed to send reset link.");
-
         setForgetBox(false);
       }
     } catch (err) {
-      console.error("Error while sent reset link:", err);
+      await new Promise((res) => setTimeout(res, 1000));
+      
       setStatus({
         show: true,
         success: false,

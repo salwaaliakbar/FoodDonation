@@ -72,7 +72,6 @@ function ResetPassword() {
                     success: true,
                     message: "Password reset successfull.",
                   });
-                  console.log("Password reset successful. You can now log in.");
                   setResetBox(false);
                 } else {
                   await new Promise((res) => setTimeout(res, 1000));
@@ -88,9 +87,6 @@ function ResetPassword() {
                         data.error ||
                         "Link has expired. Plz request a new one.",
                     });
-                    console.log(
-                      "This link has expired. Please request a new one."
-                    );
                     setResetBox(false);
                     return;
                   }
@@ -99,13 +95,11 @@ function ResetPassword() {
                     success: false,
                     message: data.error || "Invalid or expired token.",
                   });
-                  console.log(data.error || "Invalid or expired token.");
                 }
               } catch (error) {
                 await new Promise((res) => setTimeout(res, 1000));
                 setSubmitting(false);
 
-                console.log("Error during reset. Try again later.");
                 setStatus({
                   show: true,
                   success: false,

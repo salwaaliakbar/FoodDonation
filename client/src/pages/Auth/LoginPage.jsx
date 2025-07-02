@@ -40,7 +40,6 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
             error={status.error}
             onClose={() => {
               setStatus({ ...status, show: false });
-              console.log(status);
               if (status.success) {
                 // Redirect user based on their role
                 if (user.role === "donor") {
@@ -84,7 +83,6 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                     success: true,
                     message: "Login Successfull.",
                   });
-                  console.log("Login successful!");
                   setLoginBox(false);
                   setUser(data.userData); // Store user in context
                 } else {
@@ -96,12 +94,9 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
                     message: data.error || "Failed to login.",
                   });
                   setLoginBox(false);
-                  console.log(data.error || "Failed to login."); // Show error from server
                 }
               } catch (err) {
                 await new Promise((res) => setTimeout(res, 1000));
-
-                console.error("Error during login:", err);
                 setStatus({
                   show: true,
                   success: false,

@@ -59,6 +59,13 @@ const DonorSidebar = () => {
         throw new Error(data?.error || "Logout failed");
       }
 
+      setStatus({
+        show: true,
+        success: true,
+        message: "Logged out successfully!",
+        error: "",
+      });
+      
       // Reset state after successful logout
       setUser(null);
       setActiveMeals([]);
@@ -69,13 +76,6 @@ const DonorSidebar = () => {
       setIsChangeExpired(true);
       setIsLoggedOut(true);
       setLoading(false);
-
-      setStatus({
-        show: true,
-        success: true,
-        message: "Logged out successfully!",
-        error: "",
-      });
       setConfirmation({ show: false });
     } catch (err) {
       console.error("Logout failed:", err);

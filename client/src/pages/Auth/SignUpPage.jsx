@@ -94,7 +94,6 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                     success: true,
                     message: "Registration Successfull.",
                   });
-                  console.log("Registration Successful");
                   setUser(data.userData);
                   setSignupBox(false);
                 } else {
@@ -106,12 +105,10 @@ function SignUpPage({ setIsLogin, setIsSignup }) {
                     message: data.error || "Failed to registration.",
                   });
                   setSignupBox(false);
-                  console.log(data.error || "Failed to signup."); // Show error from server
                 }
               } catch (err) {
                 await new Promise((res) => setTimeout(res, 1000));
 
-                console.error("Error during signup:", err);
                 setStatus({
                   show: true,
                   success: false,
