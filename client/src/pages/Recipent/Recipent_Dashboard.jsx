@@ -15,7 +15,7 @@ function Recipent_Dashboard() {
     async function fetchGrantedMeals() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/grantedMeals?userId=${user._id}`,
+          `http://localhost:5000/api/grantedMeals?userId=${user?._id}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -33,7 +33,7 @@ function Recipent_Dashboard() {
     async function fetchActiveMeals() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/activeFeed?userId=${user._id}`,
+          `http://localhost:5000/api/activeFeed?userId=${user?._id}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -51,7 +51,7 @@ function Recipent_Dashboard() {
     async function fetchMealsStatistics() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/mealStatistics?userId=${user._id}`,
+          `http://localhost:5000/api/mealStatistics?userId=${user?._id}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -90,7 +90,7 @@ function Recipent_Dashboard() {
     };
 
     fetchData();
-  }, [user._id]);
+  }, [user?._id]);
 
   return (
     <div className="">

@@ -5,6 +5,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useData } from "../../context/UserContext";
 import { useChange } from "../../Context/ChangeContext";
 import { EllipsisVertical, X } from "lucide-react";
+import ConfirmationDialog from "../../components/Common/ConfirmationDialog";
+import StatusDialog from "../../components/Common/StatusDialog";
 
 const SideBar = () => {
   const navigate = useNavigate();
@@ -20,31 +22,91 @@ const SideBar = () => {
     setLoading,
   } = useChange();
 
-  const handleLogout = async () => {
-    const confirmed = window.confirm("Are you sure you want to logout?");
-    if (!confirmed) return alert("Logout cancelled");
+  const [confirmation, setConfirmation] = useState({
+    show: false,
+    message: "",
+  });
+
+  const [status, setStatus] = useState({
+    show: false,
+    success: true,
+    message: "",
+    error: "",
+  });
+
+  // Show confirmation popup
+  const handleLogout = () => {
+    setConfirmation({
+      show: true,
+      message: "Are you sure you want to logout?",
+    });
+  };
+
+  // Confirmed logout logic
+  const confirmLogout = async () => {
+    setConfirmation({ show: false });
 
     try {
-      await fetch("http://localhost:5000/api/logout", {
+      const res = await fetch("http://localhost:5000/api/logout", {
         method: "GET",
         credentials: "include",
+        headers: { Accept: "application/json" },
       });
 
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data?.error || "Logout failed");
+      }
+
+      // Reset states
       setUser(null);
       setIsChangeActive(true);
       setIsChangeGranted(true);
       setIsChangeExpired(true);
       setLoading(false);
-      navigate("/");
+
+      setStatus({
+        show: true,
+        success: true,
+        message: "Logged out successfully!",
+        error: "",
+      });
     } catch (err) {
       console.error("Logout failed:", err);
-      alert("Something went wrong during logout.");
+      setStatus({
+        show: true,
+        success: false,
+        message: "Logout failed",
+        error: err.message,
+      });
     }
   };
 
   return (
-    <div>
-      {/* vertical toggle (Mobile only) */}
+    <>
+      {/* Confirmation Dialog */}
+      {confirmation.show && (
+        <ConfirmationDialog
+          message={confirmation.message}
+          yes={confirmLogout}
+          no={() => setConfirmation({ show: false })}
+        />
+      )}
+
+      {/* Status Dialog */}
+      {status.show && (
+        <StatusDialog
+          message={status.message}
+          success={status.success}
+          error={status.error}
+          onClose={() => {
+            setStatus({ ...status, show: false });
+            if (status.success) navigate("/");
+          }}
+        />
+      )}
+
+      {/* Sidebar Toggle (Mobile Only) */}
       <button
         className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300 text-green-800 w-10 h-10"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -52,13 +114,13 @@ const SideBar = () => {
         {isSidebarOpen ? <X /> : <EllipsisVertical />}
       </button>
 
-      {/* Sidebar container */}
+      {/* Sidebar Container */}
       <div
         className={`fixed top-0 left-0 h-screen w-[60%] sm:w-[45%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg z-40 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0`}
       >
-        {/* Logo Section */}
+        {/* Logo */}
         <div className="h-20 border-b-[1.5px] border-b-green-700 flex items-center justify-center">
           <Link to="/recipent" onClick={() => setIsSidebarOpen(false)}>
             <img
@@ -69,29 +131,37 @@ const SideBar = () => {
           </Link>
         </div>
 
-        {/* Navigation Menu */}
+        {/* Navigation Links */}
         <nav className="flex-1 md:px-4 py-6 space-y-4 overflow-y-auto">
           <ul className="space-y-2">
             {[
               { path: "/recipent", icon: "fa-home", label: "Dashboard" },
               {
-                path: "generalfeed",
+                path: "/recipent/generalfeed",
                 icon: "fa-newspaper-o",
                 label: "General Feed",
               },
-              { path: "active", icon: "fa-cutlery", label: "Active Meals" },
               {
-                path: "granted",
+                path: "/recipent/active",
+                icon: "fa-cutlery",
+                label: "Active Meals",
+              },
+              {
+                path: "/recipent/granted",
                 icon: "fa-check-circle",
                 label: "Granted Meals",
               },
-              { path: "profile", icon: "fa-user-circle", label: "My Profile" },
+              {
+                path: "/recipent/profile",
+                icon: "fa-user-circle",
+                label: "My Profile",
+              },
             ].map(({ path, icon, label }) => (
               <li key={path}>
                 <Link to={path} onClick={() => setIsSidebarOpen(false)}>
                   <div
                     className={`flex items-center gap-2 mx-2 px-4 py-2 rounded-lg transition-colors ${
-                      currentPath === path ? "bg-green-800 text-white" : " "
+                      currentPath === path ? "bg-green-800 text-white" : ""
                     }`}
                   >
                     <i className={`fa ${icon} text-lg`}></i>
@@ -113,7 +183,7 @@ const SideBar = () => {
           </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

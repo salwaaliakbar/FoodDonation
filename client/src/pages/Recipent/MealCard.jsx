@@ -14,8 +14,8 @@ const MealCard = ({ meal }) => {
   // console.log("MealCard meal:", meal);
 
   const firstLetter = meal.createdBy?.fullname?.charAt(0).toUpperCase() || "U";
-  const applied = meal.applied.filter((app) => app.p_id._id === user._id);
-  const awarded = meal.awarded?.filter((app) => app.p_id === user._id) || [];
+  const applied = meal.applied.filter((app) => app.p_id._id === user?._id);
+  const awarded = meal.awarded?.filter((app) => app.p_id === user?._id) || [];
   // const applied = meal.applied.some(app => app.p_id._id === user._id) || meal.awarded.some(app => app.p_id === user._id);
 
   return (

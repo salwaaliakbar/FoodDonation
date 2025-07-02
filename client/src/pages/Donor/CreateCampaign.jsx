@@ -3,13 +3,29 @@ import CampaignSchema from "../../yupschemas/CampaignSchema";
 import { useSecureFetch } from "../../customHooks/useSecureFetch";
 import { useChange } from "../../Context/ChangeContext";
 import BtnLoader from "../../Components/Common/btnLoader";
+import StatusDialog from "../../components/Common/StatusDialog";
+import { useState } from "react";
 
 function CreateCampaign() {
   const { setActiveMeals } = useChange();
   const secureFetch = useSecureFetch();
+  const [status, setStatus] = useState({
+    show: false,
+    success: true,
+    message: "",
+    error: "",
+  });
 
   return (
     <>
+      {status.show && (
+        <StatusDialog
+          message={status.message}
+          success={status.success}
+          error={status.error}
+          onClose={() => setStatus({ ...status, show: false })}
+        />
+      )}
       <h1 className=" text-3xl font-bold text-green-800 text-center mt-28 font-[Poppins]">
         Create a Food Donation Campaign
       </h1>
@@ -32,7 +48,7 @@ function CreateCampaign() {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
-                  "Accept": "application/json"
+                  Accept: "application/json",
                 },
                 body: JSON.stringify(values),
               }
@@ -43,7 +59,12 @@ function CreateCampaign() {
               setSubmitting(false);
 
               setTimeout(() => {
-                alert("New campaign added successfully");
+                setStatus({
+                  show: true,
+                  success: true,
+                  message: "New campaign added successfully.",
+                });
+                console.log("New campaign added successfully");
                 setActiveMeals((prev) => [data.newCampaign, ...prev]);
 
                 // Scroll to top
@@ -55,7 +76,12 @@ function CreateCampaign() {
               await new Promise((res) => setTimeout(res, 1000));
               setSubmitting(false);
               setTimeout(() => {
-                alert(data.error || "Failed to add new campaign.");
+                setStatus({
+                  show: true,
+                  success: false,
+                  message: data.error || "Failed to add new campaign.",
+                });
+                console.log(data.error || "Failed to add new campaign")
               }, 100);
             }
           } catch (error) {
@@ -63,9 +89,12 @@ function CreateCampaign() {
 
             setTimeout(() => {
               console.error("Error during new campaign creation:", error);
-              alert(
-                "An error occurred during new campaign creation. Please try again."
-              );
+              setStatus({
+                show: true,
+                success: false,
+                message: "Error in adding a new Campaign.",
+                error: error || "An error occurred",
+              });
             }, 100);
           }
         }}

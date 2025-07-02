@@ -44,14 +44,18 @@ A full-stack MERN-based web application built to minimize food waste and ensure 
 ### Frontend
 - **React.js** (Hooks + Router v6)
 - **React Toastify** for notifications
-- **Custom CSS**
+- **Tailwind CSS + Custom CSS**
 - **Socket.IO client**
+- **Font Awesome & Lucide Icons**
+- **Formik + Yup**
+- **Recharts**
 
 ### Backend
 - **Node.js + Express.js**
 - **MongoDB + Mongoose**
 - **Socket.IO** for real-time messaging
-- **JWT** for authentication
+- **JWT Auth with Refresh Token Logic**
+- **Nodemailer (for emails)**
 - **Cron jobs** for chat cleanup
 
 ---
@@ -59,12 +63,12 @@ A full-stack MERN-based web application built to minimize food waste and ensure 
 ## Installation
 
 ### 1. Clone the repository
-
+  ```bash
   - git clone https://github.com/salwaaliakbar/FoodDonation.git
   - cd food-donation-system
 
 ### 2. Backend setup
-  - cd backend
+  - cd server
   - npm install
   - add .env file
     - MONGO_URI=ADD_YOUR_MONGOURL
@@ -72,9 +76,9 @@ A full-stack MERN-based web application built to minimize food waste and ensure 
     - REFRESH_SECRET=ADD_YOUR_REFRESH_TOKEN_SECRET
     - EMAIL_USER=ADD_YOUR_EMAIL
     - EMAIL_PASS=ADD_YOUR_EMAIL_PASSKEY
-  - npm run dev
+  - npm start
 
 ### 3. Frontnd setup
-  - cd frontend
+  - cd client
   - npm install
   - npm run dev

@@ -5,12 +5,25 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
 import { useChange } from "../../Context/ChangeContext";
 import { EllipsisVertical, X } from "lucide-react";
+import ConfirmationDialog from "../../components/Common/ConfirmationDialog";
+import StatusDialog from "../../components/Common/StatusDialog";
 
 const DonorSidebar = () => {
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Global state context
+  const [confirmation, setConfirmation] = useState({
+    show: false,
+    message: "",
+  });
+
+  const [status, setStatus] = useState({
+    show: false,
+    success: true,
+    message: "",
+    error: "",
+  });
+
   const { setUser } = useData();
   const {
     setIsChangeActive,
@@ -23,21 +36,30 @@ const DonorSidebar = () => {
     setIsLoggedOut,
   } = useChange();
 
-  // Handle logout logic
-  const handleLogout = async () => {
-    const confirmed = window.confirm("Are you sure you want to logout?");
-    if (!confirmed) return alert("Logout cancelled");
+  // Show confirmation popup
+  const handleLogout = () => {
+    setConfirmation({
+      show: true,
+      message: "Are you sure you want to logout?",
+    });
+  };
+
+  // Logout API call with side effects
+  const confirmLogout = async () => {
 
     try {
-      await fetch("http://localhost:5000/api/logout", {
+      const res = await fetch("http://localhost:5000/api/logout", {
         method: "GET",
-        headers: {
-          Accept: "application/json",
-        },
+        headers: { Accept: "application/json" },
         credentials: "include",
       });
 
-      // Reset states
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data?.error || "Logout failed");
+      }
+
+      // Reset state after successful logout
       setUser(null);
       setActiveMeals([]);
       setGrantedMeals([]);
@@ -48,16 +70,49 @@ const DonorSidebar = () => {
       setIsLoggedOut(true);
       setLoading(false);
 
-      navigate("/");
+      setStatus({
+        show: true,
+        success: true,
+        message: "Logged out successfully!",
+        error: "",
+      });
+      setConfirmation({ show: false });
     } catch (err) {
       console.error("Logout failed:", err);
-      alert("Something went wrong during logout.");
+      setStatus({
+        show: true,
+        success: false,
+        message: "Logout failed",
+        error: err.message,
+      });
     }
   };
 
   return (
     <>
-      {/* vertical toggle (Mobile only) */}
+      {/* Confirmation Dialog */}
+      {confirmation.show && (
+        <ConfirmationDialog
+          message={confirmation.message}
+          yes={confirmLogout}
+          no={() => setConfirmation({ ...confirmation, show: false })}
+        />
+      )}
+
+      {/* Status Dialog */}
+      {status.show && (
+        <StatusDialog
+          message={status.message}
+          success={status.success}
+          error={status.error}
+          onClose={() => {
+            setStatus({ ...status, show: false });
+            if (status.success) navigate("/");
+          }}
+        />
+      )}
+
+      {/* Sidebar toggle (Mobile only) */}
       <button
         className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300 text-green-800 w-10 h-10"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -65,13 +120,13 @@ const DonorSidebar = () => {
         {isSidebarOpen ? <X /> : <EllipsisVertical />}
       </button>
 
-      {/* Sidebar container */}
+      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-screen w-[60%] sm:w-[45%] md:w-[30%] lg:w-[20%] bg-white flex flex-col justify-between shadow-lg z-40 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 lg:translate-x-0`}
       >
-        {/* Logo area */}
+        {/* Logo */}
         <div className="h-20 border-b-[1.5px] border-b-green-800 flex items-center justify-center">
           <img
             className="md:w-80 md:h-19 w-50 h-15 rounded-full cursor-pointer"
@@ -80,7 +135,7 @@ const DonorSidebar = () => {
           />
         </div>
 
-        {/* Navigation links */}
+        {/* Navigation Links */}
         <nav className="flex-1 md:px-4 py-6 space-y-4 overflow-y-auto">
           <ul className="space-y-2">
             {[
@@ -129,7 +184,7 @@ const DonorSidebar = () => {
           </ul>
         </nav>
 
-        {/* Logout */}
+        {/* Logout Button */}
         <div className="px-4 py-4">
           <button
             className="block w-full text-center px-4 py-2 bg-green-800 text-white font-bold text-lg rounded-lg transition-colors hover:bg-green-600"
