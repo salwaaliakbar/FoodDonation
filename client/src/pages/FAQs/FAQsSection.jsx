@@ -82,7 +82,7 @@ const FAQSection = () => {
             <span>
               Contact our support team at{" "}
               <a href="mailto:support@fooddonation.com" className="underline font-medium">
-                support@fooddonation.com
+                contact@foodshare.org
               </a>
             </span>
           </div>

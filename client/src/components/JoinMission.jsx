@@ -4,7 +4,7 @@ import { HandHeart, CircleUser, Award } from "lucide-react";
 function JoinMission() {
   return (
     // Section with green background and white text
-    <div className="relative bg-green-700 text-white py-15">
+    <div className="relative bg-green-700 text-white py-15 overflow-hidden z-0">
       {/* Faded background image */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c')] bg-cover bg-center"></div>
