@@ -5,6 +5,7 @@ import ResetSchema from "../../yupschemas/ResetSchema";
 import React from "react";
 import BtnLoader from "../../Components/Common/btnLoader";
 import StatusDialog from "../../components/Common/StatusDialog";
+import { useState } from "react";
 
 function ResetPassword() {
   const { id, token } = useParams(); // Get ID and token from URL

@@ -89,12 +89,15 @@ const Myprofile = () => {
 
   return (
     <>
-      <StatusDialog
-        message={status.message}
-        success={status.success}
-        error={status.error}
-        onClose={() => setStatus({ ...status, show: false })}
-      />
+      {status.show && (
+        <StatusDialog
+          message={status.message}
+          success={status.success}
+          error={status.error}
+          onClose={() => setStatus({ ...status, show: false })}
+        />
+      )}
+
       <div className="flex flex-col lg:flex-row font-[Montserrat]">
         <div className="w-full lg:absolute lg:right-0 bg-gray-200">
           <div className="mt-25 w-[90%] lg:w-[85%] m-auto border border-gray-200 bg-white rounded-md p-6 md:mb-8">
