@@ -14,7 +14,7 @@ const ActiveMeals = () => {
     async function fetchMealFeedData() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/activeFeed?userId=${user._id}`,
+          `http://localhost:5000/api/activeFeed?userId=${user?._id}`,
           {
             method: "GET",
             headers: {

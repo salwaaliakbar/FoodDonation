@@ -58,13 +58,6 @@ const SideBar = () => {
         throw new Error(data?.error || "Logout failed");
       }
 
-      // Reset states
-      setUser(null);
-      setIsChangeActive(true);
-      setIsChangeGranted(true);
-      setIsChangeExpired(true);
-      setLoading(false);
-
       setStatus({
         show: true,
         success: true,
@@ -101,7 +94,15 @@ const SideBar = () => {
           error={status.error}
           onClose={() => {
             setStatus({ ...status, show: false });
-            if (status.success) navigate("/");
+            if (status.success) {
+              // Reset states
+              setUser(null);
+              setIsChangeActive(true);
+              setIsChangeGranted(true);
+              setIsChangeExpired(true);
+              setLoading(false);
+              navigate("/");
+            }
           }}
         />
       )}

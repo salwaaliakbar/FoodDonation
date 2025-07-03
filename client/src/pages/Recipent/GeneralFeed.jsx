@@ -19,7 +19,7 @@ const GeneralFeed = () => {
       try {
         const response = await fetch(
           `http://localhost:5000/api/generalFeed?userId=${
-            user._id
+            user?._id
           }&status=Active${
             locationSearch ? `&location=${locationSearch}` : ""
           }`,

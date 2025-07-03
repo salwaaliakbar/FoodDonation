@@ -99,7 +99,7 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
               </div>
               {/* Trash Icon Bottom-Right */}
               <div>
-                {meal.createdBy?._id === user._id && (
+                {meal.createdBy?._id === user?._id && (
                   <div
                     className=" bg-red-100 p-2 rounded-full shadow-md hover:bg-red-200 transition-colors mt-2"
                     onClick={(e) => {

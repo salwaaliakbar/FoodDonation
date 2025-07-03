@@ -37,7 +37,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
     };
     try {
       const response = await fetch(
-        `http://localhost:5000/api/applyCampaign?userId=${user._id}`,
+        `http://localhost:5000/api/applyCampaign?userId=${user?._id}`,
         {
           method: "POST",
           headers: {
