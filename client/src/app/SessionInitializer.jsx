@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useData } from "../context/UserContext";
+import { useData } from "../Context/UserContext";
 import { useSecureFetch } from "../customHooks/useSecureFetch";
 import { useChange } from "../Context/ChangeContext";
 
@@ -14,25 +14,27 @@ function SessionInitializer() {
       try {
         const data = await secureFetch("http://localhost:5000/api/me", {
           method: "GET",
-          credentials: "include", // include cookies for auth
+          credentials: "include",
         });
 
-        // If session is valid, update global state
         if (data?.success) {
+          console.log("restored session");
           setUser(data.userDetails);
           setActiveMeals(data.activeMeals);
           setGrantedMeals(data.grantedMeals);
           setBlacklistMeals(data.blacklistMeals);
         }
       } catch (err) {
-        console.error("Error during session restore:", err); // log failure
+        if (err?.response?.status !== 401) {
+          console.error("Error during session restore:", err);
+        }
       }
     }
 
-    restoreSession(); // run once on mount
+    restoreSession();
   }, []);
 
-  return null; // no UI to render
+  return null;
 }
 
 export default SessionInitializer;

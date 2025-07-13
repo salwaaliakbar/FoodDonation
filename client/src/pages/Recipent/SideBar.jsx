@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "../../assets/images/logo.jpg";
 import "font-awesome/css/font-awesome.min.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useData } from "../../context/UserContext";
+import { useData } from "../../Context/UserContext";
 import { useChange } from "../../Context/ChangeContext";
 import { EllipsisVertical, X } from "lucide-react";
 import ConfirmationDialog from "../../components/Common/ConfirmationDialog";
@@ -95,13 +95,15 @@ const SideBar = () => {
           onClose={() => {
             setStatus({ ...status, show: false });
             if (status.success) {
-              // Reset states
-              setUser(null);
-              setIsChangeActive(true);
-              setIsChangeGranted(true);
-              setIsChangeExpired(true);
-              setLoading(false);
-              navigate("/");
+              // Navigate first, then reset states after navigation completes
+              navigate("/", { replace: true });
+              setTimeout(() => {
+                setUser({});
+                setIsChangeActive(true);
+                setIsChangeGranted(true);
+                setIsChangeExpired(true);
+                setLoading(false);
+              }, 50);
             }
           }}
         />

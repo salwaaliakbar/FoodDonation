@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.jpg";
-import { useData } from "../../context/UserContext";
+import { useData } from "../../Context/UserContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
 import { useChange } from "../../Context/ChangeContext";
@@ -97,17 +97,19 @@ const DonorSidebar = () => {
           onClose={() => {
             setStatus({ ...status, show: false });
             if (status.success) {
-              // Reset state after successful logout
-              setUser(null);
-              setActiveMeals([]);
-              setGrantedMeals([]);
-              setBlacklistMeals([]);
-              setIsChangeActive(true);
-              setIsChangeGranted(true);
-              setIsChangeExpired(true);
-              setIsLoggedOut(true);
-              setLoading(false);
-              navigate("/");
+              // Navigate first, then reset states after navigation completes
+              navigate("/", { replace: true });
+              setTimeout(() => {
+                setActiveMeals([]);
+                setGrantedMeals([]);
+                setBlacklistMeals([]);
+                setIsChangeActive(true);
+                setIsChangeGranted(true);
+                setIsChangeExpired(true);
+                setIsLoggedOut(true);
+                setLoading(false);
+                setUser({});
+              }, 50);
             }
           }}
         />
