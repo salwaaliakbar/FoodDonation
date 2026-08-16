@@ -1,4 +1,4 @@
-import OurServices from "./Ourservices";
+import OurServices from "./OurServices";
 import Introduction from "./Introduction";
 import JoinMission from "../../components/JoinMission";
 import Navbar from "../../components/Navbar/NavBar";
