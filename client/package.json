@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node api.js && vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start:dev": "concurrently \"npm run dev --prefix frontend\" \"node backend/server.js\""
+    "start:dev": "node api.js && concurrently \"npm run dev --prefix frontend\" \"node backend/server.js\""
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
