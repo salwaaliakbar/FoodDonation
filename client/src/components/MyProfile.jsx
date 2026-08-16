@@ -3,7 +3,7 @@ import SideBar from "../pages/Donor/DonorSidebar";
 import { Phone, Mail, User, Building } from "lucide-react";
 import { useData } from "../context/UserContext";
 import { useSecureFetch } from "../customHooks/useSecureFetch";
-import BtnLoader from "./Common/btnLoader";
+import BtnLoader from "./Common/BtnLoader";
 import StatusDialog from "../components/Common/StatusDialog";
 import { API_BASE_URL } from "../config/api";
 
@@ -173,7 +173,7 @@ const Myprofile = () => {
 };
 
 // Reusable Input Field Component
-function TextField({ fieldName, Icon, fieldValue, edit, handleInput }) {
+function TextField({ fieldName, fieldValue, edit, handleInput }) {
   return (
     <div>
       <p className="font-semibold text-[1.1rem] ml-2 mb-1 capitalize">
