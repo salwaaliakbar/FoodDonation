@@ -4,7 +4,7 @@ import ActiveMealsSection from "./DonorActiveMealsSection";
 
 function DonationHistory() {
   return (
-    <div className="flex overflow-hidden bg-gray-300">
+    <div className="flex overflow-hidden bg-gray-200">
       {/* Main Content Area */}
       <div
         className={`

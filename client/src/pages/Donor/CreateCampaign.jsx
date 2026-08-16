@@ -102,7 +102,7 @@ function CreateCampaign() {
         validationSchema={CampaignSchema}
       >
         {({ errors, touched, isSubmitting }) => (
-          <div className="w-full min-h-screen bg-gray-300 overflow-x-hidden">
+          <div className="w-full min-h-screen bg-gray-200 overflow-x-hidden">
             {/* Form Container with top padding to avoid overlap */}
             <div className=" pt-4 px-4 sm:px-8 max-w-4xl mx-auto my-4 mb-15">
               <Form className="bg-white rounded-xl shadow-lg p-6 sm:p-8">
