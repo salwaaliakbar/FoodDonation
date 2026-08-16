@@ -27,7 +27,7 @@ function Navbar() {
         <div>
           <NavLink to="/" className="block">
             <img
-              className="md:w-80 md:h-19 w-50 h-15 object-contain cursor-pointer"
+              className="md:w-60 md:h-19 w-42 h-15 object-contain cursor-pointer"
               src={logo}
               alt="FoodSecure Logo"
             />
