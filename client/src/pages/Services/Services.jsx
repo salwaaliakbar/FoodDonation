@@ -3,6 +3,7 @@ import Introduction from "./Introduction";
 import JoinMission from "../../components/JoinMission";
 import Navbar from "../../components/Navbar/NavBar";
 import Footer from "../../components/Footer/Footer";
+import AnimatedSection from "../../components/AnimatedSection";
 
 function Services() {
   return (
@@ -10,7 +11,7 @@ function Services() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 py-8 md:py-12">
+      <AnimatedSection as="section" className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 py-8 md:py-12">
         {/* Background decorations */}
         <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-brand-500/20 blur-3xl" />
         <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-accent-400/20 blur-3xl" />
@@ -59,20 +60,18 @@ function Services() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Main Content */}
       <main className="flex-grow">
 
         {/* Introduction */}
-        <Introduction />
+        <AnimatedSection><Introduction /></AnimatedSection>
          {/* CTA */}
-        <JoinMission />
+        <AnimatedSection><JoinMission /></AnimatedSection>
 
         {/* Services */}
-        <OurServices />
-
-       
+        <AnimatedSection><OurServices /></AnimatedSection>
 
       </main>
 

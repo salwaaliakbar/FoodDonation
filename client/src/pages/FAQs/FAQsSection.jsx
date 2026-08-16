@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Navbar from "../../components/Navbar/NavBar";
 import Footer from "../../components/Footer/Footer";
+import AnimatedSection from "../../components/AnimatedSection";
 
 // Individual FAQ item with toggle functionality
 const FAQItem = ({ question, answer }) => {
@@ -58,24 +59,24 @@ const FAQSection = () => {
       <Navbar />
       {/* FAQ section content */}
       <div className="bg-cream-50 min-h-screen pb-20 pt-16 md:pt-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center mb-12">
+        <AnimatedSection className="max-w-3xl mx-auto px-4 sm:px-6 text-center mb-12">
           <h1 className="text-3xl md:text-5xl font-extrabold mb-4 text-stone-900 tracking-tight">
             Frequently Asked Questions
           </h1>
           <p className="text-stone-600 text-lg">
             Everything you need to know about donating and receiving food with our platform.
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Mapping FAQs into expandable items */}
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 space-y-3">
+        <AnimatedSection delay={0.1} className="max-w-3xl mx-auto px-4 sm:px-6 space-y-3">
           {faqs.map((faq, index) => (
             <FAQItem key={index} {...faq} />
           ))}
-        </div>
+        </AnimatedSection>
 
         {/* Support section at the bottom */}
-        <div className="flex justify-center mt-12 px-4">
+        <AnimatedSection delay={0.2} className="flex justify-center mt-12 px-4">
           <div className="bg-brand-900 text-white px-8 py-8 rounded-2xl shadow-md text-center max-w-xl w-full">
             <span className="font-bold text-xl">Still have questions?</span>
             <p className="mt-3 text-brand-100">
@@ -85,7 +86,7 @@ const FAQSection = () => {
               </a>
             </p>
           </div>
-        </div>
+        </AnimatedSection>
       </div>
       <Footer />
     </div>

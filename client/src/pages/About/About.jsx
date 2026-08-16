@@ -6,17 +6,18 @@ import JoinMission from "../../components/JoinMission";
 import Journey from "./Journey";
 import OurValue from "./OurValue";
 import Footer from "../../components/Footer/Footer";
+import AnimatedSection from "../../components/AnimatedSection";
 
 const About = () => {
     return (
         <div className="bg-cream-50">
         <Navbar/>
-        <AboutHero/>
-        <Journey/>
-        <Staticics/>
-        <JoinMission/>
-        <OurValue/> 
-        <Footer />  
+        <AnimatedSection><AboutHero/></AnimatedSection>
+        <AnimatedSection><Journey/></AnimatedSection>
+        <AnimatedSection><Staticics/></AnimatedSection>
+        <AnimatedSection><JoinMission/></AnimatedSection>
+        <AnimatedSection><OurValue/></AnimatedSection>
+        <Footer />
         </div>
     );
 };

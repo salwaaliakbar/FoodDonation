@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone, MessageCircle } from "lucide-react";
 import { Formik, Form, Field } from "formik";
 import ContactusSchema from "../../yupschemas/ContactusSchema";
 import Footer from "../../components/Footer/Footer";
+import AnimatedSection from "../../components/AnimatedSection";
 
 function ContactUs() {
   const contactInfo = [
@@ -46,7 +47,7 @@ function ContactUs() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 pt-4 md:pt-8 pb-8 md:pb-12">
+      <AnimatedSection as="section" className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 pt-4 md:pt-8 pb-8 md:pb-12">
         {/* Background decoration */}
         <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-brand-500/20 blur-3xl" />
         <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-accent-400/20 blur-3xl" />
@@ -77,7 +78,7 @@ function ContactUs() {
             FoodSecure? Reach out to us and we'll be happy to help.
           </p>
         </div>
-      </section>
+      </AnimatedSection>
 
       {/* Contact Content */}
       <main className="relative flex-grow overflow-hidden py-20 md:py-28">
@@ -89,7 +90,7 @@ function ContactUs() {
           <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
 
             {/* Contact Form */}
-            <div>
+            <AnimatedSection>
               <div className="mb-8">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">
                   Send a Message
@@ -225,10 +226,10 @@ function ContactUs() {
                   </Form>
                 )}
               </Formik>
-            </div>
+            </AnimatedSection>
 
             {/* Contact Information */}
-            <div>
+            <AnimatedSection delay={0.15}>
               <div className="mb-8">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">
                   Contact Information
@@ -283,7 +284,7 @@ function ContactUs() {
                   food-sharing community.
                 </p>
               </div>
-            </div>
+            </AnimatedSection>
           </div>
         </div>
       </main>
