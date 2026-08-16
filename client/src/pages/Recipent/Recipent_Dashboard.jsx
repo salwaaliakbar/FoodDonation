@@ -95,7 +95,7 @@ function Recipent_Dashboard() {
 
   return (
     <div className="">
-      <div className="flex flex-col lg:flex-row min-h-screen bg-cream-100">
+      <div className="flex flex-col lg:flex-row min-h-screen bg-gray-300">
         {/* If Sidebar needed: Uncomment next line */}
         {/* <SideBar /> */}
 

@@ -53,7 +53,7 @@ function RecipientDashboard() {
   return (
     <div className="flex flex-col md:flex-row overflow-hidden">
       <SideBar />
-      <div className="w-full md:w-[80%] md:absolute md:right-0 bg-cream-100 min-h-screen md:mb-8">
+      <div className="w-full md:w-[80%] md:absolute md:right-0 bg-gray-300 min-h-screen md:mb-8">
         <Header />
         <Outlet />
       </div>

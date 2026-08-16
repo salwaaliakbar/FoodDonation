@@ -47,7 +47,7 @@ const ActiveMeals = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row min-h-screen bg-cream-100">
+      <div className="flex flex-col lg:flex-row min-h-screen bg-gray-300">
         {/* Main content */}
         <div className="flex-1 pt-25 px-4 sm:px-6 lg:px-8 w-full">
           <h1 className="text-2xl sm:text-3xl font-bold text-brand-700 text-center mb-6">

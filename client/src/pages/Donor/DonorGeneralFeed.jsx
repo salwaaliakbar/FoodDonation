@@ -74,7 +74,7 @@ function DonorGeneralFeed() {
 
   return (
     <div className="flex">
-      <div className="w-full absolute right-0 bg-cream-100">
+      <div className="w-full absolute right-0 bg-gray-300">
         <div className="md:mb-8 mt-25">
           <h1 className="mb-4 text-3xl font-bold text-brand-700 text-center m-4">
             General Meal Feed

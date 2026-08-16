@@ -55,7 +55,7 @@ const GeneralFeed = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row min-h-screen bg-cream-100 ">
+      <div className="flex flex-col md:flex-row min-h-screen bg-gray-300 ">
         {/* Optional Sidebar */}
         {/* <SideBar /> */}
 

@@ -46,7 +46,7 @@ const GrantedMeals = () => {
 
   return (
     <div className="">
-      <div className="flex flex-col min-h-screen bg-cream-100">
+      <div className="flex flex-col min-h-screen bg-gray-300">
         <div className="w-full pt-25 px-4 sm:px-6 lg:px-8">
           <h1 className="text-2xl sm:text-3xl font-bold text-brand-700 text-center mb-6">
             Granted Meals
