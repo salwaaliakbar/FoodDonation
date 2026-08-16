@@ -22,7 +22,6 @@ async function CampaignsFeed(req, res) {
     }
 
     if (status === ACTIVE) {
-      console.log("inside active campaign", status);
       const campaigns = await Campaign.find(query)
         .populate("createdBy", "fullname") // Populate createdBy with user's fullname
         .populate({
@@ -31,8 +30,6 @@ async function CampaignsFeed(req, res) {
         })
         .sort({ createdAt: -1 })
         .exec();
-
-      console.log("campaigns", campaigns);
 
       res.status(200).json({
         message: "Fetch Campaigns sucsessfully",
@@ -50,8 +47,6 @@ async function CampaignsFeed(req, res) {
         })
         .sort({ createdAt: -1 })
         .exec();
-
-      console.log("campaigns", campaigns);
 
       res.status(200).json({
         message: "Fetch Campaigns sucsessfully",

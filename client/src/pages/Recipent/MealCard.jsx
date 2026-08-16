@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useData } from "../../context/UserContext";
-import Chat from "../../Components/Chat";
+import Chat from "../../components/Chat";
 
 const MealCard = ({ meal }) => {
   const [expanded, setExpanded] = useState(false);
@@ -21,25 +21,25 @@ const MealCard = ({ meal }) => {
   return (
     <div
       onClick={() => setExpanded((prev) => !prev)}
-      className="w-full px-4 py-3 my-2 mb-2 border-b rounded-md border-gray-200 hover:bg-gray-100 cursor-pointer transition-all duration-300"
+      className="w-full px-4 py-3 my-2 mb-2 border-b rounded-xl border-stone-200 hover:bg-stone-100 cursor-pointer transition-all duration-300"
     >
       {/* Row Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         {/* Left Side: Photo + User + Title */}
         <div className="flex items-center gap-4 w-full sm:w-[40%]">
-          <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
+          <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-brand-700">
             {firstLetter}
           </div>
           <div>
-            <p className="text-sm font-semibold text-gray-700">
+            <p className="text-sm font-semibold text-stone-700">
               {meal.createdBy?.fullname}
             </p>
-            <p className="text-base font-bold text-green-700">{meal.title}</p>
+            <p className="text-base font-bold text-brand-700">{meal.title}</p>
           </div>
         </div>
 
         {/* Middle: Quick Info */}
-        <div className="flex flex-col w-full sm:w-[30%] text-sm text-gray-600">
+        <div className="flex flex-col w-full sm:w-[30%] text-sm text-stone-600">
           <span>
             🍽️ {meal.amount} {meal.foodType}
           </span>
@@ -52,10 +52,10 @@ const MealCard = ({ meal }) => {
         <div className="w-full sm:w-[20%] text-right">
           {meal.status === "Awarded" ? (
             <span>
-              ✅ Awarded <p className="text-green-600">{meal.granted}</p>
+              ✅ Awarded <p className="text-brand-600">{meal.granted}</p>
             </span>
           ) : (
-            <p className="text-amber-600">
+            <p className="text-accent-600">
               👥 {meal.applied.length} applicants
             </p>
           )}
@@ -65,7 +65,7 @@ const MealCard = ({ meal }) => {
       {/* Expanded Details */}
       {expanded && (
         <>
-          <div className="mt-3 ml-0 sm:ml-14 border-t pt-3 text-sm text-gray-600 space-y-1">
+          <div className="mt-3 ml-0 sm:ml-14 border-t pt-3 text-sm text-stone-600 space-y-1">
             <p>
               <strong>Description:</strong> {meal.description}
             </p>
@@ -96,7 +96,7 @@ const MealCard = ({ meal }) => {
           </div>
           <div className="flex justify-end">
             <button
-              className="w-full sm:w-auto px-6 py-2 text-white rounded bg-green-800 hover:bg-green-700"
+              className="w-full sm:w-auto px-6 py-2 text-white font-semibold rounded-full shadow-sm hover:shadow-md transition-all duration-200 bg-brand-700 hover:bg-brand-800"
               onClick={(e) => {
                 e.stopPropagation();
                 setShowChatModal(true);

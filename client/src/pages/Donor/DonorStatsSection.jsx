@@ -14,7 +14,8 @@ import {
   Tooltip,
   Label,
 } from "recharts";
-import { ChangeContext } from "../../Context/ChangeContext";
+import { ChangeContext } from "../../context/ChangeContext";
+import { API_BASE_URL } from "../../config/api";
 
 export default function StatsSection() {
   const {
@@ -39,7 +40,7 @@ export default function StatsSection() {
     async function getStats() {
       try {
         const data = await secureFetch(
-          "http://localhost:5000/api/statSummary",
+          `${API_BASE_URL}/api/statSummary`,
           {
             method: "GET",
             headers: {
@@ -104,8 +105,8 @@ export default function StatsSection() {
     <div className="flex flex-col lg:flex-row w-full h-auto lg:h-[55vh] gap-4 mt-4">
       {/* Pie Chart - Meals Granted Summary */}
       <div className="w-full lg:w-[30%] bg-white rounded-xl shadow-md p-4 flex flex-col justify-between">
-        <div className="flex justify-between items-center text-sm text-gray-500">
-          <h2 className="text-green-700 font-semibold text-lg">
+        <div className="flex justify-between items-center text-sm text-stone-500">
+          <h2 className="text-brand-700 font-semibold text-lg">
             Meals Granted: {statsSummary.granted}
           </h2>
           <span>{new Date().toLocaleDateString()}</span>
@@ -135,7 +136,7 @@ export default function StatsSection() {
         </ResponsiveContainer>
 
         <div className="mt-0 text-center">
-          <span className="text-lg font-semibold text-green-700">
+          <span className="text-lg font-semibold text-brand-700">
             Total Donations: {statsSummary.totalDonations}
           </span>
         </div>
@@ -143,7 +144,7 @@ export default function StatsSection() {
 
       {/* Bar Chart - Monthly Distribution */}
       <div className="w-full lg:w-[70%] bg-white rounded-xl shadow-md p-4">
-        <h2 className="text-green-700 font-semibold text-lg mb-2">
+        <h2 className="text-brand-700 font-semibold text-lg mb-2">
           Food Distribution Stats
         </h2>
 

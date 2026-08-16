@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import SideBar from "./SideBar";
 import MealCard from "./MealCard";
-import Loader from "../../Components/Loader";
+import Loader from "../../components/Loader";
 import { useData } from "../../context/UserContext";
+import { API_BASE_URL } from "../../config/api";
 
 const GrantedMeals = () => {
   const [grantedMeals, setGrantedMeals] = useState([]);
@@ -13,7 +14,7 @@ const GrantedMeals = () => {
     async function fetchGrantedMeals() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/grantedMeals?userId=${user?._id}`,
+          `${API_BASE_URL}/api/grantedMeals?userId=${user?._id}`,
           {
             method: "GET",
             headers: {
@@ -45,9 +46,9 @@ const GrantedMeals = () => {
 
   return (
     <div className="">
-      <div className="flex flex-col min-h-screen bg-gray-200">
+      <div className="flex flex-col min-h-screen bg-cream-100">
         <div className="w-full pt-25 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-green-800 text-center mb-6 font-[Poppins]">
+          <h1 className="text-2xl sm:text-3xl font-bold text-brand-700 text-center mb-6">
             Granted Meals
           </h1>
 
@@ -62,7 +63,7 @@ const GrantedMeals = () => {
               ))}
             </section>
           ) : (
-            <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+            <div className="flex flex-col items-center justify-center h-64 text-stone-500">
               <p className="text-lg font-semibold">
                 No Granted Meals to display
               </p>

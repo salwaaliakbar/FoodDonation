@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./context/UserContext.jsx";
 import { SocketProvider } from "./context/SocketProvider.jsx";
-import { ChangeProvider } from "./Context/ChangeContext.jsx";
+import { ChangeProvider } from "./context/ChangeContext.jsx";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>

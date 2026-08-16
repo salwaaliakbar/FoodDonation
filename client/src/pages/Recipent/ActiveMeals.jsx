@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import SideBar from "./SideBar";
-import Loader from "../../Components/Loader";
+import Loader from "../../components/Loader";
 import AppliedMealPostCard from "./AppliedMealPostCard";
 import { useData } from "../../context/UserContext";
+import { API_BASE_URL } from "../../config/api";
 
 const ActiveMeals = () => {
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const ActiveMeals = () => {
     async function fetchMealFeedData() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/activeFeed?userId=${user?._id}`,
+          `${API_BASE_URL}/api/activeFeed?userId=${user?._id}`,
           {
             method: "GET",
             headers: {
@@ -46,10 +47,10 @@ const ActiveMeals = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row min-h-screen bg-gray-200">
+      <div className="flex flex-col lg:flex-row min-h-screen bg-cream-100">
         {/* Main content */}
         <div className="flex-1 pt-25 px-4 sm:px-6 lg:px-8 w-full">
-          <h1 className="text-2xl sm:text-3xl font-bold text-green-800 text-center mb-6 font-[Poppins]">
+          <h1 className="text-2xl sm:text-3xl font-bold text-brand-700 text-center mb-6">
             Active Meals
           </h1>
 
@@ -69,7 +70,7 @@ const ActiveMeals = () => {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+            <div className="flex flex-col items-center justify-center h-64 text-stone-500">
               <p className="text-lg font-semibold">
                 No Active Meals to display
               </p>

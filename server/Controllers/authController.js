@@ -1,9 +1,14 @@
 const userModel = require("../Models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 const campaignModel = require("../Models/campaignModel");
 const nodemailer = require("nodemailer");
+const {
+  accessTokenCookieOptions,
+  refreshTokenCookieOptions,
+  clearAccessTokenCookieOptions,
+  clearRefreshTokenCookieOptions,
+} = require("../utils/cookieOptions");
 
 const ACCESS_SECRET_KEY = process.env.JWT_SECRET;
 const REFRESH_SECRET_KEY = process.env.REFRESH_SECRET;
@@ -58,23 +63,8 @@ async function login(req, res) {
       }
     );
 
-    res.cookie("authToken", accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Lax",
-      path: "/",
-      maxAge: 60 * 60 * 1000, // 1 hour
-    });
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Lax",
-      path: "/api/refresh",
-      // maxAge: 1 * 60 * 1000 // 1 min
-
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    });
+    res.cookie("authToken", accessToken, accessTokenCookieOptions());
+    res.cookie("refreshToken", refreshToken, refreshTokenCookieOptions());
 
     const { password: _, ...userData } = user._doc;
 
@@ -82,7 +72,8 @@ async function login(req, res) {
       .status(200)
       .json({ message: "Login successful", success: true, userData });
   } catch (err) {
-    res.status(500).json({ error: "Server error ", err, success: false });
+    console.error("Error in login:", err);
+    res.status(500).json({ error: "Server error", success: false });
   }
 }
 
@@ -132,7 +123,6 @@ async function signup(req, res) {
       username,
       password: hashedPassword,
     });
-    console.log("new user", newuser);
 
     // Generate New access Token
     const accessToken = jwt.sign(
@@ -160,24 +150,10 @@ async function signup(req, res) {
       }
     );
 
-    res.cookie("authToken", accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Lax",
-      path: "/",
-      maxAge: 60 * 60 * 1000, // 1 hour
-    });
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Lax",
-      path: "/api/refresh",
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
-    });
+    res.cookie("authToken", accessToken, accessTokenCookieOptions());
+    res.cookie("refreshToken", refreshToken, refreshTokenCookieOptions());
 
     const { password: _, ...userData } = newuser._doc;
-    console.log(userData);
 
     res.status(200).json({
       message: "Newuser Registered Successfully!",
@@ -185,24 +161,15 @@ async function signup(req, res) {
       userData,
     });
   } catch (err) {
-    res.status(500).json({ error: "Server error ", err, success: false });
+    console.error("Error in signup:", err);
+    res.status(500).json({ error: "Server error", success: false });
   }
 }
 
 // logout handler
 function logout(req, res) {
-  res.clearCookie("authToken", {
-    httpOnly: true,
-    sameSite: "Lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-  });
-  res.clearCookie("refreshToken", {
-    httpOnly: true,
-    sameSite: "Lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/api/refresh",
-  });
+  res.clearCookie("authToken", clearAccessTokenCookieOptions());
+  res.clearCookie("refreshToken", clearRefreshTokenCookieOptions());
   res.status(200).json({ message: "Logged out successfully!" });
 }
 
@@ -259,7 +226,7 @@ async function verifyuser(req, res) {
     });
   } catch (err) {
     console.error("Error refreshing data:", err);
-    res.status(500).json({ success: false, error: "Server error", err });
+    res.status(500).json({ success: false, error: "Server error" });
   }
 }
 
@@ -293,7 +260,7 @@ async function forgotPassword(req, res) {
       }
     );
 
-    const link = `http://localhost:5173/ResetPassword/${oldUser._id}/${token}`;
+    const link = `${process.env.CLIENT_URL}/ResetPassword/${oldUser._id}/${token}`;
     // Create transporter using nodemailer
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -323,7 +290,7 @@ async function forgotPassword(req, res) {
     });
   } catch (err) {
     console.error("Error in forgotPassword:", err);
-    res.status(500).json({ error: "Server error", err, success: false });
+    res.status(500).json({ error: "Server error", success: false });
   }
 }
 
@@ -423,13 +390,7 @@ async function refreshToken(req, res) {
     );
 
     // Set new access token cookie
-    res.cookie("authToken", newAccessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Lax",
-      path: "/",
-      maxAge: 60 * 60 * 1000, // 1 hour
-    });
+    res.cookie("authToken", newAccessToken, accessTokenCookieOptions());
 
     return res
       .status(200)

@@ -7,7 +7,7 @@ function BtnLoader({ text, btnLoader, onClick }) {
         type="submit"
         disabled={btnLoader}
         onClick={onClick || (() => {})}
-        className={`bg-green-800 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-lg w-full transition duration-300 relative flex justify-center items-center ${
+        className={`w-full bg-brand-700 hover:bg-brand-800 text-white rounded-full px-6 py-3 font-semibold shadow-sm hover:shadow-md transition-all duration-200 disabled:opacity-60 relative flex justify-center items-center ${
           btnLoader ? "cursor-not-allowed" : "cursor-pointer"
         }`}
       >

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSocket } from "../context/SocketProvider";
 import { ACTIVE } from "../constants/constants";
-import { useChange } from "../Context/ChangeContext";
+import { useChange } from "../context/ChangeContext";
 
 function useJoinMealSocket({ status, meal, setAppliedList }) {
   const socket = useSocket();

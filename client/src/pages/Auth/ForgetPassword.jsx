@@ -1,9 +1,11 @@
 import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
 import { useEffect, useState } from "react";
-import BtnLoader from "../../Components/Common/btnLoader";
+import BtnLoader from "../../components/Common/BtnLoader";
 import * as Yup from "yup";
 import StatusDialog from "../../components/Common/StatusDialog";
+import { createPortal } from "react-dom";
+import { API_BASE_URL } from "../../config/api";
 
 function ForgotPassword({ setIsForgot }) {
   const [submitted, setSubmitted] = useState(false);
@@ -26,7 +28,7 @@ function ForgotPassword({ setIsForgot }) {
   // Form submit handler
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await fetch("http://localhost:5000/api/forgotPassword", {
+      const response = await fetch(`${API_BASE_URL}/api/forgotPassword`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +72,7 @@ function ForgotPassword({ setIsForgot }) {
     }
   };
 
-  return (
+  return createPortal(
     <>
       {status.show && (
         <StatusDialog
@@ -87,11 +89,14 @@ function ForgotPassword({ setIsForgot }) {
           }}
         />
       )}
-      {/* Overlay */}
-      <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
+      {/* Background overlay */}
+      <div
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]"
+        onClick={() => setIsForgot(false)}
+      ></div>
 
-      {/* Modal */}
-      <div className="fixed md:inset-32 inset-6 flex justify-center items-start pt-8 z-20">
+      {/* Modal wrapper */}
+      <div className="fixed inset-0 flex items-center justify-center overflow-y-auto p-4 sm:p-6 z-[110]">
         {showForgetBox && (
           <Formik
             initialValues={{ email: "" }}
@@ -103,21 +108,21 @@ function ForgotPassword({ setIsForgot }) {
             onSubmit={handleSubmit}
           >
             {({ isSubmitting, errors, touched }) => (
-              <Form className="bg-white shadow-2xl rounded-2xl md:p-10 px-5 py-10 w-92 z-20 relative">
+              <Form className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md mx-auto relative my-auto">
                 {/* Close button */}
                 <button
                   type="button"
                   onClick={() => setIsForgot(false)}
-                  className="absolute top-2 right-3 text-2xl text-gray-600 hover:text-gray-800"
+                  className="absolute top-4 right-4 text-2xl leading-none text-stone-400 hover:text-stone-600 transition-colors cursor-pointer"
                 >
                   &times;
                 </button>
 
                 {/* Heading */}
-                <h1 className="text-3xl text-center font-bold mb-6 text-green-800">
+                <h1 className="text-2xl text-center font-extrabold mb-1 text-stone-900">
                   Forgot Password
                 </h1>
-                <p className="text-center text-gray-600 mb-8">
+                <p className="text-center text-stone-600 mb-8">
                   Enter your registered email address
                 </p>
 
@@ -126,16 +131,16 @@ function ForgotPassword({ setIsForgot }) {
                   <>
                     {/* Email Input */}
                     <div className="relative mb-6">
-                      <i className="fa fa-envelope absolute left-3 top-4 text-gray-400"></i>
+                      <i className="fa fa-envelope absolute left-3.5 top-3.5 text-stone-400"></i>
                       <Field
                         name="email"
                         type="email"
                         placeholder="Email"
-                        className="block p-3 pl-10 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-600"
+                        className="w-full rounded-xl border border-stone-300 pl-10 pr-4 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition placeholder:text-stone-400"
                         required
                       />
                       {errors.email && touched.email && (
-                        <div className="text-red-600 text-sm">
+                        <div className="text-red-600 text-sm mt-1">
                           {errors.email}
                         </div>
                       )}
@@ -145,8 +150,8 @@ function ForgotPassword({ setIsForgot }) {
                     <BtnLoader text="Submit" btnLoader={isSubmitting} />
                   </>
                 ) : (
-                  <p className="text-center text-green-600 font-bold">
-                    ✅ Check your email for the reset link!
+                  <p className="text-center text-brand-700 font-semibold">
+                    Check your email for the reset link!
                   </p>
                 )}
               </Form>
@@ -154,7 +159,8 @@ function ForgotPassword({ setIsForgot }) {
           </Formik>
         )}
       </div>
-    </>
+    </>,
+    document.body,
   );
 }
 

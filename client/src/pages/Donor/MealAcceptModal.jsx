@@ -4,7 +4,8 @@ import { EXPIRED, GRANTED } from "../../constants/constants";
 import { useData } from "../../context/UserContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useChange } from "../../Context/ChangeContext";
+import { useChange } from "../../context/ChangeContext";
+import { API_BASE_URL } from "../../config/api";
 
 function MealAcceptModel({
   mealId,
@@ -38,7 +39,7 @@ function MealAcceptModel({
     async function fetchSelectedUserData() {
       try {
         const response = await secureFetch(
-          `http://localhost:5000/api/getUserData/${selectedUserData.selectedUserId}`,
+          `${API_BASE_URL}/api/getUserData/${selectedUserData.selectedUserId}`,
           {
             method: "GET",
             headers: { Accept: "application/json" },
@@ -68,7 +69,7 @@ function MealAcceptModel({
 
     try {
       const data = await secureFetch(
-        `http://localhost:5000/api/updateStatus/${mealId}/${selectedUser._id}/${selectedUser.fullname}/${awardCount}`,
+        `${API_BASE_URL}/api/updateStatus/${mealId}/${selectedUser._id}/${selectedUser.fullname}/${awardCount}`,
         {
           method: "PUT",
           headers: {
@@ -82,7 +83,7 @@ function MealAcceptModel({
         const { campaign } = data;
 
         toast.success(
-          <div className="font-[Montserrat]">
+          <div>
             <p>Meal Granted Successfully!</p>
           </div>
         );
@@ -127,12 +128,12 @@ function MealAcceptModel({
   const canChat = isOwner;
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 font-[Montserrat]">
-      <div className="bg-white p-6 rounded-lg w-[350px] animate-zoomIn shadow-lg relative">
+    <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+      <div className="bg-white p-6 rounded-xl w-[350px] animate-zoomIn shadow-lg relative">
         {/* Close Button */}
         <button
           onClick={() => setShowModal(false)}
-          className="absolute top-2 right-2 text-gray-600 hover:text-gray-900 text-2xl font-bold"
+          className="absolute top-2 right-2 text-stone-600 hover:text-stone-900 text-2xl font-bold"
           aria-label="Close modal"
         >
           &times;
@@ -140,13 +141,13 @@ function MealAcceptModel({
 
         {/* Header */}
         <div className="flex flex-col mb-4 items-center">
-          <h2 className="text-xl font-semibold my-3 text-gray-800 text-center">
+          <h2 className="text-xl font-semibold my-3 text-stone-800 text-center">
             Accept Meal Request
           </h2>
         </div>
 
         {/* Recipient Info */}
-        <div className="space-y-2 text-sm text-gray-700 break-words">
+        <div className="space-y-2 text-sm text-stone-700 break-words">
           <div>
             <span className="font-bold">Name:</span> {selectedUser.fullname}
           </div>
@@ -196,7 +197,7 @@ function MealAcceptModel({
           <div>
             <span className="font-bold">Status:</span>{" "}
             {selectedUserData.selectedUserStatus === GRANTED ? (
-              <span className="text-green-700 font-semibold">🏅 Awarded</span>
+              <span className="text-brand-700 font-semibold">🏅 Awarded</span>
             ) : (
               <span className="text-yellow-600 font-semibold">⏳ Pending</span>
             )}
@@ -208,7 +209,7 @@ function MealAcceptModel({
           <div className="mb-6 mt-2 flex items-center justify-between gap-3">
             <label
               htmlFor="awardCount"
-              className="text-sm font-bold text-gray-700 whitespace-nowrap"
+              className="text-sm font-bold text-stone-700 whitespace-nowrap"
             >
               Award meal for:
             </label>
@@ -217,7 +218,7 @@ function MealAcceptModel({
               id="awardCount"
               value={awardCount}
               onChange={(e) => setAwardCount(Number(e.target.value))}
-              className="block border border-gray-300 rounded-md shadow-sm px-3 py-1 focus:outline-none focus:ring-green-800 focus:border-green-800 text-gray-700"
+              className="block border border-stone-300 rounded-xl shadow-sm px-3 py-1 focus:outline-none focus:ring-brand-700 focus:border-brand-700 text-stone-700"
             >
               <option value="">Select Persons</option>
               {Array.from(
@@ -245,10 +246,10 @@ function MealAcceptModel({
               setIsChatOpen(true);
               setShowModal(false);
             }}
-            className={`px-7 py-2 rounded transition text-white ${
+            className={`px-7 py-2 rounded-full font-semibold shadow-sm hover:shadow-md transition-all duration-200 text-white ${
               canChat
-                ? "bg-green-800 hover:bg-green-700 cursor-pointer"
-                : "bg-gray-400 cursor-not-allowed"
+                ? "bg-brand-700 hover:bg-brand-800 cursor-pointer"
+                : "bg-stone-400 cursor-not-allowed"
             }`}
           >
             Start Chat
@@ -259,10 +260,10 @@ function MealAcceptModel({
               !canAccept || selectedUserData.selectedUserStatus === GRANTED
             }
             onClick={handleAccept}
-            className={`px-9 py-2 rounded transition text-white ${
+            className={`px-9 py-2 rounded-full font-semibold shadow-sm hover:shadow-md transition-all duration-200 text-white ${
               canAccept && selectedUserData.selectedUserStatus !== GRANTED
-                ? "bg-green-800 hover:bg-green-700 cursor-pointer"
-                : "bg-gray-400 cursor-not-allowed"
+                ? "bg-brand-700 hover:bg-brand-800 cursor-pointer"
+                : "bg-stone-400 cursor-not-allowed"
             }`}
           >
             Accept

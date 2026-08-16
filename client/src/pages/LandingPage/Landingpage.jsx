@@ -3,13 +3,13 @@ import OurVision from "./Ourvision";
 import WhyDonate from "./WhyDonate";
 import WorkMethod from "./WorkMethod";
 import Motivation from "./Motivation";
-import Staticics from "../../Components/Staticsics";
-import Navbar from "../../Components/Navbar/NavBar";
-import Footer from "../../Components/Footer/Footer";
+import Staticics from "../../components/Staticsics";
+import Navbar from "../../components/Navbar/NavBar";
+import Footer from "../../components/Footer/Footer";
 
 function LandingPage() {
   return (
-    <div className="font-[Montserrat]">
+    <div className="bg-cream-50">
       <Navbar/>
       <HeroSection />
       <Motivation />

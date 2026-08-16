@@ -20,19 +20,16 @@ function Navbar() {
   const [isForgot, setIsForgot] = useState(false);
 
   return (
-    <nav className="relative">
+    <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm">
       {/* Navbar top section */}
-      <div className="flex justify-between items-center px-2 py-1 bg-white shadow-lg transition-all duration-300 hover:text-green-600">
+      <div className="flex justify-between items-center px-4 md:px-8 py-2 shadow-sm">
         {/* Logo section */}
         <div>
-          <NavLink
-            to="/"
-            className={({ isActive }) => (isActive ? styles.active : "")}
-          >
+          <NavLink to="/" className="block">
             <img
-              className="md:w-70 md:h-20 w-40 h-12 rounded-full cursor-pointer"
+              className="w-36 md:w-48 h-auto object-contain cursor-pointer"
               src={logo}
-              alt="Logo"
+              alt="FoodSecure Logo"
             />
           </NavLink>
         </div>
@@ -40,7 +37,7 @@ function Navbar() {
         {/* Hamburger icon for mobile view */}
         <div className="md:hidden">
           <button
-            className="text-green-800 text-3xl focus:outline-none mr-2"
+            className="text-brand-800 text-3xl focus:outline-none mr-2"
             onClick={() => setIsDropdown((prev) => !prev)}
           >
             ☰
@@ -48,58 +45,58 @@ function Navbar() {
         </div>
 
         {/* Desktop navigation menu */}
-        <ul className="hidden md:flex justify-between text-lg font-semibold text-black mt-2 items-center">
+        <ul className="hidden md:flex gap-2 text-[15px] font-semibold text-stone-700 items-center">
           <NavLink
             to="/"
             className={({ isActive }) => (isActive ? styles.active : "")}
           >
-            <li className="cursor-pointer p-2 border-green-900">Home</li>
+            <li className="cursor-pointer px-3 py-2 hover:text-brand-700 transition-colors duration-200">Home</li>
           </NavLink>
           <NavLink
             to="/about"
             className={({ isActive }) => (isActive ? styles.active : "")}
           >
-            <li className="cursor-pointer p-2 border-green-800">About</li>
+            <li className="cursor-pointer px-3 py-2 hover:text-brand-700 transition-colors duration-200">About</li>
           </NavLink>
           <NavLink
             to="/services"
             className={({ isActive }) => (isActive ? styles.active : "")}
           >
-            <li className="cursor-pointer p-2 border-green-800">Services</li>
+            <li className="cursor-pointer px-3 py-2 hover:text-brand-700 transition-colors duration-200">Services</li>
           </NavLink>
           <NavLink
             to="/FAQ"
             className={({ isActive }) => (isActive ? styles.active : "")}
           >
-            <li className="cursor-pointer p-2 border-green-800">FAQs</li>
+            <li className="cursor-pointer px-3 py-2 hover:text-brand-700 transition-colors duration-200">FAQs</li>
           </NavLink>
           <NavLink
             to="/contact"
             className={({ isActive }) => (isActive ? styles.active : "")}
           >
-            <li className="cursor-pointer p-2 border-green-800">Contact Us</li>
+            <li className="cursor-pointer px-3 py-2 hover:text-brand-700 transition-colors duration-200">Contact Us</li>
           </NavLink>
         </ul>
 
         {/* Desktop Login/Signup button */}
         <button
-          className="hidden md:block bg-green-800 px-4 rounded text-md font-medium hover:bg-green-600 cursor-pointer h-12 mr-4 text-white  hover:transform hover:translate-x-2 transition-all duration-300 delay-150"
+          className="hidden md:block bg-brand-700 px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-brand-800 cursor-pointer text-white shadow-sm shadow-brand-700/20 hover:shadow-md hover:shadow-brand-700/30 hover:-translate-y-0.5 transition-all duration-200"
           onClick={() => setIsLogin(true)}
         >
-          Login/Signup
+          Login / Signup
         </button>
       </div>
 
       {/* Mobile dropdown menu */}
       {isDropdown && (
-        <div className="md:hidden bg-white shadow-lg p-4">
-          <ul className="flex flex-col text-md text-black font-semibold">
+        <div className="md:hidden bg-white shadow-lg p-4 border-t border-stone-100">
+          <ul className="flex flex-col text-[15px] text-stone-700 font-semibold gap-1">
             <NavLink
               to="/"
               onClick={() => setIsLogin(false)}
               className={({ isActive }) => (isActive ? styles.active : "")}
             >
-              <li className="cursor-pointer p-2 hover:border-b-3 border-green-800">
+              <li className="cursor-pointer p-2 rounded-lg hover:bg-cream-100">
                 Home
               </li>
             </NavLink>
@@ -108,38 +105,38 @@ function Navbar() {
               onClick={() => setIsLogin(false)}
               className={({ isActive }) => (isActive ? styles.active : "")}
             >
-              <li className="cursor-pointer p-2 border-green-800">About</li>
+              <li className="cursor-pointer p-2 rounded-lg hover:bg-cream-100">About</li>
             </NavLink>
             <NavLink
               to="/services"
               onClick={() => setIsLogin(false)}
               className={({ isActive }) => (isActive ? styles.active : "")}
             >
-              <li className="cursor-pointer p-2 border-green-800">Services</li>
+              <li className="cursor-pointer p-2 rounded-lg hover:bg-cream-100">Services</li>
             </NavLink>
             <NavLink
               to="/FAQ"
               onClick={() => setIsLogin(false)}
               className={({ isActive }) => (isActive ? styles.active : "")}
             >
-              <li className="cursor-pointer p-2 border-green-800">FAQs</li>
+              <li className="cursor-pointer p-2 rounded-lg hover:bg-cream-100">FAQs</li>
             </NavLink>
             <NavLink
               to="/contact"
               onClick={() => setIsLogin(false)}
               className={({ isActive }) => (isActive ? styles.active : "")}
             >
-              <li className="cursor-pointer p-2 border-green-800">
+              <li className="cursor-pointer p-2 rounded-lg hover:bg-cream-100">
                 Contact Us
               </li>
             </NavLink>
 
             {/* Mobile Login/Signup button */}
             <button
-              className="bg-green-800 px-4 rounded text-md font-medium hover:bg-green-600 cursor-pointer h-12 text-white mt-3 hover:transform transition-all duration-300 hover:scale-105 delay-150"
+              className="bg-brand-700 px-4 rounded-full text-sm font-semibold hover:bg-brand-800 cursor-pointer h-12 text-white mt-3 transition-all duration-200"
               onClick={() => setIsLogin(true)}
             >
-              Login/Signup
+              Login / Signup
             </button>
           </ul>
         </div>
@@ -147,27 +144,27 @@ function Navbar() {
 
       {/* Conditional rendering for Login modal */}
       {isLogin && (
-        <div className="absolute top-5 left-0 w-full z-10">
+        
           <Login
             setIsLogin={setIsLogin}
             setIsSignup={setIsSignup}
             setIsForgot={setIsForgot}
           />
-        </div>
+        
       )}
 
       {/* Conditional rendering for Signup modal */}
       {isSignup && (
-        <div className="absolute top-5 left-0 w-full z-10">
+        
           <SignUpPage setIsLogin={setIsLogin} setIsSignup={setIsSignup} />
-        </div>
+        
       )}
 
       {/* Conditional rendering for Forgot Password modal */}
       {isForgot && (
-        <div className="absolute top-5 left-0 w-full z-10">
+        
           <ForgotPassword setIsForgot={setIsForgot} />
-        </div>
+       
       )}
     </nav>
   );

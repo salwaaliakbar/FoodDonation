@@ -3,9 +3,10 @@ import { Formik, Form, Field } from "formik";
 import "font-awesome/css/font-awesome.min.css";
 import ResetSchema from "../../yupschemas/ResetSchema";
 import React from "react";
-import BtnLoader from "../../Components/Common/btnLoader";
+import BtnLoader from "../../components/Common/BtnLoader";
 import StatusDialog from "../../components/Common/StatusDialog";
 import { useState } from "react";
+import { API_BASE_URL } from "../../config/api";
 
 function ResetPassword() {
   const { id, token } = useParams(); // Get ID and token from URL
@@ -37,11 +38,8 @@ function ResetPassword() {
           }}
         />
       )}
-      {/* Background overlay */}
-      <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
-
-      {/* Reset password form */}
-      <div className="fixed md:inset-20 inset-6 flex justify-center items-start pt-8 z-20">
+      {/* Reset password page */}
+      <div className="min-h-screen bg-cream-50 flex items-center justify-center px-4 py-12">
         {showResetBox && (
           <Formik
             initialValues={{
@@ -51,7 +49,7 @@ function ResetPassword() {
             onSubmit={async (values, { setSubmitting }) => {
               try {
                 const response = await fetch(
-                  `http://localhost:5000/api/resetPassword/${id}/${token}`,
+                  `${API_BASE_URL}/api/resetPassword/${id}/${token}`,
                   {
                     method: "PUT",
                     headers: {
@@ -96,7 +94,7 @@ function ResetPassword() {
                     message: data.error || "Invalid or expired token.",
                   });
                 }
-              } catch (error) {
+              } catch (err) {
                 await new Promise((res) => setTimeout(res, 1000));
                 setSubmitting(false);
 
@@ -114,25 +112,25 @@ function ResetPassword() {
             validationSchema={ResetSchema}
           >
             {({ errors, touched, isSubmitting }) => (
-              <Form className="bg-white shadow-2xl rounded-2xl md:p-10 px-5 py-10 w-92 z-20 relative">
-                <h1 className="text-3xl text-center font-bold mb-6 text-green-800">
+              <Form className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md mx-auto relative">
+                <h1 className="text-2xl text-center font-extrabold mb-1 text-stone-900">
                   Reset Password
                 </h1>
-                <p className="text-center text-gray-600 mb-8">
+                <p className="text-center text-stone-600 mb-8">
                   Enter and confirm your new password
                 </p>
 
                 {/* Password field */}
                 <div className="relative mb-4">
-                  <i className="fa fa-lock absolute left-3 top-4 text-gray-400"></i>
+                  <i className="fa fa-lock absolute left-3.5 top-3.5 text-stone-400"></i>
                   <Field
                     name="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="New Password"
-                    className="block p-3 pl-10 pr-10 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-600"
+                    className="w-full rounded-xl border border-stone-300 pl-10 pr-10 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition placeholder:text-stone-400"
                   />
                   <span
-                    className="absolute right-3 top-4 cursor-pointer text-gray-400"
+                    className="absolute right-3.5 top-3.5 cursor-pointer text-stone-400 hover:text-stone-600 transition-colors"
                     onClick={() => setShowPassword((prev) => !prev)}
                     tabIndex={0}
                     role="button"
@@ -147,7 +145,7 @@ function ResetPassword() {
                     ></i>
                   </span>
                   {errors.password && touched.password && (
-                    <div className="text-red-600 text-sm">
+                    <div className="text-red-600 text-sm mt-1">
                       {errors.password}
                     </div>
                   )}
@@ -155,15 +153,15 @@ function ResetPassword() {
 
                 {/* Confirm password field */}
                 <div className="relative mb-6">
-                  <i className="fa fa-lock absolute left-3 top-4 text-gray-400"></i>
+                  <i className="fa fa-lock absolute left-3.5 top-3.5 text-stone-400"></i>
                   <Field
                     name="confrimPassword"
                     type={showConfirmPassword ? "text" : "password"}
-                    placeholder="confrimPassword"
-                    className="block p-3 pl-10 pr-10 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-600"
+                    placeholder="Confirm Password"
+                    className="w-full rounded-xl border border-stone-300 pl-10 pr-10 py-2.5 text-stone-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition placeholder:text-stone-400"
                   />
                   <span
-                    className="absolute right-3 top-4 cursor-pointer text-gray-400"
+                    className="absolute right-3.5 top-3.5 cursor-pointer text-stone-400 hover:text-stone-600 transition-colors"
                     onClick={() => setShowConfirmPassword((prev) => !prev)}
                     tabIndex={0}
                     role="button"
@@ -178,7 +176,7 @@ function ResetPassword() {
                     ></i>
                   </span>
                   {errors.confrimPassword && touched.confrimPassword && (
-                    <div className="text-red-600 text-sm">
+                    <div className="text-red-600 text-sm mt-1">
                       {errors.confrimPassword}
                     </div>
                   )}

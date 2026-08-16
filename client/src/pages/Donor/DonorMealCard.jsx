@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { format } from "date-fns";
 import MealAcceptModel from "./MealAcceptModal";
-import Chat from "../../Components/Chat";
+import Chat from "../../components/Chat";
 import { Trash2 } from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
 import { useData } from "../../context/UserContext";
@@ -56,15 +56,15 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
   return (
     <div
       onClick={() => setExpanded((prev) => !prev)}
-      className="relative w-full px-4 py-3 my-2 border-b rounded-xl border-gray-300 hover:bg-gray-100 cursor-pointer transition-all duration-300"
+      className="relative w-full px-4 py-3 my-2 border-b rounded-xl border-stone-300 hover:bg-stone-100 cursor-pointer transition-all duration-300"
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4 w-full sm:w-[40%]">
-          <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
+          <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-brand-700">
             {firstLetter}
           </div>
           <div>
-            <p className="text-sm font-semibold text-gray-700">
+            <p className="text-sm font-semibold text-stone-700">
               {meal?.createdBy?.fullname || ""}
             </p>
             <p className={`text-base font-extrabold ${color} text-[17px]`}>
@@ -74,12 +74,12 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
         </div>
 
         {status === ACTIVE && currentStatus === ACTIVE ? (
-          <div className="flex flex-col w-full sm:w-[30%] text-sm text-gray-600">
+          <div className="flex flex-col w-full sm:w-[30%] text-sm text-stone-600">
             <span>🍽️ {meal?.amount} meals</span>
             <span>🥗 Remaining Meal {meal?.remaining}</span>
           </div>
         ) : (
-          <div className="flex flex-col w-full sm:w-[30%] text-sm text-gray-600">
+          <div className="flex flex-col w-full sm:w-[30%] text-sm text-stone-600">
             <span>🍽️ {meal?.amount} meals</span>
             <span>
               🕒 Created At:{" "}
@@ -93,7 +93,7 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
             <div className="flex gap-3 justify-end">
               <div>
                 <span>✅ {status}</span>
-                <div className="flex justify-end items-center text-sm text-gray-700 mt-2">
+                <div className="flex justify-end items-center text-sm text-stone-700 mt-2">
                   <p>👥 {appliedList.length} Applied</p>
                 </div>
               </div>
@@ -117,7 +117,7 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
           {status === GRANTED && (
             <div className="mr-6">
               <span>🏅 {status}</span>
-              <div className="flex justify-end items-center text-sm text-gray-700 mt-2">
+              <div className="flex justify-end items-center text-sm text-stone-700 mt-2">
                 <p>👥 {awardedList.length} awarded</p>
               </div>
             </div>
@@ -132,7 +132,7 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
 
       {/* Toggleable Details */}
       {expanded && (
-        <div className="mt-3 ml-0 sm:ml-14 border-t pt-3 text-sm text-gray-600 space-y-1 flex justify-between flex-wrap">
+        <div className="mt-3 ml-0 sm:ml-14 border-t pt-3 text-sm text-stone-600 space-y-1 flex justify-between flex-wrap">
           {/* Left Section: Details */}
           <div className="mt-2">
             <p className="mb-1">
@@ -155,11 +155,11 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
           <div className="transition-all duration-1000 my-4 mr-2 relative">
             {/* Applicants */}
             <div className="mb-4">
-              <p className="text-sm font-bold text-gray-600 mb-1">
+              <p className="text-sm font-bold text-stone-600 mb-1">
                 Applicants:
               </p>
               {status === GRANTED ? (
-                <p className="text-sm text-green-600 italic">
+                <p className="text-sm text-brand-600 italic">
                   Meal has been awarded.
                 </p>
               ) : status === EXPIRED ? (
@@ -167,7 +167,7 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
                   Meal has been expired.
                 </p>
               ) : appliedList.length > 0 ? (
-                <ul className="list-disc pl-5 text-sm text-gray-700">
+                <ul className="list-disc pl-5 text-sm text-stone-700">
                   {appliedList.map((user, i) => (
                     <li
                       key={i}
@@ -189,7 +189,7 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm text-gray-500 italic">
+                <p className="text-sm text-stone-500 italic">
                   No one has applied yet.
                 </p>
               )}
@@ -197,9 +197,9 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
 
             {/* Awarded */}
             <div>
-              <p className="text-sm font-bold text-gray-600 mb-1">Awarded:</p>
+              <p className="text-sm font-bold text-stone-600 mb-1">Awarded:</p>
               {awardedList && awardedList.length > 0 ? (
-                <ul className="list-disc pl-5 text-sm text-green-700">
+                <ul className="list-disc pl-5 text-sm text-brand-700">
                   {awardedList.map((aw, i) => (
                     <li
                       key={i}
@@ -223,7 +223,7 @@ const MealCard = ({ meal, color, handleDelete, status: currentStatus }) => {
                   ))}
                 </ul>
               ) : (
-                <p className="text-sm text-gray-500 italic">
+                <p className="text-sm text-stone-500 italic">
                   No one has been awarded yet.
                 </p>
               )}

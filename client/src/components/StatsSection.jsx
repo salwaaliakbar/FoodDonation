@@ -35,8 +35,8 @@ export default function StatsSection({ actives, grants }) {
     <div className="flex flex-col lg:flex-row w-full min-h-[40vh] gap-6 mt-4">
       {/* Pie Chart Section */}
       <div className="w-full lg:w-[30%] bg-white rounded-xl shadow-md p-4 flex flex-col justify-between">
-        <div className="flex justify-between items-center text-sm text-gray-500">
-          <h2 className="text-green-700 font-semibold text-lg">Awarded: {awarded}</h2>
+        <div className="flex justify-between items-center text-sm text-stone-500">
+          <h2 className="text-brand-700 font-semibold text-lg">Awarded: {awarded}</h2>
           <span>15 Apr 2025</span>
         </div>
 
@@ -62,13 +62,13 @@ export default function StatsSection({ actives, grants }) {
         </div>
 
         <div className="mt-2 text-center">
-          <span className="text-lg font-semibold text-green-700">Applied: {applied}</span>
+          <span className="text-lg font-semibold text-brand-700">Applied: {applied}</span>
         </div>
       </div>
 
       {/* Bar Chart Section */}
       <div className="w-full lg:w-[70%] bg-white rounded-xl shadow-md p-4">
-        <h2 className="text-green-700 font-semibold text-lg mb-2">Food Distribution Stats</h2>
+        <h2 className="text-brand-700 font-semibold text-lg mb-2">Food Distribution Stats</h2>
 
         <div className="h-[250px]">
           <ResponsiveContainer width="100%" height="100%">

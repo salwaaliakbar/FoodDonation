@@ -4,7 +4,7 @@ import ActiveMealsSection from "./DonorActiveMealsSection";
 
 function DonationHistory() {
   return (
-    <div className="flex overflow-hidden bg-gray-200">
+    <div className="flex overflow-hidden bg-cream-100">
       {/* Main Content Area */}
       <div
         className={`
@@ -24,7 +24,7 @@ function DonationHistory() {
           {/* Granted Meals */}
           <ActiveMealsSection
             title={"Your Granted Meals"}
-            color={"text-green-800"}
+            color={"text-brand-700"}
             bg={"bg-[#AFE1AF]"}
             status={GRANTED}
           />

@@ -1,62 +1,111 @@
-import { Shield, Leaf, Globe, Users } from 'lucide-react';
+import { Shield, Leaf, Globe, Users } from "lucide-react";
 
-function OurValue () {
+function OurValue() {
+  const values = [
+    {
+      number: "01",
+      icon: Shield,
+      title: "Food as a Right",
+      description:
+        "We believe access to nutritious food is a fundamental human right, not a privilege.",
+    },
+    {
+      number: "02",
+      icon: Leaf,
+      title: "Environmental Stewardship",
+      description:
+        "Food systems must work in harmony with nature for long-term sustainability.",
+    },
+    {
+      number: "03",
+      icon: Users,
+      title: "Community-Led Solutions",
+      description:
+        "Local communities know their needs best and should help shape the solutions that serve them.",
+    },
+    {
+      number: "04",
+      icon: Globe,
+      title: "Global Solidarity",
+      description:
+        "Food security challenges require collaboration, compassion, and collective action across communities.",
+    },
+  ];
+
   return (
-    // Main section wrapper
-    <section className=" my-20 md:pb-20 pb-10">
+    <section className="relative overflow-hidden bg-cream-100 py-12 md:py-16">
+      {/* Decorative background */}
+      <div className="absolute -left-40 top-10 h-80 w-80 rounded-full bg-brand-100/40 blur-3xl" />
+      <div className="absolute -right-40 bottom-10 h-80 w-80 rounded-full bg-accent-100/50 blur-3xl" />
 
-      {/* Section Heading */}
-      <h2 className="text-4xl font-bold text-gray-800 mb-6 text-center font-[Poppins]">
-        The Core Values That Drive Our Mission
-      </h2>
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-      {/* Introductory paragraph */}
-      <p className="text-center text-gray-600 mb-8 text-lg">
-        These core principles guide our work and shape our approach to creating food security.
-      </p>
+        {/* Header */}
+        <div className="mx-auto max-w-3xl text-center">
+          <span className="inline-flex items-center rounded-full bg-brand-50 px-4 py-2 text-sm font-semibold text-brand-700">
+            What We Stand For
+          </span>
 
-      {/* Values Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:mx-20 mx-10 mt-15">
+          <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-stone-900 sm:text-5xl lg:text-6xl">
+            The values behind
+            <span className="block text-brand-600">
+              everything we do.
+            </span>
+          </h2>
 
-        {/* Value Card 1 */}
-        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
-          <Shield className="h-16 w-16 text-green-600 mb-4" />
-          <h3 className="text-xl font-bold text-gray-800 pb-4">Food as a Right</h3>
-          <p className="text-gray-600">
-            We believe access to nutritious food is a fundamental human right, not a privilege.
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-stone-600 sm:text-lg">
+            These principles guide our decisions, shape our platform, and
+            keep our mission focused on creating a more food-secure future.
           </p>
         </div>
 
-        {/* Value Card 2 */}
-        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
-          <Leaf className="h-16 w-16 text-green-600 mb-4" />
-          <h3 className="text-xl font-bold text-gray-800 pb-4">Environmental Stewardship</h3>
-          <p className="text-gray-600">
-            Food systems must work in harmony with nature for long-term sustainability.
-          </p>
-        </div>
+        {/* Values */}
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {values.map((value) => {
+            const Icon = value.icon;
 
-        {/* Value Card 3 */}
-        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
-          <Users className="h-16 w-16 text-green-600 mb-4" />
-          <h3 className="text-xl font-bold text-gray-800 pb-4">Community-Led Solutions</h3>
-          <p className="text-gray-600">
-            Local communities know their needs best and should lead in developing solutions.
-          </p>
-        </div>
+            return (
+              <div
+                key={value.number}
+                className="group relative overflow-hidden rounded-3xl border border-stone-200/70 bg-white p-7 shadow-[0_8px_30px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-2 hover:border-brand-200 hover:shadow-[0_20px_50px_rgba(0,0,0,0.09)]"
+              >
+                {/* Number */}
+                <span className="absolute right-6 top-5 text-5xl font-black text-stone-100 transition-colors duration-300 group-hover:text-brand-50">
+                  {value.number}
+                </span>
 
-        {/* Value Card 4 */}
-        <div className="flex flex-col items-center text-center bg-white p-6 rounded-lg shadow-md border-2 border-green-500 transform transition duration-300 ease-in-out hover:scale-105">
-          <Globe className="h-16 w-16 text-green-600 mb-4" />
-          <h3 className="text-xl font-bold text-gray-800 pb-4">Global Solidarity</h3>
-          <p className="text-gray-600">
-            Food security challenges require collaborative action across borders.
-          </p>
+                {/* Icon */}
+                <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50 text-brand-700 transition-all duration-300 group-hover:scale-110 group-hover:bg-brand-100">
+                  <Icon
+                    className="h-7 w-7"
+                    strokeWidth={1.8}
+                  />
+                </div>
+
+                {/* Content */}
+                <h3 className="mt-7 text-xl font-bold leading-tight text-stone-900">
+                  {value.title}
+                </h3>
+
+                <p className="mt-3 text-sm leading-6 text-stone-600">
+                  {value.description}
+                </p>
+
+                {/* Bottom accent */}
+                <div className="mt-7 flex items-center gap-2">
+                  <span className="h-1 w-8 rounded-full bg-brand-500 transition-all duration-300 group-hover:w-14" />
+
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-stone-400">
+                    Our Principle
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
-        
       </div>
     </section>
   );
-};
+}
 
 export default OurValue;

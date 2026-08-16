@@ -1,7 +1,7 @@
 import { useData } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Loader from "../Components/Loader";
+import Loader from "../components/Loader";
 
 function ProtectedRoutes({ children }) {
     const { user } = useData();

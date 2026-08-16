@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useData } from "../../context/UserContext";
-import Chat from "../../Components/Chat";
+import Chat from "../../components/Chat";
 
 const AppliedMealPostCard = ({ mealData }) => {
   const [expanded, setExpanded] = useState(false);
@@ -28,18 +28,18 @@ const AppliedMealPostCard = ({ mealData }) => {
       className="bg-white rounded-lg shadow-md p-6 mb-4 w-full cursor-pointer transition-all duration-1000"
     >
       <div className="flex items-center gap-2 mb-3">
-        <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
+        <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-brand-700">
           {firstLetter}
         </div>{" "}
         <div>
           <h3 className="text-lg font-bold">{mealData.createdBy.fullname}</h3>
-          <p className="text-gray-500 text-sm">{mealData.location}</p>
+          <p className="text-stone-500 text-sm">{mealData.location}</p>
         </div>
       </div>
 
       <h2 className="text-xl font-semibold mb-2">{mealData.title}</h2>
-      <p className="text-gray-700 mb-3">{mealData.description}</p>
-      <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
+      <p className="text-stone-700 mb-3">{mealData.description}</p>
+      <div className="flex justify-between items-center text-sm text-stone-700 mt-2">
         <p>
           🍴 {mealData.foodType} for {mealData.remaining}{" "}
           {mealData.remaining > 1 ? "persons" : "person"}{" "}
@@ -47,7 +47,7 @@ const AppliedMealPostCard = ({ mealData }) => {
         <p>Status: {mealData.status}</p>
       </div>
 
-      <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
+      <div className="flex justify-between items-center text-sm text-stone-700 mt-2">
         <p>⏰ {new Date(mealData.createdAt).toLocaleString("en-PK")}</p>
         <p>👥 {mealData.applied.length} Applied</p>
       </div>
@@ -57,10 +57,10 @@ const AppliedMealPostCard = ({ mealData }) => {
           {/* <p className="text-gray-700 mb-3">{mealDescription}</p> */}
 
           <div className="mb-2 relative">
-            <p className="text-sm font-semibold text-gray-600 mb-1">
+            <p className="text-sm font-semibold text-stone-600 mb-1">
               Applicants:
             </p>
-            <ul className="list-disc pl-5 text-sm text-gray-700">
+            <ul className="list-disc pl-5 text-sm text-stone-700">
               {mealData.applied.map((a, i) => (
                 <div className="flex justify-between" key={i}>
                   <li>
@@ -74,7 +74,7 @@ const AppliedMealPostCard = ({ mealData }) => {
           </div>
           <div className="flex justify-end mt-6">
             <button
-              className="w-full sm:w-auto px-6 py-2 text-white rounded bg-green-800 hover:bg-green-700"
+              className="w-full sm:w-auto px-6 py-2 text-white font-semibold rounded-full shadow-sm hover:shadow-md transition-all duration-200 bg-brand-700 hover:bg-brand-800"
               onClick={(e) => {
                 e.stopPropagation();
                 setShowChatModal(true);

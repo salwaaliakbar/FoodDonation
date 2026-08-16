@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { useData } from "../Context/UserContext";
+import { useData } from "../context/UserContext";
 import { useSecureFetch } from "../customHooks/useSecureFetch";
-import { useChange } from "../Context/ChangeContext";
+import { useChange } from "../context/ChangeContext";
+import { API_BASE_URL } from "../config/api";
 
 function SessionInitializer() {
   const { setUser } = useData();
@@ -12,7 +13,7 @@ function SessionInitializer() {
     // Restore session data on app load
     async function restoreSession() {
       try {
-        const data = await secureFetch("http://localhost:5000/api/me", {
+        const data = await secureFetch(`${API_BASE_URL}/api/me`, {
           method: "GET",
           credentials: "include",
         });

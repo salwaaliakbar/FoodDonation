@@ -3,8 +3,10 @@ import "font-awesome/css/font-awesome.min.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useData } from "../../context/UserContext";
-import BtnLoader from "../../Components/Common/btnLoader";
+import BtnLoader from "../../components/Common/BtnLoader";
 import StatusDialog from "../../components/Common/StatusDialog";
+import { createPortal } from "react-dom";
+import { API_BASE_URL } from "../../config/api";
 
 function Login({ setIsLogin, setIsSignup, setIsForgot }) {
   const navigate = useNavigate();
@@ -26,13 +28,16 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
     };
   }, []);
 
-  return (
+  return createPortal(
     <>
       {/* Background overlay */}
-      <div className="fixed inset-0 bg-black opacity-60 z-10"></div>
+      <div
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100]"
+        onClick={() => setIsLogin(false)}
+      ></div>
 
       {/* Modal wrapper */}
-      <div className="fixed md:inset-12 inset-6 flex justify-center items-start pt-8 z-20">
+      <div className="fixed inset-0 flex items-center justify-center overflow-y-auto p-4 sm:p-6 z-[110]">
         {status.show && (
           <StatusDialog
             message={status.message}
@@ -61,7 +66,7 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
             onSubmit={async (values, { setSubmitting }) => {
               try {
                 const response = await fetch(
-                  "http://localhost:5000/api/login",
+                  `${API_BASE_URL}/api/login`,
                   {
                     method: "POST",
                     headers: {
@@ -110,7 +115,7 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
             }}
           >
             {({ isSubmitting }) => (
-              <Form className="bg-white shadow-2xl rounded-2xl md:p-10 px-5 py-10 w-92 z-20 relative">
+              <Form className="bg-white shadow-2xl rounded-2xl md:p-10 px-5 py-10 w-92 max-w-full my-auto relative">
                 {/* Close button */}
                 <button
                   type="button"
@@ -205,7 +210,8 @@ function Login({ setIsLogin, setIsSignup, setIsForgot }) {
           </Formik>
         )}
       </div>
-    </>
+    </>,
+    document.body,
   );
 }
 

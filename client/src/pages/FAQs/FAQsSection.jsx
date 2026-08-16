@@ -1,24 +1,24 @@
 // Importing necessary hooks, components, and icons
 import { useState } from "react";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
-import Navbar from "../../Components/Navbar/NavBar";
-import Footer from "../../Components/Footer/Footer";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import Navbar from "../../components/Navbar/NavBar";
+import Footer from "../../components/Footer/Footer";
 
 // Individual FAQ item with toggle functionality
 const FAQItem = ({ question, answer }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b py-4 cursor-pointer">
-      <div onClick={() => setOpen(!open)} className="flex justify-between items-center">
-        <h3 className="text-lg font-medium text-gray-800">{question}</h3>
-        {open ? (
-          <ChevronUpIcon className="w-5 h-5 text-gray-600" />
-        ) : (
-          <ChevronDownIcon className="w-5 h-5 text-gray-600" />
-        )}
+    <div className="rounded-xl border border-stone-200 bg-white hover:border-brand-200 transition-colors duration-200 px-5 py-4 cursor-pointer">
+      <div onClick={() => setOpen(!open)} className="flex justify-between items-center gap-4">
+        <h3 className="text-lg font-semibold text-stone-900">{question}</h3>
+        <ChevronDownIcon
+          className={`w-5 h-5 text-brand-700 shrink-0 transition-transform duration-300 ${
+            open ? "rotate-180" : ""
+          }`}
+        />
       </div>
-      {open && <p className="mt-2 text-gray-600">{answer}</p>}
+      {open && <p className="mt-3 text-stone-600 leading-relaxed">{answer}</p>}
     </div>
   );
 };
@@ -54,37 +54,36 @@ const FAQSection = () => {
   ];
 
   return (
-    <div className="font-[Montserrat]">
+    <div>
       <Navbar />
       {/* FAQ section content */}
-      <div className="bg-gray-200 min-h-screen pb-20 pt-15">
-        <div className="max-w-3xl mx-auto px-6 py-6 rounded-xl shadow-lg bg-white/90">
-          <h2 className="text-3xl font-extrabold mb-2 text-green-800 text-center font-[Poppins]">
+      <div className="bg-cream-50 min-h-screen pb-20 pt-16 md:pt-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center mb-12">
+          <h1 className="text-3xl md:text-5xl font-extrabold mb-4 text-stone-900 tracking-tight">
             Frequently Asked Questions
-          </h2>
-          <p className="text-center text-gray-600 mb-8">
+          </h1>
+          <p className="text-stone-600 text-lg">
             Everything you need to know about donating and receiving food with our platform.
           </p>
+        </div>
 
-          {/* Mapping FAQs into expandable items */}
-          <div className="divide-y divide-green-100">
-            {faqs.map((faq, index) => (
-              <FAQItem key={index} {...faq} />
-            ))}
-          </div>
+        {/* Mapping FAQs into expandable items */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 space-y-3">
+          {faqs.map((faq, index) => (
+            <FAQItem key={index} {...faq} />
+          ))}
         </div>
 
         {/* Support section at the bottom */}
-        <div className="flex justify-center mt-10">
-          <div className="bg-green-800 text-white md:px-4 py-4 pb-6 rounded-lg shadow-md text-center mx-10">
-            <span className="font-bold text-xl font-[Poppins]">Still have questions?</span>
-            <br /><br />
-            <span>
+        <div className="flex justify-center mt-12 px-4">
+          <div className="bg-brand-900 text-white px-8 py-8 rounded-2xl shadow-md text-center max-w-xl w-full">
+            <span className="font-bold text-xl">Still have questions?</span>
+            <p className="mt-3 text-brand-100">
               Contact our support team at{" "}
-              <a href="mailto:support@fooddonation.com" className="underline font-medium">
+              <a href="mailto:support@fooddonation.com" className="underline font-medium text-white hover:text-accent-400 transition-colors">
                 contact@foodshare.org
               </a>
-            </span>
+            </p>
           </div>
         </div>
       </div>

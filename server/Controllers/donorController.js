@@ -79,7 +79,8 @@ async function createCampaign(req, res) {
       newCampaign,
     });
   } catch (err) {
-    res.status(500).json({ error: "Server Error", success: false, err });
+    console.error("Error creating campaign:", err);
+    res.status(500).json({ error: "Server Error", success: false });
   }
 }
 
@@ -96,7 +97,6 @@ async function updateProfile(req, res) {
     const user = req.user;
 
     if (!user || !user._id) {
-      console.log("No user found in the request.");
       return res
         .status(404)
         .json({ success: false, error: "User not found or invalid token" });
@@ -134,7 +134,7 @@ async function updateProfile(req, res) {
     });
   } catch (err) {
     console.error("Error updating user:", err);
-    res.status(500).json({ success: false, error: "Server error", err });
+    res.status(500).json({ success: false, error: "Server error" });
   }
 }
 

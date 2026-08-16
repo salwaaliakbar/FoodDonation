@@ -5,6 +5,7 @@ import { useData } from "../context/UserContext";
 import { useSecureFetch } from "../customHooks/useSecureFetch";
 import BtnLoader from "./Common/btnLoader";
 import StatusDialog from "../components/Common/StatusDialog";
+import { API_BASE_URL } from "../config/api";
 
 const Myprofile = () => {
   const { user, setUser } = useData(); // Access global user context
@@ -32,7 +33,7 @@ const Myprofile = () => {
     setBtnLoader(true);
     try {
       const data = await secureFetch(
-        "http://localhost:5000/api/updateProfile",
+        `${API_BASE_URL}/api/updateProfile`,
         {
           method: "PUT",
           headers: {
@@ -98,23 +99,23 @@ const Myprofile = () => {
         />
       )}
 
-      <div className="flex flex-col lg:flex-row font-[Montserrat]">
-        <div className="w-full lg:absolute lg:right-0 bg-gray-200">
-          <div className="mt-25 w-[90%] lg:w-[85%] m-auto border border-gray-200 bg-white rounded-md p-6 md:mb-8">
-            <h2 className="ml-4 lg:ml-10 font-bold text-2xl lg:text-3xl mt-4 md:text-left text-center font-[Poppins]">
+      <div className="flex flex-col lg:flex-row">
+        <div className="w-full lg:absolute lg:right-0 bg-stone-200">
+          <div className="mt-25 w-[90%] lg:w-[85%] m-auto border border-stone-200 bg-white rounded-xl p-6 md:mb-8">
+            <h2 className="ml-4 lg:ml-10 font-bold text-2xl lg:text-3xl mt-4 md:text-left text-center">
               User Profile
             </h2>
 
             {/* Profile Avatar and Name */}
             <div className="flex flex-col lg:flex-row items-center lg:items-start">
-              <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-full text-center text-4xl lg:text-6xl text-white font-bold flex justify-center items-center m-5 bg-green-800">
+              <div className="w-24 h-24 lg:w-32 lg:h-32 rounded-full text-center text-4xl lg:text-6xl text-white font-bold flex justify-center items-center m-5 bg-brand-700">
                 {firstLetter}
               </div>
               <span className="text-center lg:text-left mt-8">
                 <p className="font-bold text-lg">{user?.fullname}</p>
                 <p className="text-lg">{user?.role}</p>
                 <button
-                  className="rounded-md bg-gray-200 mt-2 p-2 text-sm hover:border border-green-400 hover:bg-gray-300"
+                  className="rounded-md bg-stone-200 mt-2 p-2 text-sm hover:border border-brand-400 hover:bg-stone-300"
                   onClick={() => setEdit(true)}
                 >
                   ✏️ Edit Profile
@@ -180,10 +181,10 @@ function TextField({ fieldName, Icon, fieldValue, edit, handleInput }) {
       </p>
       <div
         className={`flex items-center text-xs p-1.5 border-[1.7px] ${
-          edit ? "border-red-700" : "border-gray-800"
-        } rounded-md w-[60%] focus-within:border-green-700`}
+          edit ? "border-red-700" : "border-stone-800"
+        } rounded-md w-[60%] focus-within:border-brand-700`}
       >
-        <Icon className="w-4 h-4 mr-1.5 text-gray-600" />
+        <Icon className="w-4 h-4 mr-1.5 text-stone-600" />
         <input
           type="text"
           name={fieldName}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import MealPostCard from "./DonorMealPostCard";
-import Loader from "../../Components/Loader";
+import Loader from "../../components/Loader";
 import { useSecureFetch } from "../../customHooks/useSecureFetch";
 import { ACTIVE } from "../../constants/constants";
 import { useHandleDelete } from "../../customHooks/useHandleDelete";
@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "../../components/Header";
 import { useLocation } from "react-router-dom";
+import { API_BASE_URL } from "../../config/api";
 
 function DonorGeneralFeed() {
   const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ function DonorGeneralFeed() {
     async function fetchMealFeedData() {
       try {
         const data = await secureFetch(
-          `http://localhost:5000/api/generalFeed?status=${ACTIVE}${
+          `${API_BASE_URL}/api/generalFeed?status=${ACTIVE}${
             locationSearch ? `&location=${locationSearch}` : ""
           }`,
           {
@@ -62,7 +63,7 @@ function DonorGeneralFeed() {
     const deletedId = await deleteMeal(id);
     if (deletedId) {
       toast.success(
-        <div className="font-[Montserrat]">
+        <div className="">
           <p>Meal Deleted Successfully!</p>
         </div>
       );
@@ -73,9 +74,9 @@ function DonorGeneralFeed() {
 
   return (
     <div className="flex">
-      <div className="w-full absolute right-0 bg-gray-200">
+      <div className="w-full absolute right-0 bg-cream-100">
         <div className="md:mb-8 mt-25">
-          <h1 className="mb-4 text-3xl font-bold text-green-800 text-center m-4 font-[Poppins]">
+          <h1 className="mb-4 text-3xl font-bold text-brand-700 text-center m-4">
             General Meal Feed
           </h1>
 
@@ -95,7 +96,7 @@ function DonorGeneralFeed() {
               ))}
             </div>
           ) : (
-            <div className="flex flex-col items-center justify-center h-64 text-gray-500 text-center">
+            <div className="flex flex-col items-center justify-center h-64 text-stone-500 text-center">
               <p className="text-lg font-semibold">No meals to display</p>
               <p className="text-sm">
                 Once meals are added, they’ll appear here in your feed.

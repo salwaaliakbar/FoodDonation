@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { toast } from "react-toastify";
-import { EXPIRED } from "../Components/CONSTANTS";
+import { EXPIRED } from "../constants/constants";
 
 function ExpirationLogic({ meals, onFilter }) {
   const hasRun = useRef(false);

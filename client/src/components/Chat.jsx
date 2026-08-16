@@ -69,7 +69,7 @@ function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
 
         <div className="flex-1 overflow-y-auto p-3 border rounded mb-3">
           {messages.length === 0 ? (
-            <p className="text-center text-gray-500">No messages yet.</p>
+            <p className="text-center text-stone-500">No messages yet.</p>
           ) : (
             messages.map((msg) => (
               <div
@@ -81,8 +81,8 @@ function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
                 <div
                   className={`px-3 py-2 rounded-lg max-w-[85%] flex flex-col ${
                     msg.senderId === user._id
-                      ? "bg-green-600 text-white self-end"
-                      : "bg-gray-300 text-gray-900 self-start"
+                      ? "bg-brand-600 text-white self-end"
+                      : "bg-stone-300 text-stone-900 self-start"
                   }`}
                 >
                   <div className="text-sm break-words">{msg.text}</div>
@@ -103,11 +103,11 @@ function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={handleKeyPress}
             placeholder="Type your message..."
-            className="flex-grow border rounded px-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+            className="flex-grow border rounded px-3 focus:outline-none focus:ring-2 focus:ring-brand-600"
           />
           <button
             onClick={handleSendMessage}
-            className="bg-green-800 text-white px-4 py-2 rounded"
+            className="bg-brand-700 text-white px-4 py-2 rounded"
           >
             Send
           </button>
@@ -115,7 +115,7 @@ function Chat({ selectedUserData, user, setIsChatOpen, campaignId }) {
 
         <button
           onClick={() => setIsChatOpen(false)}
-          className="mt-3 text-sm text-center text-gray-600 hover:underline"
+          className="mt-3 text-sm text-center text-stone-600 hover:underline"
         >
           Close Chat
         </button>

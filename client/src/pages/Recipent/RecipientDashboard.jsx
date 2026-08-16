@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 import { useSocket } from "../../context/SocketProvider";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { useData } from "../../Context/UserContext";
+import { useData } from "../../context/UserContext";
 
 function RecipientDashboard() {
   const { user } = useData()
@@ -51,9 +51,9 @@ function RecipientDashboard() {
   }, [user]);
 
   return (
-    <div className="flex flex-col md:flex-row overflow-hidden font-[Montserrat]">
+    <div className="flex flex-col md:flex-row overflow-hidden">
       <SideBar />
-      <div className="w-full md:w-[80%] md:absolute md:right-0 bg-gray-200 min-h-screen md:mb-8">
+      <div className="w-full md:w-[80%] md:absolute md:right-0 bg-cream-100 min-h-screen md:mb-8">
         <Header />
         <Outlet />
       </div>

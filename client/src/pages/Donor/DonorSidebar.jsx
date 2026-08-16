@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import logo from "../../assets/images/logo.jpg";
-import { useData } from "../../Context/UserContext";
+import { useData } from "../../context/UserContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
-import { useChange } from "../../Context/ChangeContext";
+import { useChange } from "../../context/ChangeContext";
 import { EllipsisVertical, X } from "lucide-react";
 import ConfirmationDialog from "../../components/Common/ConfirmationDialog";
 import StatusDialog from "../../components/Common/StatusDialog";
+import { API_BASE_URL } from "../../config/api";
 
 const DonorSidebar = () => {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const DonorSidebar = () => {
   // Logout API call with side effects
   const confirmLogout = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/logout", {
+      const res = await fetch(`${API_BASE_URL}/api/logout`, {
         method: "GET",
         headers: { Accept: "application/json" },
         credentials: "include",
@@ -117,7 +118,7 @@ const DonorSidebar = () => {
 
       {/* Sidebar toggle (Mobile only) */}
       <button
-        className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300 text-green-800 w-10 h-10"
+        className="fixed top-5 left-2 z-50 text-2xl lg:hidden transition-colors duration-300 text-brand-700 w-10 h-10"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         {isSidebarOpen ? <X /> : <EllipsisVertical />}
@@ -130,7 +131,7 @@ const DonorSidebar = () => {
         } transition-transform duration-300 lg:translate-x-0`}
       >
         {/* Logo */}
-        <div className="h-20 border-b-[1.5px] border-b-green-800 flex items-center justify-center">
+        <div className="h-20 border-b-[1.5px] border-b-brand-700 flex items-center justify-center">
           <img
             className="md:w-80 md:h-19 w-50 h-15 rounded-full cursor-pointer"
             src={logo}
@@ -174,7 +175,7 @@ const DonorSidebar = () => {
                   {({ isActive }) => (
                     <div
                       className={`flex items-center gap-2 mx-2 px-4 py-2 rounded-lg transition-colors ${
-                        isActive ? "bg-green-800 text-white" : ""
+                        isActive ? "bg-brand-700 text-white" : ""
                       }`}
                     >
                       <i className={`fa ${icon} text-lg`}></i>
@@ -190,7 +191,7 @@ const DonorSidebar = () => {
         {/* Logout Button */}
         <div className="px-4 py-4">
           <button
-            className="block w-full text-center px-4 py-2 bg-green-800 text-white font-bold text-lg rounded-lg transition-colors hover:bg-green-600 cursor-pointer"
+            className="block w-full text-center px-4 py-2 bg-brand-700 text-white font-semibold text-lg rounded-full shadow-sm hover:shadow-md transition-all duration-200 hover:bg-brand-800 cursor-pointer"
             onClick={handleLogout}
           >
             Logout

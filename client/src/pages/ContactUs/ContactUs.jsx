@@ -1,181 +1,296 @@
-// Importing reusable components and icons
-import Navbar from "../../Components/Navbar/NavBar";
-import { Mail, MapPin, Phone } from "lucide-react";
+import Navbar from "../../components/Navbar/NavBar";
+import { Mail, MapPin, Phone, MessageCircle } from "lucide-react";
 import { Formik, Form, Field } from "formik";
 import ContactusSchema from "../../yupschemas/ContactusSchema";
-import Footer from "../../Components/Footer/Footer";
+import Footer from "../../components/Footer/Footer";
 
 function ContactUs() {
+  const contactInfo = [
+    {
+      icon: MapPin,
+      title: "Our Location",
+      content: (
+        <>
+          123 Food Share Street
+          <br />
+          Community City, World 12345
+        </>
+      ),
+    },
+    {
+      icon: Mail,
+      title: "Email Us",
+      content: (
+        <>
+          contact@foodshare.org
+          <br />
+          donations@foodshare.org
+        </>
+      ),
+    },
+    {
+      icon: Phone,
+      title: "Call Us",
+      content: (
+        <>
+          Donation Hotline: (123) 456-7890
+          <br />
+          General Inquiries: (123) 456-7891
+        </>
+      ),
+    },
+  ];
+
   return (
-    <div className="font-[Montserrat]">
+    <div className="flex min-h-screen flex-col bg-cream-50">
       <Navbar />
-      <div>
-        {/* Top hero section with heading and description */}
-        <div className="bg-green-800 pt-15 pb-12 md:pb-24">
-          <div className="mx-auto px-4 md:px-6 text-center">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-[Poppins]">
-              Get in Touch
-            </h1>
-            <p className="text-lg md:text-xl text-white max-w-2xl mx-auto">
-              Have questions about donating food or receiving food? We're here
-              to help you make a difference in our community.
-            </p>
-          </div>
+
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 pt-4 md:pt-8 pb-8 md:pb-12">
+        {/* Background decoration */}
+        <div className="absolute -left-32 top-10 h-72 w-72 rounded-full bg-brand-500/20 blur-3xl" />
+        <div className="absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-accent-400/20 blur-3xl" />
+
+        {/* Decorative circles */}
+        <div className="absolute right-[15%] top-20 hidden h-24 w-24 rounded-full border border-white/10 md:block" />
+        <div className="absolute bottom-10 left-[12%] hidden h-16 w-16 rounded-full border border-white/10 md:block" />
+
+        <div className="relative mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+         
+
+          {/* Eyebrow */}
+          <span className="mt-6 inline-flex items-center rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-semibold text-brand-100 backdrop-blur-sm">
+            We're Here to Help
+          </span>
+
+          {/* Heading */}
+          <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Let's start a
+            <span className="block text-brand-300">
+              conversation.
+            </span>
+          </h1>
+
+          {/* Description */}
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-brand-100/90 sm:text-lg">
+            Have a question about donating, receiving food, or using
+            FoodSecure? Reach out to us and we'll be happy to help.
+          </p>
         </div>
+      </section>
 
-        {/* Contact form and contact info side by side */}
-        <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-between gap-10 px-4 md:px-10 lg:px-20 py-10 mx-2 pb-20 md:pb-30">
-          {/* Contact form section */}
-          <div className="w-full lg:w-1/2">
-            <Formik
-              initialValues={{
-                fullname: "",
-                phone: "",
-                email: "",
-                message: "",
-              }}
-              // Alert on form submission
-              onSubmit={() => {
-                alert("Your message sent successfully");
-              }}
-              validationSchema={ContactusSchema}
-            >
-              {({ errors, touched }) => (
-                <Form className="border-green-200 border-[1.5px] rounded-2xl shadow-2xl w-full max-w-md mx-auto p-6">
-                  <h1 className="text-3xl text-center mb-4 text-green-800 font-bold font-[Poppins]">
-                    Send Us a Message
-                  </h1>
-                  <p className="text-center text-gray-600 mb-5">
-                    Fill out the form and we'll get back to you as soon as
-                    possible.
-                  </p>
+      {/* Contact Content */}
+      <main className="relative flex-grow overflow-hidden py-20 md:py-28">
+        {/* Background decoration */}
+        <div className="absolute -left-40 top-20 h-80 w-80 rounded-full bg-brand-50/70 blur-3xl" />
+        <div className="absolute -right-40 bottom-20 h-80 w-80 rounded-full bg-accent-50/70 blur-3xl" />
 
-                  {/* Full Name field */}
-                  <div className="relative mb-4">
-                    <i className="fa fa-user absolute left-3 top-4 text-gray-400"></i>
-                    <Field
-                      name="fullname"
-                      placeholder="Full Name"
-                      className="block p-2 pl-10 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-300"
-                    />
-                    {errors.fullname && touched.fullname ? (
-                      <div className="text-red-600 text-sm">
-                        {errors.fullname}
-                      </div>
-                    ) : null}
-                  </div>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
 
-                  {/* Phone Number field */}
-                  <div className="relative mb-4">
-                    <i className="fa fa-phone absolute left-3 top-4 text-gray-400"></i>
-                    <Field
-                      name="phone"
-                      placeholder="Phone Number"
-                      className="block p-2 pl-10 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-300"
-                    />
-                    {errors.phone && touched.phone ? (
-                      <div className="text-red-600 text-sm">{errors.phone}</div>
-                    ) : null}
-                  </div>
+            {/* Contact Form */}
+            <div>
+              <div className="mb-8">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">
+                  Send a Message
+                </span>
 
-                  {/* Email field */}
-                  <div className="relative mb-4">
-                    <i className="fa fa-envelope absolute left-3 top-3 text-gray-400"></i>
-                    <Field
-                      name="email"
-                      placeholder="Email Address"
-                      className="block p-2 pl-10 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-300"
-                    />
-                    {errors.email && touched.email ? (
-                      <div className="text-red-600 text-sm">{errors.email}</div>
-                    ) : null}
-                  </div>
+                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
+                  How can we help?
+                </h2>
 
-                  {/* Message textarea */}
-                  <div className="relative mb-6">
-                    <i className="fa fa-pencil absolute left-3 top-3 text-gray-400"></i>
-                    <Field
-                      name="message"
-                      as="textarea"
-                      placeholder="Write your message..."
-                      className="block p-2 pl-10 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-green-600 transition duration-300"
-                    />
-                    {errors.message && touched.message ? (
-                      <div className="text-red-600 text-sm">
-                        {errors.message}
-                      </div>
-                    ) : null}
-                  </div>
-
-                  {/* Submit button */}
-                  <button
-                    type="submit"
-                    className="bg-green-800 hover:bg-green-600 text-white cursor-pointer font-semibold py-2 px-4 rounded-lg w-full transition duration-300"
-                  >
-                    Send Message
-                  </button>
-                </Form>
-              )}
-            </Formik>
-          </div>
-
-          {/* Contact information section */}
-          <div className="w-full lg:w-1/2 px-3">
-            <h2 className="text-3xl text-left mb-10 text-green-800 font-bold font-[Poppins] md:mt-7">
-              Contact Information
-            </h2>
-            <div className="space-y-6">
-              {/* Address */}
-              <div className="flex items-start gap-4 transition-transform duration-200 hover:translate-x-1">
-                <div className="bg-green-100 p-3 rounded-full">
-                  <MapPin className="h-6 w-6 text-green-800" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-lg">Our Location</h3>
-                  <p className="text-gray-600">
-                    123 Food Share Street
-                    <br />
-                    Community City, World 12345
-                  </p>
-                </div>
+                <p className="mt-3 max-w-xl text-base leading-7 text-stone-600">
+                  Fill out the form below and share your question or message
+                  with our team.
+                </p>
               </div>
 
-              {/* Email */}
-              <div className="flex items-start gap-4 transition-transform duration-200 hover:translate-x-1">
-                <div className="bg-green-100 p-3 rounded-full">
-                  <Mail className="h-6 w-6 text-green-800" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-lg">Email Us</h3>
-                  <p className="text-gray-600">
-                    contact@foodshare.org
-                    <br />
-                    donations@foodshare.org
-                  </p>
-                </div>
+              <Formik
+                initialValues={{
+                  fullname: "",
+                  phone: "",
+                  email: "",
+                  message: "",
+                }}
+                validationSchema={ContactusSchema}
+                onSubmit={() => {
+                  alert("Your message was sent successfully.");
+                }}
+              >
+                {({ errors, touched }) => (
+                  <Form className="rounded-3xl border border-stone-200/70 bg-white p-6 shadow-[0_10px_40px_rgba(0,0,0,0.05)] sm:p-8">
+
+                    {/* Full Name */}
+                    <div className="mb-5">
+                      <label
+                        htmlFor="fullname"
+                        className="mb-2 block text-sm font-semibold text-stone-700"
+                      >
+                        Full Name
+                      </label>
+
+                      <Field
+                        id="fullname"
+                        name="fullname"
+                        placeholder="Enter your full name"
+                        className="w-full rounded-xl border border-stone-300 bg-stone-50/50 px-4 py-3 text-stone-800 outline-none transition-all placeholder:text-stone-400 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-100"
+                      />
+
+                      {errors.fullname && touched.fullname && (
+                        <p className="mt-1.5 text-sm text-red-600">
+                          {errors.fullname}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Phone */}
+                    <div className="mb-5">
+                      <label
+                        htmlFor="phone"
+                        className="mb-2 block text-sm font-semibold text-stone-700"
+                      >
+                        Phone Number
+                      </label>
+
+                      <Field
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter your phone number"
+                        className="w-full rounded-xl border border-stone-300 bg-stone-50/50 px-4 py-3 text-stone-800 outline-none transition-all placeholder:text-stone-400 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-100"
+                      />
+
+                      {errors.phone && touched.phone && (
+                        <p className="mt-1.5 text-sm text-red-600">
+                          {errors.phone}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Email */}
+                    <div className="mb-5">
+                      <label
+                        htmlFor="email"
+                        className="mb-2 block text-sm font-semibold text-stone-700"
+                      >
+                        Email Address
+                      </label>
+
+                      <Field
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        className="w-full rounded-xl border border-stone-300 bg-stone-50/50 px-4 py-3 text-stone-800 outline-none transition-all placeholder:text-stone-400 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-100"
+                      />
+
+                      {errors.email && touched.email && (
+                        <p className="mt-1.5 text-sm text-red-600">
+                          {errors.email}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Message */}
+                    <div className="mb-6">
+                      <label
+                        htmlFor="message"
+                        className="mb-2 block text-sm font-semibold text-stone-700"
+                      >
+                        Message
+                      </label>
+
+                      <Field
+                        id="message"
+                        name="message"
+                        as="textarea"
+                        rows={5}
+                        placeholder="How can we help you?"
+                        className="w-full resize-none rounded-xl border border-stone-300 bg-stone-50/50 px-4 py-3 text-stone-800 outline-none transition-all placeholder:text-stone-400 focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-100"
+                      />
+
+                      {errors.message && touched.message && (
+                        <p className="mt-1.5 text-sm text-red-600">
+                          {errors.message}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Submit */}
+                    <button
+                      type="submit"
+                      className="w-full rounded-xl bg-brand-600 px-6 py-3.5 font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-lg"
+                    >
+                      Send Message
+                    </button>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+
+            {/* Contact Information */}
+            <div>
+              <div className="mb-8">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-600">
+                  Contact Information
+                </span>
+
+                <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl">
+                  We're easy to reach.
+                </h2>
+
+                <p className="mt-3 max-w-lg text-base leading-7 text-stone-600">
+                  Whether you're a donor, recipient, volunteer, or simply want
+                  to learn more, we're always happy to hear from you.
+                </p>
               </div>
 
-              {/* Phone */}
-              <div className="flex items-start gap-4 transition-transform duration-200 hover:translate-x-1">
-                <div className="bg-green-100 p-3 rounded-full">
-                  <Phone className="h-6 w-6 text-green-800" />
-                </div>
-                <div>
-                  <h3 className="font-medium text-lg">Call Us</h3>
-                  <p className="text-gray-600">
-                    Donation Hotline: (123) 456-7890
-                    <br />
-                    General Inquiries: (123) 456-7891
-                  </p>
-                </div>
+              {/* Information Cards */}
+              <div className="space-y-4">
+                {contactInfo.map((item, index) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <div
+                      key={index}
+                      className="group flex items-start gap-4 rounded-2xl border border-stone-200/70 bg-white p-5 shadow-[0_6px_25px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-lg"
+                    >
+                      <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-700 transition-all duration-300 group-hover:bg-brand-100 group-hover:scale-105">
+                        <Icon className="h-6 w-6" strokeWidth={1.8} />
+                      </div>
+
+                      <div>
+                        <h3 className="text-base font-bold text-stone-900">
+                          {item.title}
+                        </h3>
+
+                        <p className="mt-1 text-sm leading-6 text-stone-600">
+                          {item.content}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Small CTA */}
+              <div className="mt-6 rounded-3xl bg-stone-900 p-6 sm:p-7">
+                <p className="text-lg font-bold text-white">
+                  Every conversation can make a difference.
+                </p>
+
+                <p className="mt-2 text-sm leading-6 text-stone-400">
+                  Your questions, ideas, and support help us build a stronger
+                  food-sharing community.
+                </p>
               </div>
             </div>
           </div>
         </div>
+      </main>
 
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 }
+
 export default ContactUs;

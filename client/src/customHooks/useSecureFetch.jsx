@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config/api";
 
 export function useSecureFetch() {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ export function useSecureFetch() {
         let refreshData = {};
 
         try {
-          const refreshRes = await fetch("http://localhost:5000/api/refresh", {
+          const refreshRes = await fetch(`${API_BASE_URL}/api/refresh`, {
             method: "GET",
             credentials: "include",
           });

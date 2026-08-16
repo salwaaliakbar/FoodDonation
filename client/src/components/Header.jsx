@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { useData } from "../Context/UserContext";
+import { useData } from "../context/UserContext";
 
 const Header = () => {
   const { user } = useData()
@@ -50,10 +50,10 @@ const Header = () => {
     : "U";
 
   return (
-    <div className="fixed flex flex-row justify-between items-center h-20 md:h-20 border-b-[1.5px] border-b-green-800 bg-white p-4 md:px-15 md:pl-0 pl-12 md:w-[80%] w-full z-49 font-[Montserrat]">
+    <div className="fixed flex flex-row justify-between items-center h-20 md:h-20 border-b-[1.5px] border-b-brand-700 bg-white p-4 md:px-15 md:pl-0 pl-12 md:w-[80%] w-full z-49">
 
       {/* Search Input */}
-      <div className="flex items-center border-2 border-gray-300 rounded-lg p-2 w-[80%] md:w-[50%] mb-4 md:mb-0 md:ml-15 md:mt-0 mt-4">
+      <div className="flex items-center border-2 border-stone-300 rounded-lg p-2 w-[80%] md:w-[50%] mb-4 md:mb-0 md:ml-15 md:mt-0 mt-4">
         <input
           type="text"
           name="search"
@@ -61,7 +61,7 @@ const Header = () => {
           className="w-full px-4 text-lg border-none focus:outline-none"
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button className="ml-2 p-2 bg-green-800 text-white rounded-lg hover:bg-green-700">
+        <button className="ml-2 p-2 bg-brand-700 text-white rounded-lg hover:bg-brand-800">
           {/* Search Icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -81,16 +81,16 @@ const Header = () => {
       </div>
 
       {/* User Info Section */}
-      <div className="flex items-center border-gray-300 rounded-lg p-2 md:w-auto">
+      <div className="flex items-center border-stone-300 rounded-lg p-2 md:w-auto">
         {/* Full name and role - hidden on small screens */}
         <div className="mr-4 text-right md:block hidden">
           <p className="text-md font-semibold">{user?.fullname}</p>
-          <p className="text-sm text-gray-500">{user?.role}</p>
+          <p className="text-sm text-stone-500">{user?.role}</p>
         </div>
 
         {/* Avatar Circle */}
         <div>
-          <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800 md:ml-0 ml-2">
+          <div className="w-11 h-11 rounded-full object-cover text-center text-2xl text-white font-bold flex justify-center items-center bg-brand-700 md:ml-0 ml-2">
             {firstLetter}
           </div>
         </div>

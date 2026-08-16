@@ -5,8 +5,9 @@ import { useSecureFetch } from "../../customHooks/useSecureFetch";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useHandleDelete } from "../../customHooks/useHandleDelete";
-import { useChange } from "../../Context/ChangeContext";
+import { useChange } from "../../context/ChangeContext";
 import { ACTIVE, GRANTED, EXPIRED } from "../../constants/constants";
+import { API_BASE_URL } from "../../config/api";
 
 const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   const { user } = useData();
@@ -51,7 +52,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
     try {
       if (user?._id) {
         const data = await secureFetch(
-          `http://localhost:5000/api/getHistoy?userId=${user._id}&status=${status}`,
+          `${API_BASE_URL}/api/getHistoy?userId=${user._id}&status=${status}`,
           {
             method: "GET",
             headers: { "Accept": "application/json" },
@@ -135,7 +136,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
       });
 
       toast.error(
-        <div className="font-[Montserrat]">
+        <div className="">
           <p className="font-bold text-lg mb-2">
             {expired.length} meal(s) expired:
           </p>
@@ -159,7 +160,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
     const deletedId = await deleteMeal(id);
     if (deletedId) {
       toast.success(
-        <div className="font-[Montserrat]">
+        <div className="">
           <p>Meal Deleted Successfully!</p>
         </div>
       );
@@ -170,14 +171,14 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
   return (
     <section className="w-full mx-auto bg-white border-[1px] border-zinc-200 rounded-xl shadow-lg mt-4 mb-4 ">
       <h2
-        className={`text-[23px] font-[Poppins] ${color} p-4 border-b ${bg} rounded-t-xl`}
+        className={`text-[23px] ${color} p-4 border-b ${bg} rounded-t-xl`}
       >
         {name}
       </h2>
 
       {loading ? (
         <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-green-800"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-brand-700"></div>
         </div>
       ) : (
         <>
@@ -229,7 +230,7 @@ const ActiveMealsSection = ({ title: name, color, bg, status }) => {
 };
 
 const NoMeals = ({ message, hint }) => (
-  <div className="flex flex-col items-center justify-center h-64 text-gray-500">
+  <div className="flex flex-col items-center justify-center h-64 text-stone-500">
     <p className="text-lg font-semibold">{message}</p>
     <p className="text-sm">{hint}</p>
   </div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import MealApplyModal from "./MealApplyModal";
 import { useData } from "../../context/UserContext";
-import Chat from "../../Components/Chat";
+import Chat from "../../components/Chat";
+import { API_BASE_URL } from "../../config/api";
 
 const MealPostCard = ({ meal, index, setMealPosts }) => {
   const { user } = useData();
@@ -37,7 +38,7 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
     };
     try {
       const response = await fetch(
-        `http://localhost:5000/api/applyCampaign?userId=${user?._id}`,
+        `${API_BASE_URL}/api/applyCampaign?userId=${user?._id}`,
         {
           method: "POST",
           headers: {
@@ -85,21 +86,21 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
       >
         {/* Top Section: User Info */}
         <div className="flex items-center gap-3 mb-4 flex-wrap">
-          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full text-center text-white font-bold flex justify-center items-center bg-green-800 text-lg sm:text-2xl">
+          <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full text-center text-white font-bold flex justify-center items-center bg-brand-700 text-lg sm:text-2xl">
             {firstLetter}
           </div>
           <div>
             <h3 className="text-base sm:text-lg font-bold">{meal.createdBy.fullname}</h3>
-            <p className="text-gray-500 text-sm">{meal.location}</p>
+            <p className="text-stone-500 text-sm">{meal.location}</p>
           </div>
         </div>
 
         {/* Meal Info */}
         <h2 className="text-lg sm:text-xl font-semibold mb-2">{meal.title}</h2>
-        <p className="text-gray-700 text-sm sm:text-base mb-3">{meal.description}</p>
+        <p className="text-stone-700 text-sm sm:text-base mb-3">{meal.description}</p>
 
         {/* Details Row */}
-        <div className="flex flex-col sm:flex-row justify-between text-sm text-gray-700 gap-1">
+        <div className="flex flex-col sm:flex-row justify-between text-sm text-stone-700 gap-1">
           <p>
             🍴 {meal.foodType} for {meal.remaining}{" "}
             {meal.amount > 1 ? "persons" : "person"}
@@ -107,11 +108,11 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
           <p>Status: {meal.status}</p>
         </div>
 
-        <div className="flex flex-col sm:flex-row justify-between text-sm text-gray-700 mt-2 gap-1">
+        <div className="flex flex-col sm:flex-row justify-between text-sm text-stone-700 mt-2 gap-1">
           <p>⏰ {new Date(meal.createdAt).toLocaleString("en-PK")}</p>
           <p>
             👥 {meal.applied.length} Applied{" "}
-            {applied && <span className="text-green-600 ml-1">✔️</span>}
+            {applied && <span className="text-brand-600 ml-1">✔️</span>}
           </p>
         </div>
 
@@ -119,8 +120,8 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
         {expanded && (
           <div className="transition-all duration-700 mt-6">
             <div className="mb-3">
-              <p className="text-sm font-semibold text-gray-600 mb-1">Applicants:</p>
-              <ul className="list-disc pl-5 text-sm text-gray-700">
+              <p className="text-sm font-semibold text-stone-600 mb-1">Applicants:</p>
+              <ul className="list-disc pl-5 text-sm text-stone-700">
                 {meal.applied.map((a, i) => (
                   <li key={i}>
                     {a.p_id.fullname} - {a.persons}{" "}
@@ -133,9 +134,9 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row justify-end gap-3 mt-4">
               <button
-                className={`w-full sm:w-auto px-5 py-2 text-white rounded ${!applied
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-green-800 hover:bg-green-700"
+                className={`w-full sm:w-auto px-5 py-2 text-white font-semibold rounded-full shadow-sm hover:shadow-md transition-all duration-200 ${!applied
+                  ? "bg-stone-400 cursor-not-allowed"
+                  : "bg-brand-700 hover:bg-brand-800"
                   }`}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -151,9 +152,9 @@ const MealPostCard = ({ meal, index, setMealPosts }) => {
               </button>
 
               <button
-                className={`w-full sm:w-auto px-6 py-2 text-white rounded ${applied
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-green-800 hover:bg-green-700"
+                className={`w-full sm:w-auto px-6 py-2 text-white font-semibold rounded-full shadow-sm hover:shadow-md transition-all duration-200 ${applied
+                  ? "bg-stone-400 cursor-not-allowed"
+                  : "bg-brand-700 hover:bg-brand-800"
                   }`}
                 onClick={(e) => {
                   e.stopPropagation();

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import StatsSection from "../../Components/StatsSection";
-import ActiveMealsSection from "../../Components/ActiveMealsSection";
+import StatsSection from "../../components/StatsSection";
+import ActiveMealsSection from "../../components/ActiveMealsSection";
 import { useData } from "../../context/UserContext";
-import Loader from "../../Components/Loader";
+import Loader from "../../components/Loader";
+import { API_BASE_URL } from "../../config/api";
 
 function Recipent_Dashboard() {
   const { user } = useData();
@@ -15,7 +16,7 @@ function Recipent_Dashboard() {
     async function fetchGrantedMeals() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/grantedMeals?userId=${user?._id}`,
+          `${API_BASE_URL}/api/grantedMeals?userId=${user?._id}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -33,7 +34,7 @@ function Recipent_Dashboard() {
     async function fetchActiveMeals() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/activeFeed?userId=${user?._id}`,
+          `${API_BASE_URL}/api/activeFeed?userId=${user?._id}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -51,7 +52,7 @@ function Recipent_Dashboard() {
     async function fetchMealsStatistics() {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/mealStatistics?userId=${user?._id}`,
+          `${API_BASE_URL}/api/mealStatistics?userId=${user?._id}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -94,7 +95,7 @@ function Recipent_Dashboard() {
 
   return (
     <div className="">
-      <div className="flex flex-col lg:flex-row min-h-screen bg-gray-200">
+      <div className="flex flex-col lg:flex-row min-h-screen bg-cream-100">
         {/* If Sidebar needed: Uncomment next line */}
         {/* <SideBar /> */}
 

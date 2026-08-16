@@ -1,10 +1,11 @@
 import { Field, Formik, Form } from "formik";
 import CampaignSchema from "../../yupschemas/CampaignSchema";
 import { useSecureFetch } from "../../customHooks/useSecureFetch";
-import { useChange } from "../../Context/ChangeContext";
-import BtnLoader from "../../Components/Common/btnLoader";
+import { useChange } from "../../context/ChangeContext";
+import BtnLoader from "../../components/Common/BtnLoader";
 import StatusDialog from "../../components/Common/StatusDialog";
 import { useState } from "react";
+import { API_BASE_URL } from "../../config/api";
 
 function CreateCampaign() {
   const { setActiveMeals } = useChange();
@@ -26,7 +27,7 @@ function CreateCampaign() {
           onClose={() => setStatus({ ...status, show: false })}
         />
       )}
-      <h1 className=" text-3xl font-bold text-green-800 text-center mt-28 font-[Poppins]">
+      <h1 className=" text-3xl font-bold text-brand-700 text-center mt-28">
         Create a Food Donation Campaign
       </h1>
       <Formik
@@ -43,7 +44,7 @@ function CreateCampaign() {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
             const data = await secureFetch(
-              "http://localhost:5000/api/createCampaign",
+              `${API_BASE_URL}/api/createCampaign`,
               {
                 method: "POST",
                 headers: {
@@ -101,7 +102,7 @@ function CreateCampaign() {
         validationSchema={CampaignSchema}
       >
         {({ errors, touched, isSubmitting }) => (
-          <div className="w-full min-h-screen bg-gray-200 overflow-x-hidden font-[Montserrat]">
+          <div className="w-full min-h-screen bg-cream-100 overflow-x-hidden">
             {/* Form Container with top padding to avoid overlap */}
             <div className=" pt-4 px-4 sm:px-8 max-w-4xl mx-auto my-4 mb-15">
               <Form className="bg-white rounded-xl shadow-lg p-6 sm:p-8">
@@ -109,7 +110,7 @@ function CreateCampaign() {
                 <div className="mb-6">
                   <label
                     htmlFor="title"
-                    className="block text-lg font-medium text-gray-700"
+                    className="block text-lg font-medium text-stone-700"
                   >
                     Campaign Title
                   </label>
@@ -118,7 +119,7 @@ function CreateCampaign() {
                     name="title"
                     type="text"
                     placeholder="Enter a title for your campaign"
-                    className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md"
+                    className="mt-2 block w-full px-4 py-2 bg-stone-100 border border-stone-300 rounded-md"
                   />
                   {errors.title && touched.title && (
                     <div className="text-red-600">{errors.title}</div>
@@ -129,7 +130,7 @@ function CreateCampaign() {
                 <div className="mb-6">
                   <label
                     htmlFor="foodType"
-                    className="block text-lg font-medium text-gray-700"
+                    className="block text-lg font-medium text-stone-700"
                   >
                     Food Donation Type
                   </label>
@@ -137,7 +138,7 @@ function CreateCampaign() {
                     as="select"
                     id="foodType"
                     name="foodType"
-                    className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md"
+                    className="mt-2 block w-full px-4 py-2 bg-stone-100 border border-stone-300 rounded-md"
                   >
                     <option value="Meals">Meals</option>
                     <option value="Food packages">Food Packages</option>
@@ -152,7 +153,7 @@ function CreateCampaign() {
                 <div className="mb-6">
                   <label
                     htmlFor="amount"
-                    className="block text-lg font-medium text-gray-700"
+                    className="block text-lg font-medium text-stone-700"
                   >
                     Amount of Meals to Donate
                   </label>
@@ -161,7 +162,7 @@ function CreateCampaign() {
                     name="amount"
                     type="number"
                     placeholder="How many meals would you like to donate?"
-                    className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md"
+                    className="mt-2 block w-full px-4 py-2 bg-stone-100 border border-stone-300 rounded-md"
                   />
                   {errors.amount && touched.amount && (
                     <div className="text-red-600">{errors.amount}</div>
@@ -172,7 +173,7 @@ function CreateCampaign() {
                 <div className="mb-6">
                   <label
                     htmlFor="expiration"
-                    className="block text-lg font-medium text-gray-700"
+                    className="block text-lg font-medium text-stone-700"
                   >
                     Expiration Time
                   </label>
@@ -180,7 +181,7 @@ function CreateCampaign() {
                     id="expiration"
                     name="expiration"
                     type="datetime-local"
-                    className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md"
+                    className="mt-2 block w-full px-4 py-2 bg-stone-100 border border-stone-300 rounded-md"
                   />
                   {errors.expiration && touched.expiration && (
                     <div className="text-red-600">{errors.expiration}</div>
@@ -189,7 +190,7 @@ function CreateCampaign() {
 
                 {/* Meal Type Radio */}
                 <div className="mb-6">
-                  <label className="block text-lg font-medium text-gray-700">
+                  <label className="block text-lg font-medium text-stone-700">
                     Meal Type
                   </label>
                   <div className="mt-2 space-y-2">
@@ -199,11 +200,11 @@ function CreateCampaign() {
                         name="mealType"
                         type="radio"
                         value="vegetarian"
-                        className="h-5 w-5 text-green-600"
+                        className="h-5 w-5 text-brand-600"
                       />
                       <label
                         htmlFor="vegetarian"
-                        className="ml-2 text-gray-700"
+                        className="ml-2 text-stone-700"
                       >
                         Vegetarian
                       </label>
@@ -214,11 +215,11 @@ function CreateCampaign() {
                         name="mealType"
                         type="radio"
                         value="non-vegetarian"
-                        className="h-5 w-5 text-green-800"
+                        className="h-5 w-5 text-brand-700"
                       />
                       <label
                         htmlFor="non-vegetarian"
-                        className="ml-2 text-gray-700"
+                        className="ml-2 text-stone-700"
                       >
                         Non-Vegetarian
                       </label>
@@ -233,7 +234,7 @@ function CreateCampaign() {
                 <div className="mb-6">
                   <label
                     htmlFor="location"
-                    className="block text-lg font-medium text-gray-700"
+                    className="block text-lg font-medium text-stone-700"
                   >
                     Location
                   </label>
@@ -242,7 +243,7 @@ function CreateCampaign() {
                     name="location"
                     type="text"
                     placeholder="Enter location"
-                    className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md"
+                    className="mt-2 block w-full px-4 py-2 bg-stone-100 border border-stone-300 rounded-md"
                   />
                   {errors.location && touched.location && (
                     <div className="text-red-600">{errors.location}</div>
@@ -253,7 +254,7 @@ function CreateCampaign() {
                 <div className="mb-6">
                   <label
                     htmlFor="phone"
-                    className="block text-lg font-medium text-gray-700"
+                    className="block text-lg font-medium text-stone-700"
                   >
                     Phone Number
                   </label>
@@ -262,7 +263,7 @@ function CreateCampaign() {
                     name="phone"
                     type="tel"
                     placeholder="Enter your phone number"
-                    className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md"
+                    className="mt-2 block w-full px-4 py-2 bg-stone-100 border border-stone-300 rounded-md"
                   />
                   {errors.phone && touched.phone && (
                     <div className="text-red-600">{errors.phone}</div>
@@ -273,7 +274,7 @@ function CreateCampaign() {
                 <div className="mb-6">
                   <label
                     htmlFor="description"
-                    className="block text-lg font-medium text-gray-700"
+                    className="block text-lg font-medium text-stone-700"
                   >
                     Description
                   </label>
@@ -283,7 +284,7 @@ function CreateCampaign() {
                     name="description"
                     placeholder="Enter a description for your campaign"
                     rows={4}
-                    className="mt-2 block w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md resize-none"
+                    className="mt-2 block w-full px-4 py-2 bg-stone-100 border border-stone-300 rounded-md resize-none"
                   />
                   {errors.description && touched.description && (
                     <div className="text-red-600">{errors.description}</div>

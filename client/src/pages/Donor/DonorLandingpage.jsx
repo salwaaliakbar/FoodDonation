@@ -10,7 +10,7 @@ function DonorLandingPage(){
           <StatsSection />
           <ActiveMealsSection
             title={"Your Active Meals"}
-            color={"text-green-800"}
+            color={"text-brand-700"}
             status={ACTIVE}
           />
         </div>

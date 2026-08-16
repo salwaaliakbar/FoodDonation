@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MealAcceptModel from "./MealAcceptModal";
 import { ACTIVE, EXPIRED, GRANTED } from "../../constants/constants";
 import { useLocation } from "react-router-dom";
-import Chat from "../../Components/Chat";
+import Chat from "../../components/Chat";
 import { Trash2 } from "lucide-react";
 import { useData } from "../../context/UserContext";
 import useJoinMealSocket from "../../customHooks/useJoinMealSocket";
@@ -61,11 +61,11 @@ const MealPostCard = ({ meal, handleDelete }) => {
     <>
       <div
         onClick={() => setExpanded((prev) => !prev)}
-        className="bg-white rounded-lg shadow-md p-6 mb-4 w-full cursor-pointer transition-all duration-1000"
+        className="bg-white rounded-xl shadow-md p-6 mb-4 w-full cursor-pointer transition-all duration-1000"
       >
         {/* Only show awarded banner if in generalfeed and meal is granted */}
         {pathname === "/donorDashBoard/generalfeed" && awardedTo && (
-          <div className="bg-green-100 text-green-800 border border-green-300 px-4 py-3 rounded-md text-base font-semibold mb-4 shadow-sm">
+          <div className="bg-brand-100 text-brand-800 border border-brand-300 px-4 py-3 rounded-xl text-base font-semibold mb-4 shadow-sm">
             🏅 Meal Awarded to <span className="underline">{awardedTo}</span>
           </div>
         )}
@@ -73,12 +73,12 @@ const MealPostCard = ({ meal, handleDelete }) => {
         <div className="flex justify-between">
           {/* Donor info and location */}
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-11 h-11 rounded-full text-center text-2xl text-white font-bold flex justify-center items-center bg-green-800">
+            <div className="w-11 h-11 rounded-full text-center text-2xl text-white font-bold flex justify-center items-center bg-brand-700">
               {firstLetter}
             </div>
             <div>
               <h3 className="text-lg font-bold">{meal.createdBy?.fullname}</h3>
-              <p className="text-gray-500 text-sm">{meal.location}</p>
+              <p className="text-stone-500 text-sm">{meal.location}</p>
             </div>
           </div>
           <div>
@@ -95,12 +95,12 @@ const MealPostCard = ({ meal, handleDelete }) => {
               </div>
             ) : (
               <div
-                className="bg-gray-100 p-2 rounded-full shadow-md"
+                className="bg-stone-100 p-2 rounded-full shadow-md"
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
               >
-                <Trash2 className="text-gray-600  shadow-2xl mt-4 cursor-not-allowed disabled" />
+                <Trash2 className="text-stone-600  shadow-2xl mt-4 cursor-not-allowed disabled" />
               </div>
             )}
           </div>
@@ -108,10 +108,10 @@ const MealPostCard = ({ meal, handleDelete }) => {
 
         {/* Meal title & description */}
         <h2 className="text-xl font-semibold mb-2">{meal.title}</h2>
-        <p className="text-gray-700 mb-3">{meal.description}</p>
+        <p className="text-stone-700 mb-3">{meal.description}</p>
 
         {/* Meal meta: quantity + status */}
-        <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
+        <div className="flex justify-between items-center text-sm text-stone-700 mt-2">
           <div>
             <p>
               🍴 Meal for {meal.amount} {meal.amount > 1 ? "persons" : "person"}
@@ -124,7 +124,7 @@ const MealPostCard = ({ meal, handleDelete }) => {
         </div>
 
         {/* Time and applicant count */}
-        <div className="flex justify-between items-center text-sm text-gray-700 mt-2">
+        <div className="flex justify-between items-center text-sm text-stone-700 mt-2">
           <p>⏰ {new Date(meal.createdAt).toLocaleString("en-PK")}</p>
           <p>👥 {appliedList.length} Applied</p>
         </div>
@@ -134,7 +134,7 @@ const MealPostCard = ({ meal, handleDelete }) => {
             <div className="mb-2">
               {/* Meal status logic */}
               {status === GRANTED ? (
-                <p className="text-sm text-green-600 italic">
+                <p className="text-sm text-brand-600 italic">
                   Meal has been awarded.
                 </p>
               ) : status === EXPIRED ? (
@@ -147,11 +147,11 @@ const MealPostCard = ({ meal, handleDelete }) => {
             <div className="flex flex-col md:flex-row gap-8 justify-between">
               {/* Applicants Section */}
               <div className="md:w-1/2 md:pr-6">
-                <p className="text-sm font-bold text-gray-600 mb-1">
+                <p className="text-sm font-bold text-stone-600 mb-1">
                   Applicants:
                 </p>
                 {appliedList?.length > 0 ? (
-                  <ul className="list-disc pl-5 text-sm text-gray-700">
+                  <ul className="list-disc pl-5 text-sm text-stone-700">
                     {appliedList.map((user, i) => (
                       <li
                         key={i}
@@ -173,7 +173,7 @@ const MealPostCard = ({ meal, handleDelete }) => {
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-sm text-gray-500 italic">
+                  <p className="text-sm text-stone-500 italic">
                     No one has applied yet.
                   </p>
                 )}
@@ -181,9 +181,9 @@ const MealPostCard = ({ meal, handleDelete }) => {
 
               {/* Awarded Section */}
               <div className="md:w-1/2 md:pl-60 ">
-                <p className="text-sm font-bold text-gray-600 mb-1">Awarded:</p>
+                <p className="text-sm font-bold text-stone-600 mb-1">Awarded:</p>
                 {awardedList && awardedList.length > 0 ? (
-                  <ul className="list-disc pl-5 text-sm text-green-700">
+                  <ul className="list-disc pl-5 text-sm text-brand-700">
                     {awardedList.map((aw, i) => (
                       <li
                         key={i}
@@ -207,7 +207,7 @@ const MealPostCard = ({ meal, handleDelete }) => {
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-sm text-gray-500 italic">
+                  <p className="text-sm text-stone-500 italic">
                     No one has been awarded yet.
                   </p>
                 )}

@@ -1,5 +1,6 @@
-import { useChange } from "../Context/ChangeContext";
+import { useChange } from "../context/ChangeContext";
 import { useSecureFetch } from "./useSecureFetch";
+import { API_BASE_URL } from "../config/api";
 
 export function useHandleDelete() {
   const { setIsChangeActive } = useChange();
@@ -14,7 +15,7 @@ export function useHandleDelete() {
     try {
       if (id) {
         const data = await secureFetch(
-          `http://localhost:5000/api/deleteCampaign/${id}`,
+          `${API_BASE_URL}/api/deleteCampaign/${id}`,
           {
             method: "DELETE",
             headers: {
