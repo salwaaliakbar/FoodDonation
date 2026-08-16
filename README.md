@@ -2,6 +2,8 @@
 
 A full-stack MERN-based web application built to minimize food waste and ensure food reaches those in need. The system connects **donors** with **recipients**, facilitating smooth campaign creation, meal applications, real-time communication, and tracking — all within a secure and intuitive environment.
 
+**Live Demo:** [food-donation-1xth.vercel.app](https://food-donation-1xth.vercel.app/)
+
 ---
 
 ## Features
@@ -70,15 +72,18 @@ A full-stack MERN-based web application built to minimize food waste and ensure 
 ### 2. Backend setup
   - cd server
   - npm install
-  - add .env file
+  - add .env file (see `server/.env.example`)
     - MONGO_URI=ADD_YOUR_MONGOURL
     - JWT_SECRET=ADD_YOUR_JWT_SECRET
     - REFRESH_SECRET=ADD_YOUR_REFRESH_TOKEN_SECRET
     - EMAIL_USER=ADD_YOUR_EMAIL
     - EMAIL_PASS=ADD_YOUR_EMAIL_PASSKEY
+    - CLIENT_URL=http://localhost:5173
   - npm start
 
-### 3. Frontnd setup
+### 3. Frontend setup
   - cd client
   - npm install
+  - add .env file (see `client/.env.example`)
+    - VITE_API_URL=http://localhost:5000
   - npm run dev
